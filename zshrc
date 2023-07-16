@@ -16,6 +16,7 @@ export PATH="$PATH:/opt/homebrew/bin/rg/bin"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # python
 export PATH="$PATH:/opt/homebrew/bin/python3"
+alias python='python3'
 # go
 export PATH="$PATH:$HOME/work/go/bin"
 
