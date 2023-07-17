@@ -4,8 +4,8 @@ HISTSIZE=10000
 # alias
 alias ll='ls -AFGlihrt --color=auto'
 alias vi='/usr/local/bin/vim'
-alias vim='/usr/local/bin/vim'
-alias cdv='(){cd $1 && vi}'
+alias vim='vi'
+alias v='(){cd $1 && vi}'
 alias c='cd&&clear'
 alias iniv='(){mkdir $1 && cd $1 && curl https://raw.githubusercontent.com/serna37/vim/master/.vimspector.json > .vimspector.json && vi}'
 
