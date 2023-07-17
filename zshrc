@@ -7,6 +7,7 @@ alias vi='/usr/local/bin/vim'
 alias vim='/usr/local/bin/vim'
 alias cdv='(){cd $1 && vi}'
 alias c='cd&&clear'
+alias iniv='(){mkdir $1 && cd $1 && curl https://raw.githubusercontent.com/serna37/vim/master/.vimspector.json > .vimspector.json && vi}'
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
