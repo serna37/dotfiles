@@ -2,6 +2,7 @@ PROMPT='%K{green}%F{white}[%~]%f%k🍎%F{cyan}(ง ˙˘˙ )ว%f$(git_super_stat
 HISTSIZE=10000
 
 # alias
+alias ls='ls -FG --color=auto'
 alias ll='ls -AFGlihrt --color=auto'
 alias vi='/usr/local/bin/vim'
 alias vim='vi'
