@@ -29,3 +29,7 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # git branch preview
 # brew install zsh-git-prompt
 source "/opt/homebrew/opt/zsh-git-prompt/zshrc.sh"
+
+# kill finder
+# defaults write com.apple.Finder QuitMenuItem -boolean true
+# killall Finder
