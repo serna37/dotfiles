@@ -9,6 +9,7 @@ alias vim='vi'
 alias v='(){cd $1 && vi}'
 alias c='cd&&clear'
 alias iniv='(){mkdir $1 && cd $1 && curl https://raw.githubusercontent.com/serna37/vim/master/.vimspector.json > .vimspector.json && vi}'
+alias here_localhost='python -m http.server 8000'
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
