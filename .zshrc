@@ -50,8 +50,12 @@ source "/opt/homebrew/opt/zsh-git-prompt/zshrc.sh"
 alias ls='ls -FG --color=auto'
 alias ll='ls -AFGlihrt --color=auto'
 alias l='exa -abghHliS'
+# find
+alias fd='fd -H -E .git -E .DS_Store -t f'
+alias fzf="fzf --preview 'bat -n --color=always {}'"
 # vi
-alias v='(){z $1 && vi}'
+alias v='vi'
+alias zv='(){z $1 && vi}'
 # dotfiles
 alias zshrc='vi ~/.zshrc'
 alias vimrc='vi ~/.vimrc'
