@@ -32,7 +32,7 @@ eval "$(starship init zsh)"
 source $(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # cmd syntax
-# brew install zsh-syntax-highlighting
+# git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git
 source ~/git/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # completion
@@ -67,6 +67,7 @@ alias c='cd&&clear'
 alias iniv='(){mkdir $1 && cd $1 && curl https://raw.githubusercontent.com/serna37/vim/master/.vimspector.json > .vimspector.json && vi}'
 alias localhost_here='python -m http.server 8000'
 alias q='exit'
+alias rezsh='exec $SHELL -l'
 
 # ======================================================
 # ENHANCED COMMANDS
