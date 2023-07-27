@@ -78,7 +78,7 @@ alias q='exit'
 # brew install zoxide
 eval "$(zoxide init zsh)"
 
-# ls -> exe
+# ls -> exa
 # brew install exa
 
 # cat -> bat
