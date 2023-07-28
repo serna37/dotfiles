@@ -51,6 +51,8 @@ alias ls='ls -FG --color=auto'
 alias ll='ls -AFGlihrt --color=auto'
 alias l='exa -abghHliS'
 alias tree='exa -bghHliST'
+alias zls='zoxide query -ls'
+alias zrm='(){zoxide remove $1}'
 
 # find
 alias fd='fd -H -E .git -E .DS_Store -t f'
@@ -111,6 +113,7 @@ export PATH="$PATH:/opt/homebrew/bin/rg/bin"
 # brew install fd
 
 # fzf
+# brew install fzf
 # https://github.com/junegunn/fzf
 # !! I clone this by vim function as plugin
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
