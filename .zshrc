@@ -50,18 +50,25 @@ source "/opt/homebrew/opt/zsh-git-prompt/zshrc.sh"
 alias ls='ls -FG --color=auto'
 alias ll='ls -AFGlihrt --color=auto'
 alias l='exa -abghHliS'
+alias tree='exa -bghHliST'
+
 # find
 alias fd='fd -H -E .git -E .DS_Store -t f'
 alias fzf="fzf --preview 'bat -n --color=always {}'"
+
 # vi
 alias v='vi'
-alias zv='(){z $1 && vi}'
+alias zv='zi&&v'
+alias fzv='cd $(\fd -H -E .git -t d | fzf) && v'
+
 # dotfiles
 alias zshrc='vi ~/.zshrc'
 alias vimrc='vi ~/.vimrc'
+
 # git
 alias git='/opt/homebrew/Cellar/git/2.41.0_2/bin/git'
 alias g='lazygit'
+
 # util
 alias c='cd&&clear'
 alias iniv='(){mkdir $1 && cd $1 && curl https://raw.githubusercontent.com/serna37/vim/master/.vimspector.json > .vimspector.json && vi}'
@@ -72,7 +79,6 @@ google() {
   local str opt
   if [ $# != 0 ]; then
     for i in $*; do
-      # $strが空じゃない場合、検索ワードを+記号でつなぐ(and検索)
       str="$str${str:++}$i"
     done
     opt='search?num=100'
@@ -80,7 +86,6 @@ google() {
   fi
   open -a Google\ Chrome http://www.google.co.jp/$opt
 }
-
 
 # ======================================================
 # ENHANCED COMMANDS
