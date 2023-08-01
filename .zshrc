@@ -116,7 +116,7 @@ export PATH="$PATH:/opt/homebrew/bin/rg/bin"
 # brew install fzf
 # https://github.com/junegunn/fzf
 # !! I clone this by vim function as plugin
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # sed -> sd
 # brew install sd
