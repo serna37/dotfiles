@@ -153,7 +153,7 @@ export JAVA_HOME=`/usr/libexec/java_home -v 11`
 # NOTE
 # ======================================================
 
-# kill finder
+# -- how to kill finder
 # defaults write com.apple.Finder QuitMenuItem -boolean true
 # killall Finder
 
