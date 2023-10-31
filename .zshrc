@@ -61,6 +61,7 @@ alias fzf="fzf --preview 'bat -n --color=always {}'"
 # vi
 # for AtCoder
 alias acvim='ln -nfs ~/git/vim-ac/.vimrc ~/.vimrc && cd ~/work/ac_js && vi -c "CocCommand explorer --width 30"'
+accontestcode(){echo $1>~/work/ac_js/contest_setting.txt}
 alias v='ln -nfs ~/git/vim/.vimrc ~/.vimrc && vi -c "CocCommand explorer --width 30"'
 alias zv='zi&&v'
 alias fzv='cd $(\fd -H -E .git -t d | fzf) && v'
