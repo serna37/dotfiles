@@ -59,7 +59,9 @@ alias fd='fd -H -E .git -E .DS_Store -t f'
 alias fzf="fzf --preview 'bat -n --color=always {}'"
 
 # vi
-alias v='vi'
+# for AtCoder
+alias vac='ln -nfs ~/git/vim-ac/.vimrc ~/.vimrc && vi'
+alias v='ln -nfs ~/git/vim/.vimrc ~/.vimrc && vi'
 alias zv='zi&&v'
 alias fzv='cd $(\fd -H -E .git -t d | fzf) && v'
 
@@ -77,6 +79,7 @@ alias iniv='(){mkdir $1 && cd $1 && curl https://raw.githubusercontent.com/serna
 alias localhost_here='python -m http.server 8000'
 alias q='exit'
 alias rezsh='exec $SHELL -l'
+alias app='open $(\fd -t d -d 1 . /Applications | \fzf)'
 google() {
   local str opt
   if [ $# != 0 ]; then
@@ -148,6 +151,10 @@ export PATH="$PATH:$HOME/work/go/bin"
 # brew install java11
 PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 export JAVA_HOME=`/usr/libexec/java_home -v 11`
+
+# Chat GPT
+# python -m pip install openai
+export OPENAI_API_KEY='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'
 
 # ======================================================
 # NOTE
