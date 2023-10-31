@@ -60,8 +60,8 @@ alias fzf="fzf --preview 'bat -n --color=always {}'"
 
 # vi
 # for AtCoder
-alias vac='ln -nfs ~/git/vim-ac/.vimrc ~/.vimrc && vi'
-alias v='ln -nfs ~/git/vim/.vimrc ~/.vimrc && vi'
+alias acvim='ln -nfs ~/git/vim/.vimrc ~/.vimrc && vi -c "CocCommand explorer --width 30"'
+alias v='ln -nfs ~/git/vim/.vimrc ~/.vimrc && vi -c "CocCommand explorer --width 30"'
 alias zv='zi&&v'
 alias fzv='cd $(\fd -H -E .git -t d | fzf) && v'
 
