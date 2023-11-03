@@ -60,8 +60,7 @@ alias fzf="fzf --preview 'bat -n --color=always {}'"
 
 # vi
 # for AtCoder
-alias acvim='ln -nfs ~/git/vim-ac/.vimrc ~/.vimrc && cd ~/work/ac_js && vi -c "CocCommand explorer --width 30"'
-accontestcode(){echo $1>~/work/ac_js/contest_setting.txt}
+alias acvim='ln -nfs ~/git/vim-ac/.vimrc ~/.vimrc && cd ~/work/ac_cpp && vi -c "CocCommand explorer --width 30"'
 alias v='ln -nfs ~/git/vim/.vimrc ~/.vimrc && vi -c "CocCommand explorer --width 30"'
 alias zv='zi&&v'
 alias fzv='cd $(\fd -H -E .git -t d | fzf) && v'
@@ -153,8 +152,12 @@ export PATH="$PATH:$HOME/work/go/bin"
 PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 export JAVA_HOME=`/usr/libexec/java_home -v 11`
 
+# C++
+export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$HOME/work/ac_cpp
+
 # Chat GPT
 # python -m pip install openai
+# XXX OLD
 export OPENAI_API_KEY='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'
 
 # ======================================================
