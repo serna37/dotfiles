@@ -60,7 +60,8 @@ alias fzf="fzf --preview 'bat -n --color=always {}'"
 
 # vi
 # for AtCoder
-alias acvim='ln -nfs ~/git/vim-ac/.vimrc ~/.vimrc && cd ~/work/ac_cpp && vi -c "CocCommand explorer --width 30"'
+alias aclogin='oj login https://atcoder.jp'
+alias acvim='ln -nfs ~/git/vim-ac/.vimrc ~/.vimrc && cd ~/work/ac_cpp && aclogin && vi -c "CocCommand explorer --width 30"'
 acset() {echo $1>~/work/ac_cpp/contest_setting.txt}
 alias v='ln -nfs ~/git/vim/.vimrc ~/.vimrc && vi -c "CocCommand explorer --width 30"'
 alias zv='zi&&v'
