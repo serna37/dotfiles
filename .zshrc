@@ -59,17 +59,17 @@ alias fd='fd -H -E .git -E .DS_Store -t f'
 alias fzf="fzf --preview 'bat -n --color=always {}'"
 
 # vi
+alias v='ln -nfs ~/git/vim-v2/.vimrc ~/.vimrc && vi -c "CocCommand explorer --width 30"'
 # for AtCoder
 alias aclogin='oj login https://atcoder.jp'
-alias acvim='ln -nfs ~/git/vim-ac/.vimrc ~/.vimrc && cd ~/work/ac_cpp && aclogin && vi -c "CocCommand explorer --width 30"'
+alias acvim='cd ~/work/ac_cpp && aclogin && ln -nfs ~/git/vim-v2/.vimrc ~/.vimrc && vi -c "AtCoderLogo" -c "CocCommand explorer --width 30"'
 acset() {echo $1>~/work/ac_cpp/contest_setting.txt}
-alias v='ln -nfs ~/git/vim/.vimrc ~/.vimrc && vi -c "CocCommand explorer --width 30"'
 alias zv='zi&&v'
 alias fzv='cd $(\fd -H -E .git -t d | fzf) && v'
 
 # dotfiles
-alias zshrc='vi ~/.zshrc'
-alias vimrc='vi ~/.vimrc'
+alias zshrc='v ~/.zshrc'
+alias vimrc='v ~/.vimrc'
 
 # git
 alias git='/opt/homebrew/Cellar/git/2.41.0_2/bin/git'
@@ -155,7 +155,10 @@ PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 export JAVA_HOME=`/usr/libexec/java_home -v 11`
 
 # C++
-export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$HOME/work/ac_cpp
+# C C++
+#export PATH="/opt/homebrew/bin:$PATH"
+#export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/opt/homebrew/Cellar/gcc/13.2.0/include/c++/13/aarch64-apple-darwin22
+#/opt/homebrew/Cellar/gcc/13.2.0/include/c++/13
 
 # Chat GPT
 # python -m pip install openai
