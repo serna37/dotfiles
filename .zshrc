@@ -62,10 +62,11 @@ alias fzf="fzf --preview 'bat -n --color=always {}'"
 alias v='ln -nfs ~/git/vim-v2/.vimrc ~/.vimrc && vi -c "CocCommand explorer --width 30"'
 # for AtCoder
 alias aclogin='oj login https://atcoder.jp'
-alias acv='cd ~/work/ac_cpp && ln -nfs ~/git/vim-v2/.vimrc ~/.vimrc && vi -c "AtCoderLogo" -c "CocCommand explorer --width 30"'
+alias acv='cd ~/work/ac_cpp && v -c "AtCoderLogo"'
 acset() {echo $1>~/work/ac_cpp/contest_setting.txt}
+AtCoder() {echo $1>~/work/ac_cpp/contest_setting.txt && aclogin && acv}
+# zoxide & vi
 alias zv='zi&&v'
-alias fzv='cd $(\fd -H -E .git -t d | fzf) && v'
 
 # dotfiles
 alias zshrc='v ~/.zshrc'
@@ -77,7 +78,7 @@ alias g='lazygit'
 
 # util
 alias c='cd&&clear'
-alias iniv='(){mkdir $1 && cd $1 && curl https://raw.githubusercontent.com/serna37/vim/master/.vimspector.json > .vimspector.json && vi}'
+#alias iniv='(){mkdir $1 && cd $1 && curl https://raw.githubusercontent.com/serna37/vim/master/.vimspector.json > .vimspector.json && vi}'
 alias localhost_here='python -m http.server 8000'
 alias q='exit'
 alias rezsh='exec $SHELL -l'
