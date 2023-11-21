@@ -59,7 +59,7 @@ alias fd='fd -H -E .git -E .DS_Store -t f'
 alias fzf="fzf --preview 'bat -n --color=always {}'"
 
 # vi
-alias v='ln -nfs ~/git/vim-v2/.vimrc ~/.vimrc && vi -c "CocCommand explorer --width 30"'
+alias v='ln -nfs ~/git/vim-v2/.vimrc ~/.vimrc && vi -c "CocCommand explorer --no-focus --width 30"'
 # for AtCoder
 alias aclogin='oj login https://atcoder.jp'
 alias acv='cd ~/work/ac_cpp && v -c "AtCoderLogo"'
@@ -154,12 +154,6 @@ export PATH="$PATH:$HOME/work/go/bin"
 # brew install java11
 PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 export JAVA_HOME=`/usr/libexec/java_home -v 11`
-
-# C++
-# C C++
-#export PATH="/opt/homebrew/bin:$PATH"
-#export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/opt/homebrew/Cellar/gcc/13.2.0/include/c++/13/aarch64-apple-darwin22
-#/opt/homebrew/Cellar/gcc/13.2.0/include/c++/13
 
 # Chat GPT
 # python -m pip install openai
