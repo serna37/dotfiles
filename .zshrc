@@ -77,7 +77,7 @@ AtCoder() {
         echo -e "[\e[34mINFO\e[m]create file :\e[32m${v}${ac_filename}\e[m"
         touch "${v}${ac_filename}"
     done
-    v -c "AtCoderLogo"
+    vi -c "AtCoderLogo"
 }
 acset() {echo $1>~/work/ac_cpp/contest_setting.txt}
 
