@@ -111,7 +111,7 @@ set timeoutlen=500
 Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim'
 let $FZF_PREVIEW_PREVIEW_BAT_THEME = 'TwoDark'
-nnoremap <silent><Leader>f :cal execute('CocCommand fzf-preview.'.(system('git rev-parse --is-inside-work-tree') =~ 'fatal' ? 'DirectoryFiles' : 'ProjectFiles')
+nnoremap <silent><Leader>f :cal execute('CocCommand fzf-preview.'.(system('git rev-parse --is-inside-work-tree') =~ 'fatal' ? 'DirectoryFiles' : 'ProjectFiles')<CR>
 nnoremap <silent><Leader>b :CocCommand fzf-preview.Buffers<CR>
 nnoremap <silent><Leader>hf :CocCommand fzf-preview.MruFiles<CR>
 nnoremap <silent><Leader>e :CocCommand explorer --width 30<CR>
