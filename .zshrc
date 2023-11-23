@@ -63,22 +63,27 @@ alias v='vi -c "CocCommand explorer --no-focus --width 30"'
 # for AtCoder
 AtCoder() {
     cd ~/git/ac
-    ac_contest=$1
-    ac_filename="main.cpp"
+    contest_cd=$1
+    file_name="main.cpp"
     acc check-oj
     oj login https://atcoder.jp
     acc login
     acc config default-task-choice all
     acc config default-test-dirname-format test
-    acc new $ac_contest
-    cd $ac_contest
+    is_created=`acc new $contest_cd`
+    if [[ $is_created == ''  ]]; then
+        echo -e "[\e[31mERROR\e[m]create faild."
+        return
+    fi
+    cd $contest_cd
     dirs=(`\fd -d 1 -t d`)
     for v in ${dirs[@]}; do
-        echo -e "[\e[34mINFO\e[m]create file :\e[32m${v}${ac_filename}\e[m"
-        touch "${v}${ac_filename}"
+        echo -e "[\e[34mINFO\e[m]create file :\e[32m${v}${file_name}\e[m"
+        touch "${v}${file_name}"
     done
     vi -c "AtCoderLogo"
 }
+# TODO
 acset() {echo $1>~/work/ac_cpp/contest_setting.txt}
 
 # zoxide & vi
