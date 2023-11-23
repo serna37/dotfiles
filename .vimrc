@@ -111,23 +111,16 @@ set timeoutlen=500
 Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim'
 let $FZF_PREVIEW_PREVIEW_BAT_THEME = 'TwoDark'
-nnoremap <silent><Leader>s :CocCommand fzf-preview.Lines<CR>
-nnoremap <silent><Leader>e :CocCommand explorer --width 30<CR>
-nnoremap <silent><Leader>f <Plug>(smart-fzf)
+nnoremap <silent><Leader>f :cal execute('CocCommand fzf-preview.'.(system('git rev-parse --is-inside-work-tree') =~ 'fatal' ? 'DirectoryFiles' : 'ProjectFiles')
 nnoremap <silent><Leader>b :CocCommand fzf-preview.Buffers<CR>
 nnoremap <silent><Leader>hf :CocCommand fzf-preview.MruFiles<CR>
+nnoremap <silent><Leader>e :CocCommand explorer --width 30<CR>
+nnoremap <silent><Leader>s :CocCommand fzf-preview.Lines<CR>
 nnoremap <silent><Leader><Leader>s :CocCommand fzf-preview.ProjectGrep .<CR>
 nnoremap <silent><Leader>m :CocCommand fzf-preview.Bookmarks<CR>
 nnoremap <silent><Leader>nn :CocCommand fzf-preview.MemoList<CR>
 nnoremap <silent><Leader>ng :CocCommand fzf-preview.MemoListGrep .<CR>
-fu! s:gitchkfzf() abort
-    if system('git rev-parse --is-inside-work-tree') =~ 'fatal'
-        exe 'CocCommand fzf-preview.DirectoryFiles'
-    else
-        exe 'CocCommand fzf-preview.ProjectFiles'
-    endif
-endf
-noremap <silent><Plug>(smart-fzf) :<C-u>cal <SID>gitchkfzf()<CR>
+au DirChanged * cal execute('CocCommand explorer --no-focus --width 30')
 
 " ### Git
 Plug 'tpope/vim-fugitive'
@@ -165,7 +158,6 @@ Plug 'matze/vim-move'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-let g:UltiSnipsExpandTrigger="<Nop>"
 let g:UltiSnipsExpandTrigger="<C-s>"
 " o -> A+CR (adhoc for snippet tabstop bug...)
 nnoremap o A<CR>
@@ -178,9 +170,14 @@ let g:move_key_modifier_visualmode = 'C'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'thinca/vim-quickrun'
 Plug 'puremourning/vimspector'
+let g:coc_global_extensions = ['coc-explorer', 'coc-snippets', 'coc-fzf-preview',
+            \ 'coc-sh', 'coc-vimlsp', 'coc-json', 'coc-sql',
+            \ 'coc-html', 'coc-css', 'coc-tsserver',
+            \ 'coc-clangd', 'coc-go', 'coc-pyright', 'coc-java',
+            \ ]
 let g:coc_snippet_next = '<Tab>'
 let g:coc_snippet_prev = '<S-Tab>'
-autocmd CursorHold * silent cal CocActionAsync('highlight')
+au CursorHold * sil cal CocActionAsync('highlight')
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 inoremap <silent><expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
 inoremap <silent><expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
@@ -201,39 +198,6 @@ Plug 'nanotee/zoxide.vim'
 
 call plug#end()
 
-" coc extentions
-let s:coc_extensions = [
-    \ 'coc-explorer',
-    \ 'coc-snippets',
-    \ 'coc-fzf-preview',
-    \ 'coc-sh',
-    \ 'coc-vimlsp',
-    \ 'coc-json',
-    \ 'coc-sql',
-    \ 'coc-html',
-    \ 'coc-css',
-    \ 'coc-tsserver',
-    \ 'coc-clangd',
-    \ 'coc-go',
-    \ 'coc-pyright',
-    \ 'coc-java'
-    \ ]
-
-let s:coc_config = ['{',
-    \ '    "explorer.icon.enableNerdfont": true,',
-    \ '    "explorer.file.showHiddenFiles": true,',
-    \ '    "inlayHint.enable": false,',
-    \ '    "clangd.arguments": ["--header-insertion=never"],',
-    \ '    "python.formatting.provider": "yapf"',
-    \ '}',
-    \]
-
-fu! CocSetup() abort
-    exe 'CocInstall '.join(s:coc_extensions, ' ')
-    cal writefile(s:coc_config, $HOME.'/.vim/coc-settings.json')
-endf
-
-com! CocSetupAll cal CocSetup()
 
 " ################# IDE #################
 " IDE menu
@@ -496,12 +460,15 @@ let s:start.ac_logo = [
 "}}}
 
 let g:startify_custom_header = s:start.btr_logo
-com! AtCoderLogo cal AtCoderLogo()
-fu! AtCoderLogo() abort
+com! AtCoderLogo cal <SID>aclogo()
+fu! s:aclogo() abort
     let g:startify_custom_header = s:start.ac_logo
+    cal timer_start(500, {->execute('0')})
 endf
 
 
 " onedark ---------------------------------
-colorscheme onedark
+if !glob('~/.vim/plugged/onedark.vim')->empty()
+    colorscheme onedark
+endif
 
