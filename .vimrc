@@ -3,6 +3,7 @@
 " ############################################################
 " leader
 let mapleader = "\<Space>"
+
 " completion with Tab
 inoremap <expr><CR> pumvisible() ? '<C-y>' : '<CR>'
 inoremap <expr><Tab> pumvisible() ? '<C-n>' : '<C-t>'
@@ -22,7 +23,6 @@ inoremap {{ <C-o>A{}<C-o>h
 " ############################################################
 " #### PLUGINS
 " ############################################################
-" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 call plug#begin()
 
 " ### Enhanced vim motion
@@ -60,7 +60,6 @@ let g:comfortable_motion_friction = 70.0
 let g:comfortable_motion_air_drag = 5.0
 nnoremap <silent><C-f> :cal comfortable_motion#flick(200)<CR>
 nnoremap <silent><C-b> :cal comfortable_motion#flick(-200)<CR>
-
 
 " ### Enhanced Visualization
 Plug 'mhinz/vim-startify'
@@ -131,7 +130,6 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'andymass/vim-matchup'
 Plug 'preservim/vim-indent-guides'
 Plug 'liuchengxu/vista.vim'
-" brew install code-minimap
 Plug 'wfxr/minimap.vim'
 au VimEnter * RainbowParentheses
 let g:indent_guides_enable_on_vim_startup = 1
@@ -195,6 +193,7 @@ Plug 'soywod/unfog.vim'
 Plug 'glidenote/memolist.vim'
 Plug 'segeljakt/vim-silicon'
 Plug 'nanotee/zoxide.vim'
+Plug 'serna37/vim-atcoder-menu'
 
 call plug#end()
 
@@ -210,15 +209,9 @@ aug END
 let s:idemenu = #{
     \ menuid: 0, mttl: ' IDE MENU (j / k) Enter choose ',
     \ menu: [
-        \ '[⚙️  AcTest]       test by oj cmd',
         \ '[Format]          applay format for this file',
         \ '[ReName]          rename current word recursively',
         \ '[Snippet]         edit snippets',
-        \ '[🚀 ContestCode]  checkout contest code',
-        \ '[⏱️ Ac Timer]     start timer for AtCoder ',
-        \ '[🔓 Ac Stop]      stop timer for AtCoder',
-        \ '[♻️  Ac Prev]      undo cut & return  prev Problem ',
-        \ '[🎬 Ac Cut]       cut all & next Problem ',
     \ ],
     \ cheatid: 0, cheattitle: ' LSP KeyMaps ',
     \ cheat: [
@@ -244,72 +237,13 @@ fu! s:idemenu.open() abort
     cal matchadd('DarkBlue', '(.*)', 16, -1, #{window: self.cheatid})
 endf
 
-
 fu! s:idemenu_exe(_, idx) abort
     if a:idx == 1
-        " ❯ python3 -m pip install online-judge-tools
-        let contest_txt = readfile('contest_setting.txt')[0]
-        cal popup_notification(['contest_setting : '.contest_txt], #{border:[], zindex:999, line: &lines-30, col: &columns-40, time:2000})
-        let work_dir = '~/work/ac_cpp'
-        let test_cmd = 'g++ -std=c++20 main.cpp && oj t'
-        let contest_cd = split(contest_txt, '_')[0]
-        let pre = 'cd '.work_dir.' && rm -rf test && oj d https://atcoder.jp/contests/'.contest_cd.'/tasks/'.contest_txt
-        cal system(pre)
-        let cmd = 'cd '.work_dir.' && '.test_cmd
-        let s:ac_test_winid = bufwinid('ac_test')
-        let current_win = winnr()
-        if s:ac_test_winid == -1
-            sil! exe 'vne ac_test'
-        else
-            call win_gotoid(s:ac_test_winid)
-            exe '%d'
-        endif
-        let s:ac_test_bufnr = bufnr()
-        setl buftype=nofile bufhidden=wipe nobuflisted modifiable
-        setl nonumber norelativenumber nocursorline nocursorcolumn signcolumn=no
-        setl filetype=log
-        cal matchadd('DarkBlue', 'SUCCESS')
-        sil! exe 'r!'.cmd
-        exe current_win.'wincmd w'
-        let s:ac_test_timer_id = timer_start(200, {tid -> s:ac_test_timer(tid)}, { 'repeat' : 10 })
-    elseif a:idx == 2
         cal CocActionAsync('format')
-    elseif a:idx == 3
+    elseif a:idx == 2
         cal CocActionAsync('rename')
-    elseif a:idx == 4
+    elseif a:idx == 3
         exe 'UltiSnipsEdit'
-    elseif a:idx == 5
-        echohl DarkBlue
-        let code = input('AtCode Contest Code :', readfile('contest_setting.txt')[0])
-        echohl None
-        cal writefile([code], 'contest_setting.txt')
-        cal popup_notification(['contest_setting : '.code], #{border:[], zindex:999, line: &lines-30, col: &columns-40, time:2000})
-    elseif a:idx == 6
-        cal s:bell_hero()
-        cal s:atcoder_timer_start()
-    elseif a:idx == 7
-        cal s:bell_submarine()
-        cal s:atcoder_timer_stop()
-    elseif a:idx == 8
-        exe 'u'
-        exe 'w'
-        let alp = #{a:'a',b:'a',c:'b',d:'c',e:'d',f:'e',g:'f'}
-        let contest_txt = readfile('contest_setting.txt')[0]
-        let contest_cd = split(contest_txt, '_')[0]
-        let question_cd = split(contest_txt, '_')[1]
-        let next = contest_cd.'_'.get(alp, question_cd, 'a')
-        cal writefile([next], 'contest_setting.txt')
-        cal popup_notification(['contest_setting : '.next], #{border:[], zindex:999, line: &lines-30, col: &columns-40, time:2000})
-    elseif a:idx == 9
-        exe '%d'
-        exe 'w'
-        let alp = #{a:'b',b:'c',c:'d',d:'e',e:'f',f:'g'}
-        let contest_txt = readfile('contest_setting.txt')[0]
-        let contest_cd = split(contest_txt, '_')[0]
-        let question_cd = split(contest_txt, '_')[1]
-        let next = contest_cd.'_'.get(alp, question_cd, 'a')
-        cal writefile([next], 'contest_setting.txt')
-        cal popup_notification(['contest_setting : '.next], #{border:[], zindex:999, line: &lines-30, col: &columns-40, time:2000})
     endif
     cal popup_close(s:idemenu.cheatid)
     retu 0
@@ -321,76 +255,6 @@ endf
 noremap <silent><Plug>(ide-menu) :<C-u>cal <SID>idemenu()<CR>
 nnoremap <Leader>v <Plug>(ide-menu)
 
-
-" AtCoder用テストsuccess時のベル
-let s:ac_test_timer_id = 0
-let s:ac_test_winid = -1
-let s:ac_test_bufnr = -1
-fu! s:ac_test_timer(tid) abort
-    for i in getbufline(s:ac_test_bufnr, 0, line("$"))
-        if match(i, "test success") != -1
-            cal s:bell_hero()
-            cal timer_stop(a:tid)
-            retu
-        endif
-    endfor
-endf
-
-fu! s:bell_hero() abort
-    cal job_start(["/bin/zsh","-c","afplay /System/Library/Sounds/Hero.aiff"])
-endf
-fu! s:bell_submarine() abort
-    cal job_start(["/bin/zsh","-c","afplay /System/Library/Sounds/Submarine.aiff"])
-endf
-
-" AtCoder用100分タイマー
-let s:actimer_sec = 0
-let s:actimer_view = ['000:00']
-let s:actimer_pid = -1
-let s:actimer_tid = -1
-
-fu! s:atcoder_timer_start() abort
-    let s:actimer_sec = 0
-    let s:actimer_view = ['000:00']
-    cal timer_stop(s:actimer_tid)
-    cal popup_close(s:actimer_pid)
-    let s:actimer_pid = popup_create(s:actimer_view, #{
-        \ zindex: 99, mapping: 0, scrollbar: 1,
-        \ border: [], borderchars: ['─','│','─','│','╭','╮','╯','╰'], borderhighlight: ['DarkBlue'],
-        \ line: &lines-10, col: 10,
-        \ })
-    let s:actimer_tid = timer_start(1000, { tid -> s:atcoder_timer(tid) }, { 'repeat' : -1 })
-endf
-
-fu! s:atcoder_timer_stop() abort
-    cal timer_stop(s:actimer_tid)
-    cal popup_close(s:actimer_pid)
-endf
-
-fu! s:atcoder_timer(tid) abort
-    let s:actimer_sec += 1
-    " bell at 1min, 3min, 8min, 18min, 40min
-    if s:actimer_sec==60 || s:actimer_sec==180 || s:actimer_sec==480 || s:actimer_sec==1080 || s:actimer_sec==2400
-        cal s:bell_submarine()
-    endif
-    " bell every 20min
-    if s:actimer_sec>2400 && s:actimer_sec%1200==0
-        cal s:bell_submarine()
-    endif
-    " LPAD 0埋め
-    let minutes = s:actimer_sec / 60
-    let minutes = minutes < 10 ? '00'.minutes : '0'.minutes
-    let seconds = s:actimer_sec % 60
-    if seconds < 10
-        let seconds = '0'.seconds
-    endif
-    " view
-    let s:actimer_view = [minutes.':'.seconds]
-    cal setbufline(winbufnr(s:actimer_pid), 1, s:actimer_view)
-    if s:actimer_sec > 5400
-        cal matchadd('DarkRed', '[^ ]', 16, -1, #{window: s:actimer_pid})
-    endif
-endf
 
 " startify -------------------------------
 let s:start = #{}
