@@ -1,6 +1,15 @@
 # TODO
 
 
+# setup dotfile
+ln -nfs ~/git/dotfiles/.zshrc ~/.zshrc
+ln -nfs ~/git/dotfiles/.vimrc ~/.vimrc
+mkdir -p ~/.vim/after/plugin \
+    && cp ~/git/dotfiles/after/plugin/common-settings.vim ~/.vim/after/plugin/
+mkdir -p ~/.vim/UltiSnips \
+    && ln -sfs ~/git/dotfiles/cpp.snippets ~/.vim/UltiSnips/cpp.snippets
+
+
 echo '############################################################'
 echo '## brew install  ##'
 echo '############################################################'
@@ -45,4 +54,7 @@ echo $install_cmd
 
 
 
+
+# reload zsh
+exec $SHELL -l
 

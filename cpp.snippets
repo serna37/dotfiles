@@ -1,0 +1,217 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+
+# =========================================================
+# Math Template
+# =========================================================
+snippet PI "PI" b
+double PI = acos(-1);
+endsnippet
+
+snippet maxVal "maxVal" b
+int ${1:maxVal} = 0;
+rep(i, ${2:N}) {
+	$1 = max($1, ${3:A}[i]);
+}
+endsnippet
+
+snippet minVal "minVal" b
+int ${1:minVal} = 1e9 + 7;
+rep(i, ${2:N}) {
+	$1 = min($1, ${3:A}[i]);
+}
+endsnippet
+
+snippet is_integer "is integer" b
+bool is_integer(double x){
+	return floor(x)==x;
+}
+endsnippet
+
+snippet isPrime "is prime" b
+bool isPrime(int num) {
+	if (num == 2) {
+		return true;
+	}
+	if (num < 2 || num % 2 == 0) {
+		return false;
+	}
+
+	double sqrtNum = sqrt(num);
+	for (int i = 3; i <= sqrtNum; i += 2) {
+		if (num % i == 0) {
+			return false;
+		}
+	}
+	return true;
+}
+endsnippet
+
+snippet matrix "matrix" b
+// int a[n][m];
+// int b[m][l];
+// ll ans[n][m];
+for (int i=0; i<n; ++i) {
+	for (int ii=0; ii<l; ++ii) {
+		// calc
+		ll calc=0;
+		for (int pp=0; pp<m; ++pp) {
+			calc += a[i][pp]*b[pp][ii];
+		}
+		ans[i][ii] = calc;
+	}
+}
+endsnippet
+
+snippet distance "distance" b
+auto distance = [](int x1, int y1, int x2, int y2) -> int {
+	return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+};
+endsnippet
+
+# =========================================================
+# util
+# =========================================================
+snippet arrin "arr in" b
+int N;
+cin >> N;
+vector<int> A(N);
+rep(i, N) cin >> A[i];
+endsnippet
+
+snippet ccout "cout" b
+cout << ${1:variable} << endl;
+endsnippet
+
+snippet ascii "ascii" b
+// A : 65
+// B : 66
+// ...
+// Z : 90
+// [ : 91
+// ...
+// a : 97
+// b : 98
+// ...
+// z : 122
+endsnippet
+
+snippet trans "transform" b
+std::transform(${1:str}.begin(), $1.end(), $1.begin(), ::${2:tolower});
+endsnippet
+
+snippet sort_Arr_Asc "asc" b
+sort(${1:arr}, $1+${2:n});
+endsnippet
+
+snippet sort_Arr_Desc "desc" b
+sort(${1:arr}, $1+${2:n}, greater<${3:int}>());
+endsnippet
+
+snippet sort_Asc "asc" b
+sort(${1:s}.begin(), $1.end());
+endsnippet
+
+snippet sort_Desc "desc" b
+sort(${1:s}.rbegin(), $1.rend());
+endsnippet
+
+snippet reverse_Arr "reverse arr" b
+reverse(${1:arr}, $1 + ${2:length});
+endsnippet
+
+snippet reverse_Str "reverse string" b
+reverse(${1:s}.begin(), $1.end());
+endsnippet
+
+snippet allmatch "allmatch" b
+bool allmatchFlg = true;
+// for
+// allmatchFlg &= true condition
+endsnippet
+
+snippet anymatch "anymatch" b
+bool anymatchFlg = false;
+// for
+// anymatchFlg |= true condition
+endsnippet
+
+# =========================================================
+# grammer
+# =========================================================
+snippet fori "for" b
+for (${1:int} ${2:i}=${3:0}; $2<${4:N}; ${5:++$2}) {
+	${6}
+}
+endsnippet
+
+snippet forv "for vector" b
+for (auto& ${1:v} : ${2:a}) {
+	${3}
+}
+endsnippet
+
+snippet re "simple repeqt" b
+${1:rep}(${2:i}, ${3:N}) {
+	${4}
+}
+endsnippet
+
+snippet rein "repeat in" b
+rep(i, ${1:N}) cin >> ${2:A}[i];
+endsnippet
+
+snippet func "function" b
+${1:void} func(${2:int i}) {
+	${3}
+}
+endsnippet
+
+snippet func_lambda "function lambda" b
+auto ${1:func} = [&](${2:auto self}) ${3:-> void} {
+	${4}
+};
+endsnippet
+
+# =========================================================
+# Template
+# =========================================================
+snippet xxx "template cpp for AtCoder" b
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+#define rep(i, N) for (int i = 0; i < (int)(N); ++i)
+#define rep1(i, N) for (int i = 1; i <= (int)(N); ++i)
+
+int main() {
+	${1}
+
+	// cout << fixed << setprecision(5);
+
+	return 0;
+}
+endsnippet
+

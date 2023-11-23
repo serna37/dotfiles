@@ -59,7 +59,7 @@ alias fd='fd -H -E .git -E .DS_Store -t f'
 alias fzf="fzf --preview 'bat -n --color=always {}'"
 
 # vi
-alias v='ln -nfs ~/git/dotfile/.vimrc ~/.vimrc && vi -c "CocCommand explorer --no-focus --width 30"'
+alias v='vi -c "CocCommand explorer --no-focus --width 30"'
 # for AtCoder
 alias aclogin='oj login https://atcoder.jp'
 alias acv='cd ~/work/ac_cpp && v -c "AtCoderLogo"'
