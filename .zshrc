@@ -59,7 +59,7 @@ alias fd='fd -H -E .git -E .DS_Store -t f'
 alias fzf="fzf --preview 'bat -n --color=always {}'"
 
 # vi
-alias v='ln -nfs ~/git/vim-v2/.vimrc ~/.vimrc && vi -c "CocCommand explorer --no-focus --width 30"'
+alias v='ln -nfs ~/git/dotfile/.vimrc ~/.vimrc && vi -c "CocCommand explorer --no-focus --width 30"'
 # for AtCoder
 alias aclogin='oj login https://atcoder.jp'
 alias acv='cd ~/work/ac_cpp && v -c "AtCoderLogo"'
@@ -154,6 +154,14 @@ export PATH="$PATH:$HOME/work/go/bin"
 # brew install java11
 PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 export JAVA_HOME=`/usr/libexec/java_home -v 11`
+
+# Rust
+# Install cargo
+#curl https://sh.rustup.rs -sSf | sh
+# Install silicon
+#cargo install silicon
+# Add cargo-installed binaries to the path
+export PATH="$PATH:$CARGO_HOME/bin"
 
 # Chat GPT
 # python -m pip install openai
