@@ -40,6 +40,11 @@ cargo install silicon
 
 # Add cargo-installed binaries to the path
 export PATH="$PATH:$CARGO_HOME/bin"
+
+# for Ac
+pip3 install online-judge-tools
+npm install -g atcoder-cli
+acc check-oj
 ```
 
 ## monolithic version

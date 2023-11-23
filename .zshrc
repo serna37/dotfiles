@@ -61,10 +61,26 @@ alias fzf="fzf --preview 'bat -n --color=always {}'"
 # vi
 alias v='vi -c "CocCommand explorer --no-focus --width 30"'
 # for AtCoder
-alias aclogin='oj login https://atcoder.jp'
-alias acv='cd ~/work/ac_cpp && v -c "AtCoderLogo"'
+AtCoder() {
+    cd ~/git/ac
+    ac_contest=$1
+    ac_filename="main.cpp"
+    acc check-oj
+    oj login https://atcoder.jp
+    acc login
+    acc config default-task-choice all
+    acc config default-test-dirname-format test
+    acc new $ac_contest
+    cd $ac_contest
+    dirs=(`\fd -d 1 -t d`)
+    for v in ${dirs[@]}; do
+        echo -e "[\e[34mINFO\e[m]create file :\e[32m${v}${ac_filename}\e[m"
+        touch "${v}${ac_filename}"
+    done
+    v -c "AtCoderLogo"
+}
 acset() {echo $1>~/work/ac_cpp/contest_setting.txt}
-AtCoder() {echo $1>~/work/ac_cpp/contest_setting.txt && aclogin && acv}
+
 # zoxide & vi
 alias zv='zi&&v'
 export _ZO_FZF_OPTS='
@@ -78,7 +94,6 @@ export _ZO_FZF_OPTS='
     --preview "([[ -e '{2..}/README.md' ]] && bat --color=always --style=numbers --line-range=:50 '{2..}/README.md') || exa --color=always --group-directories-first --oneline {2..}"
 '
 
-
 # dotfiles
 alias zshrc='v ~/.zshrc'
 alias vimrc='v ~/.vimrc'
@@ -88,8 +103,8 @@ alias git='/opt/homebrew/Cellar/git/2.41.0_2/bin/git'
 alias g='lazygit'
 
 # util
+alias ..='cd ..'
 alias c='cd&&clear'
-#alias iniv='(){mkdir $1 && cd $1 && curl https://raw.githubusercontent.com/serna37/vim/master/.vimspector.json > .vimspector.json && vi}'
 alias localhost_here='python -m http.server 8000'
 alias q='exit'
 alias rezsh='exec $SHELL -l'
