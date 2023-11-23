@@ -70,11 +70,12 @@ AtCoder() {
     acc login
     acc config default-task-choice all
     acc config default-test-dirname-format test
-    is_created=`acc new $contest_cd`
-    if [[ $is_created == ''  ]]; then
+    valid=`acc contest $contest_cd`
+    if [[ $valid == ''  ]]; then
         echo -e "[\e[31mERROR\e[m]create faild."
         return
     fi
+    acc new $contest_cd
     cd $contest_cd
     dirs=(`\fd -d 1 -t d`)
     for v in ${dirs[@]}; do

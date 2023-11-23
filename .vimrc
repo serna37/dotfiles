@@ -463,7 +463,6 @@ let g:startify_custom_header = s:start.btr_logo
 com! AtCoderLogo cal <SID>aclogo()
 fu! s:aclogo() abort
     let g:startify_custom_header = s:start.ac_logo
-    cal timer_start(500, {->execute('0')})
 endf
 
 
