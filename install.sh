@@ -52,6 +52,9 @@ mkdir -p ~/git \
     && cd .. \
     && rm -rf fonts
 
+# my work
+cd ~/git && git clone https://github.com/serna37/ac
+
 # junegunn/vim-plug (required) & plug install
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
