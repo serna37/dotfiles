@@ -25,6 +25,7 @@ install_cmd=brew
 for v in ${repos[@]}; do
     install_cmd="${install_cmd} ${v}"
 done
+# TODO unlock echo
 echo $install_cmd
 
 # setup dotfile
