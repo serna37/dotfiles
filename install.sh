@@ -31,6 +31,9 @@ echo $install_cmd
 ln -nfs ~/git/dotfiles/.zshrc ~/.zshrc
 ln -nfs ~/git/dotfiles/.vimrc ~/.vimrc
 
+# reload zsh
+exec $SHELL -l
+
 # copy file. to ignore commentout after LF
 mkdir -p ~/.vim/after/plugin \
     && cp ~/git/dotfiles/after/plugin/common-settings.vim ~/.vim/after/plugin/
@@ -40,10 +43,16 @@ mkdir -p ~/.vim/UltiSnips \
     && ln -nfs ~/git/dotfiles/cpp.snippets ~/.vim/UltiSnips/cpp.snippets \
     && ln -nfs ~/git/dotfiles/coc-settings.json ~/.vim/coc-settings.json
 
+# font
+mkdir -p ~/git \
+    && git clone --depth 1 https://github.com/powerline/fonts.git \
+    && cd fonts \
+    && ./install.sh \
+    && cd .. \
+    && rm -rf fonts
+
 # junegunn/vim-plug (required) & plug install
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# install vim plugin
 vi -c "PlugInstall"
-
-# reload zsh
-exec $SHELL -l
-
