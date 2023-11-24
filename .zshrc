@@ -196,7 +196,7 @@ export PATH="$PATH:$CARGO_HOME/bin"
 # Chat GPT
 # python -m pip install openai
 # XXX OLD
-export OPENAI_API_KEY='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'
+# export OPENAI_API_KEY='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'
 
 # ======================================================
 # NOTE

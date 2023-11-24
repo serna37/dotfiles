@@ -1,5 +1,3 @@
-# TODO
-
 # setup dotfile
 ln -nfs ~/git/dotfiles/.zshrc ~/.zshrc
 ln -nfs ~/git/dotfiles/.vimrc ~/.vimrc
@@ -17,10 +15,8 @@ mkdir -p ~/.vim/UltiSnips \
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 vi -c "PlugInstall"
 
-echo '############################################################'
-echo '## brew install  ##'
-echo '############################################################'
-
+# TODO
+# brew install
 # TODO 全部shellか、手順をreadmeにするかなやむな
 
 repos=(
