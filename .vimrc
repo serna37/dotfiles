@@ -284,50 +284,7 @@ let s:start.btr_logo = [
     \]
 "}}}
 
-" AtCoder{{{
-let s:start.ac_logo = [
-    \'                                                                           .',
-    \'                                                                         .dN.',
-    \'                                                                      ..d@M#J#(,',
-    \'                                                                   vRMPMJNd#dbMG#(F',
-    \'                                                         (O.  U6..  WJNdPMJFMdFdb#`  .JU` .Zo',
-    \'                                                      .. +NM=(TB5.-^.BMDNdJbEddMd ,n.?T@3?MNm  ..',
-    \'                                                     .mg@_J~/?`.a-XNxvMMW9""TWMMF.NHa._ ?_,S.Tmg|',
-    \'                                                  .Js ,3,`..-XNHMT"= ...d"5Y"X+.. ?"8MNHHa.. (,b uZ..',
-    \'                                                 J"17"((dNMMB"^ ..JTYGJ7"^  ?"T&JT9QJ..?"TMNNHa,?727N',
-    \'                                                 .7    T"^..JT"GJv"=`             ?"4JJT9a.,?T"`  .7!',
-    \'                                                         M~JY"!     ....<.Zj+,(...     .7Ta_M',
-    \'                                             .JWkkWa,    d-F     .+;.ge.ga&.aa,ua+.g,     ,}#    .(Wkkkn,',
-    \'                                            .W9AaeVY=-.. J;b   .XH3dHHtdHHDJHHH(HHH(WH,   J(F  ..?T4agdTH-',
-    \'                                             6XkkkH=!    ,]d  .HHtdHHH.HHHbJHHH[WHHH(HHL  k.]    _7HkkkHJ:',
-    \'                                             JqkP?H_      N(; TYY?YYY9(YYYD?YYYt7YYY\YY9 .Fd!     .WPjqqh',
-    \'                                             .mmmH,``      d/b WHHJHH@NJHHH@dHHHFdHHHtHH#`.1#       `(dqqq]',
-    \'                                            ,gmmgghJQQVb  ,bq.,YY%7YYY(YYY$?YYY^TYYY(YY^ K.]  JUQmAJmmmmg%',
-    \'                                             ggggggggh,R   H,]  T#mTNNbWNN#dNN#(NN@(N@! .t#   d(Jgggggggg:',
-    \'                                            .@@@@@#"_JK4,  ,bX.   ?i,1g,jge.g2+g2i,?`   K.t  .ZW&,7W@@@@@h.',
-    \'                                        `..H@@@@@P   7 .H`  W/b        .^."?^(!        -1#   W, ?   T@@@@@Ma,`',
-    \'                                        dH@HHHM"       U\   .N,L        ..            .$d    .B`     ."MHHH@HN.',
-    \'                                   ....JMHHHHH@              ,N(p      .dH.d"77h.    .$J\              dHHHHHMU....',
-    \'                                  ` WHH#,7MHHM{               ,N,h     d^.W,        .^J^               .MHHM"_d#HN.',
-    \'                                   ,jH#Mo .MMW:                .W,4,  J\   Ta.-Y` .J(#                 .HMM- .M#MF!',
-    \'                                     .MN/ d@?M+                  7e(h.           .3.F                  .MDd# (MML`',
-    \'                                     .M4%  ?H, 7a,                .S,7a.       .Y.#^                .,"`.d=  ,PWe',
-    \'                                    .! ?     dN .N,                 (N,7a.   .Y(d=                 .d! d@     4 .!',
-    \'                                             .W` .!                   ?H,?GJ".d"                    ^  B',
-    \'                                                                        (SJ.#=',
-    \'                                                       J             ....            .M:',
-    \'                                                      JUb     .   .#    (\            M~',
-    \'                                                     .\.M;  .W@"` M}       .y7"m. .J"7M~ .v74e ,M7B',
-    \'                                                    .F  ,N.  J]   M]       M)  JF M_  M~ d-     M`',
-    \'                                                   .W,  .db, Jh.   Th...J\ /N..Y` ?N-.Ma.-M&.> .M-',
-    \]
-"}}}
-
 let g:startify_custom_header = s:start.btr_logo
-com! AtCoderLogo cal <SID>aclogo()
-fu! s:aclogo() abort
-    let g:startify_custom_header = s:start.ac_logo
-endf
 
 
 " onedark ---------------------------------
