@@ -168,6 +168,7 @@ let g:move_key_modifier_visualmode = 'C'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'thinca/vim-quickrun'
 Plug 'puremourning/vimspector'
+Plug 'serna37/vim-IDE-menu'
 let g:coc_global_extensions = ['coc-explorer', 'coc-snippets', 'coc-fzf-preview',
             \ 'coc-sh', 'coc-vimlsp', 'coc-json', 'coc-sql',
             \ 'coc-html', 'coc-css', 'coc-tsserver',
@@ -197,63 +198,6 @@ Plug 'serna37/vim-atcoder-menu'
 
 call plug#end()
 
-
-" ################# IDE #################
-" IDE menu
-aug dark_color
-    au!
-    au ColorScheme * hi DarkRed ctermfg=204
-    au ColorScheme * hi DarkOrange ctermfg=180
-    au ColorScheme * hi DarkBlue ctermfg=39
-aug END
-let s:idemenu = #{
-    \ menuid: 0, mttl: ' IDE MENU (j / k) Enter choose ',
-    \ menu: [
-        \ '[Format]          applay format for this file',
-        \ '[ReName]          rename current word recursively',
-        \ '[Snippet]         edit snippets',
-    \ ],
-    \ cheatid: 0, cheattitle: ' LSP KeyMaps ',
-    \ cheat: [
-        \ ' (Space d) [Definition]     Go to Definition ',
-        \ ' (Space r) [Reference]      Reference ',
-        \ ' (Space o) [Outline]        view outline on popup ',
-        \ ' (Space*2 o) [Vista]        view vista on side ',
-        \ ' (Space*2 m) [MiniMap]      view MiniMap on side ',
-        \ ' (Space ?) [Document]       show document on popup scroll C-f/b ',
-        \ ' (Space ,) [Next Diagnosis] jump next diagnosis ',
-        \ ' (Space .) [Prev Diagnosis] jump prev diagnosis ',
-    \ ],
-    \ }
-
-fu! s:idemenu.open() abort
-    let self.menuid = popup_menu(self.menu, #{title: self.mttl, border: [], borderchars: ['─','│','─','│','╭','╮','╯','╰'],
-        \ callback: 's:idemenu_exe'})
-    cal setwinvar(self.menuid, '&wincolor', 'String')
-    cal matchadd('DarkRed', '\[.*\]', 16, -1, #{window: self.menuid})
-    let self.cheatid = popup_create(self.cheat, #{title: self.cheattitle, line: &lines-5, border: [], borderchars: ['─','│','─','│','╭','╮','╯','╰']})
-    cal setwinvar(self.cheatid, '&wincolor', 'String')
-    cal matchadd('DarkRed', '\[.*\]', 16, -1, #{window: self.cheatid})
-    cal matchadd('DarkBlue', '(.*)', 16, -1, #{window: self.cheatid})
-endf
-
-fu! s:idemenu_exe(_, idx) abort
-    if a:idx == 1
-        cal CocActionAsync('format')
-    elseif a:idx == 2
-        cal CocActionAsync('rename')
-    elseif a:idx == 3
-        exe 'UltiSnipsEdit'
-    endif
-    cal popup_close(s:idemenu.cheatid)
-    retu 0
-endf
-
-fu! s:idemenu() abort
-    cal s:idemenu.open()
-endf
-noremap <silent><Plug>(ide-menu) :<C-u>cal <SID>idemenu()<CR>
-nnoremap <Leader>v <Plug>(ide-menu)
 
 
 " startify -------------------------------

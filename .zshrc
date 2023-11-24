@@ -82,10 +82,8 @@ AtCoder() {
         echo -e "[\e[34mINFO\e[m]create file :\e[32m${v}${file_name}\e[m"
         touch "${v}${file_name}"
     done
-    vi -c "AtCoderStartify" -c "AtCoderTimer"
+    v -c "AtCoderStartify" -c "AtCoderTimer"
 }
-# TODO
-acset() {echo $1>~/work/ac_cpp/contest_setting.txt}
 
 # zoxide & vi
 alias zv='zi&&v'
