@@ -1,3 +1,32 @@
+# brew install
+repos=(
+git
+vim
+zoxide
+fzf
+exa
+bat
+fd
+ripgrep
+sd
+procs
+lazygit
+node
+python3
+go
+java11
+zsh-git-prompt
+zsh-autosuggestions
+zsh-syntax-highlighting
+romkatv/powerlevel10k/powerlevel10k
+starship
+)
+install_cmd=brew
+for v in ${repos[@]}; do
+    install_cmd="${install_cmd} ${v}"
+done
+echo $install_cmd
+
 # setup dotfile
 ln -nfs ~/git/dotfiles/.zshrc ~/.zshrc
 ln -nfs ~/git/dotfiles/.vimrc ~/.vimrc
@@ -14,49 +43,6 @@ mkdir -p ~/.vim/UltiSnips \
 # junegunn/vim-plug (required) & plug install
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 vi -c "PlugInstall"
-
-# TODO
-# brew install
-# TODO 全部shellか、手順をreadmeにするかなやむな
-
-repos=(
-"vim"
-"git"
-"lazygit"
-"node"
-"starship"
-"zsh-git-prompt"
-"zsh-autosuggestions"
-"romkatv/powerlevel10k/powerlevel10k"
-"exa"
-"zoxide"
-"bat"
-"fzf"
-"fd"
-"sd"
-"procs"
-"ripgrep"
-"python3"
-"go"
-"java11"
-)
-
-install_cmd="brew"
-
-for v in ${repos[@]}; do
-    echo $v
-    install_cmd="${install_cmd} ${v}"
-    # brew install $v
-done
-
-echo $install_cmd
-
-
-
-
-
-
-
 
 # reload zsh
 exec $SHELL -l
