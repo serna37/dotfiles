@@ -190,6 +190,7 @@ nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(
 nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : comfortable_motion#flick(-100)
 
 " ### util
+Plug 'serna37/vim-tutorial'
 Plug 'soywod/unfog.vim'
 Plug 'glidenote/memolist.vim'
 Plug 'segeljakt/vim-silicon'
