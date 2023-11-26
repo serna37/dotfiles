@@ -84,6 +84,8 @@ AtCoder() {
     done
     v -c "AtCoderStartify" -c "AtCoderTimer"
 }
+# cpp init
+alias cppini='cp ~/git/dotfiles/.clang-format . && cp ~/git/dotfiles/compile_flags.txt .'
 
 # zoxide & vi
 alias zv='zi&&v'
