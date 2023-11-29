@@ -83,7 +83,7 @@ AtCoder() {
         touch "${v}${file_name}"
     done
     pd=`basename $(pwd)`
-    v -c "AtCoderStartify" -c "AtCoderTimer" -c "echom '`basename $(pwd)`'"
+    v -c "AtCoderStartify" -c "AtCoderTimer" -c "echom '$(basename $(pwd))'"
 }
 # cpp init
 alias cppini='cp ~/git/dotfiles/.clang-format . && cp ~/git/dotfiles/compile_flags.txt .'
