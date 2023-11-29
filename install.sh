@@ -11,6 +11,7 @@ ripgrep
 sd
 procs
 lazygit
+gh
 node
 python3
 go

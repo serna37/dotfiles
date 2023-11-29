@@ -39,6 +39,9 @@ source ~/git/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # brew install zsh-autosuggestions
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# github cli
+eval "$(gh completion -s zsh)"
+
 # git branch preview
 # brew install zsh-git-prompt
 source "/opt/homebrew/opt/zsh-git-prompt/zshrc.sh"
@@ -115,7 +118,7 @@ alias c='cd&&clear'
 alias localhost_here='python -m http.server 8000'
 alias q='exit'
 alias rezsh='exec $SHELL -l'
-alias app='open $(\fd -t d -d 1 . /Applications | \fzf)'
+alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
 google() {
   local str opt
   if [ $# != 0 ]; then
