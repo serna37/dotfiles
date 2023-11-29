@@ -59,7 +59,7 @@ alias fd='fd -H -E .git -E .DS_Store -t f'
 alias fzf="fzf --preview 'bat -n --color=always {}'"
 
 # vi
-alias v='vi -c "CocCommand explorer --no-focus --width 30"'
+alias v='vi -c "CocCommand explorer --no-focus --width 30" -c "echo '\''`basename $(pwd)`'\''"'
 # for AtCoder
 AtCoder() {
     cd ~/git/ac
@@ -82,7 +82,8 @@ AtCoder() {
         echo -e "[\e[34mINFO\e[m]create file :\e[32m${v}${file_name}\e[m"
         touch "${v}${file_name}"
     done
-    v -c "AtCoderStartify" -c "AtCoderTimer"
+    pd=`basename $(pwd)`
+    v -c "AtCoderStartify" -c "AtCoderTimer" -c "echom '`basename $(pwd)`'"
 }
 # cpp init
 alias cppini='cp ~/git/dotfiles/.clang-format . && cp ~/git/dotfiles/compile_flags.txt .'
