@@ -172,7 +172,8 @@ Plug 'serna37/vim-IDE-menu'
 let g:coc_global_extensions = ['coc-explorer', 'coc-snippets', 'coc-fzf-preview',
             \ 'coc-sh', 'coc-vimlsp', 'coc-json', 'coc-sql',
             \ 'coc-html', 'coc-css', 'coc-tsserver',
-            \ 'coc-clangd', 'coc-go', 'coc-pyright', 'coc-java',
+            \ 'coc-clangd', 'coc-rust-analyzer', 'coc-go',
+            \ 'coc-pyright', 'coc-java',
             \ ]
 let g:coc_snippet_next = '<Tab>'
 let g:coc_snippet_prev = '<S-Tab>'
