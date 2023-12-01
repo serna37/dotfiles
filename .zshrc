@@ -115,7 +115,7 @@ alias g='lazygit'
 # util
 alias ..='cd ..'
 alias c='cd ~/git && clear'
-alias ww='date && cal && unfog'
+alias w='date && cal && unfog'
 alias localhost_here='python -m http.server 8000'
 alias q='exit'
 alias rezsh='exec $SHELL -l'
