@@ -47,7 +47,7 @@ let g:clever_f_timeout_ms = 2000
 let g:clever_f_highlight_timeout_ms = 2000
 aug cleaver_f
     au!
-    au ColorScheme * hi CleverFDefaultLabel cterm=bold,underline ctermfg=9 ctermbg=24
+    au ColorScheme * hi CleverFDefaultLabel cterm=BOLD,underline ctermfg=40 ctermbg=0
 aug END
 nnoremap <leader>w <Plug>(fscope-around-toggle)<Plug>(clever-f-reset)
 nnoremap # <Plug>(asterisk-z*)<Plug>(quickhl-manual-this)
