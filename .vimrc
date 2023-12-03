@@ -17,7 +17,6 @@ nnoremap <silent><Leader>g :cal popup_create(term_start(['lazygit'],#{hidden:1,t
 nnoremap vv ^v$h
 
 " insert move
-inoremap <C-l> <C-o>l
 inoremap {{ <C-o>A{}<C-o>h
 
 " ############################################################
@@ -163,6 +162,7 @@ let g:cosco_filetype_whitelist = ['cpp']
 " return normal & save
 inoremap jj <Esc>:CommaOrSemiColon<CR>:w<CR>
 let g:move_key_modifier_visualmode = 'C'
+let g:AutoPairsMapCh = 0
 
 " ### LSP IDE
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
