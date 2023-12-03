@@ -29,6 +29,7 @@ Plug 'serna37/vim-modern-basic'
 Plug 'serna37/vim-anchor5'
 Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/vim-edgemotion'
+Plug 'serna37/edgemotion-vertical'
 Plug 'rhysd/clever-f.vim'
 Plug 'serna37/vim-fscope-around'
 Plug 't9md/vim-quickhl'
@@ -36,8 +37,6 @@ Plug 'haya14busa/vim-asterisk'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'simeji/winresizer'
 Plug 'yuttie/comfortable-motion.vim'
-nnoremap <C-h> ^<Plug>(anchor)
-nnoremap <C-l> $<Plug>(anchor)
 let g:EasyMotion_do_mapping = 0
 nnoremap s <Plug>(easymotion-sn)
 nnoremap <Leader><Leader>w <Plug>(easymotion-bd-w)
@@ -139,7 +138,7 @@ let g:indent_guides_auto_colors = 0
 aug indent_guide
     au!
     au ColorScheme * hi IndentGuidesOdd ctermbg=236
-    au ColorScheme * hi IndentGuidesEven ctermbg=236
+    au ColorScheme * hi IndentGuidesEven ctermbg=234
 aug END
 let g:vista_sidebar_width = 15
 nnoremap <silent><Leader><Leader>o :Vista!!<CR>
