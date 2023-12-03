@@ -183,6 +183,7 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # brew install python3
 export PATH="$PATH:/opt/homebrew/bin/python3"
 alias python='python3'
+alias pip='python -m pip'
 
 # go
 # brew install go
