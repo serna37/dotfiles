@@ -157,7 +157,7 @@ Plug 'tpope/vim-repeat'
 let g:UltiSnipsExpandTrigger="<C-s>"
 " o -> A+CR (adhoc for snippet tabstop bug...)
 nnoremap o A<CR>
-let g:cosco_filetype_whitelist = ['cpp']
+let g:cosco_filetype_whitelist = ['cpp', 'rust']
 " return normal & save
 inoremap jj <Esc>:CommaOrSemiColon<CR>:w<CR>
 let g:move_key_modifier_visualmode = 'C'
