@@ -141,9 +141,7 @@ aug indent_guide
     au ColorScheme * hi IndentGuidesEven ctermbg=234
 aug END
 let g:vista_sidebar_width = 15
-nnoremap <silent><Leader><Leader>o :Vista!!<CR>
 let g:minimap_git_colors = 1
-nnoremap <silent><Leader><Leader>m :MinimapToggle<CR>
 
 " ### Writing
 Plug 'SirVer/ultisnips'
