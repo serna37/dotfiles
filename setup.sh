@@ -32,7 +32,7 @@ echo "=========================================================="
 echo "unfog"
 echo "=========================================================="
 # need password
-curl -sSL https://raw.githubusercontent.com/soywod/unfog/master/install.sh | zsh
+curl -sSL https://raw.githubusercontent.com/soywod/unfog/master/install.sh | sh
 
 echo "=========================================================="
 echo "font"
