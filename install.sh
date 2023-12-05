@@ -10,15 +10,19 @@ fd
 ripgrep
 sd
 procs
+watch
 lazygit
 lazydocker
 gh
+ffmpeg
 code-minimap
 gcc
 node
 python3
 go
 java11
+postgresql@14
+sqlite
 zsh-git-prompt
 zsh-autosuggestions
 zsh-syntax-highlighting
@@ -99,7 +103,7 @@ cd ~/git && git clone https://github.com/serna37/ac
 echo "=========================================================="
 echo "vim plug install"
 echo "This is the last step. After this, you should execute"
-echo "$ exec $SHELL -l"
+echo "$ exec \$SHELL -l"
 echo "to apply new configurations."
 echo "=========================================================="
 vi -c "PlugInstall" -c "qa"
