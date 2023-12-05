@@ -14,6 +14,8 @@ procs
 bottom
 silicon
 watch
+broot
+gping
 sl
 cmatrix
 lazygit

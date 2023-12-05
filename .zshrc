@@ -80,10 +80,11 @@ alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
 alias q='exit'
 alias rezsh='exec $SHELL -l'
 alias w='c && date && cal && unfog'
+alias e='export EDITOR="vi" && br -h -c :open_preview .'
 alias sl='sl -aFc'
 alias hello='c && df && sleep 1 \
-    && ps && top && c && l && sleep 1 \
-    && w && sleep 1 \
+    && ps && top && gping -n 0.5 google.com && c && l && sleep 1 \
+    && e && w && sleep 1 \
     && zv && g && AtCoder abc100 && sl && cmatrix && echo HELLO WORLD !!'
 google() {
   local str opt
@@ -135,6 +136,7 @@ export _ZO_FZF_OPTS='
     --color prompt:#87afff,pointer:#ff5189,marker:#f09479
     --preview "([[ -e '{2..}/README.md' ]] && bat --color=always --style=numbers --line-range=:50 '{2..}/README.md') || exa --color=always --group-directories-first --oneline {2..}"
 '
+source /Users/serna37/Library/Application\ Support/org.dystroy.broot/launcher/bash/br
 
 # ======================================================
 # DEV-TOOLS, LANGUAGES, PATH
