@@ -53,8 +53,8 @@ alias zrm='(){zoxide remove $1}'
 # find
 alias fd='fd -H -E .git -E .DS_Store -t f'
 alias fzf="fzf --preview 'bat -n --color=always {}'"
-alias f='bat "$(fd | fzf)"'
-alias e='export EDITOR="vi" && br -h -c :open_preview .'
+alias f='tmp="$(fd | fzf)" && bat $tmp && v $tmp'
+alias e='export EDITOR="vi" && br -h -c :open_preview'
 
 # grep cat
 alias grep='rg'
