@@ -84,7 +84,7 @@ alias w='c && date && cal && unfog'
 alias sl='sl -aFc'
 alias hello='c && df && sleep 1 \
     && ps && top && gping -n 0.5 google.com && c && l && sleep 1 \
-    && e && w && sleep 1 \
+    && e && f && w && sleep 1 \
     && zv && g && AtCoder abc100 && sl && cmatrix && echo HELLO WORLD !!'
 google() {
   local str opt
