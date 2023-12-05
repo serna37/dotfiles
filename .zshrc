@@ -1,3 +1,10 @@
+# ======================================================
+# PROMPT SETTINGS
+# ======================================================
+HISTSIZE=100000
+SAVEHIST=100000
+setopt no_beep
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -5,50 +12,35 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# ======================================================
-# START MY CUSTOM
-# ======================================================
-# git (over 2.20~)
-# brew install git
-
-# ======================================================
-# PROMPT SETTINGS
-# ======================================================
-#PROMPT='%K{green}%F{white}[%~]%f%k🍎%F{cyan}(ง ˙˘˙ )ว%f$(git_super_status)>'
-HISTSIZE=100000
-SAVEHIST=100000
-setopt no_beep
-
-# font-icon
-# https://github.com/powerline/fonts
-# https://github.com/ryanoasis/nerd-fonts
-# https://github.com/ryanoasis/vim-devicons
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # starship-default-setting + powerlevel10k
-# brew install starship
 eval "$(starship init zsh)"
-
-# brew install romkatv/powerlevel10k/powerlevel10k
 source $(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # cmd syntax
-# git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git
 source ~/git/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # completion
-# brew install zsh-autosuggestions
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # github cli
 eval "$(gh completion -s zsh)"
 
 # git branch preview
-# brew install zsh-git-prompt
 source "/opt/homebrew/opt/zsh-git-prompt/zshrc.sh"
 
 # ======================================================
 # ALIAS
 # ======================================================
+
+# enhanced
+
+# vi
+alias v='vi -c "CocCommand explorer --no-focus --width 30" -c "echo '\''`basename $(pwd)`'\''"'
+alias zv='zi && v'
+
 # ls
 alias ls='ls -FG --color=auto'
 alias ll='ls -AFGlihrt --color=auto'
@@ -60,10 +52,42 @@ alias zrm='(){zoxide remove $1}'
 # find
 alias fd='fd -H -E .git -E .DS_Store -t f'
 alias fzf="fzf --preview 'bat -n --color=always {}'"
+alias f='fzf'
 
-# vi
-alias v='vi -c "CocCommand explorer --no-focus --width 30" -c "echo '\''`basename $(pwd)`'\''"'
-# for AtCoder
+# df ps top
+alias df='dust -in 10'
+alias ps='procs'
+alias top='btm'
+
+# cd
+alias ..='cd ..'
+alias c='cd ~/git && clear'
+
+# tools
+alias g='lazygit'
+alias d='lazydocker'
+alias localhost_here='python -m http.server 8000'
+alias cppini='cp ~/git/dotfiles/.clang-format . && cp ~/git/dotfiles/compile_flags.txt .'
+alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
+
+# util
+alias q='exit'
+alias rezsh='exec $SHELL -l'
+alias w='date && cal && unfog'
+alias cw='c && w'
+alias cwzv='cw && zv'
+alias zz='cwzv'
+google() {
+  local str opt
+  if [ $# != 0 ]; then
+    for i in $*; do
+      str="$str${str:++}$i"
+    done
+    opt='search?num=100'
+    opt="${opt}&q=${str}"
+  fi
+  open -a Google\ Chrome http://www.google.co.jp/$opt
+}
 AtCoder() {
     cd ~/git/ac
     contest_cd=$1
@@ -88,11 +112,15 @@ AtCoder() {
     pd=`basename $(pwd)`
     vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify" -c "AtCoderTimer" -c "echom '$(basename $(pwd))'"
 }
-# cpp init
-alias cppini='cp ~/git/dotfiles/.clang-format . && cp ~/git/dotfiles/compile_flags.txt .'
 
-# zoxide & vi
-alias zv='zi&&v'
+# ======================================================
+# ENHANCED COMMANDS
+# ======================================================
+
+export PATH="$PATH:/opt/homebrew/bin/"
+
+# cd -> zoxide
+eval "$(zoxide init zsh)"
 export _ZO_FZF_OPTS='
     --no-sort --height 75% --reverse --margin=0,1 --exit-0 --select-1
     --bind ctrl-f:page-down,ctrl-b:page-up
@@ -104,110 +132,30 @@ export _ZO_FZF_OPTS='
     --preview "([[ -e '{2..}/README.md' ]] && bat --color=always --style=numbers --line-range=:50 '{2..}/README.md') || exa --color=always --group-directories-first --oneline {2..}"
 '
 
-# dotfiles
-alias zshrc='v ~/.zshrc'
-alias vimrc='v ~/.vimrc'
-
-# git
-alias git='/opt/homebrew/Cellar/git/2.41.0_2/bin/git'
-alias g='lazygit'
-
-# util
-alias ..='cd ..'
-alias c='cd ~/git && clear'
-alias w='date && cal && unfog'
-alias cw='c&&w'
-alias cwzv='c&&w&&zv'
-alias zz='cwzv'
-alias localhost_here='python -m http.server 8000'
-alias q='exit'
-alias rezsh='exec $SHELL -l'
-alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
-google() {
-  local str opt
-  if [ $# != 0 ]; then
-    for i in $*; do
-      str="$str${str:++}$i"
-    done
-    opt='search?num=100'
-    opt="${opt}&q=${str}"
-  fi
-  open -a Google\ Chrome http://www.google.co.jp/$opt
-}
-
-# ======================================================
-# ENHANCED COMMANDS
-# ======================================================
-# vim9.0
-# brew install vim
-
-# cd -> zoxide
-# brew install zoxide
-eval "$(zoxide init zsh)"
-
-# ls -> exa
-# brew install exa
-
-# cat -> bat
-# brew install bat
-
-# grep -> ripgrep
-# brew install ripgrep
-export PATH="$PATH:/opt/homebrew/bin/rg/bin"
-
-# find -> fd
-# brew install fd
-
-# fzf
-# brew install fzf
-# https://github.com/junegunn/fzf
-# !! I clone this by vim function as plugin
-#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# sed -> sd
-# brew install sd
-
-# ps -> procs
-# brew install procs
-
-# git -> lazygit
-# brew install lazygit
-
 # ======================================================
 # DEV-TOOLS, LANGUAGES, PATH
 # ======================================================
 # yarn
-# brew install node
-# npm install -g yarn
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-# python
-# brew install python3
+# Rust
+export PATH="$PATH:$CARGO_HOME/bin"
+
+# Python
 export PATH="$PATH:/opt/homebrew/bin/python3"
 alias python='python3'
 alias pip='python -m pip'
 
-# go
-# brew install go
+# Go
 export PATH="$PATH:$HOME/work/go/bin"
 
-# java
-# brew install java11
+# Java
 PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 export JAVA_HOME=`/usr/libexec/java_home -v 11`
 
-# Rust
-# Install cargo
-#curl https://sh.rustup.rs -sSf | sh
-# Install silicon
-#cargo install silicon
-# Add cargo-installed binaries to the path
-export PATH="$PATH:$CARGO_HOME/bin"
-
 # Chat GPT
 # python -m pip install openai
-# XXX OLD
-# export OPENAI_API_KEY='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'
+# export OPENAI_API_KEY=''
 
 # ======================================================
 # NOTE
@@ -221,5 +169,3 @@ export PATH="$PATH:$CARGO_HOME/bin"
 # EOF
 # ======================================================
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

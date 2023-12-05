@@ -4,12 +4,15 @@ git
 vim
 zoxide
 fzf
-exa
 bat
 fd
+exa
 ripgrep
 sd
+dust
 procs
+bottom
+silicon
 watch
 lazygit
 lazydocker
@@ -19,6 +22,7 @@ code-minimap
 gcc
 node
 python3
+rust
 go
 java11
 postgresql@14
@@ -36,7 +40,5 @@ echo "=========================================================="
 brew cleanup
 for v in ${repos[@]}; do
     brew install ${v}
-    ${v} --version
+    eval "${v} --version"
 done
-
-exa -abghHliS

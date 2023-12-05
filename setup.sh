@@ -19,23 +19,13 @@ echo "=========================================================="
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 echo "=========================================================="
-echo "coc"
+echo "coc settings"
 echo "=========================================================="
 # ln coc-settings, snippets
 npm install -g yarn
 mkdir -p ~/.vim/UltiSnips \
     && ln -nfs ~/git/dotfiles/cpp.snippets ~/.vim/UltiSnips/cpp.snippets \
     && ln -nfs ~/git/dotfiles/coc-settings.json ~/.vim/coc-settings.json
-
-echo "=========================================================="
-echo "rust"
-echo "=========================================================="
-curl https://sh.rustup.rs -sSf | sh
-
-echo "=========================================================="
-echo "silicon"
-echo "=========================================================="
-cargo install silicon
 
 echo "=========================================================="
 echo "unfog"
