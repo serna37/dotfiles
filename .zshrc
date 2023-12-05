@@ -62,8 +62,8 @@ alias cat='bat'
 
 # df ps top
 alias df='dust'
-alias ps='procs'
-alias top='btm'
+alias ps='procs -t'
+alias top='btm --battery --enable_cache_memory'
 
 # cd
 alias ..='cd ..'
