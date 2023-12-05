@@ -54,6 +54,7 @@ alias zrm='(){zoxide remove $1}'
 alias fd='fd -H -E .git -E .DS_Store -t f'
 alias fzf="fzf --preview 'bat -n --color=always {}'"
 alias f='bat "$(fd | fzf)"'
+alias e='export EDITOR="vi" && br -h -c :open_preview .'
 
 # grep cat
 alias grep='rg'
@@ -80,7 +81,6 @@ alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
 alias q='exit'
 alias rezsh='exec $SHELL -l'
 alias w='c && date && cal && unfog'
-alias e='export EDITOR="vi" && br -h -c :open_preview .'
 alias sl='sl -aFc'
 alias hello='c && df && sleep 1 \
     && ps && top && gping -n 0.5 google.com && c && l && sleep 1 \
