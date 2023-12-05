@@ -39,7 +39,7 @@ source "/opt/homebrew/opt/zsh-git-prompt/zshrc.sh"
 # enhanced
 
 # vi
-alias v='vi -c "CocCommand explorer --no-focus --width 30" -c "echo '\''`basename $(pwd)`'\''"'
+alias v='vi -c "CocCommand explorer --no-focus --width 30" -c "echom '\''$(basename $(pwd))'\''"'
 alias zv='zi && v'
 
 # ls
@@ -60,7 +60,7 @@ alias grep='rg'
 alias cat='bat'
 
 # df ps top
-alias df='dust -in 10'
+alias df='dust'
 alias ps='procs'
 alias top='btm'
 
@@ -80,9 +80,11 @@ alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
 alias q='exit'
 alias rezsh='exec $SHELL -l'
 alias w='c && date && cal && unfog'
-alias sl='sl -alFc'
-alias sp1='sleep 1'
-alias hello='c && df && sp1 && ps && top && c && l && sp1 && w && sp1 && zv && g && sl && echo HELLO WORLD !!'
+alias sl='sl -aFc'
+alias hello='c && df && sleep 1 \
+    && ps && top && c && l && sleep 1 \
+    && w && sleep 1 \
+    && zv && g && AtCoder abc100 && sl && echo HELLO WORLD !!'
 google() {
   local str opt
   if [ $# != 0 ]; then
@@ -112,10 +114,9 @@ AtCoder() {
     cd $contest_cd
     dirs=(`\fd -d 1 -t d`)
     for v in ${dirs[@]}; do
-        echo -e "[\e[34mINFO\e[m]create file :\e[32m${v}${file_name}\e[m"
+        echo -e "[\e[34mINFO\e[m]touch file :\e[32m${v}${file_name}\e[m"
         touch "${v}${file_name}"
     done
-    pd=`basename $(pwd)`
     vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify" -c "AtCoderTimer" -c "echom '$(basename $(pwd))'"
 }
 
