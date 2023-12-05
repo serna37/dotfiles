@@ -98,13 +98,8 @@ cd ~/git && git clone https://github.com/serna37/ac
 
 echo "=========================================================="
 echo "vim plug install"
+echo "This is the last step. After this, you should execute"
+echo "$ exec $SHELL -l"
+echo "to apply new configurations."
 echo "=========================================================="
-sudo vi -c "PlugInstall" -c "qa"
-
-echo "=========================================================="
-echo "END"
-echo "exec $SHELL -l"
-echo "=========================================================="
-
-# reload zsh
-exec $SHELL -l
+vi -c "PlugInstall" -c "qa"
