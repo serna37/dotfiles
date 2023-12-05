@@ -54,6 +54,10 @@ alias fd='fd -H -E .git -E .DS_Store -t f'
 alias fzf="fzf --preview 'bat -n --color=always {}'"
 alias f='fzf'
 
+# grep cat
+alias grep='rg'
+alias cat='bat'
+
 # df ps top
 alias df='dust -in 10'
 alias ps='procs'
