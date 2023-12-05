@@ -2,6 +2,7 @@ echo "=========================================================="
 echo "dotfiles"
 echo "=========================================================="
 mkdir -p ~/git \
+    && cd ~/git \
     && git clone https://github.com/serna37/dotfiles
 ln -nfs ~/git/dotfiles/.zshrc ~/.zshrc
 ln -nfs ~/git/dotfiles/.vimrc ~/.vimrc
