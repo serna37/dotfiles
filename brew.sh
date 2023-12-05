@@ -15,6 +15,7 @@ bottom
 silicon
 watch
 sl
+cmatrix
 lazygit
 lazydocker
 gh
