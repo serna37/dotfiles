@@ -33,7 +33,7 @@ done
 
 # setup dotfile
 mkdir -p ~/git \
-    && git clone https://gitbub.com/serna37/dotfiles
+    && git clone https://github.com/serna37/dotfiles
 ln -nfs ~/git/dotfiles/.zshrc ~/.zshrc
 ln -nfs ~/git/dotfiles/.vimrc ~/.vimrc
 
