@@ -84,7 +84,7 @@ alias sl='sl -aFc'
 alias hello='c && df && sleep 1 \
     && ps && top && c && l && sleep 1 \
     && w && sleep 1 \
-    && zv && g && AtCoder abc100 && sl && echo HELLO WORLD !!'
+    && zv && g && AtCoder abc100 && sl && cmatrix && echo HELLO WORLD !!'
 google() {
   local str opt
   if [ $# != 0 ]; then
