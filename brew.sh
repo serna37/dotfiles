@@ -37,6 +37,7 @@ starship
 echo "===========================START==========================="
 echo "brew install"
 echo "=========================================================="
+brew list
 brew cleanup
 for v in ${repos[@]}; do
     brew install ${v}
