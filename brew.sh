@@ -14,6 +14,7 @@ procs
 bottom
 silicon
 watch
+sl
 lazygit
 lazydocker
 gh

@@ -52,7 +52,7 @@ alias zrm='(){zoxide remove $1}'
 # find
 alias fd='fd -H -E .git -E .DS_Store -t f'
 alias fzf="fzf --preview 'bat -n --color=always {}'"
-alias f='fzf'
+alias f='bat "$(fd | fzf)"'
 
 # grep cat
 alias grep='rg'
@@ -66,6 +66,7 @@ alias top='btm'
 # cd
 alias ..='cd ..'
 alias c='cd ~/git && clear'
+alias cc='cd'
 
 # tools
 alias g='lazygit'
@@ -77,10 +78,10 @@ alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
 # util
 alias q='exit'
 alias rezsh='exec $SHELL -l'
-alias w='date && cal && unfog'
-alias cw='c && w'
-alias cwzv='cw && zv'
-alias zz='cwzv'
+alias w='c && date && cal && unfog'
+alias sl='sl -alFc'
+alias sp1='sleep 1'
+alias hello='c && df && sp1 && ps && top && c && l && sp1 && w && sp1 && zv && g && sl && echo HELLO WORLD !!'
 google() {
   local str opt
   if [ $# != 0 ]; then
@@ -118,12 +119,9 @@ AtCoder() {
 }
 
 # ======================================================
-# ENHANCED COMMANDS
+# ENHANCED COMMAND SETTINGS
 # ======================================================
-
 export PATH="$PATH:/opt/homebrew/bin/"
-
-# cd -> zoxide
 eval "$(zoxide init zsh)"
 export _ZO_FZF_OPTS='
     --no-sort --height 75% --reverse --margin=0,1 --exit-0 --select-1
@@ -172,4 +170,3 @@ export JAVA_HOME=`/usr/libexec/java_home -v 11`
 # ======================================================
 # EOF
 # ======================================================
-
