@@ -36,5 +36,7 @@ echo "=========================================================="
 brew cleanup
 for v in ${repos[@]}; do
     brew install ${v}
+    ${v} --version
 done
 
+exa -abghHliS
