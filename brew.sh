@@ -22,6 +22,7 @@ cmatrix
 watch
 lazygit
 lazydocker
+docker
 gh
 gcc
 node
