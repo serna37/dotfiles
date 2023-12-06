@@ -22,7 +22,6 @@ cmatrix
 watch
 lazygit
 lazydocker
-docker
 gh
 gcc
 node
@@ -48,3 +47,6 @@ for v in ${repos[@]}; do
     brew install ${v}
     eval "${v} --version"
 done
+
+brew services list
+brew services restart postgresql
