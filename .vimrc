@@ -66,6 +66,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'joshdick/onedark.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'machakann/vim-highlightedyank'
 Plug 'liuchengxu/vim-which-key'
 let g:airline_theme = 'onedark'
 let g:airline#extensions#tabline#enabled = 1
@@ -101,6 +102,7 @@ nnoremap <C-n> <Plug>(buf-prev)
 nnoremap <C-p> <Plug>(buf-next)
 nnoremap <Leader>x <Plug>(buf-close)
 nnoremap <silent><Leader>z :Goyo<CR>
+let g:highlightedyank_highlight_duration = 300
 nnoremap <silent><Leader> :WhichKey '<Space>'<CR>
 set timeoutlen=500
 
