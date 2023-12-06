@@ -79,6 +79,7 @@ alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
 
 # util
 alias q='exit'
+alias x86brew='arch -x86_64 /usr/local/bin/brew'
 alias rezsh='exec $SHELL -l'
 alias w='c && date && cal && unfog'
 alias sl='sl -aFc'

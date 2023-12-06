@@ -48,5 +48,14 @@ for v in ${repos[@]}; do
     eval "${v} --version"
 done
 
+echo "=========================================================="
+echo "service"
+echo "=========================================================="
 brew services list
 brew services restart postgresql
+
+echo "=========================================================="
+echo "gdb"
+echo "=========================================================="
+arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+arch -x86_64 /usr/local/bin/brew install gdb
