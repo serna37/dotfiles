@@ -53,9 +53,13 @@ cd ~/git && git clone https://github.com/serna37/ac
 
 echo "=========================================================="
 echo "vim plug install"
-echo "This is the last step. After this, you should execute"
+echo "This is the last step."
+echo "=========================================================="
+echo "After this, you should execute"
 echo "$ exec \$SHELL -l"
 echo "to apply new configurations."
+echo "And sign code for gdb."
+echo "ref) https://blog.symdon.info/posts/1610113408/"
 echo "=========================================================="
 vi -c "PlugInstall" -c "qa"
 
