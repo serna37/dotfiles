@@ -83,7 +83,6 @@ alias x86brew='arch -x86_64 /usr/local/bin/brew'
 alias rezsh='exec $SHELL -l'
 alias w='c && date && cal && unfog'
 alias sl='sl -aFc'
-# TODO WIP
 alias hello='c && df && sleep 1 \
     && ps && top && gping -n 0.5 google.com && c && l && sleep 1 \
     && e && f && w && sleep 1 \

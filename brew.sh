@@ -7,6 +7,7 @@ fzf
 bat
 exa
 ripgrep
+ripgrep-all
 fd
 sd
 dust
@@ -54,8 +55,9 @@ echo "=========================================================="
 brew services list
 brew services restart postgresql
 
-echo "=========================================================="
-echo "gdb"
-echo "=========================================================="
-arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-arch -x86_64 /usr/local/bin/brew install gdb
+# TODO いらんかも
+#echo "=========================================================="
+#echo "gdb"
+#echo "=========================================================="
+#arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+#arch -x86_64 /usr/local/bin/brew install gdb

@@ -58,6 +58,7 @@ echo "=========================================================="
 echo "After this, you should execute"
 echo "$ exec \$SHELL -l"
 echo "to apply new configurations."
+# TODO gdbいらんかも？？
 echo "And sign code for gdb."
 echo "ref) https://blog.symdon.info/posts/1610113408/"
 echo "=========================================================="
