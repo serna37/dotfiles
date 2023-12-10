@@ -1,5 +1,6 @@
 # brew install
 repos=(
+# base
 git
 vim
 zoxide
@@ -9,10 +10,14 @@ exa
 ripgrep
 ripgrep-all
 fd
+fselect
 sd
+git-delta
+tokei
 dust
 procs
 bottom
+navi
 gping
 silicon
 code-minimap
