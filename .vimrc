@@ -39,7 +39,7 @@ Plug 'simeji/winresizer'
 Plug 'yuttie/comfortable-motion.vim'
 let g:EasyMotion_do_mapping = 0
 nnoremap s <Plug>(easymotion-sn)
-nnoremap <Leader><Leader>w <Plug>(easymotion-bd-w)
+nnoremap <Leader><Leader>w <Plug>(easymotion-overwin-w)
 nnoremap <C-j> <Plug>(edgemotion-j)<Plug>(anchor)
 nnoremap <C-k> <Plug>(edgemotion-k)<Plug>(anchor)
 let g:clever_f_smart_case = 1

@@ -83,10 +83,23 @@ alias x86brew='arch -x86_64 /usr/local/bin/brew'
 alias rezsh='exec $SHELL -l'
 alias w='c && date && cal && unfog'
 alias sl='sl -aFc'
+# TODO WIP
 alias hello='c && df && sleep 1 \
     && ps && top && gping -n 0.5 google.com && c && l && sleep 1 \
     && e && f && w && sleep 1 \
-    && zv && g && AtCoder abc331 && sl && cmatrix && w && echo HELLO WORLD !!'
+    && zv && g && AtCoder abc327 && sl && cmatrix && w && echo HELLO WORLD !!'
+alias save='sl && cmatrix'
+gif() {
+    if [ $# != 2 ]; then
+        echo "Usage:"
+        echo "  gif [basefile] [output-name.gif]"
+        echo "Alias Of:"
+        echo "  ffmpeg -i [basefile] -r 10 [output-name.gif]"
+    else
+        ffmpeg -i $1 -r 10 $2
+        l
+    fi
+}
 google() {
   local str opt
   if [ $# != 0 ]; then
