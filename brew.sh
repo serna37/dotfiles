@@ -3,32 +3,40 @@ repos=(
 # base
 git
 vim
-zoxide
-fzf
+# enhanced
+# ls cd
+zoxide exa
+# find
+fzf fd fselect
+# grep
+ripgrep ripgrep-all
+# cat
 bat
-exa
-ripgrep
-ripgrep-all
-fd
-fselect
+# sed
 sd
-git-delta
-tokei
-dust
-procs
-bottom
+# diff chk-files
+git-delta tokei
+# df ps top ping
+dust procs bottom gping
+# help
 navi
-gping
+# text -> png
 silicon
+# IDE
 code-minimap
+# explorer
 broot
+# gif
 ffmpeg
-sl
-cmatrix
-watch
-lazygit
-lazydocker
+# lazy
+lazygit lazydocker
+# happy
+sl cmatrix
+# CLI
 gh
+# etc
+watch
+# lang
 gcc
 node
 python3
@@ -37,6 +45,7 @@ go
 java11
 postgresql@14
 sqlite
+# zsh
 zsh-git-prompt
 zsh-autosuggestions
 zsh-syntax-highlighting
