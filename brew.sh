@@ -1,46 +1,33 @@
 # brew install
 repos=(
 # base
-git
-vim
+vim git
 # enhanced
-# ls cd
+# cd ls find
 zoxide exa
-# find
 fzf fd fselect
-# grep
+# cat sed grep
+bat sd
 ripgrep ripgrep-all
-# cat
-bat
-# sed
-sd
-# diff chk-files
-git-delta tokei
+# diff summary explorer
+git-delta tokei broot
 # df ps top ping
 dust procs bottom gping
-# help
+# suggestion utils
 navi
-# text -> png
 silicon
-# IDE
 code-minimap
-# explorer
-broot
-# gif
-ffmpeg
-# lazy
 lazygit lazydocker
+watch
+ffmpeg
+gh
 # happy
 sl cmatrix
-# CLI
-gh
-# etc
-watch
 # lang
 gcc
-node
-python3
 rust
+python3
+node
 go
 java11
 postgresql@14
