@@ -83,11 +83,27 @@ alias x86brew='arch -x86_64 /usr/local/bin/brew'
 alias rezsh='exec $SHELL -l'
 alias w='c && date && cal && unfog'
 alias sl='sl -aFc'
-alias hello='c && df && sleep 1 \
-    && ps && top && gping -n 0.5 google.com && c && l && sleep 1 \
-    && e && f && w && sleep 1 \
-    && zv && g && AtCoder abc327 && sl && cmatrix && w && echo HELLO WORLD !!'
-alias save='sl && cmatrix'
+
+# tutorial command
+enhanced_commands=("c"
+"df" "ps" "top" "gping -n 0.5 google.com"
+"l" "fd" "f" "e"
+"w" "gif" "cd ~/git/dotfiles"
+"tokei" "delta setup.sh brew.sh" "g"
+"zv" "AtCoder abc327"
+"sl" "cmatrix"
+)
+hello() {
+    for v in ${enhanced_commands[@]}; do
+        clear
+        pwd
+        echo "Command: ${v}"
+        sleep 0.5
+        eval "${v}"
+        sleep 1
+    done
+    echo "Command: google [search-text]"
+}
 gif() {
     if [ $# != 2 ]; then
         echo "Usage:"
