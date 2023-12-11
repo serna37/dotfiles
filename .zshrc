@@ -56,10 +56,6 @@ alias fzf="fzf --preview 'bat -n --color=always {}'"
 alias f='tmp="$(fd | fzf)" && bat $tmp && v $tmp'
 alias e='export EDITOR="vi" && br -h -c :open_preview'
 
-# grep cat
-alias grep='rg'
-alias cat='bat'
-
 # df ps top
 alias df='dust'
 alias ps='procs -t'
@@ -82,7 +78,6 @@ alias q='exit'
 alias x86brew='arch -x86_64 /usr/local/bin/brew'
 alias rezsh='exec $SHELL -l'
 alias w='c && date && cal && unfog'
-alias sl='sl -aFc'
 
 # tutorial command
 enhanced_commands=("c"
@@ -91,7 +86,7 @@ enhanced_commands=("c"
 "w" "gif" "cd ~/git/dotfiles"
 "tokei" "delta setup.sh brew.sh" "g"
 "zv" "AtCoder abc327"
-"sl" "cmatrix"
+"sl -aFc" "cmatrix"
 )
 hello() {
     for v in ${enhanced_commands[@]}; do
@@ -102,7 +97,15 @@ hello() {
         eval "${v}"
         sleep 1
     done
-    echo "Command: google [search-text]"
+    clear
+    echo "=== functions ==="
+    echo " hello"
+    echo " gif [basefile] [output-name.gif]"
+    echo " google [search-text]"
+    echo " AtCoder [contest_cd]"
+    echo "================="
+    echo "... And other commands: alias"
+    alias | bat
 }
 gif() {
     if [ $# != 2 ]; then
