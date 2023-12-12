@@ -86,6 +86,7 @@ enhanced_commands=("c"
 "w" "gif" "cd ~/git/dotfiles"
 "tokei" "delta setup.sh brew.sh" "g"
 "zv" "AtCoder abc327"
+"navi"
 "sl -aFc" "cmatrix"
 )
 hello() {
