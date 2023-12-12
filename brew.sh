@@ -56,6 +56,6 @@ done
 echo "=========================================================="
 echo "service"
 echo "=========================================================="
-sudo brew services list
-sudo brew services restart postgresql
+brew services list
+brew services restart postgresql
 
