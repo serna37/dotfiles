@@ -168,6 +168,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'thinca/vim-quickrun'
 Plug 'puremourning/vimspector'
 Plug 'serna37/vim-IDE-menu'
+Plug 'rhysd/wandbox-vim'
 let g:coc_global_extensions = ['coc-explorer', 'coc-snippets', 'coc-fzf-preview',
             \ 'coc-sh', 'coc-vimlsp', 'coc-json', 'coc-sql',
             \ 'coc-html', 'coc-css', 'coc-tsserver',
