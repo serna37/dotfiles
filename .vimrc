@@ -12,6 +12,8 @@ inoremap <expr><S-Tab> pumvisible() ? '<C-p>' : '<S-Tab>'
 " terminal
 nnoremap <silent><Leader>t :cal popup_create(term_start([&shell],#{hidden:1,term_finish:'close'}),#{border:[],minwidth:&columns*3/4,minheight:&lines*3/4})<CR>
 nnoremap <silent><Leader>g :cal popup_create(term_start(['lazygit'],#{hidden:1,term_finish:'close'}),#{border:[],minwidth:&columns*3/4,minheight:&lines*3/4})<CR>
+set termwinkey=<C-k>
+tnoremap <C-w> <Esc><BS>
 
 " row visual
 nnoremap vv ^v$h
