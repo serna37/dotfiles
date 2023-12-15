@@ -107,6 +107,7 @@ hello() {
     echo "================="
     echo "... And other commands: alias"
     alias | bat
+    echo "And alse see 【curl cheat.sh】"
 }
 gif() {
     if [ $# != 2 ]; then
