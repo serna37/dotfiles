@@ -72,6 +72,7 @@ alias d='lazydocker'
 alias localhost_here='python -m http.server 8000'
 alias cppini='cp ~/git/dotfiles/.clang-format . && cp ~/git/dotfiles/compile_flags.txt .'
 alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
+alias clock='tty-clock -sc'
 
 # util
 alias q='exit'
@@ -87,7 +88,7 @@ enhanced_commands=("c"
 "tokei" "delta setup.sh brew.sh" "g"
 "zv" "AtCoder abc327"
 "navi"
-"sl -aFc" "cmatrix"
+"sl -aFc" "cmatrix" "clock"
 )
 hello() {
     for v in ${enhanced_commands[@]}; do
