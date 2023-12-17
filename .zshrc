@@ -105,6 +105,7 @@ hello() {
     echo " gif [basefile] [output-name.gif]"
     echo " google [search-text]"
     echo " AtCoder [contest_cd]"
+    echo " AtCoderLive [contest_cd]"
     echo "================="
     echo "... And other commands: alias"
     alias | bat
@@ -154,6 +155,9 @@ AtCoder() {
         touch "${v}${file_name}"
     done
     vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify" -c "AtCoderTimer" -c "echom '$(basename $(pwd))'"
+}
+AtCoderLive() {
+    sleep $(expr `date -v21H -v00M -v00S +%s` - `date +%s` + 1) && AtCoder $1
 }
 
 # ======================================================
