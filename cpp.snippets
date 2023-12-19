@@ -31,20 +31,6 @@ snippet PI "PI" b
 double PI = acos(-1);
 endsnippet
 
-snippet maxVal "maxVal" b
-int ${1:maxVal} = 0;
-rep(i, ${2:N}) {
-	$1 = max($1, ${3:A}[i]);
-}
-endsnippet
-
-snippet minVal "minVal" b
-int ${1:minVal} = 1e9 + 7;
-rep(i, ${2:N}) {
-	$1 = min($1, ${3:A}[i]);
-}
-endsnippet
-
 snippet is_integer "is integer" b
 bool is_integer(double x){
 	return floor(x)==x;
@@ -93,7 +79,7 @@ auto distance = [](int x1, int y1, int x2, int y2) -> int {
 endsnippet
 
 # =========================================================
-# util
+# in / out
 # =========================================================
 snippet arrin "arr in" b
 int N;
@@ -106,6 +92,9 @@ snippet ccout "cout" b
 cout << ${1:variable} << endl;
 endsnippet
 
+# =========================================================
+# STL
+# =========================================================
 snippet ascii "ascii" b
 // A : 65
 // B : 66
@@ -120,7 +109,7 @@ snippet ascii "ascii" b
 endsnippet
 
 snippet trans "transform" b
-std::transform(${1:str}.begin(), $1.end(), $1.begin(), ::${2:tolower});
+std::transform(ALL(${1:str}), $1.begin(), ::${2:tolower});
 endsnippet
 
 snippet sort_Arr_Asc "asc" b
@@ -132,11 +121,15 @@ sort(${1:arr}, $1+${2:n}, greater<${3:int}>());
 endsnippet
 
 snippet sort_Asc "asc" b
-sort(${1:s}.begin(), $1.end());
+sort(ALL(${1:s}));
 endsnippet
 
 snippet sort_Desc "desc" b
 sort(${1:s}.rbegin(), $1.rend());
+endsnippet
+
+snippet reverse_Vec "reverse vector" b
+reverse(ALL(${1:A}));
 endsnippet
 
 snippet reverse_Arr "reverse arr" b
@@ -144,7 +137,40 @@ reverse(${1:arr}, $1 + ${2:length});
 endsnippet
 
 snippet reverse_Str "reverse string" b
-reverse(${1:s}.begin(), $1.end());
+reverse(ALL(${1:str}));
+endsnippet
+
+snippet count_Vec "count vector" biw
+count(ALL(${1:A}), ${2:chk_val});
+endsnippet
+
+snippet find_Vec "find vector" biw
+find(ALL(${1:A}), ${2:chk_val}) != $1.end();
+endsnippet
+
+snippet nextperm "next_permutation" biw
+next_permutation(ALL(${1:vector}))
+endsnippet
+
+snippet lowe "lower bound" biw
+lower_bound(ALL(${1:A}), ${2:chk});
+endsnippet
+
+# =========================================================
+# basic algo
+# =========================================================
+snippet maxVal "maxVal" b
+int ${1:maxVal} = 0;
+rep(i, ${2:N}) {
+	$1 = max($1, ${3:A}[i]);
+}
+endsnippet
+
+snippet minVal "minVal" b
+int ${1:minVal} = 1e9 + 7;
+rep(i, ${2:N}) {
+	$1 = min($1, ${3:A}[i]);
+}
 endsnippet
 
 snippet allmatch "allmatch" b
@@ -157,6 +183,36 @@ snippet anymatch "anymatch" b
 bool anymatchFlg = false;
 // for
 // anymatchFlg |= true condition
+endsnippet
+
+# =========================================================
+# Algorithm
+# =========================================================
+snippet bfs_tree "bfs support" b
+// prepare
+vector<vector<int>> con(N+1, vector<int>(1, 0));
+queue<int> q;
+vector<bool> used(N, false);
+vector<int> counter(N+1, 0);
+
+// make connection
+// con[a].push_back(b);
+// con[b].push_back(a);
+
+// === bfs ===
+
+// 1. ini
+// q.push(Arr[i]);
+// used[i] = true;
+
+// 2. search
+// while (!q.empty())
+// int tmp = q.front(); q.pop();
+// see connection ...
+
+// 3. action
+// if used -> continue
+// if condition -> q.push, used
 endsnippet
 
 # =========================================================
@@ -201,6 +257,7 @@ using namespace std;
 using ll = long long;
 #define rep(i, N) for (int i = 0; i < (int)(N); ++i)
 #define rep1(i, N) for (int i = 1; i <= (int)(N); ++i)
+#define ALL(a) (a).begin(), (a).end()
 
 int main() {
 	${1}

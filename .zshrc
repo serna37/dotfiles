@@ -106,6 +106,7 @@ hello() {
     echo " google [search-text]"
     echo " AtCoder [contest_cd]"
     echo " AtCoderLive [contest_cd]"
+    echo " AtCoderReview [contest_cd]"
     echo "================="
     echo "... And other commands: alias"
     alias | bat
@@ -158,6 +159,9 @@ AtCoder() {
 }
 AtCoderLive() {
     sleep $(expr `date -v21H -v00M -v00S +%s` - `date +%s` + 1) && AtCoder $1
+}
+AtCoderReview() {
+    rm -rf ~/git/ac/$1 && AtCoder $1
 }
 
 # ======================================================
