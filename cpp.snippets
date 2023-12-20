@@ -188,7 +188,7 @@ endsnippet
 # =========================================================
 # Algorithm
 # =========================================================
-snippet bfs_tree "bfs support" b
+snippet bfs_template "bfs support" b
 // prepare
 vector<vector<int>> con(N+1, vector<int>(1, 0));
 queue<int> q;
@@ -201,18 +201,34 @@ vector<int> counter(N+1, 0);
 
 // === bfs ===
 
-// 1. ini
+// 1.ini
 // q.push(Arr[i]);
 // used[i] = true;
 
-// 2. search
+// 2.search
 // while (!q.empty())
 // int tmp = q.front(); q.pop();
 // see connection ...
 
-// 3. action
+// 3.action
 // if used -> continue
 // if condition -> q.push, used
+endsnippet
+
+snippet dp_napsack "dp napsack support" b
+int N, W;
+vector<vector<int>> dp(N, vector<int>(W, 0));
+rep(i, N) {
+	int wi;
+	int vi;
+	rep(w, W) {
+		if (w - wi) { // over
+			dp[i][w] = dp[i - 1][w];
+		} else { // can put
+			dp[i][w] = max(dp[i - 1][w], dp[i - 1][w - wi] + vi);
+		}
+	}
+}
 endsnippet
 
 # =========================================================
@@ -237,13 +253,13 @@ ${1:rep}(${2:i}, ${3:N}) {
 endsnippet
 
 snippet func "function" b
-${1:void} func(${2:int i}) {
+${1:void} func(${2:int &i}) {
 	${3}
 }
 endsnippet
 
 snippet func_lambda "function lambda" b
-auto ${1:func} = [&](${2:auto self}) ${3:-> void} {
+auto ${1:func} = [](${2:auto &self}) -> ${3:void} {
 	${4}
 };
 endsnippet
