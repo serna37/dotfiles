@@ -253,13 +253,13 @@ ${1:rep}(${2:i}, ${3:N}) {
 endsnippet
 
 snippet func "function" b
-${1:void} func(${2:int &i}) {
+${1:void} func(${2:int n}) {
 	${3}
 }
 endsnippet
 
 snippet func_lambda "function lambda" b
-auto ${1:func} = [](${2:auto &self}) -> ${3:void} {
+auto ${1:func} = [](${2:int n}) -> ${3:void} {
 	${4}
 };
 endsnippet
