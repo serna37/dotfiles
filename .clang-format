@@ -1,1 +1,3 @@
+AllowShortBlocksOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
 IndentWidth: 4
