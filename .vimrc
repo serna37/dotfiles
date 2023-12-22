@@ -10,16 +10,19 @@ inoremap <expr><Tab> pumvisible() ? '<C-n>' : '<C-t>'
 inoremap <expr><S-Tab> pumvisible() ? '<C-p>' : '<S-Tab>'
 
 " terminal
-nnoremap <silent><Leader>t :cal popup_create(term_start([&shell],#{hidden:1,term_finish:'close'}),#{border:[],minwidth:&columns*3/4,minheight:&lines*3/4})<CR>
-nnoremap <silent><Leader>g :cal popup_create(term_start(['lazygit'],#{hidden:1,term_finish:'close'}),#{border:[],minwidth:&columns*3/4,minheight:&lines*3/4})<CR>
-set termwinkey=<C-e>
-tnoremap <C-w> <Esc><BS>
+"nnoremap <silent><Leader>t :cal popup_create(term_start([&shell],#{hidden:1,term_finish:'close'}),#{border:[],minwidth:&columns*3/4,minheight:&lines*3/4})<CR>
+"nnoremap <silent><Leader>g :cal popup_create(term_start(['lazygit'],#{hidden:1,term_finish:'close'}),#{border:[],minwidth:&columns*3/4,minheight:&lines*3/4})<CR>
+"set termwinkey=<C-e>
+"tnoremap <C-w> <Esc><BS>
 
 " row visual
 nnoremap vv ^v$h
 
 " insert move
 inoremap {{ <C-o>A{}<C-o>h
+
+" save
+inoremap jk <Esc>:w<CR>
 
 " ############################################################
 " #### PLUGINS
@@ -39,14 +42,15 @@ Plug 'haya14busa/vim-asterisk'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'simeji/winresizer'
 Plug 'yuttie/comfortable-motion.vim'
+Plug 'voldikss/vim-floaterm'
 let g:EasyMotion_do_mapping = 0
 nnoremap s <Plug>(easymotion-sn)
 nnoremap <Leader><Leader>w <Plug>(easymotion-overwin-w)
 nnoremap <C-j> <Plug>(edgemotion-j)<Plug>(anchor)
 nnoremap <C-k> <Plug>(edgemotion-k)<Plug>(anchor)
 let g:clever_f_smart_case = 1
-let g:clever_f_timeout_ms = 2000
-let g:clever_f_highlight_timeout_ms = 2000
+let g:clever_f_timeout_ms = 1500
+let g:clever_f_highlight_timeout_ms = 1500
 aug cleaver_f
     au!
     au ColorScheme * hi CleverFDefaultLabel cterm=BOLD,underline ctermfg=40 ctermbg=0
@@ -60,6 +64,9 @@ let g:comfortable_motion_friction = 70.0
 let g:comfortable_motion_air_drag = 5.0
 nnoremap <silent><C-f> :cal comfortable_motion#flick(200)<CR>
 nnoremap <silent><C-b> :cal comfortable_motion#flick(-200)<CR>
+let g:floaterm_keymap_toggle = '<F12>'
+let g:floaterm_width = 0.7
+let g:floaterm_height = 0.8
 
 " ### Enhanced Visualization
 Plug 'mhinz/vim-startify'
@@ -117,7 +124,7 @@ nnoremap <silent><Leader>b :CocCommand fzf-preview.Buffers<CR>
 nnoremap <silent><Leader>hf :CocCommand fzf-preview.MruFiles<CR>
 nnoremap <silent><Leader>e :CocCommand explorer --width 30<CR>
 nnoremap <silent><Leader>s :CocCommand fzf-preview.Lines<CR>
-nnoremap <silent><Leader><Leader>s :CocCommand fzf-preview.ProjectGrep .<CR>
+nnoremap <silent><Leader>g :CocCommand fzf-preview.ProjectGrep .<CR>
 nnoremap <silent><Leader>m :CocCommand fzf-preview.Bookmarks<CR>
 nnoremap <silent><Leader>nn :CocCommand fzf-preview.MemoList<CR>
 nnoremap <silent><Leader>ng :CocCommand fzf-preview.MemoListGrep .<CR>
