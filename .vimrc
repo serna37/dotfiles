@@ -62,6 +62,8 @@ let g:comfortable_motion_no_default_key_mappings = 1
 let g:comfortable_motion_interval = 1000.0 / 60
 let g:comfortable_motion_friction = 70.0
 let g:comfortable_motion_air_drag = 5.0
+nnoremap <silent><C-f> :cal comfortable_motion#flick(200)<CR>
+nnoremap <silent><C-b> :cal comfortable_motion#flick(-200)<CR>
 tnoremap <silent><C-t> <C-\><C-n>:FloatermNew<CR>
 tnoremap <silent><S-Tab> <C-\><C-n>:FloatermNext<CR>
 nnoremap <silent><Leader>t :FloatermToggle<CR>
