@@ -12,8 +12,6 @@ inoremap <expr><S-Tab> pumvisible() ? '<C-p>' : '<S-Tab>'
 " terminal
 "nnoremap <silent><Leader>t :cal popup_create(term_start([&shell],#{hidden:1,term_finish:'close'}),#{border:[],minwidth:&columns*3/4,minheight:&lines*3/4})<CR>
 "nnoremap <silent><Leader>g :cal popup_create(term_start(['lazygit'],#{hidden:1,term_finish:'close'}),#{border:[],minwidth:&columns*3/4,minheight:&lines*3/4})<CR>
-set termwinkey=<C-e>
-tnoremap <C-w> <Esc><BS>
 
 " row visual
 nnoremap vv ^v$h
@@ -64,6 +62,9 @@ let g:comfortable_motion_friction = 70.0
 let g:comfortable_motion_air_drag = 5.0
 nnoremap <silent><C-f> :cal comfortable_motion#flick(200)<CR>
 nnoremap <silent><C-b> :cal comfortable_motion#flick(-200)<CR>
+set termwinkey=<C-e>
+tnoremap <C-w> <Esc><BS>
+tnoremap <C-q> <C-w><S-n>
 tnoremap <silent><C-t> <C-\><C-n>:FloatermNew<CR>
 tnoremap <silent><S-Tab> <C-\><C-n>:FloatermNext<CR>
 nnoremap <silent><Leader>t :FloatermToggle<CR>
