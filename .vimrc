@@ -64,7 +64,7 @@ nnoremap <silent><C-f> :cal comfortable_motion#flick(200)<CR>
 nnoremap <silent><C-b> :cal comfortable_motion#flick(-200)<CR>
 set termwinkey=<C-e>
 tnoremap <C-w> <Esc><BS>
-tnoremap <C-z> <C-w><S-n>
+tnoremap <C-x> <C-w><S-n>
 tnoremap <silent><C-t> <C-\><C-n>:FloatermNew<CR>
 tnoremap <silent><S-Tab> <C-\><C-n>:FloatermNext<CR>
 nnoremap <silent><Leader>t :FloatermToggle<CR>
