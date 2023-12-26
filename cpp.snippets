@@ -270,6 +270,12 @@ while (!q.empty()) {
 }
 endsnippet
 
+snippet running_total "running total" b
+vector<int> runsum(N + 1, 0);
+rep(i, N) {
+	runsum[i + 1] = runsum[i] + A[i];
+}
+endsnippet
 
 snippet dp_napsack "dp napsack support" b
 int N, W;
