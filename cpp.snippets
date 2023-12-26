@@ -31,14 +31,16 @@ snippet PI "PI" b
 double PI = acos(-1);
 endsnippet
 
-snippet isInteger "is integer" b
-bool is_integer(double x) {
-	return floor(x)==x;
-}
 endsnippet
 
-snippet isPrime "is prime" b
-bool is_prime(int num) {
+snippet is_integer "is integer" b
+auto is_integer = [&](double x) -> bool {
+	return floor(x) == x;
+};
+endsnippet
+
+snippet is_prime "is prime" b
+auto is_prime = [&](int num) -> bool {
 	if (num == 2) {
 		return true;
 	}
@@ -53,7 +55,7 @@ bool is_prime(int num) {
 		}
 	}
 	return true;
-}
+};
 endsnippet
 
 snippet eratosthenes_sieve "sieve if eratosthenes" b
