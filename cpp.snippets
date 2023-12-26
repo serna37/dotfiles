@@ -237,7 +237,7 @@ endsnippet
 
 snippet bfs_2d_template "bfs support" b
 //vector<string> Grid(row);
-vector<vector<char>> Grid(row, vector<int>(column));
+vector<vector<char>> Grid(row, vector<char>(column));
 vector<int> dx4 = {1, 0, -1, 0};
 vector<int> dy4 = {0, 1, 0, -1};
 vector<int> dx8 = {-1, -1, -1, 0, 0, 1, 1, 1};
@@ -260,11 +260,11 @@ while (!q.empty()) {
 		if (x < 0 or y < 0 or column <= x or row <= y) {
 			continue;
 		}
-		// un visited, can  go
+		// un visited, can go
 		if (!used[x][y] and Grid[x][y] == '#') {
 			q.push({x, y});
 			used[x][y] = true;
-			// dist[x][y] = dist[current_xy.first][current_xy.second] + 1;
+			//dist[x][y] = dist[current_xy.first][current_xy.second] + 1;
 		}
 	}
 }
