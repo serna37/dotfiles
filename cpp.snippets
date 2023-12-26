@@ -315,9 +315,19 @@ ${1:void} func(${2:int n}) {
 endsnippet
 
 snippet func_lambda "function lambda" b
-auto ${1:func} = [](${2:int n}) -> ${3:void} {
+auto ${1:func} = [&](${2:int a}) -> ${3:void} {
 	${4}
 };
+endsnippet
+
+snippet func_recursive "function recursive" b
+auto ${1:func} = [&](auto self, ${2:int a}) -> ${3:void} {
+	${4}
+	self(self, _); // recursive
+};
+
+// TODO
+$1($1, );
 endsnippet
 
 # =========================================================
@@ -331,8 +341,6 @@ using pi = pair<int, int>;
 #define rep(i, N) for (int i = 0; i < (int)(N); ++i)
 #define rep1(i, N) for (int i = 1; i <= (int)(N); ++i)
 #define ALL(a) (a).begin(), (a).end()
-constexpr int INF = 1001001001;
-constexpr ll LINF = 1001001001001001001ll;
 
 int main() {
 	${1}
