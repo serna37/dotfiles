@@ -278,16 +278,19 @@ rep(i, N) {
 endsnippet
 
 snippet dp_napsack "dp napsack support" b
-int N, W;
 vector<vector<int>> dp(N, vector<int>(W, 0));
 rep(i, N) {
-	int wi;
-	int vi;
+	int wi = weight[i];
+	int vi = value[i];
 	rep(w, W) {
-		if (w - wi) { // over
-			dp[i][w] = dp[i - 1][w];
-		} else { // can put
-			dp[i][w] = max(dp[i - 1][w], dp[i - 1][w - wi] + vi);
+		if (w < wi) {
+			dp[i + 1][w] = dp[i][w];
+		} else {
+			dp[i + 1][w] = max(dp[i][w], dp[i][w - wi] + vi);
+		}
+	}
+}
+endsnippet
 		}
 	}
 }
