@@ -201,33 +201,70 @@ endsnippet
 # =========================================================
 # Algorithm
 # =========================================================
-snippet bfs_template "bfs support" b
-// prepare
+snippet bfs_1d_template "bfs support" b
 vector<vector<int>> con(N, vector<int>(1, 0));
 queue<int> q;
-// vector<int> dist(N, -1);
-vector<bool> used(N, false);
-vector<int> counter(N+1, 0);
+vector<int> dist(N, -1);
+//vector<bool> used(N, false);
+//vector<int> counter(N + 1, 0);
 
-// make connection
-// con[a].push_back(b);
-// con[b].push_back(a);
+rep(i, N) {
+	int a, b;
+	cin >> a >> b;
+	con[a].push_back(b);
+	con[b].push_back(a);
+}
 
-// === bfs ===
+q.push(0);
+dist[0] = 0;
 
-// 1.ini
-// q.push(Arr[i]);
-// used[i] = true;
-
-// 2.search
-// while (!q.empty())
-// int tmp = q.front(); q.pop();
-// see connection ...
-
-// 3.action
-// if used -> continue
-// if condition -> q.push, used
+while (!q.empty()) {
+	int current_vertex = q.front();
+	q.pop();
+	for (int next_vertex : con[current_vertex]) {
+		if (dist[next_vertex] != 1) {
+			dist[next_vertex] = dist[current_vertex] + 1;
+			q.push(next_vertex);
+		}
+	}
+}
 endsnippet
+
+snippet bfs_2d_template "bfs support" b
+//vector<string> Grid(row);
+vector<vector<char>> Grid(row, vector<int>(column));
+vector<int> dx4 = {1, 0, -1, 0};
+vector<int> dy4 = {0, 1, 0, -1};
+vector<int> dx8 = {-1, -1, -1, 0, 0, 1, 1, 1};
+vector<int> dy8 = {-1, 0, 1, -1, 1, -1, 0, 1};
+queue<pi> q;
+vector<vector<bool>> used(row, vector<bool>(column, false));
+//vector<vector<int>> dist(row, vector<int>(column, -1));
+
+q.push({0, 0});
+used[0][0] = true;
+//dist[0][0] = 0;
+
+while (!q.empty()) {
+	pi current_xy = q.front();
+	q.pop();
+	for (int i = 0; i < 8; ++i) {
+		int x = dx8[i] + current_xy.first;
+		int y = dy8[i] + current_xy.second;
+		// only in range
+		if (x < 0 or y < 0 or column <= x or row <= y) {
+			continue;
+		}
+		// un visited, can  go
+		if (!used[x][y] and Grid[x][y] == '#') {
+			q.push({x, y});
+			used[x][y] = true;
+			// dist[x][y] = dist[current_xy.first][current_xy.second] + 1;
+		}
+	}
+}
+endsnippet
+
 
 snippet dp_napsack "dp napsack support" b
 int N, W;
