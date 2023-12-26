@@ -56,6 +56,19 @@ bool is_prime(int num) {
 }
 endsnippet
 
+snippet eratosthenes_sieve "sieve if eratosthenes" b
+vector<int> is_P(N + 1, true);
+is_P[0] = is_P[1] = false;
+for (int i = 2; i * i <= N; ++i) {
+	if (!is_P[i]) {
+		continue;
+	}
+	for (int j = i * i; j <= N; j += i) {
+		is_P[j] = false;
+	}
+}
+endsnippet
+
 snippet matrix "matrix" b
 // int a[n][m];
 // int b[m][l];
