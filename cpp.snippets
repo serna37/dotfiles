@@ -291,6 +291,16 @@ rep(i, N) {
 	}
 }
 endsnippet
+
+snippet dp_sum_partial "dp partial sum support" b
+vector<vector<int>> dp(N + 1, vector<int>(K + 1, false));
+dp[0][0] = true;
+rep(i, N) {
+	int ai = A[i];
+	for (int k = 0; k <= K; ++k) {
+		dp[i + 1][k] = dp[i][k];
+		if (k >= ai) {
+			dp[i + 1][k] = dp[i + 1][k] or dp[i][k - ai];
 		}
 	}
 }
