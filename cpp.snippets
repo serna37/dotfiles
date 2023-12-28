@@ -158,6 +158,11 @@ snippet reverse_Str "reverse string" b
 reverse(ALL(${1:str}));
 endsnippet
 
+snippet uni "unique" b
+sort(ALL(${1:A}));
+A.erase(unique(ALL($1)), $1.end());
+endsnippet
+
 snippet count_Vec "count vector" biw
 count(ALL(${1:A}), ${2:chk_val});
 endsnippet
