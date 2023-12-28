@@ -311,6 +311,18 @@ for (int i = 0; i < N; ++i) {
 }
 endsnippet
 
+snippet cmopress "compress" b
+auto compress = []<class T>(vector<T> &vec) -> void {
+	auto v = vec;
+	sort(ALL(v));
+	v.erase(unique(ALL(v)), v.end());
+
+	rep(i, vec.size()) {
+		vec[i] = lower_bound(ALL(v), vec[i]) - v.begin();
+	}
+};
+endsnippet
+
 # =========================================================
 # grammer
 # =========================================================
