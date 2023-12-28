@@ -271,18 +271,18 @@ while (!q.empty()) {
 endsnippet
 
 snippet running_total "running total" b
-vector<int> runsum(N + 1, 0);
+vector<int> ${1:runsum}(N + 1, 0);
 rep(i, N) {
-	runsum[i + 1] = runsum[i] + A[i];
+	$1[i + 1] = $1[i] + A[i];
 }
 endsnippet
 
 snippet dp_napsack "dp napsack support" b
-vector<vector<int>> dp(N, vector<int>(W, 0));
-rep(i, N) {
+vector<vector<int>> dp(N + 1, vector<int>(W + 1, 0));
+for (int i = 0; i < N; ++i) {
 	int wi = weight[i];
 	int vi = value[i];
-	rep(w, W) {
+	for (int w = 0; w <= W; ++w) {
 		if (w < wi) {
 			dp[i + 1][w] = dp[i][w];
 		} else {
@@ -295,7 +295,7 @@ endsnippet
 snippet dp_sum_partial "dp partial sum support" b
 vector<vector<int>> dp(N + 1, vector<int>(K + 1, false));
 dp[0][0] = true;
-rep(i, N) {
+for (int i = 0; i < N; ++i) {
 	int ai = A[i];
 	for (int k = 0; k <= K; ++k) {
 		dp[i + 1][k] = dp[i][k];
