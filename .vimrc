@@ -19,9 +19,6 @@ nnoremap vv ^v$h
 " insert move
 inoremap {{ <C-o>A{}<C-o>h
 
-" save
-inoremap jk <Esc>:w<CR>
-
 " ############################################################
 " #### PLUGINS
 " ############################################################
@@ -73,6 +70,7 @@ let g:floaterm_width = 0.7
 let g:floaterm_height = 0.8
 
 " ### Enhanced Visualization
+Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -123,6 +121,7 @@ set timeoutlen=500
 Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim'
 let $FZF_PREVIEW_PREVIEW_BAT_THEME = 'TwoDark'
+let g:fzf_preview_use_dev_icons = 1
 nnoremap <silent><Leader>f :cal execute('CocCommand fzf-preview.'.(system('git rev-parse --is-inside-work-tree') =~ 'fatal'?'DirectoryFiles':'ProjectFiles'))<CR>
 nnoremap <silent><Leader>b :CocCommand fzf-preview.Buffers<CR>
 nnoremap <silent><Leader>hf :CocCommand fzf-preview.MruFiles<CR>
@@ -172,7 +171,8 @@ let g:UltiSnipsExpandTrigger="<C-s>"
 nnoremap o A<CR>
 let g:cosco_filetype_whitelist = ['cpp', 'rust']
 " return normal & save
-inoremap jj <Esc>:CommaOrSemiColon<CR>:w<CR>
+inoremap jk <Esc>:CommaOrSemiColon<CR>:cal CocAction('format')<CR>:w<CR>
+inoremap jj <Esc>:CommaOrSemiColon<CR>:cal CocAction('format')<CR>A<CR>
 let g:move_key_modifier_visualmode = 'C'
 let g:AutoPairsMapCh = 0
 
