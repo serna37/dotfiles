@@ -219,7 +219,6 @@ for (int i = 2; i * i <= N; ++i) {
 }
 endsnippet
 
-
 snippet algo_modpow "modpow" b
 auto modpow = [](ll a, ll n, ll mod) -> ll {
 	ll res = 1;
@@ -416,14 +415,14 @@ for (auto& ${1:v} : ${2:a}) {
 endsnippet
 
 snippet re "simple repeat" b
-rep(${2:i}, ${3:N}) {
-	${4}
+rep(${1:i}, ${2:N}) {
+	${3}
 }
 endsnippet
 
 snippet rel "simple repeat" b
-repl(${2:i}, ${3:N}) {
-	${4}
+repl(${1:i}, ${2:N}) {
+	${3}
 }
 endsnippet
 
