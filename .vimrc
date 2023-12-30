@@ -17,7 +17,7 @@ inoremap <expr><S-Tab> pumvisible() ? '<C-p>' : '<S-Tab>'
 nnoremap vv ^v$h
 
 " insert move
-inoremap {{ <C-o>A{}<C-o>h
+inoremap {{ <Esc>A{}<Left>
 
 " ############################################################
 " #### PLUGINS
