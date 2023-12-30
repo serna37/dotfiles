@@ -260,6 +260,14 @@ rep(bit, 1 << N) {
 }
 endsnippet
 
+snippet algo_2point_Shyakutori "shakutori" b
+int ans = 0, cur = 0;
+rep(i, N) {
+	while (cur < N and A[cur] < A[i] + M) ++cur;
+	ans = max(ans, cur - i);
+}
+endsnippet
+
 snippet algo_bfs_graph_1d "bfs graph support" b
 vector<vector<${1:int}>> Graph(N, vector<$1>(1, 0));
 queue<$1> q;
