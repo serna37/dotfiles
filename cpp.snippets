@@ -320,6 +320,24 @@ auto compress = []<class T>(vector<T> &vec) -> void {
 };
 endsnippet
 
+snippet algo_Seg_RMQ "Segment Tree RMQ" b
+class SegmentTreeRMQ {
+	const static ll ll_MAX = (1LL << 31) - 1;
+	int n_0; ll seg_tree[4 * 100007];
+  public:
+	SegmentTreeRMQ(int n) {
+		n_0 = 1; while (n_0 < n) n_0 <<= 1;
+		rep(i, 2 * n_0) seg_tree[i] = ll_MAX;
+	}
+	void update(int idx, ll val) {
+		idx += n_0 - 1; seg_tree[idx] = val;
+		while (idx > 0) { idx = (idx - 1) / 2; seg_tree[idx] = min(seg_tree[2 * idx + 1], seg_tree[2 * idx + 2]); }
+	}
+	ll query(int l, int r) {
+		int l_0 = l + n_0, r_0 = r + n_0; ll s = ll_MAX;
+		while (l_0 < r_0) { if (r_0 & 1) { --r_0; s = min(s, seg_tree[r_0 - 1]); }
+			if (l_0 & 1) { s = min(s, seg_tree[l_0 - 1]); ++l_0; }
+			l_0 >>= 1; r_0 >>= 1; } return s;
 	}
 };
 endsnippet
