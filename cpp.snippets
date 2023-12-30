@@ -219,6 +219,19 @@ for (int i = 2; i * i <= N; ++i) {
 }
 endsnippet
 
+
+snippet algo_modpow "modpow" b
+auto modpow = [](ll a, ll n, ll mod) -> ll {
+	ll res = 1;
+	while (n > 0) {
+		if (n & 1) res = res * a % mod;
+		a = a * a % mod;
+		n >>= 1;
+	}
+	return res;
+};
+endsnippet
+
 snippet algo_bfs_graph_1d "bfs graph support" b
 vector<vector<${1:int}>> Graph(N, vector<$1>(1, 0));
 queue<$1> q;
