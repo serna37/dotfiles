@@ -232,6 +232,26 @@ auto modpow = [](ll a, ll n, ll mod) -> ll {
 };
 endsnippet
 
+snippet algo_inverse_Fermat "Fermat" b
+auto modinv = [&](ll a, ll mod) -> ll { return modpow(a, mod - 2, mod); };
+endsnippet
+
+snippet algo_inverse_Euclid "extended Euclid" b
+auto modinv = [](ll a, ll m) -> ll {
+	ll b = m, u = 1, v = 0;
+	while (b) {
+		ll t = a / b;
+		a -= t * b;
+		swap(a, b);
+		u -= t * v;
+		swap(u, v);
+	}
+	u %= m;
+	if (u < 0) u += m;
+	return u;
+};
+endsnippet
+
 snippet algo_bfs_graph_1d "bfs graph support" b
 vector<vector<${1:int}>> Graph(N, vector<$1>(1, 0));
 queue<$1> q;
