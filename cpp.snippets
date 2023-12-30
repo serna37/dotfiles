@@ -252,6 +252,14 @@ auto modinv = [](ll a, ll m) -> ll {
 };
 endsnippet
 
+snippet algo_bit_loop "bit loop" b
+rep(bit, 1 << N) {
+	vector<int> tmp;
+	rep(i, N) if (bit & (1 << i)) tmp.push_back(i);
+	//
+}
+endsnippet
+
 snippet algo_bfs_graph_1d "bfs graph support" b
 vector<vector<${1:int}>> Graph(N, vector<$1>(1, 0));
 queue<$1> q;
