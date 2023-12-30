@@ -42,38 +42,6 @@ auto is_integer = [](double x) -> bool {
 };
 endsnippet
 
-snippet is_prime "is prime" b
-auto is_prime = [&](int num) -> bool {
-	if (num == 2) {
-		return true;
-	}
-	if (num < 2 || num % 2 == 0) {
-		return false;
-	}
-
-	double sqrtNum = sqrt(num);
-	for (int i = 3; i <= sqrtNum; i += 2) {
-		if (num % i == 0) {
-			return false;
-		}
-	}
-	return true;
-};
-endsnippet
-
-snippet eratosthenes_sieve "sieve if eratosthenes" b
-vector<int> is_P(N + 1, true);
-is_P[0] = is_P[1] = false;
-for (int i = 2; i * i <= N; ++i) {
-	if (!is_P[i]) {
-		continue;
-	}
-	for (int j = i * i; j <= N; j += i) {
-		is_P[j] = false;
-	}
-}
-endsnippet
-
 snippet matrix "matrix" b
 // int a[n][m];
 // int b[m][l];
@@ -174,8 +142,7 @@ reverse(ALL(${1:str}));
 endsnippet
 
 snippet uni "unique" b
-sort(ALL(${1:A}));
-A.erase(unique(ALL($1)), $1.end());
+sort(ALL(${1:A})); A.erase(unique(ALL($1)), $1.end());
 endsnippet
 
 snippet count_Vec "count vector" biw
@@ -226,38 +193,58 @@ endsnippet
 # =========================================================
 # Algorithm
 # =========================================================
-snippet bfs_1d_template "bfs support" b
-vector<vector<int>> con(N, vector<int>(1, 0));
-queue<int> q;
-vector<int> dist(N, -1);
+snippet algo_is_prime "is prime" b
+auto is_prime = [](int num) -> bool {
+	if (num == 2) return true;
+	if (num < 2 || num % 2 == 0) return false;
+	double sqrtNum = sqrt(num);
+	for (int i = 3; i <= sqrtNum; i += 2) {
+		if (num % i == 0) return false;
+	}
+	return true;
+};
+endsnippet
+
+snippet algo_eratosthenes_sieve "sieve if eratosthenes" b
+vector<int> is_P(N + 1, true);
+is_P[0] = is_P[1] = false;
+for (int i = 2; i * i <= N; ++i) {
+	if (!is_P[i]) continue;
+	for (int j = i * i; j <= N; j += i) is_P[j] = false;
+}
+endsnippet
+
+snippet algo_bfs_graph_1d "bfs graph support" b
+vector<vector<${1:int}>> Graph(N, vector<$1>(1, 0));
+queue<$1> q;
+vector<${2:int}> dist(N, -1);
 //vector<bool> used(N, false);
 //vector<int> counter(N + 1, 0);
 
 rep(i, N) {
-	int a, b;
+	$1 a, b;
 	cin >> a >> b;
-	con[a].push_back(b);
-	con[b].push_back(a);
+	Graph[a].push_back(b);
+	Graph[b].push_back(a);
 }
 
 q.push(0);
 dist[0] = 0;
 
 while (!q.empty()) {
-	int current_vertex = q.front();
+	$1 current_vertex = q.front();
 	q.pop();
-	for (int next_vertex : con[current_vertex]) {
-		if (dist[next_vertex] != 1) {
-			dist[next_vertex] = dist[current_vertex] + 1;
-			q.push(next_vertex);
-		}
+	for ($1 next_vertex : Graph[current_vertex]) {
+		if (dist[next_vertex] == -1) continue;
+		dist[next_vertex] = dist[current_vertex] + 1;
+		q.push(next_vertex);
 	}
 }
 endsnippet
 
-snippet bfs_2d_template "bfs support" b
+snippet algo_bfs_grid_2d "bfs grid support" b
 //vector<string> Grid(row);
-vector<vector<char>> Grid(row, vector<char>(column));
+vector<vector<char>> Grid(row, vector<char>(column, '.'));
 vector<int> dx4 = {1, 0, -1, 0};
 vector<int> dy4 = {0, 1, 0, -1};
 vector<int> dx8 = {-1, -1, -1, 0, 0, 1, 1, 1};
@@ -277,9 +264,7 @@ while (!q.empty()) {
 		int x = dx8[i] + current_xy.first;
 		int y = dy8[i] + current_xy.second;
 		// only in range
-		if (x < 0 or y < 0 or column <= x or row <= y) {
-			continue;
-		}
+		if (x < 0 or y < 0 or column <= x or row <= y) continue;
 		// un visited, can go
 		if (!used[x][y] and Grid[x][y] == '#') {
 			q.push({x, y});
@@ -290,14 +275,14 @@ while (!q.empty()) {
 }
 endsnippet
 
-snippet running_total "running total" b
-vector<int> ${1:runsum}(N + 1, 0);
+snippet algo_running_total "running total" b
+vector<int> ${1:sum}(N + 1, 0);
 rep(i, N) {
 	$1[i + 1] = $1[i] + A[i];
 }
 endsnippet
 
-snippet dp_napsack "dp napsack support" b
+snippet algo_dp_napsack "dp napsack support" b
 vector<vector<int>> dp(N + 1, vector<int>(W + 1, 0));
 for (int i = 0; i < N; ++i) {
 	int wi = weight[i];
@@ -312,7 +297,7 @@ for (int i = 0; i < N; ++i) {
 }
 endsnippet
 
-snippet dp_sum_partial "dp partial sum support" b
+snippet algo_dp_sum_partial "dp partial sum support" b
 vector<vector<int>> dp(N + 1, vector<int>(K + 1, false));
 dp[0][0] = true;
 for (int i = 0; i < N; ++i) {
@@ -320,20 +305,21 @@ for (int i = 0; i < N; ++i) {
 	for (int k = 0; k <= K; ++k) {
 		dp[i + 1][k] = dp[i][k];
 		if (k >= ai) {
-			dp[i + 1][k] = dp[i + 1][k] or dp[i][k - ai];
+			dp[i + 1][k] = dp[i][k] or dp[i][k - ai];
 		}
 	}
 }
 endsnippet
 
-snippet cmopress "compress" b
+snippet algo_cmopress "compress" b
 auto compress = []<class T>(vector<T> &vec) -> void {
 	auto v = vec;
 	sort(ALL(v));
 	v.erase(unique(ALL(v)), v.end());
+	rep(i, vec.size()) vec[i] = lower_bound(ALL(v), vec[i]) - v.begin();
+};
+endsnippet
 
-	rep(i, vec.size()) {
-		vec[i] = lower_bound(ALL(v), vec[i]) - v.begin();
 	}
 };
 endsnippet
@@ -341,6 +327,10 @@ endsnippet
 # =========================================================
 # grammer
 # =========================================================
+snippet vv "vector2" b
+vector<vector<${1:int}>> ${2:A}(${3:N}, vector<$1>(${4:M}, ${5:0}));
+endsnippet
+
 snippet fori "for" b
 for (${1:int} ${2:i}=${3:0}; $2<${4:N}; ${5:++$2}) {
 	${6}
@@ -354,7 +344,13 @@ for (auto& ${1:v} : ${2:a}) {
 endsnippet
 
 snippet re "simple repeat" b
-${1:rep}(${2:i}, ${3:N}) {
+rep(${2:i}, ${3:N}) {
+	${4}
+}
+endsnippet
+
+snippet rel "simple repeat" b
+repl(${2:i}, ${3:N}) {
 	${4}
 }
 endsnippet
@@ -374,7 +370,7 @@ endsnippet
 snippet func_recursive "function recursive" b
 auto ${1:func} = [&](auto self, ${2:int a}) -> ${3:void} {
 	${4}
-	self(self, _); // recursive
+	self(self, $2); // recursive
 };
 
 // TODO
@@ -384,7 +380,7 @@ endsnippet
 # =========================================================
 # Template
 # =========================================================
-snippet xxx "template cpp for AtCoder" b
+snippet xxx "template cpp for AtCoder" bA
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -396,7 +392,7 @@ using pi = pair<int, int>;
 int main() {
 	${1}
 
-	// cout << fixed << setprecision(5);
+	//cout << fixed << setprecision(5);
 
 	return 0;
 }
