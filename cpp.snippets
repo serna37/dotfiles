@@ -43,130 +43,28 @@ snippet sni_const_MOD_998244353 "mod" b
 const int MOD = 998244353;
 endsnippet
 
-# =========================================================
-# in / out
-# =========================================================
-snippet arrin "arr in" b
-int ${1:N};
-cin >> $1;
-vector<${2:int}> ${3:A}($1);
-rep(i, $1) cin >> $3[i];
-endsnippet
-
-snippet arrin2 "arr in" b
-int ${1:N}, ${2:M};
-cin >> $1 >> $2;
-vector<${3:int}> ${4:A}(${5:N or M});
-rep(i, $5) cin >> $4[i];
-endsnippet
-
-snippet let2 "let 2" b
-${1:int} ${2:N}, ${3:M};
-endsnippet
-
-snippet vec2 "vector 2" b
-vector<${1:int}> ${2:A}(${3:N}), ${4:S}(${5:M});
-endsnippet
-
-snippet ccout "cout" b
-cout << ${1:variable} << endl;
+snippet sni_const_MOD_100000007 "mod" b
+const int MOD = 100000007;
 endsnippet
 
 # =========================================================
 # STL
 # =========================================================
-snippet ascii "ascii" b
-// A : 65
-// B : 66
-// ...
-// Z : 90
-// [ : 91
-// ...
-// a : 97
-// b : 98
-// ...
-// z : 122
-endsnippet
-
 snippet trans "transform" b
-std::transform(ALL(${1:str}), $1.begin(), ::${2:tolower});
-endsnippet
-
-snippet sort_Arr_Asc "asc" b
-sort(${1:arr}, $1+${2:n});
-endsnippet
-
-snippet sort_Arr_Desc "desc" b
-sort(${1:arr}, $1+${2:n}, greater<${3:int}>());
+std::transform(${1:str}.begin(), $1.end(), $1.begin(), ::${2:tolower});
 endsnippet
 
 snippet sort_Asc "asc" b
-sort(ALL(${1:s}));
+sort(${1:s}.begin(), $1.end());
 endsnippet
 
 snippet sort_Desc "desc" b
 sort(${1:s}.rbegin(), $1.rend());
 endsnippet
 
-snippet reverse_Vec "reverse vector" b
-reverse(ALL(${1:A}));
-endsnippet
-
-snippet reverse_Arr "reverse arr" b
-reverse(${1:arr}, $1 + ${2:length});
-endsnippet
-
-snippet reverse_Str "reverse string" b
-reverse(ALL(${1:str}));
-endsnippet
-
 snippet uni "unique" b
-sort(ALL(${1:A})); A.erase(unique(ALL($1)), $1.end());
-endsnippet
-
-snippet count_Vec "count vector" biw
-count(ALL(${1:A}), ${2:chk_val});
-endsnippet
-
-snippet find_Vec "find vector" biw
-find(ALL(${1:A}), ${2:chk_val}) != $1.end();
-endsnippet
-
-snippet nextperm "next_permutation" biw
-next_permutation(ALL(${1:vector}))
-endsnippet
-
-snippet lowe "lower bound" biw
-lower_bound(ALL(${1:A}), ${2:chk});
-endsnippet
-
-# =========================================================
-# basic algo
-# =========================================================
-snippet maxVal "maxVal" b
-int ${1:maxVal} = 0;
-rep(i, ${2:N}) {
-	$1 = max($1, ${3:A}[i]);
-}
-endsnippet
-
-snippet minVal "minVal" b
-int ${1:minVal} = 1e9 + 7;
-rep(i, ${2:N}) {
-	$1 = min($1, ${3:A}[i]);
-}
-endsnippet
-
-snippet allmatch "allmatch" b
-bool allmatchFlg = true;
-// for
-// allmatchFlg &= true condition
-endsnippet
-
-snippet anymatch "anymatch" b
-bool anymatchFlg = false;
-// for
-// anymatchFlg |= true condition
+sort(${1:A}.begin(), $1.end());
+A.erase(unique($1.begin(), $1.end()), $1.end());
 endsnippet
 
 # =========================================================
