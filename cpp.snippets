@@ -25,48 +25,22 @@
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 
 # =========================================================
-# Math Template
+# const
 # =========================================================
-snippet PI "PI" b
+snippet sni_const_PI "PI" b
 double PI = acos(-1);
 endsnippet
 
-snippet infinity "INFINITY" b
-constexpr int INF = 1001001001;
-constexpr ll LINF = 1001001001001001001ll;
+snippet sni_const_INFINITY_INT "INFINITY" b
+const int INF = 1001001001;
 endsnippet
 
-snippet mod_num "mod" b
-constexpr int MOD = 998244353;
-constexpr int MOD = 1e9 + 7;
+snippet sni_const_INFINITY_LONG "INFINITY" b
+const long long INF = 1001001001001001001ll;
 endsnippet
 
-snippet is_integer "is integer" b
-auto is_integer = [](double x) -> bool {
-	return floor(x) == x;
-};
-endsnippet
-
-snippet matrix "matrix" b
-// int a[n][m];
-// int b[m][l];
-// ll ans[n][m];
-for (int i=0; i<n; ++i) {
-	for (int ii=0; ii<l; ++ii) {
-		// calc
-		ll calc=0;
-		for (int pp=0; pp<m; ++pp) {
-			calc += a[i][pp]*b[pp][ii];
-		}
-		ans[i][ii] = calc;
-	}
-}
-endsnippet
-
-snippet distance "distance" b
-auto distance = [](int x1, int y1, int x2, int y2) -> int {
-	return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
-};
+snippet sni_const_MOD_998244353 "mod" b
+const int MOD = 998244353;
 endsnippet
 
 # =========================================================
