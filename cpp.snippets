@@ -270,37 +270,21 @@ endsnippet
 # =========================================================
 # grammer
 # =========================================================
-snippet vv "vector2" b
-vector<vector<${1:int}>> ${2:A}(${3:N}, vector<$1>(${4:M}, ${5:0}));
-endsnippet
-
 snippet fori "for" b
-for (${1:int} ${2:i}=${3:0}; $2<${4:N}; ${5:++$2}) {
+for (${1:int} ${2:i}=${3:0}; $2<${4:N}; ${5:$2++}) {
 	${6}
 }
 endsnippet
 
 snippet forv "for vector" b
-for (auto& ${1:v} : ${2:a}) {
-	${3}
-}
-endsnippet
-
-snippet re "simple repeat" b
-rep(${1:i}, ${2:N}) {
-	${3}
-}
-endsnippet
-
-snippet rel "simple repeat" b
-repl(${1:i}, ${2:N}) {
-	${3}
+for (${1:int} ${2:v} : ${3:A}) {
+	${4}
 }
 endsnippet
 
 snippet func "function" b
-${1:void} func(${2:int n}) {
-	${3}
+${1:void} ${2:func}(${3:int n}) {
+	${4}
 }
 endsnippet
 
@@ -326,18 +310,8 @@ endsnippet
 snippet xxx "template cpp for AtCoder" bA
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
-using pi = pair<int, int>;
-#define rep(i, N) for (int i = 0; i < (int)(N); ++i)
-#define repl(i, N) for (ll i = 0; i < (ll)(N); ++i)
-#define ALL(a) (a).begin(), (a).end()
-
 int main() {
 	${1}
-
-	//cout << fixed << setprecision(5);
-
-	return 0;
 }
 endsnippet
 
