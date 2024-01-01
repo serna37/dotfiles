@@ -134,6 +134,10 @@ google() {
   fi
   open -a Google\ Chrome http://www.google.co.jp/$opt
 }
+cpp() {
+    filename=$1
+    g++ -std=c++23 -o $1 $1.cpp && ./$1
+}
 AtCoder() {
     cd ~/git/ac
     contest_cd=$1
