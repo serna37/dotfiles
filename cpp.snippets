@@ -70,7 +70,7 @@ endsnippet
 # =========================================================
 # Algorithm
 # =========================================================
-snippet algo_is_prime "is prime" b
+snippet sni_algo_is_prime "is prime" b
 auto is_prime = [](int num) -> bool {
 	if (num == 2) return true;
 	if (num < 2 || num % 2 == 0) return false;
@@ -82,18 +82,18 @@ auto is_prime = [](int num) -> bool {
 };
 endsnippet
 
-snippet algo_eratosthenes_sieve "sieve if eratosthenes" b
+snippet sni_algo_eratosthenes_sieve "sieve if eratosthenes" b
 vector<int> is_P(N + 1, true);
 is_P[0] = is_P[1] = false;
-for (int i = 2; i * i <= N; ++i) {
+for (int i = 2; i * i <= N; i++) {
 	if (!is_P[i]) continue;
 	for (int j = i * i; j <= N; j += i) is_P[j] = false;
 }
 endsnippet
 
-snippet algo_modpow "modpow" b
-auto modpow = [](ll a, ll n, ll mod) -> ll {
-	ll res = 1;
+snippet sni_algo_modpow "modpow" b
+auto modpow = [](long long a, long long n, long long mod) -> long long {
+	long long res = 1;
 	while (n > 0) {
 		if (n & 1) res = res * a % mod;
 		a = a * a % mod;
@@ -103,15 +103,17 @@ auto modpow = [](ll a, ll n, ll mod) -> ll {
 };
 endsnippet
 
-snippet algo_inverse_Fermat "Fermat" b
-auto modinv = [&](ll a, ll mod) -> ll { return modpow(a, mod - 2, mod); };
+snippet sni_algo_inverse_Fermat "Fermat" b
+auto modinv = [&](long long a, long long mod) -> long long {
+	return modpow(a, mod - 2, mod);
+};
 endsnippet
 
-snippet algo_inverse_Euclid "extended Euclid" b
-auto modinv = [](ll a, ll m) -> ll {
-	ll b = m, u = 1, v = 0;
+snippet sni_algo_inverse_Euclid "extended Euclid" b
+auto modinv = [](long long a, long long m) -> long long {
+	long long b = m, u = 1, v = 0;
 	while (b) {
-		ll t = a / b;
+		long long t = a / b;
 		a -= t * b;
 		swap(a, b);
 		u -= t * v;
@@ -123,30 +125,30 @@ auto modinv = [](ll a, ll m) -> ll {
 };
 endsnippet
 
-snippet algo_bit_loop "bit loop" b
-rep(bit, 1 << N) {
+snippet sni_algo_bit_loop "bit loop" b
+for (int bit = 0; bit < 1 << N; bit++) {
 	vector<int> tmp;
-	rep(i, N) if (bit & (1 << i)) tmp.push_back(i);
+	for (int i = 0; i < N; i++) if (bit & (1 << i)) tmp.push_back(i);
 	//
 }
 endsnippet
 
-snippet algo_2point_Shyakutori "shakutori" b
+snippet sni_algo_2point_Shyakutori "shakutori" b
 int ans = 0, cur = 0;
-rep(i, N) {
+for (int i = 0; i < N; i++) {
 	while (cur < N and A[cur] < A[i] + M) ++cur;
 	ans = max(ans, cur - i);
 }
 endsnippet
 
-snippet algo_bfs_graph_1d "bfs graph support" b
+snippet sni_algo_bfs_graph_1d "bfs graph support" b
 vector<vector<${1:int}>> Graph(N, vector<$1>(1, 0));
 queue<$1> q;
 vector<${2:int}> dist(N, -1);
 //vector<bool> used(N, false);
 //vector<int> counter(N + 1, 0);
 
-rep(i, N) {
+for (int i = 0; i < N; i++) {
 	$1 a, b;
 	cin >> a >> b;
 	Graph[a].push_back(b);
@@ -167,14 +169,14 @@ while (!q.empty()) {
 }
 endsnippet
 
-snippet algo_bfs_grid_2d "bfs grid support" b
+snippet sni_algo_bfs_grid_2d "bfs grid support" b
 //vector<string> Grid(row);
 vector<vector<char>> Grid(row, vector<char>(column, '.'));
 vector<int> dx4 = {1, 0, -1, 0};
 vector<int> dy4 = {0, 1, 0, -1};
 vector<int> dx8 = {-1, -1, -1, 0, 0, 1, 1, 1};
 vector<int> dy8 = {-1, 0, 1, -1, 1, -1, 0, 1};
-queue<pi> q;
+queue<pair<int, int>> q;
 vector<vector<bool>> used(row, vector<bool>(column, false));
 //vector<vector<int>> dist(row, vector<int>(column, -1));
 
@@ -183,9 +185,9 @@ used[0][0] = true;
 //dist[0][0] = 0;
 
 while (!q.empty()) {
-	pi current_xy = q.front();
+	pair<int, int> current_xy = q.front();
 	q.pop();
-	for (int i = 0; i < 8; ++i) {
+	for (int i = 0; i < 8; i++) {
 		int x = dx8[i] + current_xy.first;
 		int y = dy8[i] + current_xy.second;
 		// only in range
@@ -200,16 +202,9 @@ while (!q.empty()) {
 }
 endsnippet
 
-snippet algo_running_total "running total" b
-vector<int> ${1:sum}(N + 1, 0);
-rep(i, N) {
-	$1[i + 1] = $1[i] + A[i];
-}
-endsnippet
-
-snippet algo_dp_napsack "dp napsack support" b
+snippet sni_algo_dp_napsack "dp napsack support" b
 vector<vector<int>> dp(N + 1, vector<int>(W + 1, 0));
-for (int i = 0; i < N; ++i) {
+for (int i = 0; i < N; i++) {
 	int wi = weight[i];
 	int vi = value[i];
 	for (int w = 0; w <= W; ++w) {
@@ -222,10 +217,10 @@ for (int i = 0; i < N; ++i) {
 }
 endsnippet
 
-snippet algo_dp_sum_partial "dp partial sum support" b
+snippet sni_algo_dp_sum_partial "dp partial sum support" b
 vector<vector<int>> dp(N + 1, vector<int>(K + 1, false));
 dp[0][0] = true;
-for (int i = 0; i < N; ++i) {
+for (int i = 0; i < N; i++) {
 	int ai = A[i];
 	for (int k = 0; k <= K; ++k) {
 		dp[i + 1][k] = dp[i][k];
@@ -236,30 +231,35 @@ for (int i = 0; i < N; ++i) {
 }
 endsnippet
 
-snippet algo_cmopress "compress" b
-auto compress = []<class T>(vector<T> &vec) -> void {
+snippet sni_algo_cmopress "compress" b
+auto compress = []<class T>(vector<T> vec) -> vector<T> {
 	auto v = vec;
-	sort(ALL(v));
-	v.erase(unique(ALL(v)), v.end());
-	rep(i, vec.size()) vec[i] = lower_bound(ALL(v), vec[i]) - v.begin();
+	sort(v.begin(), v.end());
+	v.erase(unique(v.begin(), v.end()), v.end());
+	for (int i = 0; i < (int)vec.size(); i++) {
+		vec[i] = lower_bound(v.begin(), v.end(), vec[i]) - v.begin();
+	}
+	return vec;
 };
 endsnippet
 
-snippet algo_Seg_RMQ "Segment Tree RMQ" b
+snippet sni_algo_Seg_RMQ "Segment Tree RMQ" b
 class SegmentTreeRMQ {
-	const static ll ll_MAX = (1LL << 31) - 1;
-	int n_0; ll seg_tree[4 * 100007];
+	const static long long ll_MAX = (1LL << 31) - 1;
+	int n_0; long long seg_tree[4 * 100007];
   public:
 	SegmentTreeRMQ(int n) {
 		n_0 = 1; while (n_0 < n) n_0 <<= 1;
-		rep(i, 2 * n_0) seg_tree[i] = ll_MAX;
+		for (int i = 0; i < 2 * n_0; i++) {
+			seg_tree[i] = ll_MAX;
+		}
 	}
-	void update(int idx, ll val) {
+	void update(int idx, long long val) {
 		idx += n_0 - 1; seg_tree[idx] = val;
 		while (idx > 0) { idx = (idx - 1) / 2; seg_tree[idx] = min(seg_tree[2 * idx + 1], seg_tree[2 * idx + 2]); }
 	}
-	ll query(int l, int r) {
-		int l_0 = l + n_0, r_0 = r + n_0; ll s = ll_MAX;
+	long long query(int l, int r) {
+		int l_0 = l + n_0, r_0 = r + n_0; long long s = ll_MAX;
 		while (l_0 < r_0) { if (r_0 & 1) { --r_0; s = min(s, seg_tree[r_0 - 1]); }
 			if (l_0 & 1) { s = min(s, seg_tree[l_0 - 1]); ++l_0; }
 			l_0 >>= 1; r_0 >>= 1; } return s;
