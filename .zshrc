@@ -87,7 +87,7 @@ enhanced_commands=(
 "l" "fd" "f" "e"
 "w" "gif" "cd ~/git/dotfiles"
 "tokei" "delta setup.sh brew.sh" "g"
-"zv" "AtCoder abc327"
+"zv" "cd ~/git/contest && AtCoder abc327"
 "navi"
 "sl -aFc" "cmatrix" "clock"
 )
@@ -108,7 +108,7 @@ hello() {
     echo " cpp [filename]"
     echo " AtCoder [contest_cd]"
     echo " AtCoderLive [contest_cd]"
-    echo " AtCoderReview [contest_cd]"
+    echo " AtCoderResolve [contest_cd]"
     echo "================="
     echo "... And other commands: alias"
     alias | bat
@@ -142,7 +142,6 @@ cpp() {
     g++ -std=c++23 -o $file $1 && ./$file
 }
 AtCoder() {
-    cd ~/git/ac
     contest_cd=$1
     file_name="main.cpp"
     acc check-oj
@@ -167,7 +166,7 @@ AtCoder() {
 AtCoderLive() {
     sleep $(expr `date -v21H -v00M -v00S +%s` - `date +%s` + 1) && AtCoder $1
 }
-AtCoderReview() {
+AtCoderResolve() {
     rm -rf ~/git/ac/$1 && AtCoder $1
 }
 
