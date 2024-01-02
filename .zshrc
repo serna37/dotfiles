@@ -189,11 +189,13 @@ sandbox_next_cpp() {
     filtered_files=$(echo "$files" | grep -E '^[0-9]+\.cpp$')
     if [ -z "$filtered_files" ]; then
         touch 1.cpp
+        echo "create : 1.cpp"
     else
         highest_number=$(echo "$filtered_files" | sed 's/\.cpp$//' | sort -n | tail -n 1)
         next_number=$((highest_number + 1))
         next_file="${next_number}.cpp"
         touch "$next_file"
+        echo "create : ${next_file}"
     fi
 }
 
