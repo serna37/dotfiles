@@ -109,6 +109,8 @@ hello() {
     echo " AtCoder [contest_cd]"
     echo " AtCoderLive [contest_cd]"
     echo " AtCoderResolve [contest_cd]"
+    echo " AsakatuAtCoder"
+    echo " sandbox_next_cpp"
     echo "================="
     echo "... And other commands: alias"
     alias | bat
