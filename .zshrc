@@ -63,7 +63,7 @@ alias top='btm --battery --enable_cache_memory'
 
 # cd
 alias ..='cd ..'
-alias c='cd ~/git && clear'
+#alias c='cd ~/git && clear'
 alias cc='cd'
 
 # tools
@@ -73,15 +73,16 @@ alias localhost_here='python -m http.server 8000'
 alias cppini='cp ~/git/dotfiles/.clang-format . && cp ~/git/dotfiles/compile_flags.txt .'
 alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
 alias clock='tty-clock -sc'
+alias c='cpp main.cpp'
 
 # util
 alias q='exit'
 alias x86brew='arch -x86_64 /usr/local/bin/brew'
 alias rezsh='exec $SHELL -l'
-alias w='c && date && cal && unfog'
+alias w='clear && date && cal && unfog'
 
 # tutorial command
-enhanced_commands=("c"
+enhanced_commands=(
 "df" "ps" "top" "gping -n 0.5 google.com"
 "l" "fd" "f" "e"
 "w" "gif" "cd ~/git/dotfiles"
@@ -104,6 +105,7 @@ hello() {
     echo " hello"
     echo " gif [basefile] [output-name.gif]"
     echo " google [search-text]"
+    echo " cpp [filename]"
     echo " AtCoder [contest_cd]"
     echo " AtCoderLive [contest_cd]"
     echo " AtCoderReview [contest_cd]"
@@ -136,7 +138,8 @@ google() {
 }
 cpp() {
     filename=$1
-    g++ -std=c++23 -o $1 $1.cpp && ./$1
+    file="${filename%.*}"
+    g++ -std=c++23 -o $file $1 && ./$file
 }
 AtCoder() {
     cd ~/git/ac
