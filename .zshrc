@@ -169,6 +169,19 @@ AtCoderLive() {
 AtCoderResolve() {
     rm -rf ~/git/ac/$1 && AtCoder $1
 }
+AsakatuAtCoder() {
+    file_name="main.cpp"
+    dirname=`date '+%Y%m%d'`
+    mkdir $dirname
+    cd $dirname
+    mkdir a b c d e f
+    dirs=(`\fd -d 1 -t d`)
+    for v in ${dirs[@]}; do
+        echo -e "[\e[34mINFO\e[m]touch file :\e[32m${v}${file_name}\e[m"
+        touch "${v}${file_name}"
+    done
+    vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify" -c "AtCoderTimer" -c "echom '$(basename $(pwd))'"
+}
 
 # ======================================================
 # ENHANCED COMMAND SETTINGS
