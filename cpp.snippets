@@ -23,6 +23,53 @@
 #		endsnippet
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+# =========================================================
+# Template
+# =========================================================
+snippet xxx "template cpp for AtCoder" bA
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+	${1}
+}
+endsnippet
+
+# =========================================================
+# grammer
+# =========================================================
+snippet fori "for" b
+for (${1:int} ${2:i}=${3:0}; $2<${4:N}; ${5:$2++}) {
+	${6}
+}
+endsnippet
+
+snippet forv "for vector" b
+for (${1:int} ${2:v} : ${3:A}) {
+	${4}
+}
+endsnippet
+
+snippet func "function" b
+${1:void} ${2:func}(${3:int n}) {
+	${4}
+}
+endsnippet
+
+snippet func_lambda "function lambda" b
+auto ${1:func} = [&](${2:int a}) -> ${3:void} {
+	${4}
+};
+endsnippet
+
+snippet func_recursive "function recursive" b
+auto ${1:func} = [&](auto self, ${2:int a}) -> ${3:void} {
+	${4}
+	self(self, $2); // recursive
+};
+
+// TODO
+$1($1, );
+endsnippet
 
 # =========================================================
 # const
@@ -54,17 +101,9 @@ snippet trans "transform" b
 std::transform(${1:str}.begin(), $1.end(), $1.begin(), ::${2:tolower});
 endsnippet
 
-snippet sort_Asc "asc" b
-sort(${1:s}.begin(), $1.end());
-endsnippet
-
-snippet sort_Desc "desc" b
-sort(${1:s}.rbegin(), $1.rend());
-endsnippet
-
 snippet uni "unique" b
 sort(${1:A}.begin(), $1.end());
-A.erase(unique($1.begin(), $1.end()), $1.end());
+$1.erase(unique($1.begin(), $1.end()), $1.end());
 endsnippet
 
 # =========================================================
@@ -265,53 +304,5 @@ class SegmentTreeRMQ {
 			l_0 >>= 1; r_0 >>= 1; } return s;
 	}
 };
-endsnippet
-
-# =========================================================
-# grammer
-# =========================================================
-snippet fori "for" b
-for (${1:int} ${2:i}=${3:0}; $2<${4:N}; ${5:$2++}) {
-	${6}
-}
-endsnippet
-
-snippet forv "for vector" b
-for (${1:int} ${2:v} : ${3:A}) {
-	${4}
-}
-endsnippet
-
-snippet func "function" b
-${1:void} ${2:func}(${3:int n}) {
-	${4}
-}
-endsnippet
-
-snippet func_lambda "function lambda" b
-auto ${1:func} = [&](${2:int a}) -> ${3:void} {
-	${4}
-};
-endsnippet
-
-snippet func_recursive "function recursive" b
-auto ${1:func} = [&](auto self, ${2:int a}) -> ${3:void} {
-	${4}
-	self(self, $2); // recursive
-};
-
-// TODO
-$1($1, );
-endsnippet
-
-# =========================================================
-# Template
-# =========================================================
-snippet xxx "template cpp for AtCoder" bA
-#include <bits/stdc++.h>
-using namespace std;
-int main() {
-	${1}
-}
 endsnippet
 
