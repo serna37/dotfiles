@@ -86,7 +86,7 @@ enhanced_commands=(
 "df" "ps" "top" "gping -n 0.5 google.com"
 "l" "fd" "f" "e"
 "w" "gif" "cd ~/git/dotfiles"
-"tokei" "delta setup.sh brew.sh" "g"
+"tokei" "delta -s setup.sh brew.sh" "g"
 "zv" "cd ~/git/contest && AtCoder abc327"
 "navi"
 "sl -aFc" "cmatrix" "clock"
