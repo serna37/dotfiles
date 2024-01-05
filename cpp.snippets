@@ -164,12 +164,15 @@ auto is_prime = [](int num) -> bool {
 endsnippet
 
 snippet sni_algo_eratosthenes_sieve "sieve if eratosthenes" b
-vector<int> is_P(N + 1, true);
-is_P[0] = is_P[1] = false;
-for (int i = 2; i * i <= N; i++) {
-	if (!is_P[i]) continue;
-	for (int j = i * i; j <= N; j += i) is_P[j] = false;
-}
+auto eratosthenes = [](int N) -> vector<int> {
+	vector<int> is_P(N + 1, true);
+	is_P[0] = is_P[1] = false;
+	for (int i = 2; i * i <= N; i++) {
+		if (!is_P[i]) continue;
+		for (int j = i * i; j <= N; j += i) is_P[j] = false;
+	}
+	return is_P;
+};
 endsnippet
 
 snippet sni_algo_modpow "modpow" b
