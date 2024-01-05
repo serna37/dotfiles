@@ -110,7 +110,7 @@ hello() {
     echo " AtCoderLive [contest_cd]"
     echo " AtCoderResolve [contest_cd]"
     echo " AsakatuAtCoder"
-    echo " sandbox_next_cpp"
+    echo " sandcpp"
     echo "================="
     echo "... And other commands: alias"
     alias | bat
@@ -184,18 +184,18 @@ AsakatuAtCoder() {
     done
     vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify" -c "AtCoderTimer" -c "echom '$(basename $(pwd))'"
 }
-sandbox_next_cpp() {
+sandcpp() {
     files=$(\fd -d 1 -t f)
     filtered_files=$(echo "$files" | grep -E '^[0-9]+\.cpp$')
     if [ -z "$filtered_files" ]; then
         touch 1.cpp
-        echo "create : 1.cpp"
+        v 1.cpp
     else
         highest_number=$(echo "$filtered_files" | sed 's/\.cpp$//' | sort -n | tail -n 1)
         next_number=$((highest_number + 1))
         next_file="${next_number}.cpp"
         touch "$next_file"
-        echo "create : ${next_file}"
+        v $next_file
     fi
 }
 
