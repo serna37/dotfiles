@@ -225,6 +225,20 @@ for (int i = 0; i < N; i++) {
 }
 endsnippet
 
+snippet sni_algo_bfs_grid_connector8 "bfs grid connector" b
+vector<int> dx = {1, 0, -1, 0, 1, 1, -1, -1};
+vector<int> dy = {0, 1, 0, -1, 1, -1, 1, -1};
+endsnippet
+
+snippet sni_algo_bfs_grid_connector4 "bfs grid connector" b
+vector<int> dx = {1, 0, -1, 0};
+vector<int> dy = {0, 1, 0, -1};
+endsnippet
+
+snippet sni_algo_bfs_grid_filter "bfs grid filter" b
+if (${1:x} < 0 or ${2:y} < 0 or ${3:column} <= $1 or ${4:row} <= $2) continue;
+endsnippet
+
 snippet sni_algo_bfs_graph_1d "bfs graph support" b
 vector<vector<${1:int}>> Graph(N, vector<$1>(1, 0));
 queue<$1> q;
