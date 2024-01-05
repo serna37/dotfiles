@@ -74,15 +74,15 @@ ${1:void} ${2:func}(${3:int n}) {
 endsnippet
 
 snippet func_lambda "function lambda" b
-auto ${1:func} = [&](${2:int a}) -> ${3:void} {
-	${4}
+auto ${1:func} = [${2:&}](${3:int a}) -> ${4:void} {
+	${5}
 };
 endsnippet
 
 snippet func_recursive "function recursive" b
-auto ${1:func} = [&](auto self, ${2:int a}) -> ${3:void} {
-	${4}
-	self(self, $2); // recursive
+auto ${1:func} = [${2:&}](auto self, ${3:int a}) -> ${4:void} {
+	${5}
+	self(self, args); // recursive
 };
 
 // TODO
