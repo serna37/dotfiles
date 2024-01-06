@@ -151,6 +151,25 @@ auto divCeil = [](long long a, long long b) -> long long {
 };
 endsnippet
 
+snippet sni_algo_split "split" b
+auto split = [](string str, char c) -> vector<string> {
+	vector<string> arr;
+	string tmp;
+	for (int i = 0; i < (int)str.size(); i++) {
+		if (str[i] == c) {
+			arr.push_back(tmp);
+			tmp = "";
+		} else {
+			tmp += str[i];
+		}
+	}
+	if (tmp != "") {
+		arr.push_back(tmp);
+	}
+	return arr;
+};
+endsnippet
+
 snippet sni_algo_is_prime "is prime" b
 auto is_prime = [](int num) -> bool {
 	if (num == 2) return true;
