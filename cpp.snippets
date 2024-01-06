@@ -125,33 +125,33 @@ $1.erase(unique($1.begin(), $1.end()), $1.end());
 endsnippet
 
 # =========================================================
-# Algorithm
+# util function
 # =========================================================
-snippet sni_algo_div_floor_int "div floor int" b
+snippet sni_util_div_floor_int "div floor int" b
 auto divFloor = [](int a, int b) -> int {
 	return a / b - (((a ^ b) < 0 and a % b != 0) ? 1 : 0);
 };
 endsnippet
 
-snippet sni_algo_div_ceil_int "div ceil int" b
+snippet sni_util_div_ceil_int "div ceil int" b
 auto divCeil = [](int a, int b) -> int {
 	return a / b + (((a ^ b) > 0 and a % b != 0) ? 1 : 0);
 };
 endsnippet
 
-snippet sni_algo_div_floor_long "div floor long long" b
+snippet sni_util_div_floor_long "div floor long long" b
 auto divFloor = [](long long a, long long b) -> long long {
 	return a / b - (((a ^ b) < 0 and a % b != 0) ? 1 : 0);
 };
 endsnippet
 
-snippet sni_algo_div_ceil_long "div ceil long long" b
+snippet sni_util_div_ceil_long "div ceil long long" b
 auto divCeil = [](long long a, long long b) -> long long {
 	return a / b + (((a ^ b) > 0 and a % b != 0) ? 1 : 0);
 };
 endsnippet
 
-snippet sni_algo_split "split" b
+snippet sni_util_split "split" b
 auto split = [](string str, char c) -> vector<string> {
 	vector<string> arr;
 	string tmp;
@@ -170,6 +170,9 @@ auto split = [](string str, char c) -> vector<string> {
 };
 endsnippet
 
+# =========================================================
+# Algorithm
+# =========================================================
 snippet sni_algo_is_prime "is prime" b
 auto is_prime = [](int num) -> bool {
 	if (num == 2) return true;
