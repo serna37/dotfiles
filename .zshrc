@@ -107,8 +107,8 @@ hello() {
     echo " google [search-text]"
     echo " cpp [filename]"
     echo " AtCoder [contest_cd]"
-    echo " AtCoderLive [contest_cd]"
-    echo " AtCoderResolve [contest_cd]"
+    #echo " AtCoderLive [contest_cd]"
+    #echo " AtCoderResolve [contest_cd]"
     echo " AsakatuAtCoder"
     echo " sandcpp"
     echo "================="
@@ -165,12 +165,12 @@ AtCoder() {
     done
     vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify" -c "AtCoderTimer" -c "echom '$(basename $(pwd))'"
 }
-AtCoderLive() {
-    sleep $(expr `date -v21H -v00M -v00S +%s` - `date +%s` + 1) && AtCoder $1
-}
-AtCoderResolve() {
-    rm -rf $1 && AtCoder $1
-}
+#AtCoderLive() {
+    #sleep $(expr `date -v21H -v00M -v00S +%s` - `date +%s` + 1) && AtCoder $1
+#}
+#AtCoderResolve() {
+    #rm -rf $1 && AtCoder $1
+#}
 AsakatuAtCoder() {
     file_name="main.cpp"
     dirname=`date '+%Y%m%d'`
