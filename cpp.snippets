@@ -257,11 +257,32 @@ auto modinv = [](long long a, long long m) -> long long {
 };
 endsnippet
 
+# =========================================================
+# Algorithm Search
+# =========================================================
+snippet sni_algo_cmopress_coordinate "compress" b
+auto comp = []<class T>(vector<T> vec) -> vector<T> {
+	auto v = vec;
+	sort(v.begin(), v.end());
+	v.erase(unique(v.begin(), v.end()), v.end());
+	for (int i = 0; i < (int)vec.size(); i++) {
+		vec[i] = lower_bound(v.begin(), v.end(), vec[i]) - v.begin();
+	}
+	return vec;
+};
+endsnippet
+
+snippet sni_algo_permu_loop "next permutation" b
+do {${2}} while (next_permutation(${1:A}.begin(), $1.end()));
+endsnippet
+
 snippet sni_algo_bit_loop "bit loop" b
-for (int bit = 0; bit < 1 << N; bit++) {
-	vector<int> tmp;
-	for (int i = 0; i < N; i++) if (bit & (1 << i)) tmp.push_back(i);
-	//
+for (${1:int} ${2:bit} = 0; $2 < 1 << ${3:N}; $2++) {
+	for (${4:int} ${5:k} = 0; $5 < $3; $5++) {
+		if ($2 & (1 << $5)) {
+			${6}
+		}
+	}
 }
 endsnippet
 
@@ -273,26 +294,21 @@ for (int i = 0; i < N; i++) {
 }
 endsnippet
 
-snippet sni_algo_bfs_grid_connector8 "bfs grid connector" b
-vector<int> dx = {1, 0, -1, 0, 1, 1, -1, -1};
-vector<int> dy = {0, 1, 0, -1, 1, -1, 1, -1};
+# TODO
+snippet sni_algo_bfs "bfs" b
+while (!${1:q}.empty()) {
+	auto a = $1.front();
+	$1.pop();
+	for (int v : ${2:G}) {
+		$1.push(v);
+	}
+}
 endsnippet
 
-snippet sni_algo_bfs_grid_connector4 "bfs grid connector" b
-vector<int> dx = {1, 0, -1, 0};
-vector<int> dy = {0, 1, 0, -1};
-endsnippet
-
-snippet sni_algo_bfs_grid_filter "bfs grid filter" b
+snippet sni_algo_grid_filter "bfs grid filter" b
 if (${1:x} < 0 or ${2:y} < 0 or ${3:column} <= $1 or ${4:row} <= $2) continue;
 endsnippet
 
-snippet sni_algo_bfs_graph_1d "bfs graph support" b
-vector<vector<${1:int}>> Graph(N, vector<$1>(1, 0));
-queue<$1> q;
-vector<${2:int}> dist(N, -1);
-//vector<bool> used(N, false);
-//vector<int> counter(N + 1, 0);
 
 for (int i = 0; i < N; i++) {
 	$1 a, b;
