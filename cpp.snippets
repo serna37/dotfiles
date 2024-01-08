@@ -309,59 +309,20 @@ snippet sni_algo_grid_filter "bfs grid filter" b
 if (${1:x} < 0 or ${2:y} < 0 or ${3:column} <= $1 or ${4:row} <= $2) continue;
 endsnippet
 
-
-for (int i = 0; i < N; i++) {
-	$1 a, b;
-	cin >> a >> b;
-	Graph[a].push_back(b);
-	Graph[b].push_back(a);
-}
-
-q.push(0);
-dist[0] = 0;
-
-while (!q.empty()) {
-	$1 current_vertex = q.front();
-	q.pop();
-	for ($1 next_vertex : Graph[current_vertex]) {
-		if (dist[next_vertex] == -1) continue;
-		dist[next_vertex] = dist[current_vertex] + 1;
-		q.push(next_vertex);
-	}
-}
+# =========================================================
+# Algorithm Recurrence Formula
+# =========================================================
+snippet sni_algo_ruiseki_running_ab "ruisekiwa" b
+${1:S}[${2:i} + 1] = $1[$2] + ${3:A}[$2];
 endsnippet
 
-snippet sni_algo_bfs_grid_2d "bfs grid support" b
-//vector<string> Grid(row);
-vector<vector<char>> Grid(row, vector<char>(column, '.'));
-vector<int> dx4 = {1, 0, -1, 0};
-vector<int> dy4 = {0, 1, 0, -1};
-vector<int> dx8 = {-1, -1, -1, 0, 0, 1, 1, 1};
-vector<int> dy8 = {-1, 0, 1, -1, 1, -1, 0, 1};
-queue<pair<int, int>> q;
-vector<vector<bool>> used(row, vector<bool>(column, false));
-//vector<vector<int>> dist(row, vector<int>(column, -1));
+snippet sni_algo_ruiseki_running_rev "ruisekiwa reverse" b
+${1:S}[${2:i}] = $1[$2 + 1] + ${3:A}[$2];
+endsnippet
 
-q.push({0, 0});
-used[0][0] = true;
-//dist[0][0] = 0;
-
-while (!q.empty()) {
-	pair<int, int> current_xy = q.front();
-	q.pop();
-	for (int i = 0; i < 8; i++) {
-		int x = dx8[i] + current_xy.first;
-		int y = dy8[i] + current_xy.second;
-		// only in range
-		if (x < 0 or y < 0 or column <= x or row <= y) continue;
-		// un visited, can go
-		if (!used[x][y] and Grid[x][y] == '#') {
-			q.push({x, y});
-			used[x][y] = true;
-			//dist[x][y] = dist[current_xy.first][current_xy.second] + 1;
-		}
-	}
-}
+snippet sni_algo_imos "imos" b
+${1:A}[${2:l}]${3:++};
+$1[${4:r+1}]${5:--};
 endsnippet
 
 snippet sni_algo_dp_napsack "dp napsack support" b
@@ -391,18 +352,6 @@ for (int i = 0; i < N; i++) {
 		}
 	}
 }
-endsnippet
-
-snippet sni_algo_cmopress "compress" b
-auto compress = []<class T>(vector<T> vec) -> vector<T> {
-	auto v = vec;
-	sort(v.begin(), v.end());
-	v.erase(unique(v.begin(), v.end()), v.end());
-	for (int i = 0; i < (int)vec.size(); i++) {
-		vec[i] = lower_bound(v.begin(), v.end(), vec[i]) - v.begin();
-	}
-	return vec;
-};
 endsnippet
 
 snippet sni_algo_Seg_RMQ "Segment Tree RMQ" b
