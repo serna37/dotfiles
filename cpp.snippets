@@ -37,27 +37,19 @@ endsnippet
 # =========================================================
 # grammer
 # =========================================================
+snippet ll "long long" biw
+long long 
+endsnippet
+
 snippet fori "fori" b
-for (int ${1:i} = ${2:0}; $1 <${3:N}; $1++) {
-	${4}
+for (${1:int} ${2:i} = ${3:0}; $2 <${4:N}; $2++) {
+	${5}
 }
 endsnippet
 
 snippet fori_re "fori reverse" b
-for (int ${1:i} = ${2:N-1}; $1 >=${3:0}; $1--) {
-	${4}
-}
-endsnippet
-
-snippet forl "forl" b
-for (long long ${1:i} = ${2:0}; $1 <${3:N}; $1++) {
-	${4}
-}
-endsnippet
-
-snippet forl_re "forl reverse" b
-for (long long ${1:i} = ${2:N-1}; $1 >=${3:0}; $1--) {
-	${4}
+for (${1:int} ${2:i} = ${3:N-1}; $2 >=${4:0}; $2--) {
+	${5}
 }
 endsnippet
 
@@ -84,9 +76,6 @@ auto ${1:func} = [${2:&}](auto self, ${3:int a}) -> ${4:void} {
 	${5}
 	self(self, args); // recursive
 };
-
-// TODO
-$1($1, );
 endsnippet
 
 # =========================================================
