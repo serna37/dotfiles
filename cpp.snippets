@@ -114,11 +114,31 @@ endsnippet
 # =========================================================
 # STL
 # =========================================================
-snippet trans "transform" b
+snippet sni_stl_cout "ccout" b
+cout << ${1:ans} << endl;
+endsnippet
+
+snippet sni_stl_max "max" b
+${1:ans} = max($1, ${2:tmp});
+endsnippet
+
+snippet sni_stl_min "min" b
+${1:ans} = min($1, ${2:tmp});
+endsnippet
+
+snippet sni_stl_itr_all "iterator all" biw
+${1:A}.begin(), $1.end()
+endsnippet
+
+snippet sni_stl_itr_rev "iterator reverse" biw
+${1:A}.rbegin(), $1.rend()
+endsnippet
+
+snippet sni_stl_transform "transform" b
 std::transform(${1:str}.begin(), $1.end(), $1.begin(), ::${2:tolower});
 endsnippet
 
-snippet uni "unique" b
+snippet sni_stl_uni "unique" b
 sort(${1:A}.begin(), $1.end());
 $1.erase(unique($1.begin(), $1.end()), $1.end());
 endsnippet
