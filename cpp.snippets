@@ -146,46 +146,32 @@ endsnippet
 # =========================================================
 # util function
 # =========================================================
-snippet sni_util_div_floor_int "div floor int" b
-auto divFloor = [](int a, int b) -> int {
+snippet sni_util_div_to_floor "div floor" b
+auto divFloor = [](${1:int} a, $1 b) -> $1 {
 	return a / b - (((a ^ b) < 0 and a % b != 0) ? 1 : 0);
 };
 endsnippet
 
-snippet sni_util_div_ceil_int "div ceil int" b
-auto divCeil = [](int a, int b) -> int {
+snippet sni_util_div_to_ceil "div ceil" b
+auto divCeil = [](${1:int} a, $1 b) -> $1 {
 	return a / b + (((a ^ b) > 0 and a % b != 0) ? 1 : 0);
 };
 endsnippet
 
-snippet sni_util_div_floor_long "div floor long long" b
-auto divFloor = [](long long a, long long b) -> long long {
-	return a / b - (((a ^ b) < 0 and a % b != 0) ? 1 : 0);
-};
-endsnippet
-
-snippet sni_util_div_ceil_long "div ceil long long" b
-auto divCeil = [](long long a, long long b) -> long long {
-	return a / b + (((a ^ b) > 0 and a % b != 0) ? 1 : 0);
-};
-endsnippet
-
-snippet sni_util_split "split" b
-auto split = [](string str, char c) -> vector<string> {
-	vector<string> arr;
-	string tmp;
-	for (int i = 0; i < (int)str.size(); i++) {
-		if (str[i] == c) {
-			arr.push_back(tmp);
-			tmp = "";
+snippet sni_util_split_string "split" b
+auto split = [](string s, char c) -> vector<string> {
+	vector<string> S;
+	string t;
+	for (char v : s) {
+		if (v == c) {
+			if (!t.empty()) S.push_back(t);
+			t.clear();
 		} else {
-			tmp += str[i];
+			t += v;
 		}
 	}
-	if (tmp != "") {
-		arr.push_back(tmp);
-	}
-	return arr;
+	if (!t.empty()) S.push_back(t);
+	return S;
 };
 endsnippet
 
