@@ -176,32 +176,52 @@ auto split = [](string s, char c) -> vector<string> {
 endsnippet
 
 # =========================================================
-# Algorithm
+# Algorithm Math
 # =========================================================
+snippet sni_algo_order_sum_n "order sum" b
+auto digitsum = [](${1:int} a, int N = 10) -> int {
+	int ans = 0;
+	while (a != 0) ans += a % N, a /= N;
+	return ans;
+};
+endsnippet
+
 snippet sni_algo_is_prime "is prime" b
-auto is_prime = [](int num) -> bool {
+auto is_p = [](${1:int} num) -> bool {
 	if (num == 2) return true;
 	if (num < 2 || num % 2 == 0) return false;
 	double sqrtNum = sqrt(num);
-	for (int i = 3; i <= sqrtNum; i += 2) {
+	for ($1 i = 3; i <= sqrtNum; i += 2) {
 		if (num % i == 0) return false;
 	}
 	return true;
 };
 endsnippet
 
-snippet sni_algo_eratosthenes_sieve "sieve if eratosthenes" b
-auto eratosthenes = [](int N) -> vector<int> {
-	vector<int> is_P(N + 1, true);
+snippet sni_algo_eratosthenes_sieve "sieve of eratosthenes" b
+auto eratosthenes = [](${1:int} N) -> vector<bool> {
+	vector<bool> is_P(N + 1, true);
 	is_P[0] = is_P[1] = false;
-	for (int i = 2; i * i <= N; i++) {
+	for ($1 i = 2; i * i <= N; i++) {
 		if (!is_P[i]) continue;
-		for (int j = i * i; j <= N; j += i) is_P[j] = false;
+		for ($1 j = i * i; j <= N; j += i) is_P[j] = false;
 	}
 	return is_P;
 };
 endsnippet
 
+snippet sni_algo_prime_fact "prime fact" b
+auto p_fact = [](${1:int} N) -> map<$1, int> {
+	map<$1, int> P;
+	for ($1 i = 2; i * i <= N; i++) {
+		while (N % i == 0) P[i]++, N /= i;
+	}
+	if (N > 1) P[N]++;
+	return P;
+};
+endsnippet
+
+# TODO no same name
 snippet sni_algo_modpow "modpow" b
 auto modpow = [](long long a, long long n, long long mod) -> long long {
 	long long res = 1;
@@ -220,6 +240,7 @@ auto modinv = [&](long long a, long long mod) -> long long {
 };
 endsnippet
 
+# TODO modify
 snippet sni_algo_inverse_Euclid "extended Euclid" b
 auto modinv = [](long long a, long long m) -> long long {
 	long long b = m, u = 1, v = 0;
