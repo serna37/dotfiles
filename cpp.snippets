@@ -287,7 +287,9 @@ snippet ww_algo_modpow "modpow" b
 auto modpow = [](long long a, long long n, long long mod) -> long long {
 	long long res = 1;
 	while (n > 0) {
-		if (n & 1) res = res * a % mod;
+		if (n & 1) {
+			res = res * a % mod;
+		}
 		a = a * a % mod;
 		n >>= 1;
 	}
