@@ -232,6 +232,9 @@ Plug 'glidenote/memolist.vim'
 Plug 'segeljakt/vim-silicon'
 Plug 'nanotee/zoxide.vim'
 Plug 'serna37/vim-atcoder-menu'
+let g:ac_vim_bell_times_at = [1, 5, 15, 30]
+let g:ac_vim_bell_times_interval = []
+let g:ac_vim_bell_times_redzone = 30
 
 call plug#end()
 
