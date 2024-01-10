@@ -361,6 +361,9 @@ for (int l = 0; l < ${1:N}; l++) {
 ${3}
 endsnippet
 
+# =========================================================
+# Algorithm Graph
+# =========================================================
 # TODO
 snippet ww_algo_bfs "bfs" b
 while (!${1:q}.empty()) {
@@ -370,6 +373,7 @@ while (!${1:q}.empty()) {
 		$1.push(v);
 	}
 }
+${3}
 endsnippet
 
 snippet ww_algo_grid_filter "bfs grid filter" b
@@ -377,30 +381,8 @@ if (${1:x} < 0 or ${2:y} < 0 or ${3:column} <= $1 or ${4:row} <= $2) continue;
 endsnippet
 
 # =========================================================
-# Algorithm Recurrence Formula
+# Algorithm DP
 # =========================================================
-snippet ww_algo_ruiseki_abc "ruisekiwa" b
-vector<${1:int}> ${2:S}(${3:N} + 1);
-for (int i = 0; i < $3; i++) {
-	$2[i + 1] = $2[i] + ${4:A}[i];
-}
-${5}
-endsnippet
-
-snippet ww_algo_ruiseki_rev "ruisekiwa reverse" b
-vector<${1:int}> ${2:R}(${3:N} + 1);
-for (int i = $3 - 1; i >= 0; i--) {
-	$2[i] = $2[i + 1] + ${4:A}[i];
-}
-${5}
-endsnippet
-
-snippet ww_algo_imos "imos" b
-${1:A}[${2:l}]${3:++};
-$1[${4:r+1}]${5:--};
-${6}
-endsnippet
-
 # TODO DELETE
 snippet ww_algo_dp_napsack "dp napsack support" b
 vector<vector<int>> dp(N + 1, vector<int>(W + 1, 0));
@@ -435,6 +417,28 @@ endsnippet
 # =========================================================
 # Algorithm RxQ
 # =========================================================
+snippet ww_algo_ruiseki_abc "ruisekiwa" b
+vector<${1:int}> ${2:S}(${3:N} + 1);
+for (int i = 0; i < $3; i++) {
+	$2[i + 1] = $2[i] + ${4:A}[i];
+}
+${5}
+endsnippet
+
+snippet ww_algo_ruiseki_rev "ruisekiwa reverse" b
+vector<${1:int}> ${2:R}(${3:N} + 1);
+for (int i = $3 - 1; i >= 0; i--) {
+	$2[i] = $2[i + 1] + ${4:A}[i];
+}
+${5}
+endsnippet
+
+snippet ww_algo_imos "imos" b
+${1:A}[${2:l}]${3:++};
+$1[${4:r+1}]${5:--};
+${6}
+endsnippet
+
 # TODO fix
 snippet ww_algo_Seg_RMQ "Segment Tree RMQ" b
 class SegmentTreeRMQ {
