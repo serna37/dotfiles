@@ -168,13 +168,17 @@ auto split = [](string s, char c) -> vector<string> {
 	string t;
 	for (char v : s) {
 		if (v == c) {
-			if (!t.empty()) S.push_back(t);
+			if (!t.empty()) {
+				S.push_back(t);
+			}
 			t.clear();
 		} else {
 			t += v;
 		}
 	}
-	if (!t.empty()) S.push_back(t);
+	if (!t.empty()) {
+		S.push_back(t);
+	}
 	return S;
 };
 endsnippet
@@ -185,18 +189,27 @@ endsnippet
 snippet ww_algo_order_sum_n "order sum" b
 auto digitsum = [](${1:int} a, int N = 10) -> int {
 	int ans = 0;
-	while (a != 0) ans += a % N, a /= N;
+	while (a != 0) {
+		ans += a % N;
+		a /= N;
+	}
 	return ans;
 };
 endsnippet
 
 snippet ww_algo_is_prime "is prime" b
 auto is_p = [](${1:int} num) -> bool {
-	if (num == 2) return true;
-	if (num < 2 || num % 2 == 0) return false;
+	if (num == 2) {
+		return true;
+	}
+	if (num < 2 || num % 2 == 0) {
+		return false;
+	}
 	double sqrtNum = sqrt(num);
 	for ($1 i = 3; i <= sqrtNum; i += 2) {
-		if (num % i == 0) return false;
+		if (num % i == 0) {
+			return false;
+		}
 	}
 	return true;
 };
@@ -207,8 +220,12 @@ auto eratosthenes = [](${1:int} N) -> vector<bool> {
 	vector<bool> is_P(N + 1, true);
 	is_P[0] = is_P[1] = false;
 	for ($1 i = 2; i * i <= N; i++) {
-		if (!is_P[i]) continue;
-		for ($1 j = i * i; j <= N; j += i) is_P[j] = false;
+		if (!is_P[i]) {
+			continue;
+		}
+		for ($1 j = i * i; j <= N; j += i) {
+			is_P[j] = false;
+		}
 	}
 	return is_P;
 };
@@ -218,9 +235,14 @@ snippet ww_algo_prime_fact "prime fact" b
 auto p_fact = [](${1:int} N) -> map<$1, int> {
 	map<$1, int> P;
 	for ($1 i = 2; i * i <= N; i++) {
-		while (N % i == 0) P[i]++, N /= i;
+		while (N % i == 0) {
+			P[i]++;
+			N /= i;
+		}
 	}
-	if (N > 1) P[N]++;
+	if (N > 1) {
+		P[N]++;
+	}
 	return P;
 };
 endsnippet
