@@ -282,7 +282,7 @@ auto p_fact = [](${1:int} N) -> map<$1, int> {
 };
 endsnippet
 
-snippet w_algo_powmod "mod pow" b
+snippet w_algo_mod_pow "mod pow" b
 auto modpow = [](long long a, long long n, long long mod) -> long long {
 	long long res = 1;
 	while (n > 0) {
@@ -290,7 +290,7 @@ auto modpow = [](long long a, long long n, long long mod) -> long long {
 			res = res * a % mod;
 		}
 		a = a * a % mod;
-		n >>= 1;
+		n >>= 1ll;
 	}
 	return res;
 };
