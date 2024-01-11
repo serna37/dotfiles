@@ -403,7 +403,7 @@ snippet ww_algo_run_length "run length syakutori" b
 int ans = 0;
 int r = 0;
 for (int l = 0; l < ${1:N}; l++) {
-	while (r < $1 and ${2:A}[r] == $2[l]}) {
+	while (r < $1 and ${2:A}[r] == $2[l]) {
 		++r;
 	}
 	ans = max(ans, r - l);
