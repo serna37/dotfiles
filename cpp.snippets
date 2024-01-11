@@ -153,7 +153,7 @@ snippet ww_stl_cout "ccout" b
 cout << ${1:ans} << endl;
 endsnippet
 
-snippet ww_stl_fix_precision "fixed precision" b
+snippet ww_stl_fix_setprecision "fixed precision" b
 cout << fixed << setprecision(${1:10});
 endsnippet
 
@@ -297,8 +297,8 @@ auto p_fact = [](${1:int} N) -> map<$1, int> {
 };
 endsnippet
 
-snippet ww_algo_mod_pow "mod pow" b
-auto modpow = [](long long a, long long n, long long mod) -> long long {
+snippet ww_algo_mod_pow "pow mod" b
+auto mod_pow = [](long long a, long long n, long long mod) -> long long {
 	long long res = 1;
 	while (n > 0) {
 		if (n & 1) {
