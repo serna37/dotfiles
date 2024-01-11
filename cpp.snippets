@@ -200,6 +200,12 @@ endsnippet
 # =========================================================
 # util function
 # =========================================================
+snippet ww_util_debug_vec_cout "debug for" b
+cout << "debug_${1:A}:"; // TODO debug
+for (auto v : $1) cout << " " << v; // TODO debug
+cout << endl; // TODO debug
+endsnippet
+
 snippet ww_util_div_to_floor "div floor" b
 auto divFloor = [](${1:int} a, $1 b) -> $1 {
 	return a / b - (((a ^ b) < 0 and a % b != 0) ? 1 : 0);
