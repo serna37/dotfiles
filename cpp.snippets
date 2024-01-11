@@ -116,32 +116,32 @@ endsnippet
 # =========================================================
 # const
 # =========================================================
-snippet w_const_PI "PI" b
+snippet ww_const_PI "PI" b
 const double PI = acos(-1);
 endsnippet
 
-snippet w_const_INFINITY_INT "INFINITY" b
+snippet ww_const_INFINITY_INT "INFINITY" b
 const int INF = 1001001001;
 endsnippet
 
-snippet w_const_INFINITY_LONG "INFINITY" b
+snippet ww_const_INFINITY_LONG "INFINITY" b
 const long long INF = 1001001001001001001ll;
 endsnippet
 
-snippet w_const_MOD_998244353 "mod" b
+snippet ww_const_MOD_998244353 "mod" b
 const int MOD = 998244353;
 endsnippet
 
-snippet w_const_MOD_100000007 "mod" b
+snippet ww_const_MOD_100000007 "mod" b
 const int MOD = 1000000007;
 endsnippet
 
-snippet w_const_grid_connector4 "grid connector" b
+snippet ww_const_grid_connector4 "grid connector" b
 vector<int> dx = {0, 1, 0, -1};
 vector<int> dy = {1, 0, -1, 0};
 endsnippet
 
-snippet w_const_grid_connector8 "grid connector" b
+snippet ww_const_grid_connector8 "grid connector" b
 vector<int> dx = {0, 1, 0, -1, 1, -1, 1, -1};
 vector<int> dy = {1, 0, -1, 0, 1, 1, -1, -1};
 endsnippet
@@ -149,35 +149,35 @@ endsnippet
 # =========================================================
 # STL
 # =========================================================
-snippet w_stl_cout "ccout" b
+snippet ww_stl_cout "ccout" b
 cout << ${1:ans} << endl;
 endsnippet
 
-snippet w_stl_fix_precision "fixed precision" b
+snippet ww_stl_fix_precision "fixed precision" b
 cout << fixed << setprecision(${1:10});
 endsnippet
 
-snippet w_stl_max "max" b
+snippet ww_stl_max "max" b
 ${1:ans} = max($1, ${2:tmp});
 endsnippet
 
-snippet w_stl_min "min" b
+snippet ww_stl_min "min" b
 ${1:ans} = min($1, ${2:tmp});
 endsnippet
 
-snippet w_stl_ALL "iterator all" bi
+snippet ww_stl_all "iterator all" bi
 ${1:A}.begin(), $1.end()
 endsnippet
 
-snippet w_stl_ALL_rev "iterator reverse" bi
+snippet ww_stl_all_rev "iterator reverse" bi
 ${1:A}.rbegin(), $1.rend()
 endsnippet
 
-snippet w_stl_transform "transform" b
+snippet ww_stl_transform "transform" b
 std::transform(${1:str}.begin(), $1.end(), $1.begin(), ::${2:tolower});
 endsnippet
 
-snippet w_stl_uni "unique" b
+snippet ww_stl_uni "unique" b
 sort(${1:A}.begin(), $1.end());
 $1.erase(unique($1.begin(), $1.end()), $1.end());
 endsnippet
@@ -185,19 +185,19 @@ endsnippet
 # =========================================================
 # util function
 # =========================================================
-snippet w_util_div_to_floor "div floor" b
+snippet ww_util_div_to_floor "div floor" b
 auto divFloor = [](${1:int} a, $1 b) -> $1 {
 	return a / b - (((a ^ b) < 0 and a % b != 0) ? 1 : 0);
 };
 endsnippet
 
-snippet w_util_div_to_ceil "div ceil" b
+snippet ww_util_div_to_ceil "div ceil" b
 auto divCeil = [](${1:int} a, $1 b) -> $1 {
 	return a / b + (((a ^ b) > 0 and a % b != 0) ? 1 : 0);
 };
 endsnippet
 
-snippet w_util_split_string "split" b
+snippet ww_util_split_string "split" b
 auto split = [](string s, char c) -> vector<string> {
 	vector<string> S;
 	string t;
@@ -221,7 +221,7 @@ endsnippet
 # =========================================================
 # Algorithm Math
 # =========================================================
-snippet w_algo_order_sum_n "order sum" b
+snippet ww_algo_order_sum_n "order sum" b
 auto digitsum = [](${1:int} a, int N = 10) -> int {
 	int ans = 0;
 	while (a != 0) {
@@ -232,7 +232,7 @@ auto digitsum = [](${1:int} a, int N = 10) -> int {
 };
 endsnippet
 
-snippet w_algo_is_prime "is prime" b
+snippet ww_algo_is_prime "is prime" b
 auto is_p = [](${1:int} num) -> bool {
 	if (num == 2) {
 		return true;
@@ -250,7 +250,7 @@ auto is_p = [](${1:int} num) -> bool {
 };
 endsnippet
 
-snippet w_algo_eratosthenes_sieve "sieve of eratosthenes" b
+snippet ww_algo_eratosthenes_sieve "sieve of eratosthenes" b
 auto eratosthenes = [](${1:int} N) -> vector<bool> {
 	vector<bool> is_P(N + 1, true);
 	is_P[0] = is_P[1] = false;
@@ -266,7 +266,7 @@ auto eratosthenes = [](${1:int} N) -> vector<bool> {
 };
 endsnippet
 
-snippet w_algo_prime_fact "prime fact" b
+snippet ww_algo_prime_fact "prime fact" b
 auto p_fact = [](${1:int} N) -> map<$1, int> {
 	map<$1, int> P;
 	for ($1 i = 2; i * i <= N; i++) {
@@ -282,7 +282,7 @@ auto p_fact = [](${1:int} N) -> map<$1, int> {
 };
 endsnippet
 
-snippet w_algo_mod_pow "mod pow" b
+snippet ww_algo_mod_pow "mod pow" b
 auto modpow = [](long long a, long long n, long long mod) -> long long {
 	long long res = 1;
 	while (n > 0) {
@@ -296,14 +296,14 @@ auto modpow = [](long long a, long long n, long long mod) -> long long {
 };
 endsnippet
 
-snippet w_algo_inverse_Fermat "Fermat" b
+snippet ww_algo_inverse_Fermat "Fermat" b
 auto modinv = [&](long long a, long long mod) -> long long {
 	return modpow(a, mod - 2, mod);
 };
 endsnippet
 
 # TODO modify
-snippet w_algo_inverse_Euclid "extended Euclid" b
+snippet ww_algo_inverse_Euclid "extended Euclid" b
 auto modinv = [](long long a, long long m) -> long long {
 	long long b = m, u = 1, v = 0;
 	while (b) {
@@ -322,7 +322,7 @@ endsnippet
 # =========================================================
 # Algorithm Search
 # =========================================================
-snippet w_algo_compress_coordinate "compress" b
+snippet ww_algo_compress_coordinate "compress" b
 auto comp = []<class T>(vector<T> vec) -> vector<T> {
 	auto v = vec;
 	sort(v.begin(), v.end());
@@ -334,11 +334,11 @@ auto comp = []<class T>(vector<T> vec) -> vector<T> {
 };
 endsnippet
 
-snippet w_algo_permu_loop "next permutation" b
+snippet ww_algo_permu_loop "next permutation" b
 do {${2}} while (next_permutation(${1:A}.begin(), $1.end()));
 endsnippet
 
-snippet w_algo_bit_loop "bit loop" b
+snippet ww_algo_bit_loop "bit loop" b
 for (int bit = 0; bit < 1 << ${1:N}; bit++) {
 	${2:long long} tmp = 0;
 	for (int k = 0; k < $1; k++) {
@@ -350,7 +350,7 @@ for (int bit = 0; bit < 1 << ${1:N}; bit++) {
 }
 endsnippet
 
-snippet w_algo_run_length "run length syakutori" b
+snippet ww_algo_run_length "run length syakutori" b
 int ans = 0;
 int r = 0;
 for (int l = 0; l < ${1:N}; l++) {
@@ -366,7 +366,7 @@ endsnippet
 # Algorithm Graph
 # =========================================================
 # TODO
-snippet w_algo_bfs "bfs" b
+snippet ww_algo_bfs "bfs" b
 while (!${1:q}.empty()) {
 	auto a = $1.front();
 	$1.pop();
@@ -377,7 +377,7 @@ while (!${1:q}.empty()) {
 ${3}
 endsnippet
 
-snippet w_algo_grid_filter "bfs grid filter" b
+snippet ww_algo_grid_filter "bfs grid filter" b
 if (${1:x} < 0 or ${2:y} < 0 or ${3:column} <= $1 or ${4:row} <= $2) continue;
 endsnippet
 
@@ -385,7 +385,7 @@ endsnippet
 # Algorithm DP
 # =========================================================
 # TODO DELETE
-snippet w_algo_dp_napsack "dp napsack support" b
+snippet ww_algo_dp_napsack "dp napsack support" b
 vector<vector<int>> dp(N + 1, vector<int>(W + 1, 0));
 for (int i = 0; i < N; i++) {
 	int wi = weight[i];
@@ -401,7 +401,7 @@ for (int i = 0; i < N; i++) {
 endsnippet
 
 # TODO DELETE
-snippet w_algo_dp_sum_partial "dp partial sum support" b
+snippet ww_algo_dp_sum_partial "dp partial sum support" b
 vector<vector<int>> dp(N + 1, vector<int>(K + 1, false));
 dp[0][0] = true;
 for (int i = 0; i < N; i++) {
@@ -418,7 +418,7 @@ endsnippet
 # =========================================================
 # Algorithm RxQ
 # =========================================================
-snippet w_algo_ruiseki_abc "ruisekiwa" b
+snippet ww_algo_ruiseki_abc "ruisekiwa" b
 vector<${1:int}> ${2:S}(${3:N} + 1);
 for (int i = 0; i < $3; i++) {
 	$2[i + 1] = $2[i] + ${4:A}[i];
@@ -426,7 +426,7 @@ for (int i = 0; i < $3; i++) {
 ${5}
 endsnippet
 
-snippet w_algo_ruiseki_rev "ruisekiwa reverse" b
+snippet ww_algo_ruiseki_rev "ruisekiwa reverse" b
 vector<${1:int}> ${2:R}(${3:N} + 1);
 for (int i = $3 - 1; i >= 0; i--) {
 	$2[i] = $2[i + 1] + ${4:A}[i];
@@ -434,14 +434,14 @@ for (int i = $3 - 1; i >= 0; i--) {
 ${5}
 endsnippet
 
-snippet w_algo_imos "imos" b
+snippet ww_algo_imos "imos" b
 ${1:A}[${2:l}]${3:++};
 $1[${4:r+1}]${5:--};
 ${6}
 endsnippet
 
 # TODO fix
-snippet w_algo_Seg_RMQ "Segment Tree RMQ" b
+snippet ww_algo_Seg_RMQ "Segment Tree RMQ" b
 class SegmentTreeRMQ {
 	const static long long ll_MAX = (1LL << 31) - 1;
 	int n_0; long long seg_tree[4 * 100007];
