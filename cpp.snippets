@@ -304,22 +304,22 @@ auto p_fact = [](${1:int} N) -> map<$1, int> {
 endsnippet
 
 snippet ww_algo_mod_pow "pow mod" b
-auto mod_pow = [](long long a, long long n, long long mod) -> long long {
+auto mod_pow = [&](long long a, long long n) -> long long {
 	long long res = 1;
 	while (n > 0) {
 		if (n & 1) {
-			res = res * a % mod;
+			res = res * a % MOD;
 		}
-		a = a * a % mod;
+		a = a * a % MOD;
 		n >>= 1ll;
 	}
 	return res;
 };
 endsnippet
 
-snippet ww_algo_inverse_Fermat "Fermat" b
-auto modinv = [&](long long a, long long mod) -> long long {
-	return modpow(a, mod - 2, mod);
+snippet ww_algo_mod_inverse_Fermat "inverse mod Fermat" b
+auto modinv_fermat = [&](long long a) -> long long {
+	return mod_pow(a, MOD - 2);
 };
 endsnippet
 
