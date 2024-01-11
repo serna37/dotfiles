@@ -183,6 +183,21 @@ $1.erase(unique($1.begin(), $1.end()), $1.end());
 endsnippet
 
 # =========================================================
+# builtin
+# =========================================================
+snippet __builtin_ctz "__builtin_ctz" bi
+__builtin_ctz(${1})
+endsnippet
+
+snippet __builtin_popcount "__builtin_popcount" bi
+__builtin_popcount(${1})
+endsnippet
+
+snippet __builtin_popcountll "__builtin_popcountll" bi
+__builtin_popcountll(${1})
+endsnippet
+
+# =========================================================
 # util function
 # =========================================================
 snippet ww_util_div_to_floor "div floor" b
