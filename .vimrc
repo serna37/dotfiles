@@ -19,7 +19,7 @@ nnoremap vv ^v$h
 " insert move
 inoremap {{ <Esc>A{}<Left>
 
-fu! s:asc(x, y)
+fu! s:asc(x, y) abort
     return a:x == a:y ? 0 : a:x > a:y ? 1 : -1
 endf
 fu! SandboxNextCpp() abort
@@ -37,6 +37,8 @@ fu! SandboxNextCpp() abort
     call execute('e '.next)
 endf
 com! SandboxNextCpp cal SandboxNextCpp()
+
+com! TODOdelete exe "g/TODO/d"
 
 " ############################################################
 " #### PLUGINS
