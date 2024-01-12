@@ -402,7 +402,7 @@ for (int l = 0; l < ${1:N}; l++) {
 	while (r < N and ${2:S}[l] == $2[r]) {
 		++r;
 	}
-	ans += S[l] + to_string(r - l);
+	ans += $2[l] + to_string(r - l);
 }
 ${3}
 endsnippet
