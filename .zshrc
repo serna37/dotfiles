@@ -80,7 +80,8 @@ alias q='exit'
 alias x86brew='arch -x86_64 /usr/local/bin/brew'
 alias rezsh='exec $SHELL -l'
 alias w='clear && date && cal && unfog'
-alias www='genact -s 3 --exit-after-modules 1 -m botnet && genact -s 3 --exit-after-modules 1 -m bruteforce'
+alias ss='gtimeout 5 '
+alias work='gtimeout 3 cmatrix; genact -s 3 --exit-after-modules 1 -m botnet && genact -s 3 --exit-after-modules 1 -m bruteforce && '
 
 # tutorial command
 enhanced_commands=(
@@ -90,7 +91,7 @@ enhanced_commands=(
 "tokei" "delta -s setup.sh brew.sh" "g"
 "zv" "cd ~/git/contest && AtCoder abc327"
 "navi"
-"sl -aFc" "cmatrix" "clock" "www"
+"ss sl -aFc" "ss clock" "work l"
 )
 hello() {
     for v in ${enhanced_commands[@]}; do

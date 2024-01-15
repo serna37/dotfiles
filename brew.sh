@@ -18,6 +18,7 @@ navi
 silicon
 code-minimap
 lazygit lazydocker
+coreutils
 watch
 ffmpeg
 gh
