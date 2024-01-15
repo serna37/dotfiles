@@ -79,19 +79,19 @@ alias c='cpp main.cpp'
 alias q='exit'
 alias x86brew='arch -x86_64 /usr/local/bin/brew'
 alias rezsh='exec $SHELL -l'
-alias w='clear && date && cal && unfog'
 alias ss='gtimeout 5 '
-alias work='gtimeout 3 cmatrix; genact -s 3 --exit-after-modules 1 -m botnet && genact -s 3 --exit-after-modules 1 -m bruteforce && '
+alias w='date&&cal&&unfog&&gtimeout 3 cmatrix;genact -s 5 --exit-after-modules 1 -m botnet && genact -s 3 --exit-after-modules 1 -m bruteforce && '
+alias wv='w zv'
 
 # tutorial command
 enhanced_commands=(
 "df" "ps" "top" "gping -n 0.5 google.com"
 "l" "fd" "f" "e"
-"w" "gif" "cd ~/git/dotfiles"
+"gif" "cd ~/git/dotfiles"
 "tokei" "delta -s setup.sh brew.sh" "g"
 "zv" "cd ~/git/contest && AtCoder abc327"
 "navi"
-"ss sl -aFc" "ss clock" "work l"
+"ss sl -aFc" "ss clock" "w l"
 )
 hello() {
     for v in ${enhanced_commands[@]}; do
