@@ -22,7 +22,7 @@ watch
 ffmpeg
 gh
 # happy
-sl cmatrix tty-clock
+sl cmatrix tty-clock genact
 # lang
 gcc
 rust
