@@ -195,8 +195,16 @@ nnoremap o A<CR>
 let g:cosco_filetype_whitelist = ['cpp', 'rust']
 let g:cosco_ignore_comment_lines = 1
 " return normal & save
-inoremap jk <Esc>:CommaOrSemiColon<CR>:cal CocAction('format')<CR>:w<CR>
-inoremap jj <Esc>:CommaOrSemiColon<CR>:cal CocAction('format')<CR>:w<CR>A<CR>
+fu! Saving() abort
+    execute('CommaOrSemiColon')
+    try
+        cal CocAction('format')
+    catch
+    endtry
+    execute('w')
+endf
+inoremap jk <Esc>:cal Saving()<CR>
+inoremap jj <Esc>:cal Saving()<CR>A<CR>
 let g:move_key_modifier_visualmode = 'C'
 let g:AutoPairsMapCh = 0
 
