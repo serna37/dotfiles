@@ -344,6 +344,17 @@ auto modfact = [&](int x) -> long long {
 };
 endsnippet
 
+snippet ww_algo_factorial "factorial" b
+auto factorial = [](${1:int} N) -> $1 {
+	$1 ans = 1;
+	while (N > 0) {
+		ans *= N;
+		N--;
+	}
+	return ans;
+};
+endsnippet
+
 snippet ww_algo_mod_combination "combination mod" b
 auto mod_combination = [&](int n, int k) -> long long {
 	return modfact(n) * modinv_fermat(modfact(k)) % MOD * modinv_fermat(modfact(n - k)) % MOD;
