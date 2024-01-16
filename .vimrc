@@ -19,6 +19,7 @@ nnoremap vv ^v$h
 " insert move
 inoremap {{ <Esc>A{}<Left>
 
+" SANDBOX CREATE NEXT CPP FILE
 fu! s:asc(x, y) abort
     return a:x == a:y ? 0 : a:x > a:y ? 1 : -1
 endf
@@ -38,6 +39,7 @@ fu! SandboxNextCpp() abort
 endf
 com! SandboxNextCpp cal SandboxNextCpp()
 
+" DELETE TODO ROW
 com! TODOdelete exe "g/TODO/d"
 
 " ############################################################
@@ -195,7 +197,7 @@ nnoremap o A<CR>
 let g:cosco_filetype_whitelist = ['cpp', 'rust']
 let g:cosco_ignore_comment_lines = 1
 " return normal & save
-fu! Saving() abort
+fu! s:saving() abort
     execute('CommaOrSemiColon')
     try
         cal CocAction('format')
@@ -203,8 +205,9 @@ fu! Saving() abort
     endtry
     execute('w')
 endf
-inoremap jk <Esc>:cal Saving()<CR>
-inoremap jj <Esc>:cal Saving()<CR>A<CR>
+noremap <silent><Plug>(saving) :<C-u>cal <SID>saving()<CR>
+inoremap jk <Esc><Plug>(saving)
+inoremap jj <Esc><Plug>(saving)A<CR>
 let g:move_key_modifier_visualmode = 'C'
 let g:AutoPairsMapCh = 0
 
