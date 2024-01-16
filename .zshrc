@@ -72,7 +72,7 @@ alias d='lazydocker'
 alias localhost_here='python -m http.server 8000'
 alias cppini='cp ~/git/dotfiles/.clang-format . && cp ~/git/dotfiles/compile_flags.txt .'
 alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
-alias clock='tty-clock -sc -C3'
+alias clock='tty-clock -sc -C2'
 alias c='cpp main.cpp'
 
 # util
