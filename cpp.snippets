@@ -485,7 +485,7 @@ endsnippet
 # =========================================================
 # Algorithm RxQ
 # =========================================================
-snippet ww_algo_ruiseki_abc "ruisekiwa" b
+snippet ww_algo_zeta "ruisekiwa" b
 vector<${1:int}> ${2:S}(${3:N} + 1);
 for (int i = 0; i < $3; i++) {
 	$2[i + 1] = $2[i] + ${4:A}[i];
@@ -493,10 +493,33 @@ for (int i = 0; i < $3; i++) {
 ${5}
 endsnippet
 
-snippet ww_algo_ruiseki_rev "ruisekiwa reverse" b
+snippet ww_algo_zeta_rev "ruisekiwa reverse" b
 vector<${1:int}> ${2:R}(${3:N} + 1);
 for (int i = $3 - 1; i >= 0; i--) {
 	$2[i] = $2[i + 1] + ${4:A}[i];
+}
+${5}
+endsnippet
+
+snippet ww_algo_zeta_2D "2d ruisekiwa" b
+vector<vector<${1:int}>> ${2:S}(${3:H} + 1, vector<$1>(${4:W} + 1));
+for (int i = 0; i < $3; i++) {
+	for (int j = 0; j < $4; j++) {
+		$2[i + 1][j + 1] = $2[i + 1][j] + ${5:A}[i][j];
+	}
+}
+for (int i = 0; i < $3; i++) {
+	for (int j = 0; j < $4; j++) {
+		$2[i + 1][j + 1] += $2[i][j + 1];
+	}
+}
+${6}
+endsnippet
+
+snippet ww_algo_moebius "diff" b
+vector<${1:int}> ${2:D}(${3:N-1});
+for (int i = 0; i < $3; i++) {
+	$2[i] = ${4:A}[i + 1] - $4[i];
 }
 ${5}
 endsnippet
