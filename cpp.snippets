@@ -418,10 +418,10 @@ string ans = "";
 int r = 0;
 for (int l = 0; l < ${1:N}; l++) {
 	l = r;
-	if (l >= N) {
+	if (l >= $1) {
 		break;
 	}
-	while (r < N and ${2:S}[l] == $2[r]) {
+	while (r < $1 and ${2:S}[l] == $2[r]) {
 		++r;
 	}
 	ans += $2[l] + to_string(r - l);
@@ -432,20 +432,23 @@ endsnippet
 # =========================================================
 # Algorithm Graph
 # =========================================================
-# TODO
 snippet ww_algo_bfs "bfs" b
-while (!${1:q}.empty()) {
-	auto a = $1.front();
-	$1.pop();
-	for (int v : ${2:G}[a]) {
-		$1.push(v);
+queue<${1:int}> q;
+q.push(${2:initial state});
+while (!q.empty()) {
+	auto v = q.front();
+	q.pop();
+	for (int n : ${3:G}[v]) {
+		q.push(n);
 	}
 }
 ${3}
 endsnippet
 
 snippet ww_algo_grid_filter "bfs grid filter" b
-if (${1:x} < 0 or ${2:y} < 0 or ${3:column} <= $1 or ${4:row} <= $2) continue;
+if (${1:x} < 0 or ${2:y} < 0 or ${3:column} <= $1 or ${4:row} <= $2) {
+	continue;
+}
 endsnippet
 
 # =========================================================
