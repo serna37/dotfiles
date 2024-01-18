@@ -215,13 +215,13 @@ cout << endl; // TODO debug
 endsnippet
 
 snippet ww_util_div_to_floor "div floor" b
-auto divFloor = [](${1:int} a, $1 b) -> $1 {
+auto divFloor = []<class T>(T a, T b) -> T {
 	return a / b - (((a ^ b) < 0 and a % b != 0) ? 1 : 0);
 };
 endsnippet
 
 snippet ww_util_div_to_ceil "div ceil" b
-auto divCeil = [](${1:int} a, $1 b) -> $1 {
+auto divCeil = []<class T>(T a, T b) -> T {
 	return a / b + (((a ^ b) > 0 and a % b != 0) ? 1 : 0);
 };
 endsnippet
@@ -251,8 +251,8 @@ endsnippet
 # Algorithm Math
 # =========================================================
 snippet ww_algo_order_sum_n "order sum" b
-auto digitsum = [](${1:int} a, int N = 10) -> int {
-	int ans = 0;
+auto digitsum = []<class T>(T a, int N = 10) -> T {
+	T ans = 0;
 	while (a != 0) {
 		ans += a % N;
 		a /= N;
@@ -262,7 +262,7 @@ auto digitsum = [](${1:int} a, int N = 10) -> int {
 endsnippet
 
 snippet ww_algo_is_prime "is prime" b
-auto is_p = [](${1:int} num) -> bool {
+auto is_p = []<class T>(T num) -> bool {
 	if (num == 2) {
 		return true;
 	}
@@ -270,7 +270,7 @@ auto is_p = [](${1:int} num) -> bool {
 		return false;
 	}
 	double sqrtNum = sqrt(num);
-	for ($1 i = 3; i <= sqrtNum; i += 2) {
+	for (T i = 3; i <= sqrtNum; i += 2) {
 		if (num % i == 0) {
 			return false;
 		}
@@ -280,14 +280,14 @@ auto is_p = [](${1:int} num) -> bool {
 endsnippet
 
 snippet ww_algo_eratosthenes_sieve "sieve of eratosthenes" b
-auto eratosthenes = [](${1:int} N) -> vector<bool> {
+auto eratosthenes = []<class T>(T N) -> vector<bool> {
 	vector<bool> is_P(N + 1, true);
 	is_P[0] = is_P[1] = false;
-	for ($1 i = 2; i * i <= N; i++) {
+	for (T i = 2; i * i <= N; i++) {
 		if (!is_P[i]) {
 			continue;
 		}
-		for ($1 j = i * i; j <= N; j += i) {
+		for (T j = i * i; j <= N; j += i) {
 			is_P[j] = false;
 		}
 	}
@@ -296,9 +296,9 @@ auto eratosthenes = [](${1:int} N) -> vector<bool> {
 endsnippet
 
 snippet ww_algo_prime_fact "prime fact" b
-auto p_fact = [](${1:int} N) -> map<$1, int> {
-	map<$1, int> P;
-	for ($1 i = 2; i * i <= N; i++) {
+auto p_fact = []<class T>(T N) -> map<T, int> {
+	map<T, int> P;
+	for (T i = 2; i * i <= N; i++) {
 		while (N % i == 0) {
 			P[i]++;
 			N /= i;
@@ -349,8 +349,8 @@ auto modfact = [&](int x) -> long long {
 endsnippet
 
 snippet ww_algo_factorial "factorial" b
-auto factorial = [](${1:int} N) -> $1 {
-	$1 ans = 1;
+auto factorial = []<class T>(T N) -> T {
+	T ans = 1;
 	while (N > 0) {
 		ans *= N;
 		N--;
