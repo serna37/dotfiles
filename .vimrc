@@ -192,6 +192,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 let g:UltiSnipsExpandTrigger="<C-s>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 " o -> A+CR (adhoc for snippet tabstop bug...)
 nnoremap o A<CR>
 let g:cosco_filetype_whitelist = ['cpp', 'rust']
