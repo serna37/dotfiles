@@ -545,49 +545,70 @@ auto comp = []<class T>(vector<T> vec) -> vector<T> {
 };
 endsnippet
 
-snippet ww_algo_Seg_Tree "Segment Tree" b
-template <typename T> struct SegTree {
-	using F = function<T(T, T)>;
-	int N;
-	vector<T> node;
-	F combine;
-	T identify;
-	SegTree(int n, F combine, T identify)
-		: N(n), node(n << 1, identify), combine(combine), identify(identify){};
-	T operator[](int i) {
-		return node[i + N];
+snippet ww_algo_segment_tree "seg" b
+$1 atom = ${3:INF};
+vector<${1:int}> seg(${2:N} << 1, atom);
+for (int i = 0; i < N; i++) {
+	$1 ${4:A};
+	cin >> $4;
+	seg[i + $2] = $4;
+}
+for (int i = N - 1; i >= 0; i--) {
+	for (auto v : seg[i << 1 | 0]) {
+		seg[i][v.first] += v.second;
 	}
-	void build(vector<T> a) {
-		for (int i = 0; i < N; i++) {
-			node[i + N] = a[i];
-		}
-		for (int i = N - 1; i >= 0; i--) {
-			node[i] = combine(node[i << 1 | 0], node[i << 1 | 1]);
-		}
+	for (auto v : seg[i << 1 | 1]) {
+		seg[i][v.first] += v.second;
 	}
-	void set(int i, T x) {
-		node[i += N] = x;
-		while (i >>= 1) {
-			node[i] = combine(node[i << 1 | 0], node[i << 1 | 1]);
-		}
-	}
-	T fold(int l, int r) {
-		T vl = identify, vr = identify;
-		for (l += N, r += N; l < r; l >>= 1, r >>= 1) {
-			if (l & 1) {
-				vl = combine(vl, node[l++]);
-			}
-			if (r & 1) {
-				vr = combine(node[--r], vr);
-			}
-		}
-		return combine(vl, vr);
-	}
-};
+	seg[i] = max(seg[i << 1 | 0], seg[i << 1 | 1]);
+	seg[i] = min(seg[i << 1 | 0], seg[i << 1 | 1]);
+	seg[i] = seg[i << 1 | 0] + seg[i << 1 | 1];
+	seg[i] = seg[i << 1 | 0] * seg[i << 1 | 1];
+}
+${5}
 endsnippet
 
-snippet ww_algo_seg_build_def "segment build" b
-auto combine = []( ${1:int} x, $1 y) { return ${4:min(x, y)}; };
-SegTree<$1> seg(${2:N}, combine, ${3:identify});
-seg.build(${5:A});
+snippet ww_algo_segment_tree_fold "seg fold" b
+auto vl = atom, vr = atom;
+int ans = 0;
+for (${2:l} += ${1:N}, ${3:r} += $1; $2 < $3; $2 >>= 1, $3 >>= 1) {
+	if ($2 & 1) {
+		if (seg[$2].count(${4:X})) {
+			ans += seg[$2][$4];
+		}
+		$2++;
+		vl = max(vl, seg[$2++]);
+		vl = min(vl, seg[$2++]);
+		vl += seg[$2++];
+		vl *= seg[$2++];
+	}
+	if ($3 & 1) {
+		$3--;
+		if (seg[$3].count($4)) {
+			ans += seg[$3][$4];
+		}
+		vr = max(seg[--$3], vr);
+		vr = min(seg[--$3], vr);
+		vr += seg[$2++];
+		vr *= seg[$2++];
+	}
+}
+${5}
+endsnippet
+
+snippet ww_algo_segment_tree_upd "seg upd" b
+seg[${2:i} += ${1:N}] = ${3:x};
+while ($2 >>= 1) {
+	for (auto v : seg[$2 << 1 | 0]) {
+		seg[$2][v.first] += v.second;
+	}
+	for (auto v : seg[$2 << 1 | 1]) {
+		seg[$2][v.first] += v.second;
+	}
+	seg[$2] = max(seg[$2 << 1 | 0], seg[$2 << 1 | 1]);
+	seg[$2] = min(seg[$2 << 1 | 0], seg[$2 << 1 | 1]);
+	seg[$2] = seg[$2 << 1 | 0] + seg[$2 << 1 | 1];
+	seg[$2] = seg[$2 << 1 | 0] * seg[$2 << 1 | 1];
+}
+${4}
 endsnippet
