@@ -62,6 +62,8 @@ Plug 'simeji/winresizer'
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'voldikss/vim-floaterm'
 let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_keys='wasdjklfnmi'
+let g:EasyMotion_disable_two_key_combo = 1
 "nnoremap s <Plug>(easymotion-sn)
 nnoremap s <Plug>(clever-f-reset)<Plug>(easymotion-bd-w)
 "nnoremap <Leader><Leader>w <Plug>(easymotion-overwin-w)
@@ -74,6 +76,7 @@ aug cleaver_f
     au!
     au ColorScheme * hi CleverFDefaultLabel cterm=BOLD,underline ctermfg=40 ctermbg=0
 aug END
+let g:fscope_highlight_priority = 0
 nnoremap <leader>w <Plug>(fscope-around-toggle)<Plug>(clever-f-reset)
 nnoremap # <Plug>(asterisk-z*)<Plug>(quickhl-manual-this)
 nnoremap <silent><Leader>q <Plug>(quickhl-manual-reset)<Plug>(clever-f-reset):noh<CR>
