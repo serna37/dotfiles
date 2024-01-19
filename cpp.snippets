@@ -443,16 +443,21 @@ endsnippet
 # Algorithm Graph
 # =========================================================
 snippet ww_algo_bfs "bfs" b
+vector<bool> vis(${3:N});
 queue<${1:int}> q;
-q.push(${2:initial state});
+q.push(${2:initial q});
 while (!q.empty()) {
 	auto v = q.front();
 	q.pop();
-	for (int n : ${3:G}[v]) {
+	if (vis[v]) {
+		continue;
+	}
+	vis[v] = true;
+	for (int n : ${4:G}[v]) {
 		q.push(n);
 	}
 }
-${4}
+${5}
 endsnippet
 
 snippet ww_algo_grid_filter "bfs grid filter" b
