@@ -390,6 +390,16 @@ endsnippet
 # =========================================================
 # Algorithm Search
 # =========================================================
+snippet ww_algo_alma "allmatch" b
+bool alma = true;
+alma &= ;
+endsnippet
+
+snippet ww_algo_anma "anymatch" b
+bool anma = false;
+anma |= ;
+endsnippet
+
 snippet ww_algo_permu_loop "next permutation" b
 do {${2}} while (next_permutation(${1:A}.begin(), $1.end()));
 endsnippet
