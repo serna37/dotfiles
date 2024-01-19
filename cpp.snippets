@@ -386,15 +386,15 @@ endsnippet
 
 snippet ww_algo_mod_pow "pow mod" b
 auto mod_pow = [&](long long a, long long n) -> long long {
-	long long res = 1;
+	long long ans = 1;
 	while (n > 0) {
 		if (n & 1) {
-			res = res * a % MOD;
+			ans = ans * a % MOD;
 		}
 		a = a * a % MOD;
 		n >>= 1ll;
 	}
-	return res;
+	return ans;
 };
 endsnippet
 
