@@ -468,6 +468,7 @@ bool alma = true;
 for (int ${1:i} = ${2:0}; $1 <${3:N}; $1++) {
 	alma &= ${4};
 }
+${5}
 endsnippet
 
 snippet ww_algo_anma "anymatch" b
@@ -475,6 +476,7 @@ bool anma = false;
 for (int ${1:i} = ${2:0}; $1 <${3:N}; $1++) {
 	anma |= ${4};
 }
+${5}
 endsnippet
 
 snippet ww_algo_permu_loop "next permutation" b
@@ -541,6 +543,7 @@ snippet ww_algo_grid_filter "bfs grid filter" b
 if (${1:x} < 0 or ${2:y} < 0 or ${3:column} <= $1 or ${4:row} <= $2) {
 	continue;
 }
+${5}
 endsnippet
 
 # =========================================================
@@ -659,6 +662,7 @@ for (int i = 0; i < N; i++) {
 for (int i = N - 1; i >= 0; i--) {
 	${5:bind}
 }
+${6}
 endsnippet
 
 snippet ww_algo_segment_tree_query "seg query" b
@@ -680,6 +684,7 @@ seg[${2:i} += ${1:N}] = ${3:x};
 while ($2 >>= 1) {
 	${4:bind}
 }
+${5}
 endsnippet
 
 # TODO add upper lower bound
