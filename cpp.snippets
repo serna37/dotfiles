@@ -187,8 +187,51 @@ endsnippet
 # =========================================================
 # STL
 # =========================================================
-snippet ww_stl_cout "ccout" b
+snippet ww_stl_cin_vec1 "cin vec" b
+vector<${1:int}> ${2:A}(${3:N});
+for (int i = 0; i < $3; i++) {
+	cin >> $2[i];
+}
+${4}
+endsnippet
+
+snippet ww_stl_cin_vec2 "cin vec" b
+vector<${1:int}> ${2:A}(${3:N}), ${4:B}($3);
+for (int i = 0; i < $3; i++) {
+	cin >> $2[i] >> $4[i];
+}
+${5}
+endsnippet
+
+snippet ww_stl_cin_grid "cin grid" b
+vector<vector<${1:int}>> ${2:G}(${3:H}, vector<$1>(${4:W}));
+for (int i = 0; i < $3; i++) {
+	for (int j = 0; j < $4; j++) {
+		cin >> $2[i][j];
+	}
+}
+${5}
+endsnippet
+
+snippet ww_stl_cin_graph "cin graph" b
+vector<vector<${1:int}>> ${2:G}(${3:N});
+for (int i = 0; i < ${4:M}; i++) {
+	$1 ${5:A}, ${6:B};
+	cin >> $5 >> $6;
+	$5--;
+	$6--;
+	G[$5].push_back($6);
+	G[$6].push_back($5);
+}
+${7}
+endsnippet
+
+snippet ww_stl_cout "cout" b
 cout << ${1:ans} << endl;
+endsnippet
+
+snippet ww_stl_cout_yes_no "yes no" b
+cout << (${1:condition} ? "Yes" : "No") << endl;
 endsnippet
 
 snippet ww_stl_fix_setprecision "fixed precision" b
