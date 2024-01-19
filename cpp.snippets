@@ -63,6 +63,28 @@ for (int ${1:i} = ${2:0}; $1 <${3:H}; $1++) {
 }
 endsnippet
 
+snippet if "if" b
+if (${1:some})
+endsnippet
+
+snippet elseif "eles if" bi
+else if (${1:some}) {
+	${2:some}
+}
+endsnippet
+
+snippet else "else" bi
+else {
+	${1:some}
+}
+endsnippet
+
+snippet while "while" b
+while (${1:some}) {
+	${2:some}
+}
+endsnippet
+
 snippet func "function" b
 ${1:void} ${2:func}(${3:int n}) {
 	${4:some}
