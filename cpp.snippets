@@ -587,21 +587,11 @@ for (${2:l} += ${1:N}, ${3:r} += $1; $2 < $3; $2 >>= 1, $3 >>= 1) {
 ${6}
 endsnippet
 
-snippet ww_algo_segment_tree_upd "seg upd" b
+snippet ww_algo_segment_tree_update "seg upd" b
 seg[${2:i} += ${1:N}] = ${3:x};
 while ($2 >>= 1) {
-	for (auto v : seg[$2 << 1 | 0]) {
-		seg[$2][v.first] += v.second;
-	}
-	for (auto v : seg[$2 << 1 | 1]) {
-		seg[$2][v.first] += v.second;
-	}
-	seg[$2] = max(seg[$2 << 1 | 0], seg[$2 << 1 | 1]);
-	seg[$2] = min(seg[$2 << 1 | 0], seg[$2 << 1 | 1]);
-	seg[$2] = seg[$2 << 1 | 0] + seg[$2 << 1 | 1];
-	seg[$2] = seg[$2 << 1 | 0] * seg[$2 << 1 | 1];
+	${4:bind}
 }
-${4}
 endsnippet
 
 snippet old_struct_s "seg" b
