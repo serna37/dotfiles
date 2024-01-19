@@ -594,6 +594,45 @@ while ($2 >>= 1) {
 }
 endsnippet
 
+# TODO add upper lower bound
+
+snippet ww_algo_segment_tree_bind_RMQ "seg min max gcd" b
+seg[${1:i}] = ${2:min max gcd}(seg[$1 << 1 | 0], seg[$1 << 1 | 1]);
+endsnippet
+
+snippet ww_algo_segment_tree_bind_Ope "seg + *" b
+seg[${1:i}] = seg[$1 << 1 | 0] ${2:+ *} seg[$1 << 1 | 1];
+endsnippet
+
+snippet ww_algo_segment_tree_bind_map "seg bind" b
+for (auto v : seg[${1:i} << 1 | 0]) {
+	seg[$1][v.first] += v.second;
+}
+for (auto v : seg[$1 << 1 | 1]) {
+	seg[$1][v.first] += v.second;
+}
+${2}
+endsnippet
+
+snippet ww_algo_segment_tree_pick_RMQ "seg min max gcd" b
+${1:vl vr} = ${3:min max gcd}($1, seg[${2:l++ --r}]);
+endsnippet
+
+snippet ww_algo_segment_tree_pick_Ope "seg + *" b
+${1:vl vr} = ${3:+ *}= seg[${2:l++ --r}];
+endsnippet
+
+snippet ww_algo_segment_tree_pick_map "seg pick" b
+--$1;
+if (seg[${1:l r}].count(${2:X})) {
+	ans += seg[$1][$2];
+}
+$1++;
+endsnippet
+
+# =========================================================
+# old
+# =========================================================
 snippet old_struct_s "seg" b
 template <typename T> struct SegTree {
 	using F = function<T(T, T)>;
