@@ -561,7 +561,7 @@ cout << dp[$2][$3] << endl;
 endsnippet
 
 snippet ww_algo_dp_napsack "dp napsack" b
-if (${2:w} < ${3:weight}[${1:i}]) {
+if (${2:goal_weight} < ${3:weight}[${1:use_i}]) {
 	dp[$1 + 1][$2] = dp[$1][$2];
 } else {
 	dp[$1 + 1][$2] = max(dp[$1][$2], dp[$1][$2 - $3[$1]] + ${4:value}[$1]);
@@ -569,18 +569,30 @@ if (${2:w} < ${3:weight}[${1:i}]) {
 ${5}
 endsnippet
 
-snippet ww_algo_dp_sum_can_create "dp sum can create" b
-dp[${1:i} + 1][${2:j}] = dp[$1][$2];
-if ($2 >= A[$1]) {
-	dp[$1 + 1][$2] = dp[$1][$2] or dp[$1][$2 - A[$1]];
+snippet ww_algo_dp_coin_sum "dp coin sum" b
+if (!dp[${1:use_i}][${2:goal_j}]) {
+	continue;
 }
-${3}
+for (int k = 0; k <= ${3:cnt}[$1]; k++) {
+	int n = $2 + ${4:value}[$1] * k;
+	if (n <= ${5:Goal}) {
+		dp[$1 + 1][n] = true;
+	}
+}
+${6}
 endsnippet
 
 snippet ww_algo_dp_patterm "dp patterm" b
-dp[${1:i} + 1][${2:j}] += dp[$1][$2];
-if (${3:some}) {
+dp[${1:use_i} + 1][${2:goal_j}] += dp[$1][$2];
+if (${3:$2 < some}) {
 	dp[$1 + 1][$2 + 1] += dp[$1][$2];
+}
+${4}
+endsnippet
+
+snippet ww_algo_dp_tree "dp tree" b
+for (auto &v : ${1:G}[${3:current_vertex_j}]) {
+	dp[${2:use_edge_i} + 1][v]+= dp[$2][$3];
 }
 ${4}
 endsnippet
@@ -682,6 +694,7 @@ ${5}
 endsnippet
 
 # TODO XXX FIXME add upper lower bound
+# TODO XXX FIXME add imos lazy update
 
 snippet ww_algo_segment_tree_bind_RMQ "seg min max gcd" b
 seg[${1:i}] = ${2:min max gcd}(seg[$1 << 1 | 0], seg[$1 << 1 | 1]);
