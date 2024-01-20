@@ -737,7 +737,7 @@ vector<${1:int}> fwk(${2:N} + 1, 0);
 endsnippet
 
 snippet ww_algo_fenwick_tree_query "fenwick query" b
-for (int ${1:f} = ${2:idx_1}; $1 <= ${3:N}; $1 -= $1 & -$1) {
+for (int ${1:f} = ${2:idx_1}; $1; $1 -= $1 & -$1) {
 	${4:ans} += fwk[$1];
 }
 ${5}
