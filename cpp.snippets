@@ -657,6 +657,16 @@ auto comp = []<class T>(vector<T> vec) -> vector<T> {
 };
 endsnippet
 
+snippet ww_algo_compress_inline "compress" b
+vector<${1:long long}> ${2:t} = ${3:Z};
+sort($2.begin(), $2.end());
+$2.erase(unique($2.begin(), $2.end()), $2.end());
+for (auto &v : $3) {
+	v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
+}
+int ${4:cs} = $2.size();
+endsnippet
+
 snippet ww_algo_segment_tree "seg" b
 $1 e = ${3:INF};
 vector<${1:int}> seg(${2:N} << 1, e);
