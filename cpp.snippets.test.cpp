@@ -438,4 +438,8 @@ int main() {
     // =========================================================
     // RMQ
     // https://onlinejudge.u-aizu.ac.jp/status/users/serna37/submissions/1/DSL_2_A/judge/8784440/C++14
+    // segment tree
+    // https://atcoder.jp/contests/arc075/submissions/49429892
+    // fenwick tree
+    // https://atcoder.jp/contests/arc075/submissions/49516721
 }
