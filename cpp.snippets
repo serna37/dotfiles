@@ -645,26 +645,14 @@ $1[${4:r+1}]${5:--};
 ${6}
 endsnippet
 
-snippet ww_algo_compress_lambda "compress" b
-auto comp = []<class T>(vector<T> vec) -> vector<T> {
-	auto v = vec;
-	sort(v.begin(), v.end());
-	v.erase(unique(v.begin(), v.end()), v.end());
-	for (int i = 0; i < (int)vec.size(); i++) {
-		vec[i] = lower_bound(v.begin(), v.end(), vec[i]) - v.begin();
-	}
-	return vec;
-};
-endsnippet
-
-snippet ww_algo_compress_inline "compress" b
+snippet ww_algo_compress "compress" b
 vector<${1:long long}> ${2:t} = ${3:Z};
 sort($2.begin(), $2.end());
 $2.erase(unique($2.begin(), $2.end()), $2.end());
 for (auto &v : $3) {
 	v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
 }
-int ${4:cs} = $2.size();
+int ${4:cnt} = $2.size();
 endsnippet
 
 snippet ww_algo_segment_tree "seg" b
@@ -769,48 +757,4 @@ endsnippet
 
 snippet ww_algo_fenwick_tree_LSB "fenwick LSB" b
 ${1:i} ${2:- +}= $1 & -$1;
-endsnippet
-
-# =========================================================
-# old
-# =========================================================
-snippet old_struct_s "seg" b
-template <typename T> struct SegTree {
-	using F = function<T(T, T)>;
-	int N;
-	vector<T> node;
-	F combine;
-	T identify;
-	SegTree(int n, F combine, T identify)
-		: N(n), node(n << 1, identify), combine(combine), identify(identify){};
-	T operator[](int i) {
-		return node[i + N];
-	}
-	void build(vector<T> a) {
-		for (int i = 0; i < N; i++) {
-			node[i + N] = a[i];
-		}
-		for (int i = N - 1; i >= 0; i--) {
-			node[i] = combine(node[i << 1 | 0], node[i << 1 | 1]);
-		}
-	}
-	void set(int i, T x) {
-		node[i += N] = x;
-		while (i >>= 1) {
-			node[i] = combine(node[i << 1 | 0], node[i << 1 | 1]);
-		}
-	}
-	T fold(int l, int r) {
-		T vl = identify, vr = identify;
-		for (l += N, r += N; l < r; l >>= 1, r >>= 1) {
-			if (l & 1) {
-				vl = combine(vl, node[l++]);
-			}
-			if (r & 1) {
-				vr = combine(node[--r], vr);
-			}
-		}
-		return combine(vl, vr);
-	}
-};
 endsnippet
