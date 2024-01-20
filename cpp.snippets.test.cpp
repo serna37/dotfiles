@@ -436,5 +436,6 @@ int main() {
     // =========================================================
     // Algorithm RxQ
     // =========================================================
-    // FIXME WIP
+    // RMQ
+    // https://onlinejudge.u-aizu.ac.jp/status/users/serna37/submissions/1/DSL_2_A/judge/8784440/C++14
 }
