@@ -668,14 +668,17 @@ int ${4:cs} = $2.size();
 endsnippet
 
 snippet ww_algo_segment_tree "seg" b
-$1 e = ${3:INF};
-vector<${1:int}> seg(${2:N} << 1, e);
-for (int i = 0; i < N; i++) {
-	$1 ${4:A};
-	cin >> $4;
-	seg[i + $2] = $4;
+${1:int} e = ${2:INF};
+vector<$1> seg(${3:N} << 1, e);
+endsnippet
+
+snippet ww_algo_segment_tree_build "seg build" b
+for (int i = 0; i < ${1:N}; i++) {
+	${2:int} ${3:A};
+	cin >> $3;
+	seg[i + ${4:N}] = $3;
 }
-for (int i = N - 1; i >= 0; i--) {
+for (int i = $1 - 1; i >= 0; i--) {
 	${5:bind}
 }
 ${6}
