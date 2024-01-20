@@ -645,7 +645,7 @@ $1[${4:r+1}]${5:--};
 ${6}
 endsnippet
 
-snippet ww_algo_compress_coordinate "compress" b
+snippet ww_algo_compress_lambda "compress" b
 auto comp = []<class T>(vector<T> vec) -> vector<T> {
 	auto v = vec;
 	sort(v.begin(), v.end());
@@ -658,8 +658,8 @@ auto comp = []<class T>(vector<T> vec) -> vector<T> {
 endsnippet
 
 snippet ww_algo_segment_tree "seg" b
-$1 atom = ${3:INF};
-vector<${1:int}> seg(${2:N} << 1, atom);
+$1 e = ${3:INF};
+vector<${1:int}> seg(${2:N} << 1, e);
 for (int i = 0; i < N; i++) {
 	$1 ${4:A};
 	cin >> $4;
@@ -672,7 +672,7 @@ ${6}
 endsnippet
 
 snippet ww_algo_segment_tree_query "seg query" b
-auto vl = atom, vr = atom;
+auto vl = e, vr = e;
 int ans = 0;
 for (${1:int} ${2:l} ${3:+= N}, ${4:r} ${5:+= N}; $2 < $4; $2 >>= 1, $4 >>= 1) {
 	if ($2 & 1) {
