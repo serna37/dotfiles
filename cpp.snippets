@@ -522,21 +522,21 @@ endsnippet
 # Algorithm Graph
 # =========================================================
 snippet ww_algo_bfs "bfs" b
-vector<bool> vis(${3:N});
-queue<${1:int}> q;
-q.push(${2:initial q});
+queue<${1:pair<int, int>}> q;
+q.push(${2:\{0, 0\}});
+vector<int> dis(${3:N}, -1);
 while (!q.empty()) {
-	auto v = q.front();
+	auto tmp = q.front();
 	q.pop();
-	if (vis[v]) {
+	if (dis[tmp${4:.first}] != -1) {
 		continue;
 	}
-	vis[v] = true;
-	for (int n : ${4:G}[v]) {
-		q.push(n);
+	dis[tmp$4] = tmp${5:.second};
+	for (int v : ${6:G}[tmp$4]) {
+		q.push(${7:\{v, tmp$5 + 1\}});
 	}
 }
-${5}
+${8}
 endsnippet
 
 snippet ww_algo_grid_filter "bfs grid filter" b
