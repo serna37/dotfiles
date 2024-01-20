@@ -551,16 +551,15 @@ endsnippet
 # =========================================================
 snippet ww_algo_dp "dp" b
 vector<vector<${1:int}>> dp(${2:N} + 1, vector<$1>(${3:M} + 1, ${4:0}));
-dp[0][0] = ${5};
-for (int ${6:i} = 0; $6 < $2; $6++) {
-	for (int ${7:j} = 0; $7 <${8:= $3}; $7++) {
+dp[0][0] = ${5:seed_val};
+for (int ${6:use_i} = 0; $6 < $2; $6++) {
+	for (int ${7:goal_j} = 0; $7 <${8:= $3}; $7++) {
 		${9}
 	}
 }
 cout << dp[$2][$3] << endl;
 endsnippet
 
-# TODO XXX FIXME atomc recurrence formula
 snippet ww_algo_dp_napsack "dp napsack" b
 if (${2:w} < ${3:weight}[${1:i}]) {
 	dp[$1 + 1][$2] = dp[$1][$2];
