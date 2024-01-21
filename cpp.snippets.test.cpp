@@ -435,4 +435,5 @@ int main() {
     // https://atcoder.jp/contests/arc075/submissions/49429892
     // fenwick tree
     // https://atcoder.jp/contests/arc075/submissions/49522128
+    // https://onlinejudge.u-aizu.ac.jp/status/users/serna37/submissions/1/DSL_2_B/judge/8795468/C++14
 }

@@ -715,6 +715,17 @@ snippet ww_algo_fenwick_tree "fenwick" b
 vector<${1:int}> fwk(${2:N} + 1, 0);
 endsnippet
 
+snippet ww_algo_fenwick_tree_build "fenwick build" b
+for (int i = 0, f = 1; i < ${1:N}; i++, f++) {
+	fwk[f] += ${2:A}[i];
+	int l = f + f & -f;
+	if (l <= $1) {
+		fwk[l] += fwk[f];
+	}
+}
+${3}
+endsnippet
+
 snippet ww_algo_fenwick_tree_query "fenwick query" b
 for (int ${1:f} = ${2:idx_1}; $1; $1 -= $1 & -$1) {
 	${4:ans} += fwk[$1];
