@@ -28,16 +28,6 @@ int main() {
         for (int j = 0; j < N; j++) {
         }
     }
-    // if
-    if (true) {
-        // elseif
-    } else if (true) {
-        // else
-    } else {
-    }
-    // while
-    while (false) {
-    }
     // func_lambda
     auto lamda = [&](int a) -> void {
 
@@ -91,9 +81,9 @@ int main() {
     vector<int> adx = {0, 1, 0, -1, 1, -1, 1, -1};
     vector<int> ady = {1, 0, -1, 0, 1, 1, -1, -1};
     // =========================================================
-    // STL
+    // IN OUT
     // =========================================================
-    // ww_stl_cin_vec1
+    // ww_vec_cin_1
     vector<int> aa(N);
     for (int i = 0; i < N; i++) {
         // cin >> aa[i];
@@ -103,14 +93,14 @@ int main() {
     for (int i = 0; i < N; i++) {
         // cin >> aaa[i] >> bbb[i];
     }
-    // ww_stl_cin_grid
+    // ww_grid_cin
     vector<vector<int>> G(N, vector<int>(N));
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             // cin >> G[i][j];
         }
     }
-    // ww_stl_cin_graph
+    // ww_graph_cin
     vector<vector<int>> GG(N);
     for (int i = 0; i < N; i++) {
         // int A, B;
@@ -121,12 +111,15 @@ int main() {
         // G[B].push_back(A);
     }
     int ans = 0;
-    // ww_stl_cout
+    // ww_cout
     cout << ans << endl;
-    // ww_stl_cout_yes_no
+    // ww_cout_yes_no
     cout << (true ? "Yes" : "No") << endl;
-    // ww_stl_fix_setprecision
+    // ww_fixed_setprecision
     cout << fixed << setprecision(20);
+    // =========================================================
+    // STL
+    // =========================================================
     // ww_stl_max_ch
     int tmp = 1;
     ans = max(ans, tmp);
