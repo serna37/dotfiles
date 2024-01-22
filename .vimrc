@@ -95,8 +95,8 @@ nnoremap <silent><Leader>t :FloatermToggle<CR>
 tnoremap <silent><Leader>t <C-w>:FloatermToggle<CR>
 let g:floaterm_keymap_toggle = '<F12>'
 let g:floaterm_width = 0.5
-let g:floaterm_height = 0.5
-let g:floaterm_position = 'bottom'
+let g:floaterm_height = 0.7
+let g:floaterm_position = 'bottomright'
 
 " ### Enhanced Visualization
 Plug 'ryanoasis/vim-devicons'
@@ -251,6 +251,8 @@ Plug 'glidenote/memolist.vim'
 Plug 'segeljakt/vim-silicon'
 Plug 'nanotee/zoxide.vim'
 Plug 'serna37/vim-atcoder-menu'
+let g:silicon = {}
+let g:silicon['output'] = '~/Desktop/tmp.png'
 let g:ac_vim_bell_times_at = [1, 5, 15, 30]
 let g:ac_vim_bell_times_interval = []
 let g:ac_vim_bell_times_redzone = 30
