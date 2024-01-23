@@ -371,8 +371,8 @@ auto p_fact = []<class T>(T N) -> map<T, int> {
 endsnippet
 
 snippet ww_algo_mod_pow "pow mod" b
-auto mod_pow = [&](long long a, long long n) -> long long {
-	long long ans = 1;
+auto mod_pow = [&]<class T>(T a, T n) -> T {
+	T ans = 1;
 	while (n > 0) {
 		if (n & 1) {
 			ans = ans * a % MOD;
