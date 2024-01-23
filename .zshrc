@@ -145,7 +145,11 @@ cpp() {
     file="${filename%.*}"
     g++ -std=c++23 -o $file $1 && ./$file
 }
+export AC_DIR="$HOME/git/contest"
+export ASA_DIR="$HOME/git/asakatu"
+export SAND_DIR="$HOME/git/sandbox"
 AtCoder() {
+    cd $AC_DIR
     contest_cd=$1
     file_name="main.cpp"
     acc check-oj
@@ -174,6 +178,7 @@ AtCoder() {
     #rm -rf $1 && AtCoder $1
 #}
 AsakatuAtCoder() {
+    cd $ASA_DIR
     file_name="main.cpp"
     dirname=`date '+%Y%m%d'`
     mkdir $dirname
@@ -187,6 +192,7 @@ AsakatuAtCoder() {
     vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify" -c "AtCoderTimer" -c "echom '$(basename $(pwd))'"
 }
 sandcpp() {
+    cd $SAND_DIR
     files=$(\fd -d 1 -t f)
     filtered_files=$(echo "$files" | grep -E '^[0-9]+\.cpp$')
     if [ -z "$filtered_files" ]; then
