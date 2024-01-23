@@ -740,10 +740,11 @@ ${3}
 endsnippet
 
 snippet ww_algo_fenwick_tree_query "fenwick query" b
-for (int ${1:f} = ${2:idx_1}; $1; $1 -= $1 & -$1) {
-	${4:ans} += fwk[$1];
+int ${1:ans} = ${2:0};
+for (int ${3:f} = ${4:idx_1}; $3; $3 -= $3 & -$3) {
+	$1 ${5:+}= fwk[$3];
 }
-${5}
+${6}
 endsnippet
 
 snippet ww_algo_fenwick_tree_update "fenwick update" b
