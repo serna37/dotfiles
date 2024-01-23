@@ -256,6 +256,7 @@ let g:silicon['output'] = '~/Desktop/tmp.png'
 let g:ac_vim_bell_times_at = [1, 5, 15, 30]
 let g:ac_vim_bell_times_interval = []
 let g:ac_vim_bell_times_redzone = 30
+let g:ac_vim_bell_times_limit = 45
 
 call plug#end()
 
