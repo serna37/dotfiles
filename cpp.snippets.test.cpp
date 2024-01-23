@@ -129,6 +129,8 @@ int main() {
     sort(A.begin(), A.end());
     // ww_stl_all_rev
     sort(A.rbegin(), A.rend());
+    // sort
+    sort(A.begin(), A.end());
     // ww_stl_transform
     string S;
     std::transform(S.begin(), S.end(), S.begin(), ::tolower);
@@ -271,8 +273,8 @@ int main() {
     assert(pfact[3] == 1);
     assert(pfact.size() == 2);
     // ww_algo_mod_pow
-    auto mod_pow = [&](long long a, long long n) -> long long {
-        long long ans = 1;
+    auto mod_pow = [&]<class T>(T a, T n) -> T {
+        T ans = 1;
         while (n > 0) {
             if (n & 1) {
                 ans = ans * a % MOD;
