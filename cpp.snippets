@@ -320,6 +320,22 @@ auto digitsum = []<class T>(T a, int N = 10) -> T {
 };
 endsnippet
 
+snippet ww_algo_divisors_list "divisors" b
+auto divisors = []<class T>(T a) -> vector<T> {
+	vector<T> ans;
+	for (int i = 1; i * i <= a; i++) {
+		if (a % i != 0) {
+			continue;
+		}
+		ans.push_back(i);
+		if (a / i != i) {
+			ans.push_back(i);
+		}
+	}
+	return ans;
+};
+endsnippet
+
 snippet ww_algo_is_prime "is prime" b
 auto is_p = []<class T>(T num) -> bool {
 	if (num == 2) {

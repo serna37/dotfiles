@@ -209,6 +209,21 @@ int main() {
     assert(digitsum(15) == 6);
     assert(digitsum(aINF) == 7);
     assert(digitsum(15, 2) == __builtin_popcount(15));
+    // ww_algo_divisors_list
+    // https://atcoder.jp/contests/abc106/submissions/49604101
+    auto divisors = []<class T>(T a) -> vector<T> {
+        vector<T> ans;
+        for (int i = 1; i * i <= a; i++) {
+            if (a % i != 0) {
+                continue;
+            }
+            ans.push_back(i);
+            if (a / i != i) {
+                ans.push_back(i);
+            }
+        }
+        return ans;
+    };
     // ww_algo_is_prime
     auto is_p = []<class T>(T num) -> bool {
         if (num == 2) {
