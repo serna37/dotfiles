@@ -203,22 +203,19 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 nnoremap o A<CR>
 let g:cosco_filetype_whitelist = ['cpp', 'rust']
 let g:cosco_ignore_comment_lines = 1
-" return normal & save
-fu! s:saving() abort
-    execute('CommaOrSemiColon')
-    try
-        cal CocAction('format')
-    catch
-    endtry
-    execute('w')
-endf
-noremap <silent><Plug>(saving) :<C-u>cal <SID>saving()<CR>
-inoremap jk <Esc><Plug>(saving)
-inoremap jj <Esc><Plug>(saving)A<CR>
 let g:auto_comma_or_semicolon = 1
 let g:cosco_ignore_ft_pattern = {
         \ 'cpp': '}',
         \}
+aug fmt_cpp
+    au!
+    au BufWrite *.cpp :try | cal CocAction('format') | catch | endtry | execute('w')
+aug END
+"noremap <silent><Plug>(saving) :<C-u>cal <SID>saving()<CR>
+" TODO fix
+"inoremap jk <Esc><Plug>(saving)
+"inoremap jj <Esc><Plug>(saving)A<CR>
+"nnoremap <C-s> <Plug>(saving)
 let g:move_key_modifier_visualmode = 'C'
 let g:AutoPairsMapCh = 0
 
