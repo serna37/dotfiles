@@ -215,6 +215,10 @@ endf
 noremap <silent><Plug>(saving) :<C-u>cal <SID>saving()<CR>
 inoremap jk <Esc><Plug>(saving)
 inoremap jj <Esc><Plug>(saving)A<CR>
+let g:auto_comma_or_semicolon = 1
+let g:cosco_ignore_ft_pattern = {
+        \ 'cpp': '}',
+        \}
 let g:move_key_modifier_visualmode = 'C'
 let g:AutoPairsMapCh = 0
 
