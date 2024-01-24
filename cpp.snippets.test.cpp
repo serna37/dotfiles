@@ -20,15 +20,15 @@ int main() {
     }
     // fori_sqrt
     // https://atcoder.jp/contests/abc324/submissions/49612635
-    // forv
-    vector<int> A(N);
-    for (auto &v : A) {
-    }
-    // for2
+    // fori2
     vector<vector<int>> B(N, vector<int>(N));
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
         }
+    }
+    // forv
+    vector<int> A(N);
+    for (auto &v : A) {
     }
     // func_lambda
     auto lamda = [&](int a) -> void {
