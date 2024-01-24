@@ -18,6 +18,8 @@ int main() {
     // fori_re
     for (int i = N - 1; i >= 0; i--) {
     }
+    // fori_sqrt
+    // https://atcoder.jp/contests/abc324/submissions/49612635
     // forv
     vector<int> A(N);
     for (auto &v : A) {
