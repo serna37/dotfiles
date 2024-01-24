@@ -176,7 +176,6 @@ vector<${1:int}> ${2:A}(${3:N});
 for (int i = 0; i < $3; i++) {
 	cin >> $2[i];
 }
-${4}
 endsnippet
 
 snippet ww_vec_cin_2 "vec cin" b
@@ -184,7 +183,6 @@ vector<${1:int}> ${2:A}(${4:N}), ${3:B}($4);
 for (int i = 0; i < $4; i++) {
 	cin >> $2[i] >> $3[i];
 }
-${5}
 endsnippet
 
 snippet ww_grid_cin "grid cin" b
@@ -194,7 +192,6 @@ for (int i = 0; i < $3; i++) {
 		cin >> $2[i][j];
 	}
 }
-${5}
 endsnippet
 
 snippet ww_graph_cin "graph cin" b
@@ -207,7 +204,6 @@ for (int i = 0; i < ${4:M}; i++) {
 	G[$5].push_back($6);
 	G[$6].push_back($5);
 }
-${7}
 endsnippet
 
 snippet ww_cout "cout" b
@@ -476,7 +472,6 @@ bool alma = true;
 for (int ${1:i} = ${2:0}; $1 <${3:N}; $1++) {
 	alma &= ${4};
 }
-${5}
 endsnippet
 
 snippet ww_algo_anma "anymatch" b
@@ -484,7 +479,6 @@ bool anma = false;
 for (int ${1:i} = ${2:0}; $1 <${3:N}; $1++) {
 	anma |= ${4};
 }
-${5}
 endsnippet
 
 snippet ww_algo_permu_loop "next permutation" b
@@ -499,7 +493,6 @@ for (int bit = 0; bit < 1 << ${1:N}; bit++) {
 			tmp |= ${4:A}[k];
 		}
 	}
-	${5}
 }
 endsnippet
 
@@ -523,7 +516,6 @@ for (int l = 0; l < ${1:N}; l++) {
 	}
 	ans += $2[l] + to_string(r - l);
 }
-${3}
 endsnippet
 
 # =========================================================
@@ -544,7 +536,6 @@ while (!q.empty()) {
 		}
 	}
 }
-${4}
 endsnippet
 
 snippet ww_algo_bfs_grid "bfs grid" b
@@ -568,14 +559,12 @@ while (!q.empty()) {
 		}
 	}
 }
-${7}
 endsnippet
 
 snippet ww_algo_grid_dydx "dydx" b
 for (int ${1:k} = 0; $1 < ${2:4}; $1++) {
 	int y = ${3:i} + dy[$1];
 	int x = ${4:j} + dx[$1];
-	${5}
 }
 endsnippet
 
@@ -583,7 +572,6 @@ snippet ww_algo_grid_filter "bfs grid filter" b
 if (${1:y} < 0 or ${2:x} < 0 or ${3:row} <= $1 or ${4:column} <= $2) {
 	continue;
 }
-${5}
 endsnippet
 
 # =========================================================
@@ -606,7 +594,6 @@ if (${2:goal_weight} < ${3:weight}[${1:use_i}]) {
 } else {
 	dp[$1 + 1][$2] = max(dp[$1][$2], dp[$1][$2 - $3[$1]] + ${4:value}[$1]);
 }
-${5}
 endsnippet
 
 snippet ww_algo_dp_coin_sum "dp coin sum" b
@@ -619,7 +606,6 @@ for (int k = 0; k <= ${3:cnt}[$1]; k++) {
 		dp[$1 + 1][n] = true;
 	}
 }
-${6}
 endsnippet
 
 snippet ww_algo_dp_patterm "dp patterm" b
@@ -627,14 +613,12 @@ dp[${1:use_i} + 1][${2:goal_j}] += dp[$1][$2];
 if (${3:$2 < some}) {
 	dp[$1 + 1][$2 + 1] += dp[$1][$2];
 }
-${4}
 endsnippet
 
 snippet ww_algo_dp_tree "dp tree" b
 for (auto &v : ${1:G}[${3:current_vertex_j}]) {
 	dp[${2:use_edge_i} + 1][v]+= dp[$2][$3];
 }
-${4}
 endsnippet
 
 # =========================================================
@@ -645,7 +629,6 @@ vector<${1:long long}> ${2:S}(${3:N} + 1);
 for (int i = 0; i < $3; i++) {
 	$2[i + 1] = $2[i] + ${4:A}[i];
 }
-${5}
 endsnippet
 
 snippet ww_algo_zeta_rev "ruisekiwa reverse" b
@@ -653,7 +636,6 @@ vector<${1:long long}> ${2:R}(${3:N} + 1);
 for (int i = $3 - 1; i >= 0; i--) {
 	$2[i] = $2[i + 1] + ${4:A}[i];
 }
-${5}
 endsnippet
 
 snippet ww_algo_zeta_2D "2d ruisekiwa" b
@@ -668,7 +650,6 @@ for (int i = 0; i < $3; i++) {
 		$2[i + 1][j + 1] += $2[i][j + 1];
 	}
 }
-${6}
 endsnippet
 
 snippet ww_algo_moebius "diff" b
@@ -676,13 +657,11 @@ vector<${1:int}> ${2:D}(${3:N-1});
 for (int i = 0; i < $3; i++) {
 	$2[i] = ${4:A}[i + 1] - $4[i];
 }
-${5}
 endsnippet
 
 snippet ww_algo_imos "imos" b
 ${1:A}[${2:l}]${3:++};
 $1[${4:r+1}]${5:--};
-${6}
 endsnippet
 
 snippet ww_algo_compress "compress" b
@@ -707,7 +686,6 @@ for (int i = 0; i < ${1:N}; i++) {
 for (int i = $1 - 1; i >= 0; i--) {
 	${5:bind}
 }
-${6}
 endsnippet
 
 snippet ww_algo_segment_tree_query "seg query" b
@@ -721,7 +699,6 @@ for (${1:int} ${2:l} ${3:+= N}, ${4:r} ${5:+= N}; $2 < $4; $2 >>= 1, $4 >>= 1) {
 		${7:pick}
 	}
 }
-${8}
 endsnippet
 
 snippet ww_algo_segment_tree_update "seg upd" b
@@ -730,7 +707,6 @@ seg[$1] = ${3:x};
 while ($1 >>= 1) {
 	${4:bind}
 }
-${5}
 endsnippet
 
 # TODO XXX FIXME add upper lower bound
@@ -751,7 +727,6 @@ for (auto v : seg[${1:i} << 1 | 0]) {
 for (auto v : seg[$1 << 1 | 1]) {
 	seg[$1][v.first] += v.second;
 }
-${2}
 endsnippet
 
 snippet ww_algo_segment_tree_pick_RMQ "seg min max gcd" b
@@ -782,7 +757,6 @@ for (int i = 0, f = 1; i < ${1:N}; i++, f++) {
 		fwk[l] += fwk[f];
 	}
 }
-${3}
 endsnippet
 
 snippet ww_algo_fenwick_tree_query "fenwick query" b
@@ -790,14 +764,12 @@ int ${1:ans} = ${2:0};
 for (int ${3:f} = ${4:idx_1}; $3; $3 -= $3 & -$3) {
 	$1 ${5:+}= fwk[$3];
 }
-${6}
 endsnippet
 
 snippet ww_algo_fenwick_tree_update "fenwick update" b
 for (int ${1:f} = ${2:idx_1}; $1 <= ${3:N}; $1 += $1 & -$1) {
 	fwk[$1] ${4:++ +=some};
 }
-${5}
 endsnippet
 
 snippet ww_algo_LSB "LSB" bi
