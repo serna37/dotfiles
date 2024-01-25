@@ -235,6 +235,10 @@ nnoremap <Leader>, <plug>(coc-diagnostic-next)
 nnoremap <Leader>. <plug>(coc-diagnostic-prev)
 nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : comfortable_motion#flick(100)
 nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : comfortable_motion#flick(-100)
+aug fmt_cpp
+    au!
+    au BufWrite *.cpp :try | cal CocAction('format') | catch | endtry
+aug END
 
 " ### util
 Plug 'serna37/vim-tutorial'
