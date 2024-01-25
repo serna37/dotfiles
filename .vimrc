@@ -191,7 +191,6 @@ let g:minimap_git_colors = 1
 Plug 'SirVer/ultisnips'
 Plug 'markonm/traces.vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'lfilho/cosco.vim'
 Plug 'matze/vim-move'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
@@ -199,23 +198,14 @@ Plug 'tpope/vim-repeat'
 let g:UltiSnipsExpandTrigger="<C-s>"
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-" o -> A+CR (adhoc for snippet tabstop bug...)
-nnoremap o A<CR>
-let g:cosco_filetype_whitelist = ['cpp', 'rust']
-let g:cosco_ignore_comment_lines = 1
-let g:auto_comma_or_semicolon = 1
-let g:cosco_ignore_ft_pattern = {
-        \ 'cpp': '}',
-        \}
-aug fmt_cpp
-    au!
-    au BufWrite *.cpp :try | cal CocAction('format') | catch | endtry | execute('w')
-aug END
-"noremap <silent><Plug>(saving) :<C-u>cal <SID>saving()<CR>
-" TODO fix
-"inoremap jk <Esc><Plug>(saving)
-"inoremap jj <Esc><Plug>(saving)A<CR>
-"nnoremap <C-s> <Plug>(saving)
+fu! s:tailsemi() abort
+    if getline('.')[-1:] != ';'
+        execute('normal A;')
+    endif
+endf
+noremap <silent><Plug>(tailsemi) :<C-u>cal <SID>tailsemi()<CR>
+inoremap ;; <Esc><Plug>(tailsemi)<Esc>:w<CR>
+inoremap ;<CR> <Esc><Plug>(tailsemi)<Esc>:w<CR>o
 let g:move_key_modifier_visualmode = 'C'
 let g:AutoPairsMapCh = 0
 
