@@ -26,7 +26,7 @@
 # =========================================================
 # Template
 # =========================================================
-snippet www "template header" b
+snippet www "template header" bA
 #include <bits/stdc++.h>
 using namespace std;
 ${1}
@@ -139,6 +139,10 @@ snippet pri "priority_queue" bi
 priority_queue<${1:int}>
 endsnippet
 
+snippet deq "deque" bi
+deque<${1:char}>
+endsnippet
+
 # =========================================================
 # const
 # =========================================================
@@ -190,7 +194,7 @@ for (int i = 0; i < $4; i++) {
 endsnippet
 
 snippet ww_grid_cin "grid cin" b
-vector<vector<${1:int}>> ${2:G}(${3:H}, vector<$1>(${4:W}));
+vector<vector<${1:char}>> ${2:G}(${3:H}, vector<$1>(${4:W}));
 for (int i = 0; i < $3; i++) {
 	for (int j = 0; j < $4; j++) {
 		cin >> $2[i][j];
@@ -554,7 +558,7 @@ while (!q.empty()) {
 	for (int i = 0; i < 4; i++) {
 		int y = py + dy[i];
 		int x = px + dx[i];
-		if (y < 0 or x < 0 or R <= y or C <= x) {
+		if (y < 0 or x < 0 or $3 <= y or $4 <= x) {
 			continue;
 		}
 		if (d[y][x] == -1 and ${5:G}[y][x] ${6: != '#'}) {
