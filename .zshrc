@@ -143,7 +143,7 @@ google() {
 cpp() {
     filename=$1
     file="${filename%.*}"
-    g++ -std=c++23 -o $file $1 && ./$file
+    g++ -std=c++23 -mtune=native -march=native -fconstexpr-depth=2147483647 -fconstexpr-loop-limit=2147483647 -fconstexpr-ops-limit=2147483647 -o $file $1 && ./$file
 }
 export AC_DIR="$HOME/git/contest"
 export ASA_DIR="$HOME/git/asakatu"
