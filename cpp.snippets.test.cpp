@@ -458,6 +458,8 @@ int main() {
     // https://atcoder.jp/contests/arc075/submissions/49429892
     // segment tree struct
     // https://onlinejudge.u-aizu.ac.jp/status/users/serna37/submissions/1/DSL_2_B/judge/8830879/C++14
+    // segment tree Range Count Query
+    // https://atcoder.jp/contests/abc248/submissions/49768611
     // fenwick tree
     // https://atcoder.jp/contests/arc075/submissions/49522128
     // https://onlinejudge.u-aizu.ac.jp/status/users/serna37/submissions/1/DSL_2_B/judge/8795468/C++14
