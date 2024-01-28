@@ -316,17 +316,13 @@ auto split = [](string s, char c) -> vector<string> {
 	string t;
 	for (char v : s) {
 		if (v == c) {
-			if (!t.empty()) {
-				S.push_back(t);
-			}
+			if (!t.empty()) S.push_back(t);
 			t.clear();
 		} else {
 			t += v;
 		}
 	}
-	if (!t.empty()) {
-		S.push_back(t);
-	}
+	if (!t.empty()) S.push_back(t);
 	return S;
 };
 endsnippet
@@ -349,13 +345,9 @@ snippet ww_math_divisors_list "divisors" b
 auto divisors = []<class T>(T a) -> vector<T> {
 	vector<T> ans;
 	for (int i = 1; i * i <= a; i++) {
-		if (a % i != 0) {
-			continue;
-		}
+		if (a % i != 0) continue;
 		ans.push_back(i);
-		if (a / i != i) {
-			ans.push_back(a / i);
-		}
+		if (a / i != i) ans.push_back(a / i);
 	}
 	return ans;
 };
@@ -363,17 +355,11 @@ endsnippet
 
 snippet ww_math_is_prime "is prime" b
 auto is_p = []<class T>(T num) -> bool {
-	if (num == 2) {
-		return true;
-	}
-	if (num < 2 || num % 2 == 0) {
-		return false;
-	}
+	if (num == 2) return true;
+	if (num < 2 || num % 2 == 0) return false;
 	double sqrtNum = sqrt(num);
 	for (T i = 3; i <= sqrtNum; i += 2) {
-		if (num % i == 0) {
-			return false;
-		}
+		if (num % i == 0) return false;
 	}
 	return true;
 };
@@ -384,12 +370,8 @@ auto eratosthenes = []<class T>(T N) -> vector<bool> {
 	vector<bool> is_P(N + 1, true);
 	is_P[0] = is_P[1] = false;
 	for (T i = 2; i * i <= N; i++) {
-		if (!is_P[i]) {
-			continue;
-		}
-		for (T j = i * i; j <= N; j += i) {
-			is_P[j] = false;
-		}
+		if (!is_P[i]) continue;
+		for (T j = i * i; j <= N; j += i) is_P[j] = false;
 	}
 	return is_P;
 };
@@ -404,9 +386,7 @@ auto p_fact = []<class T>(T N) -> map<T, int> {
 			N /= i;
 		}
 	}
-	if (N > 1) {
-		P[N]++;
-	}
+	if (N > 1) P[N]++;
 	return P;
 };
 endsnippet
@@ -415,9 +395,7 @@ snippet ww_math_mod_pow "pow mod" b
 auto mod_pow = [&]<class T>(T a, T n) -> T {
 	T ans = 1;
 	while (n > 0) {
-		if (n & 1) {
-			ans = ans * a % MOD;
-		}
+		if (n & 1) ans = ans * a % MOD;
 		a = a * a % MOD;
 		n >>= 1ll;
 	}
@@ -434,16 +412,9 @@ endsnippet
 snippet ww_math_mod_factorial "factorial mod" b
 vector<long long> mf;
 auto modfact = [&](int x) -> long long {
-	if (mf.size() > x) {
-		return mf[x];
-	}
-	if (mf.empty()) {
-		mf.push_back(1);
-	}
-	for (int i = mf.size(); i <= x; i++) {
-		long long next = mf.back() * i % MOD;
-		mf.push_back(next);
-	}
+	if ((int)mf.size() > x) return mf[x];
+	if (mf.empty()) mf.push_back(1);
+	for (int i = mf.size(); i <= x; i++) mf.push_back(mf.back() * i % MOD);
 	return mf[x];
 };
 endsnippet
@@ -469,9 +440,7 @@ snippet ww_math_mod_combination_Euclid "combination mod Extended Euclid" b
 const int MAX = 3e5;
 long long fac[MAX], finv[MAX], inv[MAX];
 auto Extended_Euclid_inverse_calc = [&]() -> void {
-	fac[0] = fac[1] = 1;
-	finv[0] = finv[1] = 1;
-	inv[1] = 1;
+	fac[0] = fac[1] = finv[0] = finv[1] = inv[1] = 1;
 	for (int i = 2; i < MAX; i++) {
 		fac[i] = fac[i - 1] * i % MOD;
 		inv[i] = MOD - inv[MOD % i] * (MOD / i) % MOD;
@@ -480,9 +449,7 @@ auto Extended_Euclid_inverse_calc = [&]() -> void {
 };
 Extended_Euclid_inverse_calc();
 auto nCk = [&](int n, int k) -> long long {
-	if (n < k or n < 0 or k < 0) {
-		return 0;
-	}
+	if (n < k or n < 0 or k < 0) return 0;
 	return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
 };
 endsnippet
@@ -702,9 +669,7 @@ snippet ww_algo_compress "compress" b
 vector<${1:long long}> ${2:cvt} = ${3:S};
 sort($2.begin(), $2.end());
 $2.erase(unique($2.begin(), $2.end()), $2.end());
-for (auto &v : $3) {
-	v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
-}
+for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
 int ${4:cnt} = $2.size();
 endsnippet
 
@@ -754,29 +719,12 @@ snippet ww_struct_segment_tree_bind_Ope "seg + *" b
 seg[${1:i}] = seg[$1 << 1 | 0] ${2:+ *} seg[$1 << 1 | 1];
 endsnippet
 
-snippet ww_struct_segment_tree_bind_map "seg bind" b
-for (auto v : seg[${1:i} << 1 | 0]) {
-	seg[$1][v.first] += v.second;
-}
-for (auto v : seg[$1 << 1 | 1]) {
-	seg[$1][v.first] += v.second;
-}
-endsnippet
-
 snippet ww_struct_segment_tree_pick_RMQ "seg min max gcd" b
 ${1:vl vr} = ${3:min max gcd}($1, seg[${2:l++ --r}]);
 endsnippet
 
 snippet ww_struct_segment_tree_pick_Ope "seg + *" b
 ${1:vl vr} ${3:+ *}= seg[${2:l++ --r}];
-endsnippet
-
-snippet ww_struct_segment_tree_pick_map "seg pick" b
---$1;
-if (seg[${1:l r}].count(${2:X})) {
-	ans += seg[$1][$2];
-}
-$1++;
 endsnippet
 
 snippet ww_struct_segment_tree_struct "seg struct" b
