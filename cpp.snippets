@@ -781,47 +781,81 @@ endsnippet
 
 snippet ww_algo_segment_tree_struct "seg struct" b
 template <typename T> struct SegTree {
-	private: int e = ${1:0 INF}; int N; vector<T> node;
-	T bind(const T &a, const T &b) { return ${2:min max gcd + * a,b}; }
-	public: SegTree(int n): N(n), node(n << 1, e){}; T operator[](const int &i) { return node[i + N]; }
+  private:
+	int e = ${1:0 INF};
+	int N;
+	vector<T> v;
+	T c(const T &a, const T &b) {
+		return ${2:min max gcd + * __ a,b}
+	}
+
+  public:
+	SegTree(int n) : N(n), v(n << 1, e){};
+	T operator[](const int &i) {
+		return v[i + N];
+	}
 	void build(const vector<T> &a) {
-		for (int i = 0; i < N; i++) { node[i + N] = a[i]; }
-		for (int i = N - 1; i >= 0; i--) { node[i] = bind(node[i << 1 | 0], node[i << 1 | 1]); } }
+		for (int i = 0; i < N; i++) v[i + N] = a[i];
+		for (int i = N - 1; i >= 0; i--) v[i] = c(v[i << 1 | 0], v[i << 1 | 1]);
+	}
 	void set(int i, const T &x) {
-		node[i += N] = x;
-		while (i >>= 1) { node[i] = bind(node[i << 1 | 0], node[i << 1 | 1]); } }
+		v[i += N] = x;
+		while (i >>= 1) v[i] = c(v[i << 1 | 0], v[i << 1 | 1]);
+	}
 	T get(int l, int r) {
 		T vl = e, vr = e;
 		for (l += N, r += N; l < r; l >>= 1, r >>= 1) {
-			if (l & 1) { vl = bind(vl, node[l++]); }
-			if (r & 1) { vr = bind(node[--r], vr); }
-		} return bind(vl, vr); }
-	T top() { return node[1]; }
+			if (l & 1) vl = c(vl, v[l++]);
+			if (r & 1) vr = c(v[--r], vr);
+		}
+		return c(vl, vr);
+	}
+	T top() {
+		return v[1];
+	}
 };
 endsnippet
 
 snippet ww_algo_segment_tree_RCQ_struct "seg RCQ" b
 template <typename T> struct SegRCQ {
-	private: int N; vector<unordered_map<int, int>> node;
-	public: SegRCQ(int n) : N(n), node(n << 1){};
-	unordered_map<int, int> operator[](int i) { return node[i + N]; }
+  private:
+	int N;
+	vector<unordered_map<int, int>> node;
+	void bind(const int &i) {
+		for (auto v : node[i << 1 | 0]) node[i][v.first] += v.second;
+		for (auto v : node[i << 1 | 1]) node[i][v.first] += v.second;
+	}
+
+  public:
+	SegRCQ(int n) : N(n), node(n << 1){};
+	unordered_map<int, int> operator[](int i) {
+		return node[i + N];
+	}
 	void build(const vector<T> &a) {
-		for (int i = 0; i < N; i++) { node[i + N][a[i]] = 1; }
-		for (int i = N - 1; i >= 0; i--) {
-			for (auto v : node[i << 1 | 0]) { node[i][v.first] += v.second; }
-			for (auto v : node[i << 1 | 1]) { node[i][v.first] += v.second; } } }
+		for (int i = 0; i < N; i++) node[i + N][a[i]] = 1;
+		for (int i = N - 1; i >= 0; i--) bind(i);
+	}
 	void set(int i, T x) {
 		node[i += N] = x;
-		while (i >>= 1) {
-			for (auto v : node[i << 1 | 0]) { node[i][v.first] += v.second; }
-			for (auto v : node[i << 1 | 1]) { node[i][v.first] += v.second; } } }
+		while (i >>= 1) bind(i);
+	}
 	T get(int l, int r, int x) {
 		T vl = 0, vr = 0;
 		for (l += N, r += N; l < r; l >>= 1, r >>= 1) {
-			if (l & 1) { if (node[l].count(x)) { vl += node[l][x]; } l++; }
-			if (r & 1) { --r; if (node[r].count(x)) { vl += node[r][x]; } }
-		} return vl + vr; }
-	T top() { return node[1]; }
+			if (l & 1) {
+				if (node[l].count(x)) vl += node[l][x];
+				l++;
+			}
+			if (r & 1) {
+				--r;
+				if (node[r].count(x)) vl += node[r][x];
+			}
+		}
+		return vl + vr;
+	}
+	T top() {
+		return node[1];
+	}
 };
 endsnippet
 
@@ -858,18 +892,30 @@ endsnippet
 
 snippet ww_algo_fenwick_tree_struct "fenwick struct" b
 template <typename T> struct FwkTree {
-	private: int e = ${1:0 1}; int N; vector<T> node;
-	void bind(T &a, const T &b) { a ${2:+ *}= b; }
-	public: FwkTree(int n) : N(n), node(n + 1, e){};
+  private:
+	int e = ${1:0 1};
+	int N;
+	vector<T> node;
+	void bind(T &a, const T &b) {
+		a ${2:+ *}= b;
+	}
+
+  public:
+	FwkTree(int n) : N(n), node(n + 1, e){};
 	void build(const vector<T> &a) {
 		for (int i = 1; i <= N; i++) {
-			bind(node[i], a[i - 1]); int f = i + (i & -i);
-			if (f <= N) { bind(node[f], node[i]); } } }
+			bind(node[i], a[i - 1]);
+			int f = i + (i & -i);
+			if (f <= N) bind(node[f], node[i]);
+		}
+	}
 	void act(const int &i, const T &x) {
-		for (int f = i + 1; f <= N; f += f & -f) { bind(node[f], x); } }
+		for (int f = i + 1; f <= N; f += f & -f) bind(node[f], x);
+	}
 	T get(const int &r) {
 		T ans = e;
-		for (int f = r + 1; f; f -= f & -f) { bind(ans, node[f]); }
-		return ans; }
+		for (int f = r + 1; f; f -= f & -f) bind(ans, node[f]);
+		return ans;
+	}
 };
 endsnippet
