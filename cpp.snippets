@@ -155,6 +155,14 @@ snippet deq "deque" bi
 deque<${1:char}>
 endsnippet
 
+snippet seg "seg" b
+SegTree<${1}>${2:seg}(${3:N});
+endsnippet
+
+snippet fwk "fwk" b
+FwkTree<${1}>${2:fwk}(${3:N});
+endsnippet
+
 # =========================================================
 # const
 # =========================================================
@@ -651,7 +659,7 @@ for (auto nv : ${1:G}[${3:vertex}]) {
 endsnippet
 
 # =========================================================
-# Algorithm RxQ
+# Algorithm Range
 # =========================================================
 snippet ww_algo_zeta "ruisekiwa" b
 vector<${1:long long}> ${2:S}(${3:N} + 1);
@@ -701,7 +709,107 @@ for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
 int ${4:cnt} = $2.size();
 endsnippet
 
-snippet ww_struct_segment_tree "seg" b
+# =========================================================
+# Algorithm RxQ
+# =========================================================
+snippet ww_struct_RxQ_min "RxQ min" b
+template <class T> constexpr T inf = 0;
+template <> constexpr int inf<int> = 1001001001;
+template <> constexpr long long inf<long long> = 1001001001001001001ll;
+template <typename T> struct RxQmin {
+	using value_type = T;
+	static constexpr T e = inf<T>;
+	static constexpr T ope(const T &x, const T &y) noexcept {
+		return min(x, y);
+	}
+};
+endsnippet
+
+snippet ww_struct_RxQ_max "RxQ max" b
+template <class T> constexpr T inf = 0;
+template <> constexpr int inf<int> = 1001001001;
+template <> constexpr long long inf<long long> = 1001001001001001001ll;
+template <typename T> struct RxQmax {
+	using value_type = T;
+	static constexpr T e = -inf<T>;
+	static constexpr T ope(const T &x, const T &y) noexcept {
+		return max(x, y);
+	}
+};
+endsnippet
+
+snippet ww_struct_RxQ_sum "RxQ sum" b
+template <typename T> struct RxQsum {
+	using value_type = T;
+	static constexpr T e = 0;
+	static constexpr T ope(const T &x, const T &y) noexcept {
+		return x + y;
+	}
+};
+endsnippet
+
+snippet ww_struct_RxQ_prod "RxQ prod" b
+template <typename T> struct RxQprod {
+	using value_type = T;
+	static constexpr T e = 1;
+	static constexpr T ope(const T &x, const T &y) noexcept {
+		return x * y;
+	}
+};
+endsnippet
+
+snippet ww_struct_RxQ_gcd "RxQ gcd" b
+template <typename T> struct RxQgcd {
+	using value_type = T;
+	static constexpr T e = 1;
+	static constexpr T ope(const T &x, const T &y) noexcept {
+		return gcd(x, y);
+	}
+};
+endsnippet
+
+# =========================================================
+# Segment Tree
+# =========================================================
+snippet ww_struct_segment_tree "segment tree" b
+template <class M> struct SegTree {
+	using T = typename M::value_type;
+
+  private:
+	int N;
+	vector<T> node;
+	void update(const int &i) {
+		node[i] = M::ope(node[i << 1 | 0], node[i << 1 | 1]);
+	}
+
+  public:
+	SegTree(int n) : N(n), node(n << 1, M::e){};
+	SegTree(int n, const vector<T> &a) : N(n), node(n << 1, M::e) {
+		for (int i = 0; i < N; i++) node[i + N] = a[i];
+		for (int i = N - 1; i >= 0; i--) update(i);
+	}
+	T operator[](const int &i) {
+		return node[i + N];
+	}
+	void set(int i, const T &x) {
+		node[i += N] = x;
+		while (i >>= 1) update(i);
+	}
+	T get(int l, int r) {
+		T L = M::e, R = M::e;
+		for (l += N, r += N; l < r; l >>= 1, r >>= 1) {
+			if (l & 1) L = ope(L, node[l++]);
+			if (r & 1) R = ope(node[--r], R);
+		}
+		return ope(L, R);
+	}
+	T top() {
+		return node[1];
+	}
+};
+endsnippet
+
+snippet ww_struct_segment_tree_inline "seg" b
 ${1:int} e = ${2:INF};
 vector<$1> seg(${3:N} << 1, e);
 endsnippet
@@ -755,46 +863,6 @@ snippet ww_struct_segment_tree_pick_Ope "seg + *" b
 ${1:vl vr} ${3:+ *}= seg[${2:l++ --r}];
 endsnippet
 
-snippet ww_struct_segment_tree_struct "seg struct" b
-template <typename T> struct SegTree {
-  private:
-	int N;
-	vector<T> node;
-	T e = ${1:0 INF};
-	T ope(const T &a, const T &b) {
-		return ${2:min max gcd + * a,b};
-	}
-	void update(const int &i) {
-		node[i] = ope(node[i << 1 | 0], node[i << 1 | 1]);
-	}
-
-  public:
-	SegTree(int n) : N(n), node(n << 1, e){};
-	SegTree(int n, const vector<T> &a) : N(n), node(n << 1, e) {
-		for (int i = 0; i < N; i++) node[i + N] = a[i];
-		for (int i = N - 1; i >= 0; i--) update(i);
-	}
-	T operator[](const int &i) {
-		return node[i + N];
-	}
-	void set(int i, const T &x) {
-		node[i += N] = x;
-		while (i >>= 1) update(i);
-	}
-	T get(int l, int r) {
-		T L = e, R = e;
-		for (l += N, r += N; l < r; l >>= 1, r >>= 1) {
-			if (l & 1) L = ope(L, node[l++]);
-			if (r & 1) R = ope(node[--r], R);
-		}
-		return ope(L, R);
-	}
-	T top() {
-		return node[1];
-	}
-};
-endsnippet
-
 snippet ww_struct_segment_tree_RCQ_struct "seg RCQ" b
 template <typename T> struct SegRCQ {
   private:
@@ -838,7 +906,41 @@ template <typename T> struct SegRCQ {
 };
 endsnippet
 
-snippet ww_struct_fenwick_tree "fenwick" b
+# =========================================================
+# Fenwick Tree
+# =========================================================
+snippet ww_struct_fenwick_tree "fenwick tree" b
+template <typename M> struct FwkTree {
+	using T = typename M::value_type;
+
+  private:
+	int N;
+	vector<T> node;
+	void bind(T &x, const T &y) {
+		x = M::ope(x, y);
+	}
+
+  public:
+	FwkTree(int n) : N(n), node(n + 1, M::e){};
+	FwkTree(int n, const vector<T> &a) : N(n), node(n + 1, M::e) {
+		for (int i = 1; i <= N; i++) {
+			bind(node[i], a[i - 1]);
+			int f = i + (i & -i);
+			if (f <= N) bind(node[f], node[i]);
+		}
+	}
+	void act(const int &i, const T &x) {
+		for (int f = i + 1; f <= N; f += f & -f) bind(node[f], x);
+	}
+	T get(const int &r) {
+		T ans = M::e;
+		for (int f = r + 1; f; f -= f & -f) bind(ans, node[f]);
+		return ans;
+	}
+};
+endsnippet
+
+snippet ww_struct_fenwick_tree_inline "fenwick" b
 vector<${1:int}> fwk(${2:N} + 1, ${3:0});
 endsnippet
 
@@ -863,34 +965,4 @@ snippet ww_struct_fenwick_tree_update "fenwick update" b
 for (int ${1:f} = ${2:idx_1}; $1 <= ${3:N}; $1 += $1 & -$1) {
 	fwk[$1] ${4:++ +=some};
 }
-endsnippet
-
-snippet ww_struct_fenwick_tree_struct "fenwick struct" b
-template <typename T> struct FwkTree {
-  private:
-	T e = ${1:0 1};
-	int N;
-	vector<T> node;
-	void bind(T &a, const T &b) {
-		a ${2:+ *}= b;
-	}
-
-  public:
-	FwkTree(int n) : N(n), node(n + 1, e){};
-	FwkTree(int n, const vector<T> &a) : N(n), node(n + 1, e) {
-		for (int i = 1; i <= N; i++) {
-			bind(node[i], a[i - 1]);
-			int f = i + (i & -i);
-			if (f <= N) bind(node[f], node[i]);
-		}
-	}
-	void act(const int &i, const T &x) {
-		for (int f = i + 1; f <= N; f += f & -f) bind(node[f], x);
-	}
-	T get(const int &r) {
-		T ans = e;
-		for (int f = r + 1; f; f -= f & -f) bind(ans, node[f]);
-		return ans;
-	}
-};
 endsnippet
