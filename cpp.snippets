@@ -758,36 +758,39 @@ endsnippet
 snippet ww_struct_segment_tree_struct "seg struct" b
 template <typename T> struct SegTree {
   private:
-	int e = ${1:0 INF};
 	int N;
-	vector<T> v;
-	T c(const T &a, const T &b) {
-		return ${2:min max gcd + * __ a,b}
+	vector<T> node;
+	T e = ${1:0 INF};
+	T ope(const T &a, const T &b) {
+		return ${2:min max gcd + * a,b};
+	}
+	void update(const int &i) {
+		node[i] = ope(node[i << 1 | 0], node[i << 1 | 1]);
 	}
 
   public:
-	SegTree(int n) : N(n), v(n << 1, e){};
-	T operator[](const int &i) {
-		return v[i + N];
+	SegTree(int n) : N(n), node(n << 1, e){};
+	SegTree(int n, const vector<T> &a) : N(n), node(n << 1, e) {
+		for (int i = 0; i < N; i++) node[i + N] = a[i];
+		for (int i = N - 1; i >= 0; i--) update(i);
 	}
-	void build(const vector<T> &a) {
-		for (int i = 0; i < N; i++) v[i + N] = a[i];
-		for (int i = N - 1; i >= 0; i--) v[i] = c(v[i << 1 | 0], v[i << 1 | 1]);
+	T operator[](const int &i) {
+		return node[i + N];
 	}
 	void set(int i, const T &x) {
-		v[i += N] = x;
-		while (i >>= 1) v[i] = c(v[i << 1 | 0], v[i << 1 | 1]);
+		node[i += N] = x;
+		while (i >>= 1) update(i);
 	}
 	T get(int l, int r) {
-		T vl = e, vr = e;
+		T L = e, R = e;
 		for (l += N, r += N; l < r; l >>= 1, r >>= 1) {
-			if (l & 1) vl = c(vl, v[l++]);
-			if (r & 1) vr = c(v[--r], vr);
+			if (l & 1) L = ope(L, node[l++]);
+			if (r & 1) R = ope(node[--r], R);
 		}
-		return c(vl, vr);
+		return ope(L, R);
 	}
 	T top() {
-		return v[1];
+		return node[1];
 	}
 };
 endsnippet
@@ -804,12 +807,12 @@ template <typename T> struct SegRCQ {
 
   public:
 	SegRCQ(int n) : N(n), node(n << 1){};
-	unordered_map<int, int> operator[](int i) {
-		return node[i + N];
-	}
-	void build(const vector<T> &a) {
+	SegRCQ(int n, const vector<T> &a) : N(n), node(n << 1) {
 		for (int i = 0; i < N; i++) node[i + N][a[i]] = 1;
 		for (int i = N - 1; i >= 0; i--) bind(i);
+	}
+	unordered_map<int, int> operator[](int i) {
+		return node[i + N];
 	}
 	void set(int i, T x) {
 		node[i += N] = x;
@@ -865,7 +868,7 @@ endsnippet
 snippet ww_struct_fenwick_tree_struct "fenwick struct" b
 template <typename T> struct FwkTree {
   private:
-	int e = ${1:0 1};
+	T e = ${1:0 1};
 	int N;
 	vector<T> node;
 	void bind(T &a, const T &b) {
@@ -874,7 +877,7 @@ template <typename T> struct FwkTree {
 
   public:
 	FwkTree(int n) : N(n), node(n + 1, e){};
-	void build(const vector<T> &a) {
+	FwkTree(int n, const vector<T> &a) : N(n), node(n + 1, e) {
 		for (int i = 1; i <= N; i++) {
 			bind(node[i], a[i - 1]);
 			int f = i + (i & -i);
