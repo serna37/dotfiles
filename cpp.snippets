@@ -401,18 +401,6 @@ auto is_p = []<class T>(T num) -> bool {
 };
 endsnippet
 
-snippet ww_math_eratosthenes_sieve "sieve of eratosthenes" b
-auto eratosthenes = []<class T>(T N) -> vector<bool> {
-	vector<bool> is_P(N + 1, true);
-	is_P[0] = is_P[1] = false;
-	for (T i = 2; i * i <= N; i++) {
-		if (!is_P[i]) continue;
-		for (T j = i * i; j <= N; j += i) is_P[j] = false;
-	}
-	return is_P;
-};
-endsnippet
-
 snippet ww_math_prime_fact "prime fact" b
 auto p_fact = []<class T>(T N) -> map<T, int> {
 	map<T, int> P;
@@ -424,6 +412,18 @@ auto p_fact = []<class T>(T N) -> map<T, int> {
 	}
 	if (N > 1) P[N]++;
 	return P;
+};
+endsnippet
+
+snippet ww_math_eratosthenes_sieve "sieve of eratosthenes" b
+auto eratosthenes = []<class T>(T N) -> vector<bool> {
+	vector<bool> is_P(N + 1, true);
+	is_P[0] = is_P[1] = false;
+	for (T i = 2; i * i <= N; i++) {
+		if (!is_P[i]) continue;
+		for (T j = i * i; j <= N; j += i) is_P[j] = false;
+	}
+	return is_P;
 };
 endsnippet
 
@@ -710,7 +710,7 @@ int ${4:cnt} = $2.size();
 endsnippet
 
 # =========================================================
-# Algorithm RxQ
+# Struct RxQ
 # =========================================================
 snippet ww_struct_RxQ_min "RxQ min" b
 template <class T> constexpr T inf = 0;
