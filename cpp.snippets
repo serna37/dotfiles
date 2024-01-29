@@ -798,10 +798,10 @@ template <class M> struct SegTree {
 	T get(int l, int r) {
 		T L = M::e, R = M::e;
 		for (l += N, r += N; l < r; l >>= 1, r >>= 1) {
-			if (l & 1) L = ope(L, node[l++]);
-			if (r & 1) R = ope(node[--r], R);
+			if (l & 1) L = M::ope(L, node[l++]);
+			if (r & 1) R = M::ope(node[--r], R);
 		}
-		return ope(L, R);
+		return M::ope(L, R);
 	}
 	T top() {
 		return node[1];
