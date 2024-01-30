@@ -482,10 +482,7 @@ endsnippet
 snippet ww_math_factorial "factorial" b
 auto factorial = []<class T>(T N) -> T {
 	T ans = 1;
-	while (N > 0) {
-		ans *= N;
-		N--;
-	}
+	while (N > 0) ans *= N--;
 	return ans;
 };
 endsnippet
