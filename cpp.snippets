@@ -131,6 +131,10 @@ snippet mp "map" bi
 map<${1:int}, ${2:int}>
 endsnippet
 
+snippet uno "unordered_map" bi
+unordered_map<${1:int}, ${2:int}>
+endsnippet
+
 snippet pp "pair" bi
 pair<${1:int}, ${2:int}>
 endsnippet
@@ -155,11 +159,31 @@ snippet deq "deque" bi
 deque<${1:char}>
 endsnippet
 
-snippet seg "seg" b
+snippet rqmin "RxQ min" bi
+RxQmin<${1:int}>
+endsnippet
+
+snippet rqmax "RxQ max" bi
+RxQmax<${1:int}>
+endsnippet
+
+snippet rqsum "RxQ sum" bi
+RxQsum<${1:int}>
+endsnippet
+
+snippet rqprod "RxQ prod" bi
+RxQprod<${1:int}>
+endsnippet
+
+snippet rqgcd "RxQ gcd" bi
+RxQgcd<${1:int}>
+endsnippet
+
+snippet seg "seg" bi
 SegTree<${1}>${2:seg}(${3:N});
 endsnippet
 
-snippet fwk "fwk" b
+snippet fwk "fwk" bi
 FwkTree<${1}>${2:fwk}(${3:N});
 endsnippet
 
@@ -710,7 +734,7 @@ int ${4:cnt} = $2.size();
 endsnippet
 
 # =========================================================
-# Struct RxQ
+# Struct RxQ Monoid
 # =========================================================
 snippet ww_struct_RxQ_min "RxQ min" b
 template <class T> constexpr T inf = 0;
