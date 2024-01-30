@@ -159,6 +159,10 @@ snippet deq "deque" bi
 deque<${1:char}>
 endsnippet
 
+snippet uni "union find" bi
+UnionFind<${1}> ${2:uf}(${3:N});
+endsnippet
+
 snippet rqmin "RxQ min" bi
 RxQmin<${1:int}>
 endsnippet
@@ -686,6 +690,32 @@ sort($2.begin(), $2.end());
 $2.erase(unique($2.begin(), $2.end()), $2.end());
 for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
 int ${4:cnt} = $2.size();
+endsnippet
+
+# =========================================================
+# UnionFind
+# =========================================================
+snippet ww_struct_union_find "union find" b
+template <class T> struct UnionFind {
+  private:
+	vector<T> par;
+
+  public:
+	UnionFind(int N) : par(N) {
+		iota(par.begin(), par.end(), 0);
+	}
+	T root(int i) {
+		return par[i] == i ? i : par[i] = root(par[i]);
+	}
+	void unite(T x, T y) {
+		T rx = root(x), ry = root(y);
+		if (rx == ry) return;
+		par[rx] = ry;
+	}
+	bool same(T x, T y) {
+		return root(x) == root(y);
+	}
+};
 endsnippet
 
 # =========================================================
