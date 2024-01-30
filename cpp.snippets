@@ -180,11 +180,11 @@ RxQgcd<${1:int}>
 endsnippet
 
 snippet seg "seg" bi
-SegTree<${1}>${2:seg}(${3:N});
+SegTree<${1}> ${2:seg}(${3:N});
 endsnippet
 
 snippet fwk "fwk" bi
-FwkTree<${1}>${2:fwk}(${3:N});
+FwkTree<${1}> ${2:fwk}(${3:N});
 endsnippet
 
 # =========================================================
@@ -617,9 +617,7 @@ for (int ${1:k} = 0; $1 < ${2:4}; $1++) {
 endsnippet
 
 snippet ww_algo_grid_filter "bfs grid filter" b
-if (${1:y} < 0 or ${2:x} < 0 or ${3:row} <= $1 or ${4:column} <= $2) {
-	continue;
-}
+if (${1:y} < 0 or ${2:x} < 0 or ${3:row} <= $1 or ${4:column} <= $2) continue;
 endsnippet
 
 # =========================================================
