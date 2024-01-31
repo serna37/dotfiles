@@ -297,6 +297,11 @@ snippet sort "sort" b
 sort(${1});
 endsnippet
 
+# prepare for completion priority
+snippet swap "swap" b
+swap(${1});
+endsnippet
+
 snippet ww_stl_transform "transform" b
 std::transform(${1:str}.begin(), $1.end(), $1.begin(), ::${2:tolower});
 endsnippet
@@ -326,6 +331,10 @@ endsnippet
 # =========================================================
 snippet ans "ans" b
 ${1:int} ans = ${2:0};
+endsnippet
+
+snippet tmp "tmp" b
+${1:int} tmp = ${2:0};
 endsnippet
 
 snippet ok "ok" b
