@@ -159,8 +159,8 @@ snippet deq "deque" bi
 deque<${1:char}>
 endsnippet
 
-snippet uni "union find" bi
-UnionFind<${1}> ${2:uf}(${3:N});
+snippet uf "union find" bi
+UnionFind ${1:uf}(${2:N});
 endsnippet
 
 snippet rqmin "RxQ min" bi
@@ -709,25 +709,36 @@ endsnippet
 # =========================================================
 # UnionFind
 # =========================================================
-snippet ww_struct_union_find "union find" b
-template <class T> struct UnionFind {
+snippet ww_struct_uf "union find" b
+struct UnionFind {
   private:
-	vector<T> par;
+	int N;
+	vector<int> par;
 
   public:
-	UnionFind(int N) : par(N) {
+	UnionFind(int N) : N(N), par(N) {
 		iota(par.begin(), par.end(), 0);
 	}
-	T root(int i) {
-		return par[i] == i ? i : par[i] = root(par[i]);
+	int getRoot(const int &i) {
+		return par[i] == i ? i : par[i] = getRoot(par[i]);
 	}
-	void unite(T x, T y) {
-		T rx = root(x), ry = root(y);
+	void unite(int x, int y) {
+		int rx = getRoot(x), ry = getRoot(y);
 		if (rx == ry) return;
 		par[rx] = ry;
 	}
-	bool same(T x, T y) {
-		return root(x) == root(y);
+	bool isSameRoot(int x, int y) {
+		return getRoot(x) == getRoot(y);
+	}
+	bool isRoot(int i) {
+		return getRoot(i) == i;
+	}
+	int getRootCnt() {
+		int cnt = 0;
+		for (int i = 0; i < N; i++) {
+			if (isRoot(i)) cnt++;
+		}
+		return cnt;
 	}
 };
 endsnippet
