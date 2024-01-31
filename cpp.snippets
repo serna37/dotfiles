@@ -610,15 +610,20 @@ while (!q.empty()) {
 	for (int i = 0; i < 4; i++) {
 		int y = py + dy[i];
 		int x = px + dx[i];
-		if (y < 0 or x < 0 or $3 <= y or $4 <= x) {
-			continue;
-		}
-		if (d[y][x] == -1 and ${5:G}[y][x] ${6: != '#'}) {
+		if (y < 0 or x < 0 or $3 <= y or $4 <= x) continue;
+		if (d[y][x] == -1 and cango(${5:G}[y][x])) {
 			d[y][x] = d[py][px] + 1;
 			q.push({y, x});
 		}
 	}
 }
+endsnippet
+
+snippet ww_algo_grid_cango "grid cango" b
+auto cango = [](const char &a) -> bool {
+	string white = "${1:.SG}";
+	return white.find(a) != string::npos;
+};
 endsnippet
 
 snippet ww_algo_grid_dydx "dydx" b
