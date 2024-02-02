@@ -879,37 +879,53 @@ endsnippet
 # =========================================================
 # Segment Tree
 # =========================================================
+# TODO XXX FIXME add upper lower bound
 snippet ww_struct_segment_tree "segment tree" b
-template <class M> struct SegTree {
+template <class Monoid> struct SegTree {
+	using M = Monoid;
 	using T = typename M::value_type;
 
   private:
-	int N;
+	int N, log, size;
 	vector<T> node;
+	void init() {
+		log = 1;
+		while ((1 << log) < N) ++log;
+		size = 1 << log;
+		node.assign(size << 1, M::e);
+	}
 	void update(const int &i) {
-		node[i] = M::ope(node[i << 1 | 0], node[i << 1 | 1]);
+		node[i] = M::op(node[i << 1 | 0], node[i << 1 | 1]);
 	}
 
   public:
-	SegTree(int n) : N(n), node(n << 1, M::e){};
-	SegTree(int n, const vector<T> &a) : N(n), node(n << 1, M::e) {
-		for (int i = 0; i < N; i++) node[i + N] = a[i];
-		for (int i = N - 1; i >= 0; i--) update(i);
+	SegTree(int n) : N(n) {
+		init();
 	}
-	T operator[](const int &i) {
-		return node[i + N];
+	SegTree(const vector<T> &a) : N(a.size()) {
+		init();
+		for (int i = 0; i < N; ++i) node[i + size] = a[i];
+		for (int i = size - 1; i > 0; --i) update(i);
+	}
+	T operator[](int i) {
+		return node[i + size];
 	}
 	void set(int i, const T &x) {
-		node[i += N] = x;
+		node[i += size] = x;
+		while (i >>= 1) update(i);
+	}
+	void act(int i, const T &x) {
+		i += size;
+		node[i] = M::op(node[i], x);
 		while (i >>= 1) update(i);
 	}
 	T get(int l, int r) {
 		T L = M::e, R = M::e;
-		for (l += N, r += N; l < r; l >>= 1, r >>= 1) {
-			if (l & 1) L = M::ope(L, node[l++]);
-			if (r & 1) R = M::ope(node[--r], R);
+		for (l += size, r += size; l < r; l >>= 1, r >>= 1) {
+			if (l & 1) L = M::op(L, node[l++]);
+			if (r & 1) R = M::op(node[--r], R);
 		}
-		return M::ope(L, R);
+		return M::op(L, R);
 	}
 	T top() {
 		return node[1];
