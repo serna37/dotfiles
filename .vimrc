@@ -62,7 +62,7 @@ Plug 'simeji/winresizer'
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'voldikss/vim-floaterm'
 let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_keys='sjkdaw'
+let g:EasyMotion_keys='sfjkdawh'
 let g:EasyMotion_disable_two_key_combo = 1
 "nnoremap s <Plug>(easymotion-sn)
 nnoremap s <Plug>(clever-f-reset)<Plug>(easymotion-bd-w)

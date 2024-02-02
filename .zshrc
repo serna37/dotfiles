@@ -39,7 +39,8 @@ source "/opt/homebrew/opt/zsh-git-prompt/zshrc.sh"
 # enhanced
 
 # vi
-alias v='vi -c "CocCommand explorer --no-focus --width 30" -c "echom '\''$(basename $(pwd))'\''"'
+alias v='vi -c "CocCommand explorer --no-focus --width 30"'
+#alias v='vi -c "CocCommand explorer --no-focus --width 30" -c "echom '\''$(basename $(pwd))'\''"'
 alias zv='zi && v'
 
 # ls
@@ -169,7 +170,7 @@ AtCoder() {
         echo -e "[\e[34mINFO\e[m]touch file :\e[32m${v}${file_name}\e[m"
         touch "${v}${file_name}"
     done
-    vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify" -c "AtCoderTimer" -c "echom '$(basename $(pwd))'"
+    vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
 }
 #AtCoderLive() {
     #sleep $(expr `date -v21H -v00M -v00S +%s` - `date +%s` + 1) && AtCoder $1
@@ -189,7 +190,7 @@ AsakatuAtCoder() {
         echo -e "[\e[34mINFO\e[m]touch file :\e[32m${v}${file_name}\e[m"
         touch "${v}${file_name}"
     done
-    vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify" -c "AtCoderTimer" -c "echom '$(basename $(pwd))'"
+    vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
 }
 sandcpp() {
     cd $SAND_DIR
