@@ -171,9 +171,8 @@ snippet mono_max "Monoid max" bi
 Mmax<${1:int}>
 endsnippet
 
-# TODO sum -> add
-snippet mono_sum "Monoid sum" bi
-Msum<${1:int}>
+snippet mono_add "Monoid add" bi
+Madd<${1:int}>
 endsnippet
 
 snippet mono_prod "Monoid prod" bi
@@ -184,12 +183,12 @@ snippet mono_gcd "Monoid gcd" bi
 Mgcd<${1:int}>
 endsnippet
 
-snippet mono_act_sum "Monoid Acted sum" bi
-MAsum<${1:int}>
+snippet mono_act_add "Monoid Acted add" bi
+MAadd<${1:int}>
 endsnippet
 
-snippet mono_act_min_sum "Monoid Acted min sum" bi
-MAminsum<${1:int}>
+snippet mono_act_min_add "Monoid Acted min add" bi
+MAminadd<${1:int}>
 endsnippet
 
 snippet fwk "fwk" bi
@@ -782,8 +781,8 @@ template <typename T> struct Mmax {
 };
 endsnippet
 
-snippet ww_struct_Monoid_sum "Monoid sum" b
-template <typename T> struct Msum {
+snippet ww_struct_Monoid_add "Monoid add" b
+template <typename T> struct Madd {
 	using value_type = T;
 	static constexpr T e = 0;
 	static constexpr T op(const T &x, const T &y) noexcept {
