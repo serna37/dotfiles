@@ -820,8 +820,8 @@ endsnippet
 # =========================================================
 # Struct Monoid Acted
 # =========================================================
-snippet ww_struct_Monoid_Acted_add "Monoid Acted add" b
-template <typename T> struct MAadd {
+snippet ww_struct_Monoid_Acted_sum_add "Monoid Acted sum add" b
+template <typename T> struct MAsumadd {
 	using M_m = Madd<T>;
 	using M_a = Madd<T>;
 	using M = typename M_m::value_type;
@@ -952,7 +952,7 @@ template <class Monoid> struct SegTree {
 endsnippet
 
 # TODO XXX FIXME add upper lower bound
-# TODO XXX FIXME something wrong
+# https://onlinejudge.u-aizu.ac.jp/status/users/serna37/submissions/1/DSL_2_H/judge/8857362/C++17
 snippet ww_struct_lazy_segment_tree "lazy segment tree" b
 template <typename MonoidAct> struct LazySegTree {
 	using M = typename MonoidAct::M_m;
@@ -969,7 +969,7 @@ template <typename MonoidAct> struct LazySegTree {
 		while ((1 << log) < N) ++log;
 		size = 1 << log;
 		node.assign(size << 1, M::e);
-		lazy.assign(size, M::e);
+		lazy.assign(size, A::e);
 	}
 	void update(int i) {
 		node[i] = M::op(node[i << 1 | 0], node[i << 1 | 1]);
@@ -1044,9 +1044,16 @@ template <typename MonoidAct> struct LazySegTree {
 		}
 		l = l2, r = r2;
 		for (int i = 1; i <= log; ++i) {
-			if (((l >> i) << i) != l) propagate(l >> i);
-			if (((r >> i) << i) != r) propagate((r - 1) >> i);
+			if (((l >> i) << i) != l) update(l >> i);
+			if (((r >> i) << i) != r) update((r - 1) >> i);
 		}
+	}
+	void debug() {
+		cout << "seg:";
+		for (auto &v : node) cout << " " << v;
+		cout << endl << "lazy:";
+		for (auto &v : lazy) cout << " " << v;
+		cout << endl;
 	}
 };
 endsnippet
