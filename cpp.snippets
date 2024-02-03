@@ -816,36 +816,48 @@ endsnippet
 # =========================================================
 # Fenwick Tree
 # =========================================================
-# TODO FIX for monoid
 # TODO lazy update
 # TODO XXX FIXME add upper lower bound
 snippet ww_struct_fenwick_tree "fenwick tree" b
-template <typename M> struct FwkTree {
+template <typename Monoid> struct FwkTree {
+	using M = Monoid;
 	using T = typename M::value_type;
 
   private:
 	int N;
 	vector<T> node;
+	T tot;
+	void init() {
+		node.assign(N + 1, M::e);
+		tot = M::e;
+	}
 	void bind(T &x, const T &y) {
-		x = M::ope(x, y);
+		x = M::op(x, y);
 	}
 
   public:
-	FwkTree(int n) : N(n), node(n + 1, M::e){};
-	FwkTree(int n, const vector<T> &a) : N(n), node(n + 1, M::e) {
+	FwkTree(int n) : N(n) {
+		init();
+	}
+	FwkTree(const vector<T> &a) : N(a.size()) {
+		init();
 		for (int i = 1; i <= N; i++) {
 			bind(node[i], a[i - 1]);
 			int f = i + (i & -i);
 			if (f <= N) bind(node[f], node[i]);
 		}
 	}
-	void act(const int &i, const T &x) {
-		for (int f = i + 1; f <= N; f += f & -f) bind(node[f], x);
+	void act(int i, const T &x) {
+		tot += x;
+		for (++i; i <= N; i += i & -i) bind(node[i], x);
 	}
-	T get(const int &r) {
+	T get(int r) {
 		T ans = M::e;
-		for (int f = r + 1; f; f -= f & -f) bind(ans, node[f]);
+		for (++r; r; r -= r & -r) bind(ans, node[r]);
 		return ans;
+	}
+	T top() {
+		return tot;
 	}
 };
 endsnippet
