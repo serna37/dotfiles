@@ -155,6 +155,10 @@ snippet pri "priority_queue" bi
 priority_queue<${1:int}>
 endsnippet
 
+snippet pril "pril" bi
+priority_queue<${1:int}, vector<$1>, greater<$1>>
+endsnippet
+
 snippet deq "deque" bi
 deque<${1:char}>
 endsnippet
@@ -1047,13 +1051,6 @@ template <typename MonoidAct> struct LazySegTree {
 			if (((l >> i) << i) != l) update(l >> i);
 			if (((r >> i) << i) != r) update((r - 1) >> i);
 		}
-	}
-	void debug() {
-		cout << "seg:";
-		for (auto &v : node) cout << " " << v;
-		cout << endl << "lazy:";
-		for (auto &v : lazy) cout << " " << v;
-		cout << endl;
 	}
 };
 endsnippet
