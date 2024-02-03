@@ -708,11 +708,13 @@ $1[${4:r+1}]${5:--};
 endsnippet
 
 snippet ww_algo_compress "compress" b
-vector<${1:long long}> ${2:cvt} = ${3:S};
-sort($2.begin(), $2.end());
-$2.erase(unique($2.begin(), $2.end()), $2.end());
-for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
-int ${4:cnt} = $2.size();
+auto compress = []<class T>(vector<T> &a) -> int {
+	vector<T> c = a;
+	sort(c.begin(), c.end());
+	c.erase(unique(c.begin(), c.end()), c.end());
+	for (auto &v : a) v = lower_bound(c.begin(), c.end(), v) - c.begin();
+	return c.size();
+};
 endsnippet
 
 # =========================================================
