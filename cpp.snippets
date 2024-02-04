@@ -289,6 +289,15 @@ snippet ww_fixed_setprecision "fixed precision" b
 cout << fixed << setprecision(${1:20});
 endsnippet
 
+snippet ww_cout_split_space  "split space" b
+if (${1:i}) cout << " ";
+cout << ${2:A}[$1];
+endsnippet
+
+snippet ww_endl "endl" b
+cout << endl;
+endsnippet
+
 # =========================================================
 # STL
 # =========================================================
