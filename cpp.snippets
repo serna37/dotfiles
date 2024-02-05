@@ -887,6 +887,7 @@ template <typename Monoid> struct FwkTree {
 	FwkTree(const vector<T> &a) : N(a.size()) {
 		init();
 		for (int i = 1; i <= N; i++) {
+			bind(tot, a[i - 1]);
 			bind(node[i], a[i - 1]);
 			int f = i + (i & -i);
 			if (f <= N) bind(node[f], node[i]);
