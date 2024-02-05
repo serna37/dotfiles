@@ -1,0 +1,357 @@
+# =========================================================
+# Template
+# =========================================================
+snippet www "template header" bA
+#include <bits/stdc++.h>
+using namespace std;
+${1}
+endsnippet
+
+snippet main "main function" b
+int main() {
+	${1}
+}
+endsnippet
+
+# =========================================================
+# grammer
+# =========================================================
+snippet for "for" b
+for (${1} ; ${2} ; ${3}) {
+	${4}
+}
+endsnippet
+
+snippet fori "fori" b
+for (int ${1:i} = ${2:0}; $1 <${3:N}; $1++) {
+	${4}
+}
+endsnippet
+
+snippet forl "forl" b
+for (long long ${1:i} = ${2:0}; $1 <${3:N}; $1++) {
+	${4}
+}
+endsnippet
+
+snippet fori_re "fori reverse" b
+for (int ${1:i} = ${2:N-1}; $1 >=${3:0}; $1--) {
+	${4}
+}
+endsnippet
+
+snippet foril_sqrt "foril sqrt" b
+for (long long ${1:i} = ${2:0}; $1 * $1 <= ${3:N}; $1++) {
+	${4}
+}
+endsnippet
+
+snippet fori2 "fori 2" b
+for (int ${1:i} = ${2:0}; $1 <${3:H}; $1++) {
+	for (int ${4:j} = ${5:0}; $4 <${6:W}; $4++) {
+		${7}
+	}
+}
+endsnippet
+
+snippet forv "for vector" b
+for (${1:auto} ${2:&v} : ${3:A}) {
+	${4}
+}
+endsnippet
+
+snippet func "function" b
+${1:void} ${2:func}(${3:int n}) {
+	${4}
+}
+endsnippet
+
+snippet func_lambda "function lambda" b
+auto ${1:func} = [${2:&}](${3:const int &a}) -> ${4:void} {
+	${5}
+};
+endsnippet
+
+snippet func_lambda_recursive "function recursive" b
+auto ${1:func} = [${2:&}](auto self, ${3:const int &a}) -> ${4:void} {
+	${5}
+	self(self, args); // recursive
+};
+endsnippet
+
+# =========================================================
+# type
+# =========================================================
+snippet ll "long long" bi
+long long
+endsnippet
+
+snippet dou "double" bi
+double
+endsnippet
+
+snippet vec "vec" bi
+vector<${1:int}>
+endsnippet
+
+snippet st "set" bi
+set<${1:int}>
+endsnippet
+
+snippet mul "mul" bi
+multiset<${1:int}>
+endsnippet
+
+snippet mp "map" bi
+map<${1:int}, ${2:int}>
+endsnippet
+
+snippet uno "unordered_map" bi
+unordered_map<${1:int}, ${2:int}>
+endsnippet
+
+snippet pp "pair" bi
+pair<${1:int}, ${2:int}>
+endsnippet
+
+snippet tu "tuple" bi
+tuple<${1}>
+endsnippet
+
+snippet sta "stack" bi
+stack<${1:int}>
+endsnippet
+
+snippet qu "queue" bi
+queue<${1:int}>
+endsnippet
+
+snippet pri "priority_queue" bi
+priority_queue<${1:int}>
+endsnippet
+
+snippet pril "pril" bi
+priority_queue<${1:int}, vector<$1>, greater<$1>>
+endsnippet
+
+snippet deq "deque" bi
+deque<${1:char}>
+endsnippet
+
+# =========================================================
+# const
+# =========================================================
+snippet ww_const_PI "PI" b
+const double PI = acos(-1);
+endsnippet
+
+snippet ww_const_INFINITY_INT "INFINITY" b
+const int INF = 1001001001;
+endsnippet
+
+snippet ww_const_INFINITY_LONG "INFINITY" b
+const long long INF = 1001001001001001001ll;
+endsnippet
+
+snippet ww_const_MOD_998244353 "mod" b
+const long long MOD = 998244353;
+endsnippet
+
+snippet ww_const_MOD_100000007 "mod" b
+const long long MOD = 1000000007;
+endsnippet
+
+snippet ww_const_grid_dydx4 "grid connector" b
+const vector<int> dx = {0, 1, 0, -1};
+const vector<int> dy = {1, 0, -1, 0};
+endsnippet
+
+snippet ww_const_grid_dydx8 "grid connector" b
+const vector<int> dx = {0, 1, 0, -1, 1, -1, 1, -1};
+const vector<int> dy = {1, 0, -1, 0, 1, 1, -1, -1};
+endsnippet
+
+# =========================================================
+# IN OUT
+# =========================================================
+snippet ww_vec_cin_1 "vec cin" b
+vector<${1:int}> ${2:A}(${3:N});
+for (int i = 0; i < $3; i++) {
+	cin >> $2[i];
+}
+endsnippet
+
+snippet ww_vec_cin_2 "vec cin" b
+vector<${1:int}> ${2:A}(${4:N}), ${3:B}($4);
+for (int i = 0; i < $4; i++) {
+	cin >> $2[i] >> $3[i];
+}
+endsnippet
+
+snippet ww_grid_cin "grid cin" b
+vector<vector<${1:char}>> ${2:G}(${3:H}, vector<$1>(${4:W}));
+for (int i = 0; i < $3; i++) {
+	for (int j = 0; j < $4; j++) {
+		cin >> $2[i][j];
+	}
+}
+endsnippet
+
+snippet ww_graph_cin "graph cin" b
+vector<vector<${1:int}>> ${2:G}(${3:N});
+for (int i = 0; i < ${4:M}; i++) {
+	$1 ${5:A}, ${6:B};
+	cin >> $5 >> $6;
+	$5--, $6--;
+	G[$5].push_back($6);
+	G[$6].push_back($5);
+}
+endsnippet
+
+snippet ww_cout "cout" b
+cout << ${1:ans} << endl;
+endsnippet
+
+snippet ww_cout_yes_no "yes no" b
+cout << (${1:condition} ? "${2:Yes}" : "${3:No}") << endl;
+endsnippet
+
+snippet ww_fixed_setprecision "fixed precision" b
+cout << fixed << setprecision(${1:20});
+endsnippet
+
+snippet ww_cout_split_space  "split space" b
+if (${1:i}) cout << " ";
+cout << ${2:A}[$1];
+endsnippet
+
+snippet ww_endl "endl" b
+cout << endl;
+endsnippet
+
+# =========================================================
+# STL
+# =========================================================
+snippet ww_stl_max_ch "max" b
+${1:ans} = max($1, ${2:tmp});
+endsnippet
+
+snippet ww_stl_min_ch "min" b
+${1:ans} = min($1, ${2:tmp});
+endsnippet
+
+snippet ww_stl_all "iterator all" bi
+${1:A}.begin(), $1.end()
+endsnippet
+
+snippet ww_stl_all_rev "iterator reverse" bi
+${1:A}.rbegin(), $1.rend()
+endsnippet
+
+# prepare for completion priority
+snippet sort "sort" b
+sort(${1});
+endsnippet
+
+# prepare for completion priority
+snippet swap "swap" b
+swap(${1});
+endsnippet
+
+snippet ww_stl_transform "transform" b
+std::transform(${1:str}.begin(), $1.end(), $1.begin(), ::${2:tolower});
+endsnippet
+
+snippet ww_stl_uni "unique" b
+sort(${1:A}.begin(), $1.end());
+$1.erase(unique($1.begin(), $1.end()), $1.end());
+endsnippet
+
+# =========================================================
+# builtin
+# =========================================================
+snippet __builtin_ctz "__builtin_ctz" bi
+__builtin_ctz(${1})
+endsnippet
+
+snippet __builtin_popcount "__builtin_popcount" bi
+__builtin_popcount(${1})
+endsnippet
+
+snippet __builtin_popcountll "__builtin_popcountll" bi
+__builtin_popcountll(${1})
+endsnippet
+
+# =========================================================
+# util function
+# =========================================================
+snippet ans "ans" b
+${1:int} ans = ${2:0};
+endsnippet
+
+snippet tmp "tmp" b
+${1:int} tmp = ${2:0};
+endsnippet
+
+snippet ok "ok" b
+bool ok = true;
+endsnippet
+
+snippet size "size" b
+int ${1:N} = ${2:S}.size();
+endsnippet
+
+snippet size "size" iw
+(int)${1:S}.size()
+endsnippet
+
+snippet ww_util_debug_vec_cout "debug for" b
+cout << "debug_${1:A}:"; // TODO debug
+for (auto v : $1) cout << " " << v; // TODO debug
+cout << endl; // TODO debug
+endsnippet
+
+snippet ww_util_div_to_floor "div floor" b
+auto divFloor = []<class T>(T a, T b) -> T {
+	return a / b - (((a ^ b) < 0 and a % b != 0) ? 1 : 0);
+};
+endsnippet
+
+snippet ww_util_div_to_ceil "div ceil" b
+auto divCeil = []<class T>(T a, T b) -> T {
+	return a / b + (((a ^ b) > 0 and a % b != 0) ? 1 : 0);
+};
+endsnippet
+
+snippet ww_util_div_to_ceil_inline "div ceil" bi
+(${1:N} + ${2:A} - 1) / $2
+endsnippet
+
+snippet ww_util_islow_char "is lower" b
+auto islow = [](char c) -> bool {
+	return islower(c) != 0;
+};
+endsnippet
+
+snippet ww_util_isupp_char "is upper" b
+auto isupp = [](char c) -> bool {
+	return isupper(c) != 0;
+};
+endsnippet
+
+snippet ww_util_split_string "split" b
+auto split = [](string s, char c) -> vector<string> {
+	vector<string> S;
+	string t;
+	for (char v : s) {
+		if (v == c) {
+			if (!t.empty()) S.push_back(t);
+			t.clear();
+		} else {
+			t += v;
+		}
+	}
+	if (!t.empty()) S.push_back(t);
+	return S;
+};
+endsnippet

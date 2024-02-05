@@ -23,6 +23,13 @@
 #		endsnippet
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+# TODO split
+# XXX 同階層のみ、フォルダは掘れない
+# XXX 全てトリガーは辞書順、include順は関係ない
+extends cpp2
+snippet tesa "Description" b
+aaa
+endsnippet
 # =========================================================
 # Template
 # =========================================================
@@ -1109,6 +1116,7 @@ template <class T> struct StarrySkyTree {
 		return ans;
 	}
 	T get(int l, int r) {
+		if (l == 0 and r == N) return node[1];
 		stack<int> L, R;
 		for (l += size, r += size; l < r; l >>= 1, r >>= 1) {
 			if (l & 1) L.push(l++);

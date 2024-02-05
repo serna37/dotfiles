@@ -25,8 +25,8 @@ echo "=========================================================="
 # ln coc-settings, snippets
 npm install -g yarn
 mkdir -p ~/.vim/UltiSnips \
-    && ln -nfs ~/git/dotfiles/cpp.snippets ~/.vim/UltiSnips/cpp.snippets \
-    && ln -nfs ~/git/dotfiles/coc-settings.json ~/.vim/coc-settings.json
+    && ln -nfs ~/git/dotfiles/coc-settings.json ~/.vim/coc-settings.json \
+    && ln -nfs ~/git/dotfiles/snippets/* ~/.vim/UltiSnips/
 
 echo "=========================================================="
 echo "unfog"

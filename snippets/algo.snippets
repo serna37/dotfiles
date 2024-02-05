@@ -1,0 +1,185 @@
+# =========================================================
+# Algorithm Search
+# =========================================================
+snippet ww_algo_alma "allmatch" b
+bool alma = true;
+for (int ${1:i} = ${2:0}; $1 <${3:N}; $1++) {
+	alma &= ${4};
+}
+endsnippet
+
+snippet ww_algo_anma "anymatch" b
+bool anma = false;
+for (int ${1:i} = ${2:0}; $1 <${3:N}; $1++) {
+	anma |= ${4};
+}
+endsnippet
+
+snippet ww_algo_permu_loop "next permutation" b
+do {${2}} while (next_permutation(${1:A}.begin(), $1.end()));
+endsnippet
+
+snippet ww_algo_bit_loop "bit loop" b
+for (int bit = 0; bit < 1 << ${1:N}; bit++) {
+	${2:long long} tmp = 0;
+	for (int k = 0; k < $1; k++) {
+		if (bit & (${3:1ll} << k)) {
+			tmp |= ${4:A}[k];
+		}
+	}
+}
+endsnippet
+
+snippet ww_algo_bit_on_all_pattern "bit on all pattern" b
+for (long long i = ${1:N}; i > 0; i = (i - 1) & $1) {
+	cout << $1 - i << endl;
+}
+cout << $1 << endl;
+endsnippet
+
+snippet ww_algo_run_length "run length syakutori" b
+string ans = "";
+int r = 0;
+for (int l = 0; l < ${1:N}; l++) {
+	l = r;
+	if (l >= $1) {
+		break;
+	}
+	while (r < $1 and ${2:S}[l] == $2[r]) {
+		++r;
+	}
+	ans += $2[l] + to_string(r - l);
+}
+endsnippet
+
+# =========================================================
+# Algorithm Graph
+# =========================================================
+snippet ww_algo_bfs_graph "bfs graph" b
+queue<int> q;
+q.push(${1:0});
+vector<int> d(${2:N}, -1);
+d[$1] = 0;
+while (!q.empty()) {
+	int v = q.front();
+	q.pop();
+	for (int nv : ${3:G}[v]) {
+		if (d[nv] == -1) {
+			d[nv] = d[v] + 1;
+			q.push(nv);
+		}
+	}
+}
+endsnippet
+
+snippet ww_algo_bfs_grid "bfs grid" b
+queue<pair<int, int>> q;
+q.push({${1:sy}, ${2:sx}});
+vector<vector<int>> d(${3:H}, vector<int>(${4:W}, -1));
+d[$1][$2] = 0;
+while (!q.empty()) {
+	int py = q.front().first;
+	int px = q.front().second;
+	q.pop();
+	for (int i = 0; i < 4; i++) {
+		int y = py + dy[i];
+		int x = px + dx[i];
+		if (y < 0 or x < 0 or $3 <= y or $4 <= x) continue;
+		if (d[y][x] == -1 and cango(${5:G}[y][x])) {
+			d[y][x] = d[py][px] + 1;
+			q.push({y, x});
+		}
+	}
+}
+endsnippet
+
+snippet ww_algo_grid_cango "grid cango" b
+auto cango = [](const char &a) -> bool {
+	string white = "${1:.SG}";
+	return white.find(a) != string::npos;
+};
+endsnippet
+
+snippet ww_algo_grid_dydx "dydx" b
+for (int ${1:k} = 0; $1 < ${2:4}; $1++) {
+	int y = ${3:i} + dy[$1];
+	int x = ${4:j} + dx[$1];
+	if (y < 0 or x < 0 or ${5:row} <= y or ${6:column} <= x) continue;
+	${7}
+}
+endsnippet
+
+snippet ww_algo_grid_filter "bfs grid filter" b
+if (${1:y} < 0 or ${2:x} < 0 or ${3:row} <= $1 or ${4:column} <= $2) continue;
+endsnippet
+
+# =========================================================
+# Algorithm DP
+# =========================================================
+snippet ww_algo_dp_1d "dp 1d" b
+vector<${1:int}> dp(${2:N} + 1, ${3:0});
+dp[${4:0}] = ${5:0};
+${6:fori}
+cout << dp[$2] << endl;
+endsnippet
+
+snippet ww_algo_dp_2d "dp 2d" b
+vector<vector<${1:int}>> dp(${2:N} + 1, vector<$1>(${3:W} + 1, ${4:0}));
+dp[${5:0}][${6:0}] = ${7:0};
+${8:fori2}
+cout << dp[$2][$3] << endl;
+endsnippet
+
+# =========================================================
+# Algorithm Range
+# =========================================================
+snippet ww_algo_zeta "ruisekiwa" b
+vector<${1:long long}> ${2:S}(${3:N} + 1);
+for (int i = 0; i < $3; i++) {
+	$2[i + 1] = $2[i] + ${4:A}[i];
+}
+endsnippet
+
+snippet ww_algo_zeta_rev "ruisekiwa reverse" b
+vector<${1:long long}> ${2:R}(${3:N} + 1);
+for (int i = $3 - 1; i >= 0; i--) {
+	$2[i] = $2[i + 1] + ${4:A}[i];
+}
+endsnippet
+
+snippet ww_algo_zeta_2D "2d ruisekiwa" b
+vector<vector<${1:long long}>> ${2:S}(${3:H} + 1, vector<$1>(${4:W} + 1));
+for (int i = 0; i < $3; i++) {
+	for (int j = 0; j < $4; j++) {
+		$2[i + 1][j + 1] = $2[i + 1][j] + ${5:A}[i][j];
+	}
+}
+for (int i = 0; i < $3; i++) {
+	for (int j = 0; j < $4; j++) {
+		$2[i + 1][j + 1] += $2[i][j + 1];
+	}
+}
+endsnippet
+
+snippet ww_algo_moebius "diff" b
+vector<${1:int}> ${2:D}(${3:N-1});
+for (int i = 0; i < $3; i++) {
+	$2[i] = ${4:A}[i + 1] - $4[i];
+}
+endsnippet
+
+snippet ww_algo_imos "imos" b
+${1:A}[${2:l}]${3:++};
+$1[${4:r+1}]${5:--};
+endsnippet
+
+snippet ww_algo_compress "compress" b
+auto compress = []<class T>(vector<T> &a) -> int {
+	vector<T> c = a;
+	sort(c.begin(), c.end());
+	c.erase(unique(c.begin(), c.end()), c.end());
+	for (auto &v : a) v = lower_bound(c.begin(), c.end(), v) - c.begin();
+	return c.size();
+};
+endsnippet
+
