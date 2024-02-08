@@ -83,11 +83,11 @@ endsnippet
 # type
 # =========================================================
 snippet ll "long long" bi
-long long
+long long 
 endsnippet
 
 snippet dou "double" bi
-double
+double 
 endsnippet
 
 snippet vec "vec" bi
@@ -203,8 +203,8 @@ for (int i = 0; i < ${4:M}; i++) {
 	$1 ${5:A}, ${6:B};
 	cin >> $5 >> $6;
 	$5--, $6--;
-	G[$5].push_back($6);
-	G[$6].push_back($5);
+	$2[$5].push_back($6);
+	$2[$6].push_back($5);
 }
 endsnippet
 
@@ -255,7 +255,7 @@ endsnippet
 
 # prepare for completion priority
 snippet swap "swap" b
-swap(${1});
+swap(${1} , ${2});
 endsnippet
 
 snippet ww_stl_transform "transform" b
