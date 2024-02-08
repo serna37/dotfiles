@@ -208,13 +208,13 @@ template <> constexpr int inf<int> = 1001001001;
 template <> constexpr long long inf<long long> = 1001001001001001001ll;
 template <class T> struct StarrySkyTree {
   private:
-    int N, log, size;
+    int N, log, sz;
     vector<T> node;
     void init() {
         log = 1;
-        while ((1 << log) < N + 1) ++log;
-        size = 1 << log;
-        node.assign(size << 1, -inf<T>);
+        while ((1 << log) < N) ++log;
+        sz = 1 << log;
+        node.assign(sz << 1, -inf<T>);
     }
     T _star(int i) {
         T mx = max(node[i << 1 | 0], node[i << 1 | 1]);
@@ -225,6 +225,11 @@ template <class T> struct StarrySkyTree {
     void star(int i) {
         node[i] += _star(i);
     }
+    T sum(int i) {
+        T ans = node[i];
+        while (i >>= 1) ans += node[i];
+        return ans;
+    }
 
   public:
     StarrySkyTree(int n) : N(n) {
@@ -232,58 +237,32 @@ template <class T> struct StarrySkyTree {
     }
     StarrySkyTree(const vector<T> &a) : N(a.size()) {
         init();
-        for (int i = 0; i < N; ++i) node[i + size] = a[i];
-        for (int i = size - 1; i >= 1; --i) node[i] = _star(i);
+        for (int i = 0; i < N; ++i) node[i + sz] = a[i];
+        for (int i = sz - 1; i >= 1; --i) node[i] = _star(i);
     }
     T operator[](int i) {
-        T ans = node[i += size];
-        while (i >>= 1) ans += node[i];
-        return ans;
+        return sum(i + sz);
     }
     T get(int l, int r) {
-        assert(l < r);
-        if (l == 0 and r == N) return node[1];
-        stack<int> L, R;
-        for (l += size, r += size; l < r; l >>= 1, r >>= 1) {
-            if (l & 1) L.push(l++);
-            if (r & 1) R.push(--r);
+        T ans = -inf<T>;
+        for (l += sz, r += sz; l < r; l >>= 1, r >>= 1) {
+            if (l & 1) ans = max(ans, sum(l++));
+            if (r & 1) ans = max(ans, sum(--r));
         }
-        vector<T> leaf;
-        T commonL = node[1];
-        for (int i = l - 1; i > 1; i >>= 1) commonL += node[i];
-        for (int i = l - 1; !L.empty();) {
-            i = (i << 1 | 1);
-            if (i == L.top()) {
-                leaf.push_back(commonL + node[i--]);
-                L.pop();
-            }
-            commonL += node[i];
-        }
-        T commonR = node[1];
-        for (int i = r; i > 1; i >>= 1) commonR += node[i];
-        for (int i = r; !R.empty();) {
-            i = (i << 1 | 0);
-            if (i == R.top()) {
-                leaf.push_back(commonR + node[i++]);
-                R.pop();
-            }
-            commonR += node[i];
-        }
-        return *max_element(leaf.begin(), leaf.end());
+        return ans;
     }
     T top() {
         return node[1];
     }
     void apply(int l, int r, const T &x) {
-        for (l += size, r += size; l < r; l >>= 1, r >>= 1) {
-            if (l & 1) node[l++] += x;
-            if (r & 1) node[--r] += x;
-            if ((l - 1) > 1) star((l - 1) >> 1);
-            if (r < (size << 1)) star(r >> 1);
+        for (int ll = (l += sz), rr = (r += sz); ll < rr; ll >>= 1, rr >>= 1) {
+            if (ll & 1) node[ll++] += x;
+            if (rr & 1) node[--rr] += x;
         }
-        for (int i = l - 1; i > 1; i >>= 1) star(i);
-        assert(r < size << 1);
-        for (int i = r; i >= 1; i >>= 1) star(i);
+        l >>= __builtin_ctz(l);
+        r >>= __builtin_ctz(r);
+        while (l >>= 1) star(l);
+        while (r >>= 1) star(r);
     }
 };
 int main() {
