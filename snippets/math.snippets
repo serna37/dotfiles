@@ -184,9 +184,9 @@ void fft(vector<C> &a, int n) {
 } // namespace FFT
 endsnippet
 
-snippet ww_math_convolution "convolution" b
+snippet ww_math_convolution_fft "convolution" b
 template <typename R>
-vector<long long> convolution(const vector<R> &a, const vector<R> &b) {
+vector<long long> convolution_fft(const vector<R> &a, const vector<R> &b) {
 	using C = FFT::C;
 	int need = (int)a.size() + (int)b.size() - 1, nbase = 1;
 	while ((1 << nbase) < need) ++nbase;
