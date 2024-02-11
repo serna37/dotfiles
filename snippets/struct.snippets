@@ -42,7 +42,7 @@ snippet ww_graph_dijkstra "dijkstra" b
 template <typename T, typename Graph>
 pair<vector<T>, vector<int>> dijkstra(const Graph &G, int s) {
     int N = G.size();
-    using P = pair<T, int>;
+    using P = pair<int, T>;
     priority_queue<P, vector<P>, greater<P>> q;
     q.emplace(s, 0);
     vector<T> dist(N, inf<T>);
