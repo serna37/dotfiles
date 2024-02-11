@@ -58,14 +58,14 @@ endsnippet
 snippet ww_algo_bfs_graph "bfs graph" b
 queue<int> q;
 q.push(${1:0});
-vector<int> d(${2:N}, -1);
-d[$1] = 0;
+vector<int> dis(${2:N}, -1);
+dis[$1] = 0;
 while (!q.empty()) {
 	int v = q.front();
 	q.pop();
 	for (int nv : ${3:G}[v]) {
-		if (d[nv] == -1) {
-			d[nv] = d[v] + 1;
+		if (dis[nv] == -1) {
+			dis[nv] = dis[v] + 1;
 			q.push(nv);
 		}
 	}
@@ -75,8 +75,8 @@ endsnippet
 snippet ww_algo_bfs_grid "bfs grid" b
 queue<pair<int, int>> q;
 q.push({${1:sy}, ${2:sx}});
-vector<vector<int>> d(${3:H}, vector<int>(${4:W}, -1));
-d[$1][$2] = 0;
+vector<vector<int>> dis(${3:H}, vector<int>(${4:W}, -1));
+dis[$1][$2] = 0;
 while (!q.empty()) {
 	int py = q.front().first;
 	int px = q.front().second;
@@ -85,8 +85,8 @@ while (!q.empty()) {
 		int y = py + dy[i];
 		int x = px + dx[i];
 		if (y < 0 or x < 0 or $3 <= y or $4 <= x) continue;
-		if (d[y][x] == -1 and cango(${5:G}[y][x])) {
-			d[y][x] = d[py][px] + 1;
+		if (dis[y][x] == -1 and cango(${5:G}[y][x])) {
+			dis[y][x] = dis[py][px] + 1;
 			q.push({y, x});
 		}
 	}
