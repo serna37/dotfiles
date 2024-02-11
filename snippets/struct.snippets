@@ -38,30 +38,31 @@ endsnippet
 #Spares table
 # Wavelet Matrix
 
+# https://onlinejudge.u-aizu.ac.jp/status/users/serna37/submissions/1/GRL_1_A/judge/8889600/C++17
 snippet ww_graph_dijkstra "dijkstra" b
 template <typename T, typename Graph>
 pair<vector<T>, vector<int>> dijkstra(const Graph &G, int s) {
     int N = G.size();
-    using P = pair<int, T>;
+    using P = pair<T, int>;
     priority_queue<P, vector<P>, greater<P>> q;
-    q.emplace(s, 0);
-    vector<T> dist(N, inf<T>);
-    dist[s] = 0;
+    q.emplace(0, s);
+    vector<T> dis(N, inf<T>);
+    dis[s] = 0;
     vector<int> route(N, -1);
     while (!q.empty()) {
-        auto [v, dv] = q.top();
+        auto [dv, v] = q.top();
         q.pop();
-        if (dist[v] < dv) continue;
-        for (auto n : G[v]) {
-            int nv = n.first, cost = n.second;
-            if (dist[nv] > dist[v] + cost) {
-                dist[nv] = dist[v] + cost;
-                q.emplace(nv, dist[nv]);
+        if (dv > dis[v]) continue;
+        for (auto &&n : G[v]) {
+            int cost = n.first, nv = n.second;
+            if (dis[nv] > dis[v] + cost) {
+                dis[nv] = dis[v] + cost;
+                q.emplace(dis[nv], nv);
                 route[nv] = v;
             }
         }
     }
-    return {dist, route};
+    return {dis, route};
 }
 endsnippet
 
