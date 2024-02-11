@@ -113,6 +113,15 @@ snippet ww_algo_grid_filter "bfs grid filter" b
 if (${1:y} < 0 or ${2:x} < 0 or ${3:row} <= $1 or ${4:column} <= $2) continue;
 endsnippet
 
+snippet ww_algo_route_detective "route detective" b
+int goal = ${1:a};
+vector<int> rt;
+while (goal != -1) {
+	rt.push_back(goal);
+	goal = ${2:route}[goal];
+}
+endsnippet
+
 # =========================================================
 # Algorithm DP
 # =========================================================
