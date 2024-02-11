@@ -38,6 +38,32 @@ endsnippet
 #Spares table
 # Wavelet Matrix
 
+snippet ww_graph_dijkstra "dijkstra" b
+template <typename T, typename Graph>
+pair<vector<T>, vector<int>> dijkstra(const Graph &G, int s) {
+    int N = G.size();
+    using P = pair<T, int>;
+    priority_queue<P, vector<P>, greater<P>> q;
+    q.emplace(s, 0);
+    vector<T> dist(N, inf<T>);
+    dist[s] = 0;
+    vector<int> route(N, -1);
+    while (!q.empty()) {
+        auto [v, dv] = q.top();
+        q.pop();
+        if (dist[v] < dv) continue;
+        for (auto n : G[v]) {
+            int nv = n.first, cost = n.second;
+            if (dist[nv] > dist[v] + cost) {
+                dist[nv] = dist[v] + cost;
+                q.emplace(nv, dist[nv]);
+                route[nv] = v;
+            }
+        }
+    }
+    return {dist, route};
+}
+endsnippet
 
 snippet ww_struct_datetime "datetime" b
 struct DateTime {
