@@ -276,6 +276,10 @@ sort(${1:A}.begin(), $1.end());
 $1.erase(unique($1.begin(), $1.end()), $1.end());
 endsnippet
 
+snippet ww_stl_sum "sum" bi
+reduce(${1:A}.begin(), $1.end())${2};
+endsnippet
+
 # =========================================================
 # builtin
 # =========================================================
