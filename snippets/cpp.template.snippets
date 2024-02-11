@@ -298,18 +298,6 @@ endsnippet
 # =========================================================
 # util function
 # =========================================================
-snippet ans "ans" b
-${1:int} ans = ${2:0};
-endsnippet
-
-snippet tmp "tmp" b
-${1:int} tmp = ${2:0};
-endsnippet
-
-snippet ok "ok" b
-bool ok = true;
-endsnippet
-
 snippet size "size" b
 int ${1:N} = ${2:S}.size();
 endsnippet
@@ -334,10 +322,6 @@ snippet ww_util_div_to_ceil "div ceil" b
 auto divCeil = []<class T>(T a, T b) -> T {
 	return a / b + (((a ^ b) > 0 and a % b != 0) ? 1 : 0);
 };
-endsnippet
-
-snippet ww_util_div_to_ceil_inline "div ceil" bi
-(${1:N} + ${2:A} - 1) / $2
 endsnippet
 
 snippet ww_util_islow_char "is lower" b
