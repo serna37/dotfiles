@@ -352,3 +352,54 @@ auto split = [](string s, char c) -> vector<string> {
 	return S;
 };
 endsnippet
+
+# =========================================================
+# call
+# =========================================================
+# function call
+snippet dijk "dijk" b
+auto [dist, route] = dijkstra<${1:int}>(${2:G}, ${3:start});
+endsnippet
+
+# struct
+snippet uf "union find" bi
+UnionFind uf(${1:N});
+endsnippet
+
+# Monoid
+snippet mono_min "Monoid min" bi
+Mmin<${1:int}>
+endsnippet
+snippet mono_max "Monoid max" bi
+Mmax<${1:int}>
+endsnippet
+snippet mono_add "Monoid add" bi
+Madd<${1:int}>
+endsnippet
+snippet mono_prod "Monoid prod" bi
+Mprod<${1:int}>
+endsnippet
+snippet mono_gcd "Monoid gcd" bi
+Mgcd<${1:int}>
+endsnippet
+snippet mono_act_sum_add "Monoid Acted sum add" bi
+MAsumadd<${1:int}>
+endsnippet
+snippet mono_act_min_add "Monoid Acted min add" bi
+MAminadd<${1:int}>
+endsnippet
+
+# tree
+snippet fwk "fwk" bi
+FwkTree<${1}> fwk(${2:N});
+endsnippet
+snippet seg "seg" bi
+SegTree<${1}> seg(${2:N});
+endsnippet
+snippet lseg "lseg" bi
+LazySegTree<${1}> lseg(${2:N});
+endsnippet
+snippet starry "starry" b
+StarrySkyTree<${1:int}> sst(${2:N});
+endsnippet
+
