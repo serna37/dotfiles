@@ -145,12 +145,10 @@ snippet ww_const_PI "PI" b
 const double PI = acos(-1);
 endsnippet
 
-snippet ww_const_INFINITY_INT "INFINITY" b
-const int INF = 1001001001;
-endsnippet
-
-snippet ww_const_INFINITY_LONG "INFINITY" b
-const long long INF = 1001001001001001001ll;
+snippet ww_const_INFINITY "INFINITY" b
+template <class T> constexpr T inf = 0;
+template <> constexpr int inf<int> = 1001001001;
+template <> constexpr long long inf<long long> = 1001001001001001001ll;
 endsnippet
 
 snippet ww_const_MOD_998244353 "mod" b
