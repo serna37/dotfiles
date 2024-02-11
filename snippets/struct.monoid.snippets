@@ -1,13 +1,7 @@
 # =========================================================
 # Struct Monoid
 # =========================================================
-snippet mono_min "Monoid min" bi
-Mmin<${1:int}>
-endsnippet
 snippet ww_struct_Monoid_min "Monoid min" b
-template <class T> constexpr T inf = 0;
-template <> constexpr int inf<int> = 1001001001;
-template <> constexpr long long inf<long long> = 1001001001001001001ll;
 template <typename T> struct Mmin {
 	using value_type = T;
 	static constexpr T e = inf<T>;
@@ -17,13 +11,7 @@ template <typename T> struct Mmin {
 };
 endsnippet
 
-snippet mono_max "Monoid max" bi
-Mmax<${1:int}>
-endsnippet
 snippet ww_struct_Monoid_max "Monoid max" b
-template <class T> constexpr T inf = 0;
-template <> constexpr int inf<int> = 1001001001;
-template <> constexpr long long inf<long long> = 1001001001001001001ll;
 template <typename T> struct Mmax {
 	using value_type = T;
 	static constexpr T e = -inf<T>;
@@ -33,9 +21,6 @@ template <typename T> struct Mmax {
 };
 endsnippet
 
-snippet mono_add "Monoid add" bi
-Madd<${1:int}>
-endsnippet
 snippet ww_struct_Monoid_add "Monoid add" b
 template <typename T> struct Madd {
 	using value_type = T;
@@ -46,9 +31,6 @@ template <typename T> struct Madd {
 };
 endsnippet
 
-snippet mono_prod "Monoid prod" bi
-Mprod<${1:int}>
-endsnippet
 snippet ww_struct_Monoid_prod "Monoid prod" b
 template <typename T> struct Mprod {
 	using value_type = T;
@@ -59,9 +41,6 @@ template <typename T> struct Mprod {
 };
 endsnippet
 
-snippet mono_gcd "Monoid gcd" bi
-Mgcd<${1:int}>
-endsnippet
 snippet ww_struct_Monoid_gcd "Monoid gcd" b
 template <typename T> struct Mgcd {
 	using value_type = T;
@@ -75,9 +54,6 @@ endsnippet
 # =========================================================
 # Struct Monoid Acted
 # =========================================================
-snippet mono_act_sum_add "Monoid Acted sum add" bi
-MAsumadd<${1:int}>
-endsnippet
 snippet ww_struct_Monoid_Acted_sum_add "Monoid Acted sum add" b
 template <typename T> struct MAsumadd {
 	using M_m = Madd<T>;
@@ -90,9 +66,6 @@ template <typename T> struct MAsumadd {
 };
 endsnippet
 
-snippet mono_act_min_add "Monoid Acted min add" bi
-MAminadd<${1:int}>
-endsnippet
 snippet ww_struct_Monoid_acted_min_add "Monoid Acted min add" b
 template <typename T> struct MAminadd {
 	using M_m = Mmin<T>;

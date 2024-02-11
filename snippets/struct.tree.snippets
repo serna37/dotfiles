@@ -3,9 +3,6 @@
 # =========================================================
 # TODO lazy update
 # TODO XXX FIXME add upper lower bound
-snippet fwk "fwk" bi
-FwkTree<${1}> fwk(${2:N});
-endsnippet
 snippet ww_struct_fenwick_tree "fenwick tree" b
 template <typename Monoid> struct FwkTree {
 	using M = Monoid;
@@ -55,9 +52,6 @@ endsnippet
 # Segment Tree
 # =========================================================
 # TODO XXX FIXME add upper lower bound
-snippet seg "seg" bi
-SegTree<${1}> seg(${2:N});
-endsnippet
 snippet ww_struct_segment_tree "segment tree" b
 template <class Monoid> struct SegTree {
 	using M = Monoid;
@@ -113,9 +107,6 @@ endsnippet
 
 # TODO XXX FIXME add upper lower bound
 # https://onlinejudge.u-aizu.ac.jp/status/users/serna37/submissions/1/DSL_2_H/judge/8857362/C++17
-snippet lseg "lseg" bi
-LazySegTree<${1}> lseg(${2:N});
-endsnippet
 snippet ww_struct_lazy_segment_tree "lazy segment tree" b
 template <typename MonoidAct> struct LazySegTree {
 	using M = typename MonoidAct::M_m;
@@ -215,13 +206,7 @@ template <typename MonoidAct> struct LazySegTree {
 endsnippet
 
 #https://onlinejudge.u-aizu.ac.jp/status/users/serna37/submissions/1/DSL_2_H/judge/8879885/C++17
-snippet starry "starry" b
-StarrySkyTree<${1:int}> sst(${2:N});
-endsnippet
 snippet ww_struct_starry_sky_tree "starry sky tree" b
-template <class T> constexpr T inf = 0;
-template <> constexpr int inf<int> = 1001001001;
-template <> constexpr long long inf<long long> = 1001001001001001001ll;
 template <class T> struct StarrySkyTree {
   private:
 	int N, log, sz;
