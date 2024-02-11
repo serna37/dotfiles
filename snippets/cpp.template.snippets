@@ -212,8 +212,8 @@ for (int i = 0; i < ${3:M}; i++) {
 	int ${4:A}, ${5:B}, ${6:C};
 	cin >> $4 >> $5 >> $6;
 	$4--, $5--;
-	$1[$4].push_back({$5, $6});
-	$1[$5].push_back({$4, $6});
+	$1[$4].push_back({$6, $5});
+	$1[$5].push_back({$6, $4});
 }
 endsnippet
 
@@ -358,7 +358,7 @@ endsnippet
 # =========================================================
 # function call
 snippet dijk "dijk" b
-auto [dist, route] = dijkstra<${1:int}>(${2:G}, ${3:start});
+auto [dis, route] = dijkstra<${1:int}>(${2:G}, ${3:start});
 endsnippet
 
 # struct
