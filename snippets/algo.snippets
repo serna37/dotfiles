@@ -17,11 +17,24 @@ snippet ww_algo_permu_loop "next permutation" b
 do {${2}} while (next_permutation(${1:A}.begin(), $1.end()));
 endsnippet
 snippet ww_algo_bit_loop "bit loop" b
-for (int bit = 0; bit < 1 << ${1:N}; bit++) {
-	${2:long long} tmp = 0;
-	for (int k = 0; k < $1; k++) {
-		if (bit & (${3:1ll} << k)) {
-			tmp |= ${4:A}[k];
+for (${1:long long} ${2:bit} = 0; $2 < (${3:1ll} << ${4:N}); $2++) {
+	${5:long long} tmp = 0;
+	for (int k = 0; k < $4; k++) {
+		if ($2 & ($3 << k)) {
+			tmp |= ${6:A}[k];
+		}
+	}
+}
+endsnippet
+snippet ww_algo_bit_loop_2 "bit loop" b
+for (int bit = 0; bit < (1 << ${1:H}); bit++) {
+	for (int bit2 = 0; bit2 < (1 << ${2:W}); bit2++) {
+		vector<int> ${3:h}, ${4:w};
+		for (int k = 0; k < $1; k++) {
+			if (bit & (1 << k)) $3.push_back(k);
+		}
+		for (int k = 0; k < $2; k++) {
+			if (bit2 & (1 << k)) $4.push_back(k);
 		}
 	}
 }
