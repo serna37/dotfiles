@@ -120,15 +120,6 @@ snippet ww_algo_imos "imos" b
 ${1:A}[${2:l}]${3:++};
 $1[${4:r+1}]${5:--};
 endsnippet
-snippet ww_algo_compress "compress" b
-auto compress = []<class T>(vector<T> &a) -> int {
-	vector<T> c = a;
-	sort(c.begin(), c.end());
-	c.erase(unique(c.begin(), c.end()), c.end());
-	for (auto &v : a) v = lower_bound(c.begin(), c.end(), v) - c.begin();
-	return c.size();
-};
-endsnippet
 
 # =========================================================
 # Algorithm Graph
