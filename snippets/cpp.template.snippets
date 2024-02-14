@@ -62,7 +62,7 @@ ${1:void} ${2:func}(${3:int n}) {
 }
 endsnippet
 snippet lambda "function lambda" b
-auto ${1:func} = [${2:&}](${3:const int &a}) -> ${4:void} {
+auto ${1:cal} = [${2:&}](${3:const int &a}) -> ${4:void} {
 	${5}
 };
 endsnippet
@@ -107,16 +107,16 @@ for (int i = 0; i < ${4:M}; i++) {
 }
 endsnippet
 snippet graph_cost_cin "graph cost cin" b
-vector<vector<pair<int, int>>> ${1:G}(${2:N});
-for (int i = 0; i < ${3:M}; i++) {
-	int ${4:A}, ${5:B}, ${6:C};
-	cin >> $4 >> $5 >> $6;
-	$4--, $5--;
-	$1[$4].push_back({$6, $5});
-	$1[$5].push_back({$6, $4});
+vector<vector<pair<${1:long long}, int>>> ${2:G}(${3:N});
+for (int i = 0; i < ${4:M}; i++) {
+	int ${5:A}, ${6:B};
+	$1 ${7:C};
+	cin >> $5 >> $6 >> $7;
+	$5--, $6--;
+	$2[$5].push_back({$7, $6});
+	$2[$6].push_back({$7, $5});
 }
 endsnippet
-# TODO ライブラリ側で、Graphのstructとか作るなら考えたいねぇ
 
 # =========================================================
 # output
