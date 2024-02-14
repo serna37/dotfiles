@@ -121,6 +121,16 @@ ${1:A}[${2:l}]${3:++};
 $1[${4:r+1}]${5:--};
 endsnippet
 
+snippet ww_algo_seq_inv "seq inv" b
+auto [comp, cvt] = zip(${1:A});
+${2:int} ${3:ans} = 0;
+FwkTree<Madd<int>> ${4:fwk}(cvt.size());
+for (int i = 0; i < ${5:N}; i++) {
+	$3 += $4.top() - $4.get(comp[i]);
+	$4.act(comp[i], 1);
+}
+endsnippet
+
 # =========================================================
 # Algorithm Graph
 # =========================================================
