@@ -107,14 +107,15 @@ for (int i = 0; i < ${4:M}; i++) {
 }
 endsnippet
 snippet graph_cost_cin "graph cost cin" b
-vector<vector<pair<${1:long long}, int>>> ${2:G}(${3:N});
+Graph<${1:long long}> ${2:G}(${3:N});
 for (int i = 0; i < ${4:M}; i++) {
-	int ${5:A}, ${6:B};
-	$1 ${7:C};
-	cin >> $5 >> $6 >> $7;
-	$5--, $6--;
-	$2[$5].push_back({$7, $6});
-	$2[$6].push_back({$7, $5});
+	int from, to;
+	cin >> from >> to;
+	from--, to--;
+	long long cost;
+	cin >> cost;
+	G[from].push_back({from, to, cost, i});
+	G[to].push_back({to, from, cost, i});
 }
 endsnippet
 
