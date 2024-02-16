@@ -195,8 +195,11 @@ endsnippet
 snippet dijk "dijk" b
 auto [dis, route] = dijkstra<${1:long long}>(${2:G}, ${3:start});
 endsnippet
-snippet Bel "BellmanFord" b
+snippet Bellman "BellmanFord" b
 auto [dis, route] = BellmanFord<${1:long long}>(${2:G}, ${3:start});
+endsnippet
+snippet cycle "cycle detect" b
+vector<Edge<${1:long long}>> res = cycle_detect(${2:G}, ${3:true});
 endsnippet
 
 # set
