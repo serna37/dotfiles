@@ -190,11 +190,11 @@ endsnippet
 snippet Bellman "BellmanFord" b
 auto [dis, route] = BellmanFord<${1:long long}>(${2:G}, ${3:start});
 endsnippet
-snippet Warshall "WarshallFroyd" b
-auto dis = WarshallFroyd<${1:long long}>(${2:G});
-endsnippet
 snippet route "route restore" b
 vector<int> ${1:rt} = route_restore(route, ${2:goal});
+endsnippet
+snippet Warshall "WarshallFroyd" b
+auto [dis, negaCy] = WarshallFroyd<${1:long long}>(${2:G});
 endsnippet
 snippet cycle "cycle detect" b
 vector<Edge<${1:long long}>> res = cycle_detect(${2:G}, ${3:true});
