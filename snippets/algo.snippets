@@ -66,12 +66,14 @@ if (itr == st.begin()) continue;
 int a = *--itr;
 endsnippet
 snippet ww_algo_bisearch_izyou_min "[lim, N" b
-auto itr = st.end() - st.lower_bound(${1:A});
-int cnt = *itr;
+auto itr = st.lower_bound(${1:A});
+if (itr == st.end()) continue;
+int cnt = *--st.end() - *itr;
 endsnippet
 snippet ww_algo_bisearch_ue_min "(lim, N" b
-auto itr = st.end() - st.upper_bound(${1:A});
-int cnt = *itr;
+auto itr = st.upper_bound(${1:A});
+if (itr == st.end()) continue;
+int cnt = *--st.end() - *itr;
 endsnippet
 
 # =========================================================
