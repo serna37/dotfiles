@@ -46,8 +46,8 @@ alias zv='zi && v'
 # ls
 alias ls='ls -FG --color=auto'
 alias ll='ls -AFGlihrt --color=auto'
-alias l='exa -abghHliS'
-alias tree='exa -bghHliST'
+alias l='eza -abghHliS --icons --git'
+alias tree='eza -bghHliST --icons --git'
 alias zls='zoxide query -ls'
 alias zrm='(){zoxide remove $1}'
 
@@ -221,7 +221,7 @@ export _ZO_FZF_OPTS='
     --color bg+:#262626,fg+:#dadada,hl:#f09479,hl+:#f09479
     --color border:#303030,info:#cfcfb0,header:#80a0ff,spinner:#36c692
     --color prompt:#87afff,pointer:#ff5189,marker:#f09479
-    --preview "([[ -e '{2..}/README.md' ]] && bat --color=always --style=numbers --line-range=:50 '{2..}/README.md') || exa --color=always --group-directories-first --oneline {2..}"
+    --preview "([[ -e '{2..}/README.md' ]] && bat --color=always --style=numbers --line-range=:50 '{2..}/README.md') || eza --color=always --group-directories-first --oneline {2..}"
 '
 source /Users/serna37/Library/Application\ Support/org.dystroy.broot/launcher/bash/br
 

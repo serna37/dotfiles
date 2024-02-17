@@ -4,7 +4,7 @@ repos=(
 vim git
 # enhanced
 # cd ls find
-zoxide exa
+zoxide eza
 fzf fd fselect
 # cat sed grep
 bat sd
