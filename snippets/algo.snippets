@@ -179,14 +179,6 @@ auto cango = [](const char &a) -> bool {
 	return white.find(a) != string::npos;
 };
 endsnippet
-snippet ww_algo_route_detective "route detective" b
-int goal = ${1:a};
-vector<int> rt;
-while (goal != -1) {
-	rt.push_back(goal);
-	goal = ${2:route}[goal];
-}
-endsnippet
 
 # =========================================================
 # call
@@ -197,6 +189,9 @@ auto [dis, route] = dijkstra<${1:long long}>(${2:G}, ${3:start});
 endsnippet
 snippet Bellman "BellmanFord" b
 auto [dis, route] = BellmanFord<${1:long long}>(${2:G}, ${3:start});
+endsnippet
+snippet route "route restore" b
+vector<int> ${1:rt} = route_restore(route, ${2:goal});
 endsnippet
 snippet cycle "cycle detect" b
 vector<Edge<${1:long long}>> res = cycle_detect(${2:G}, ${3:true});
