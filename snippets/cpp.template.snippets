@@ -112,10 +112,10 @@ for (int i = 0; i < ${4:M}; i++) {
 	int from, to;
 	cin >> from >> to;
 	from--, to--;
-	long long cost;
+	$1 cost;
 	cin >> cost;
-	G[from].push_back({from, to, cost, i});
-	G[to].push_back({to, from, cost, i});
+	$2[from].push_back({from, to, cost, i});
+	$2[to].push_back({to, from, cost, i});
 }
 endsnippet
 
