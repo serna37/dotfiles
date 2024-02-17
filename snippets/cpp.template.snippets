@@ -118,6 +118,20 @@ for (int i = 0; i < ${4:M}; i++) {
 	$2[to].push_back({to, from, cost, i});
 }
 endsnippet
+snippet edges_cin "edges cin" b
+Graph<${1:long long}> ${2:G}(${3:N});
+vector<Edge<$1>> edges;
+for (int i = 0; i < ${4:M}; i++) {
+	int from, to;
+	cin >> from >> to;
+	from--, to--;
+	$1 cost;
+	cin >> cost;
+	$2[from].push_back({from, to, cost, i});
+	$2[to].push_back({to, from, cost, i});
+	edges.push_back({from, to, cost, i});
+}
+endsnippet
 
 # =========================================================
 # output
