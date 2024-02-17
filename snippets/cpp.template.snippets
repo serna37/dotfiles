@@ -217,25 +217,15 @@ endsnippet
 snippet size "size" iw
 (int)${1:S}.size()
 endsnippet
-snippet ww_util_debug_vec_cout "debug for" b
+snippet debug "debug for" b
 cout << "debug_${1:A}:"; // TODO debug
 for (auto v : $1) cout << " " << v; // TODO debug
 cout << endl; // TODO debug
 endsnippet
-snippet ww_util_div_to_floor "div floor" b
-auto divFloor = []<class T>(T a, T b) -> T {
-	return a / b - (((a ^ b) < 0 and a % b != 0) ? 1 : 0);
-};
-endsnippet
-snippet ww_util_div_to_ceil "div ceil" b
-auto divCeil = []<class T>(T a, T b) -> T {
-	return a / b + (((a ^ b) > 0 and a % b != 0) ? 1 : 0);
-};
-endsnippet
-snippet ww_util_islow_char "is lower" b
+snippet islower "is lower" b
 auto islow = [](char c) -> bool { return islower(c) != 0; };
 endsnippet
-snippet ww_util_isupp_char "is upper" b
+snippet isupper "is upper" b
 auto isupp = [](char c) -> bool { return isupper(c) != 0; };
 endsnippet
 
