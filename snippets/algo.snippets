@@ -200,6 +200,11 @@ snippet cycle "cycle detect" b
 vector<Edge<${1:long long}>> res = cycle_detect(${2:G}, ${3:true});
 endsnippet
 
+# tree
+snippet kruskal "kruskal" b
+MinSpanTree<${1:long long}> mst = kruskal(${1:edges}, ${2:N});
+endsnippet
+
 # set
 snippet uf "union find" bi
 UnionFind uf(${1:N});
