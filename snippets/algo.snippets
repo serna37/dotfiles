@@ -253,3 +253,10 @@ endsnippet
 snippet zip "zip" b
 auto [comp, cvt] = zip(${1:A});
 endsnippet
+snippet int_bisearch "int_bisearch" b
+auto test = [&](${1:long long} mid) -> bool {
+	return ${2:mid} ${3:>=} ${4:val};
+};
+$1 ok = ${5:ok value}, ng = ${6:ng value};
+$1 ans = int_bisearch(ok, ng, test);
+endsnippet
