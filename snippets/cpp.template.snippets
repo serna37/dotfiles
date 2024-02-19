@@ -136,6 +136,16 @@ endsnippet
 snippet isupper "is upper" b
 auto isupp = [](char c) -> bool { return isupper(c) != 0; };
 endsnippet
+snippet divceil "divceil" b
+auto divCeil = []<class T>(T a, T b) -> T {
+	return a / b + (((a ^ b) > 0 and a % b != 0) ? 1 : 0);
+};
+endsnippet
+snippet divfloor "divfloor" b
+auto divFloor = []<class T>(T a, T b) -> T {
+	return a / b - (((a ^ b) < 0 and a % b != 0) ? 1 : 0);
+};
+endsnippet
 snippet split "split" b
 auto split = [](string s, char c) -> vector<string> {
 	vector<string> S;
