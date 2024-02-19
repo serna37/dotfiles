@@ -161,6 +161,23 @@ endsnippet
 # =========================================================
 # Algorithm BinarySearch
 # =========================================================
+snippet ww_algo_bisearch "bisearch" b
+${1:long long} ${2:L} = 0, ${3:R} = 1;
+while (!${4:test}($3)) $3 *= 2;
+while ($3 - $2 > 1) ($4($2 + ($3 - $2) / 2) ? $3 : $2) = $2 + ($3 - $2) / 2;
+endsnippet
+snippet ww_algo_bisearch_ika_cnt "ika cnt" b
+${1:int} ${2:cnt} = upper_bound(${3:A}.begin(), $3.end(), ${4:x}) - $3.begin();
+endsnippet
+snippet ww_algo_bisearch_sita_cnt "sita cnt" b
+${1:int} ${2:cnt} = lower_bound(${3:A}.begin(), $3.end(), ${4:x}) - $3.begin();
+endsnippet
+snippet ww_algo_bisearch_izyou_cnt "izyou cnt" b
+${1:int} ${2:cnt} = ${3:A}.end() - lower_bound($3.begin(), $3.end(), ${4:x});
+endsnippet
+snippet ww_algo_bisearch_ue_cnt "ue cnt" b
+${1:int} ${2:cnt} = ${3:A}.end() - upper_bound($3.begin(), $3.end(), ${4:x});
+endsnippet
 snippet ww_algo_bisearch_ika_max "0, lim]" b
 auto itr = st.upper_bound(${1:A});
 if (itr == st.begin()) continue;
@@ -220,7 +237,6 @@ snippet ww_algo_imos "imos" b
 ${1:A}[${2:l}]${3:++};
 $1[${4:r+1}]${5:--};
 endsnippet
-
 snippet ww_algo_seq_inv "seq inv" b
 auto [comp, cvt] = zip(${1:A});
 ${2:int} ${3:ans} = 0;
@@ -358,11 +374,4 @@ endsnippet
 # seq
 snippet zip "zip" b
 auto [comp, cvt] = zip(${1:A});
-endsnippet
-snippet int_bisearch "int_bisearch" b
-auto test = [&](${1:long long} mid) -> bool {
-	return ${2:mid} ${3:>=} ${4:val};
-};
-$1 ok = ${5:ok value}, ng = ${6:ng value};
-$1 ans = int_bisearch(ok, ng, test);
 endsnippet
