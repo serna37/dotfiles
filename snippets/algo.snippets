@@ -268,8 +268,7 @@ q.push({${1:sy}, ${2:sx}});
 vector<vector<int>> dis(${3:H}, vector<int>(${4:W}, -1));
 dis[$1][$2] = 0;
 while (!q.empty()) {
-	int py = q.front().first;
-	int px = q.front().second;
+	auto [py, px] = q.front();
 	q.pop();
 	for (int i = 0; i < 4; i++) {
 		int y = py + dy[i];
