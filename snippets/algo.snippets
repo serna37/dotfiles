@@ -298,4 +298,33 @@ auto cango = [](const char &a) -> bool {
 	return white.find(a) != string::npos;
 };
 endsnippet
-
+snippet w_algo_toguro "toguro" b
+y += dy[d], x += dx[d];
+if (y < 0 or x < 0 or N <= y or N <= x or G[y][x] != -1) {
+	y -= dy[d], x -= dx[d];
+	d++, d %= 4;
+	y += dy[d], x += dx[d];
+}
+endsnippet
+snippet w_algo_bingo "bingo" b
+vector<int> cx(${1:N});
+iota(cx.begin(), cx.end(), 0);
+vector<int> cy = cx;
+reverse(cy.begin(), cy.end());
+bool c1 = true, c2 = true;
+for (int i = 0; i < $1; i++) {
+	c1 &= ${2:A}[i][cx[i]] == -1;
+	c2 &= $2[i][cy[i]] == -1;
+	bool alma = true, alma2 = true;
+	for (int j = 0; j < $1; j++) {
+		alma &= $2[i][j] == -1;
+		alma2 &= $2[j][i] == -1;
+	}
+	if (alma or alma2) {
+		cout << "row col allmatch" << endl;
+	}
+}
+if (c1 or c2) {
+	cout << "cross allmatch" << endl;
+}
+endsnippet
