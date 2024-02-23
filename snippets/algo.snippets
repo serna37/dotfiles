@@ -447,3 +447,21 @@ endsnippet
 snippet w_algo_dp_bit "dp bit" b
 // WIP
 endsnippet
+snippet w_algo_dp_tree "dp tree" b
+vector<${1:long long}> dp(${2:N}, ${3:0});
+auto dfs = [&](auto f, int v, int par = -1) -> void {
+	if (${4:tree}[v].size() == 1) {
+		dp[v] = 0;
+		return;
+	}
+	$1 tmp = 0;
+	for (auto [from, to, cost, id] : $4[v]) {
+		if (to == par) continue;
+		f(f, to, from);
+		tmp = ${5:max}(tmp, dp[to] + cost);
+	}
+	dp[v] = tmp;
+};
+dfs(dfs, N);
+cout << dp[N - 1] << endl;
+endsnippet
