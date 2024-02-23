@@ -39,6 +39,12 @@ for (int i = 0; i < $4; i++) {
 	cin >> $2[i] >> $3[i];
 }
 endsnippet
+snippet w_vec_in_3 "vec in 3" b
+vector<${1:int}> ${2:A}(${5:N}), ${3:B}($5), ${4:C}($5);
+for (int i = 0; i < $5; i++) {
+	cin >> $2[i] >> $3[i] >> $4[i];
+}
+endsnippet
 snippet w_grid_in "grid in" b
 vector<vector<${1:char}>> ${2:G}(${3:H}, vector<$1>(${4:W}));
 for (int i = 0; i < $3; i++) {
