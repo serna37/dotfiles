@@ -433,3 +433,14 @@ endsnippet
 snippet w_algo_dp_range "dp range" b
 // WIP
 endsnippet
+snippet w_algo_dp_seg "dp seg" b
+SegTree<Mmin<${1:long long}>> dp(${2:N+1});
+dp.set(0, 0);
+for (int i = 0; i < ${3:M}; i++) {
+	auto [r, l, c] = T[i];
+	$1 asis = dp[r];
+	$1 tobe = dp.get(l, r) + c;
+	dp.set(r, min(asis, tobe));
+}
+cout << dp[N] << endl;
+endsnippet
