@@ -334,3 +334,17 @@ if (c1 or c2) {
 	cout << "cross allmatch" << endl;
 }
 endsnippet
+
+# =========================================================
+# Algorithm DP
+# =========================================================
+snippet w_algo_dp_frog "dp frog" b
+vector<${1:int}> dp(${2:N} + 1, ${3:inf<int>});
+dp[${4:0}] = ${5:0};
+for (int i = 0; i <= $2; i++) {
+	for (int j = 0; j < ${6:M}; j++) {
+		${7}
+	}
+}
+cout << dp[$2] << endl;
+endsnippet
