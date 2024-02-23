@@ -388,3 +388,23 @@ for (int i = 0; i < $2; i++) {
 }
 cout << dp[$2][$3] << endl;
 endsnippet
+snippet w_algo_dp_knapsack_alt "dp knapsack alt" b
+int ${1:V} = ${2:1e5};
+vector<vector<${3:int}>> dp(${4:N} + 1, vector<$3>($1 + 1, inf<$3>));
+dp[0][0] = 0;
+for (int i = 0; i < $4; i++) {
+	for (int j = 0; j <= $1; j++) {
+		dp[i + 1][j] = min(dp[i + 1][j], dp[i][j]);
+		if (v[i] <= j) {
+			dp[i + 1][j] = min(dp[i + 1][j], dp[i][j - ${5:v}[i]] + ${6:w}[i]);
+		}
+	}
+}
+$3 ans = 0;
+for (int i = 0; i <= $1; i++) {
+	if (dp[$4][i] <= ${7:W}) {
+		ans = max(ans, i);
+	}
+}
+cout << ans << endl;
+endsnippet
