@@ -1,12 +1,12 @@
 # =========================================================
 # template
 # =========================================================
-snippet wwww "template header" bA
+snippet wwww "template header" b
 #include <bits/stdc++.h>
 using namespace std;
 ${1}
 endsnippet
-snippet main "main function" bA
+snippet main "main function" b
 int main() {
 	${1}
 }
@@ -66,8 +66,8 @@ auto ${1:cal} = [${2:&}](${3:const int &a}) -> ${4:void} {
 	${5}
 };
 endsnippet
-snippet lambda_recursive "function recursive" b
-auto ${1:func} = [${2:&}](auto f, ${3:const int &a}) -> ${4:void} {
+snippet lambda_re "function recursive" b
+auto ${1:cal} = [${2:&}](auto f, ${3:const int &a}) -> ${4:void} {
 	${5}
 	f(f, );
 };
