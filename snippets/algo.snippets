@@ -27,6 +27,18 @@ endsnippet
 # =========================================================
 # input
 # =========================================================
+snippet win_1 "in 1" b
+${1:int} ${2:N};
+cin >> $2;
+endsnippet
+snippet win_2 "in 2" b
+${1:int} ${2:N}, ${3:M};
+cin >> $2 >> $3;
+endsnippet
+snippet win_3 "in 3" b
+${1:int} ${2:N}, ${3:M}, ${4:K};
+cin >> $2 >> $3 >> $4;
+endsnippet
 snippet w_vec_in_1 "vec in 1" b
 vector<${1:int}> ${2:A}(${3:N});
 for (int i = 0; i < $3; i++) {
