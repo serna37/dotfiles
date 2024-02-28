@@ -83,8 +83,8 @@ for (int i = 0; i < ${4:M}; i++) {
 	from--, to--;
 	$1 cost;
 	cin >> cost;
-	$2[from].push_back({from, to, cost, i});
-	$2[to].push_back({to, from, cost, i});
+	$2.add(from, to, cost, i);
+	$2.add(to, from, cost, i);
 }
 endsnippet
 snippet w_edges_cin "edges in" b
@@ -96,8 +96,8 @@ for (int i = 0; i < ${4:M}; i++) {
 	from--, to--;
 	$1 cost;
 	cin >> cost;
-	$2[from].push_back({from, to, cost, i});
-	$2[to].push_back({to, from, cost, i});
+	$2.add(from, to, cost, i);
+	$2.add(to, from, cost, i);
 	edges.push_back({from, to, cost, i});
 }
 endsnippet
