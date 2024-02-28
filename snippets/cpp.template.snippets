@@ -106,6 +106,9 @@ endsnippet
 snippet swap "swap" b
 swap(${1} , ${2});
 endsnippet
+snippet reverse "reverse" b
+reverse(${1});
+endsnippet
 snippet __builtin_ctz "__builtin_ctz" bi
 __builtin_ctz(${1})
 endsnippet
@@ -125,10 +128,13 @@ endsnippet
 snippet size "size" iw
 (int)${1:S}.size()
 endsnippet
-snippet debug "debug for" b
-cout << "debug_${1:A}:"; // TODO debug
+snippet debug_var "debug var" b
+cout << "${1:A}: " << $1 << endl; // TODO debug
+endsnippet
+snippet debug_loop "debug for" b
+cout << "debug_${1:A}:";            // TODO debug
 for (auto v : $1) cout << " " << v; // TODO debug
-cout << endl; // TODO debug
+cout << endl;                       // TODO debug
 endsnippet
 snippet islower "is lower" b
 auto islow = [](char c) -> bool { return islower(c) != 0; };

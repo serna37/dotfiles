@@ -148,7 +148,7 @@ cpp() {
 }
 export AC_DIR="$HOME/git/contest"
 export ASA_DIR="$HOME/git/asakatu"
-export SAND_DIR="$HOME/git/sandbox/work"
+export SAND_DIR="$HOME/git/sandbox"
 AtCoder() {
     cd $AC_DIR
     contest_cd=$1
