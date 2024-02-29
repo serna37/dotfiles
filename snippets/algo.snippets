@@ -271,7 +271,7 @@ $1.clear();
 endsnippet
 
 # =========================================================
-# Algorithm Graph
+# Algorithm Graph BFS
 # =========================================================
 snippet w_algo_bfs_graph "bfs graph" b
 queue<int> q;
@@ -341,20 +341,21 @@ iota(cx.begin(), cx.end(), 0);
 vector<int> cy = cx;
 reverse(cy.begin(), cy.end());
 bool c1 = true, c2 = true;
+${2:int} check_val = ${3:-1};
 for (int i = 0; i < $1; i++) {
-	c1 &= ${2:A}[i][cx[i]] == -1;
-	c2 &= $2[i][cy[i]] == -1;
+	c1 &= ${4:A}[i][cx[i]] == $3;
+	c2 &= $4[i][cy[i]] == $3;
 	bool alma = true, alma2 = true;
 	for (int j = 0; j < $1; j++) {
-		alma &= $2[i][j] == -1;
-		alma2 &= $2[j][i] == -1;
+		alma &= $4[i][j] == $3;
+		alma2 &= $4[j][i] == $3;
 	}
 	if (alma or alma2) {
-		cout << "row col allmatch" << endl;
+		cout << "TODO row col allmatch" << endl;
 	}
 }
 if (c1 or c2) {
-	cout << "cross allmatch" << endl;
+	cout << "TODO cross allmatch" << endl;
 }
 endsnippet
 
@@ -501,16 +502,14 @@ using namespace std;
 int main() {
 	int N, K;
 	cin >> N >> K;
-	vector<int> a(N);
+	vector<long long> a(N), S(N + 1);
 	for (int i = 0; i < N; i++) cin >> a[i];
-	vector<long long> S(N + 1);
 	for (int i = 0; i < N; i++) S[i + 1] = S[i] + a[i] - K;
 	vector<long long> cvt = S;
 	sort(cvt.begin(), cvt.end());
 	cvt.erase(unique(cvt.begin(), cvt.end()), cvt.end());
 	for (auto &v : S) v = lower_bound(cvt.begin(), cvt.end(), v) - cvt.begin();
-	int cnt = cvt.size();
-	long long ans = 0;
+	long long cnt = cvt.size(), ans = 0;
 	vector<int> fwk(cnt + 1, 0);
 	for (int i = 0; i < N + 1; i++) {
 		for (int f = S[i] + 1; f; f -= f & -f) ans += fwk[f];
