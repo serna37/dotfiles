@@ -145,6 +145,7 @@ cpp() {
     filename=$1
     file="${filename%.*}"
     g++ -std=c++23 -mtune=native -march=native -fconstexpr-depth=2147483647 -fconstexpr-loop-limit=2147483647 -fconstexpr-ops-limit=2147483647 -o $file $1 && ./$file
+    rm ./$file
 }
 export AC_DIR="$HOME/git/contest"
 export ASA_DIR="$HOME/git/asakatu"
@@ -194,18 +195,19 @@ AsakatuAtCoder() {
 }
 sandcpp() {
     cd $SAND_DIR
-    files=$(\fd -d 1 -t f)
-    filtered_files=$(echo "$files" | grep -E '^[0-9]+\.cpp$')
-    if [ -z "$filtered_files" ]; then
-        touch 1.cpp
-        v 1.cpp
-    else
-        highest_number=$(echo "$filtered_files" | sed 's/\.cpp$//' | sort -n | tail -n 1)
-        next_number=$((highest_number + 1))
-        next_file="${next_number}.cpp"
-        touch "$next_file"
-        v $next_file
-    fi
+    v main.cpp
+    #files=$(\fd -d 1 -t f)
+    #filtered_files=$(echo "$files" | grep -E '^[0-9]+\.cpp$')
+    #if [ -z "$filtered_files" ]; then
+        #touch 1.cpp
+        #v 1.cpp
+    #else
+        #highest_number=$(echo "$filtered_files" | sed 's/\.cpp$//' | sort -n | tail -n 1)
+        #next_number=$((highest_number + 1))
+        #next_file="${next_number}.cpp"
+        #touch "$next_file"
+        #v $next_file
+    #fi
 }
 
 # ======================================================
