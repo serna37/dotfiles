@@ -214,7 +214,8 @@ snippet qu "queue" bi
 queue<${1:int}>
 endsnippet
 snippet pri "priority_queue" bi
-priority_queue<${1:int}>
+priority_queue<${1:int}> ${2:q};
+for (int i = 0; i < ${3:N}; i++) $2.push(${4:0});
 endsnippet
 snippet pril "pril" bi
 priority_queue<${1:int}, vector<$1>, greater<$1>>

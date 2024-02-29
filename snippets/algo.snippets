@@ -180,35 +180,39 @@ endsnippet
 # Algorithm BinarySearch
 # =========================================================
 snippet w_algo_bisearch "bisearch" b
-${1:long long} ${2:L} = 0, ${3:R} = 1;
-while (!${4:test}($3)) $3 *= 2;
-while ($3 - $2 > 1) ($4($2 + ($3 - $2) / 2) ? $3 : $2) = $2 + ($3 - $2) / 2;
+auto ${1:test} = [&](${2:long long} x) -> bool {
+	${3:return x >= K}
+};
+$2 ${4:L} = 0, ${5:R} = 1;
+while (!$1($5)) $5 <<= 1;
+while ($5 - $4 > 1) ($1($4 + ($5 - $4) / 2) ? $5 : $4) = $4 + ($5 - $4) / 2;
+cout << $5 << endl;
 endsnippet
-snippet w_algo_ika_cnt "ika cnt" b
+snippet w_algo_bi_ika_cnt "ika cnt" b
 ${1:int} ${2:cnt} = upper_bound(${3:A}.begin(), $3.end(), ${4:x}) - $3.begin();
 endsnippet
-snippet w_algo_sita_cnt "sita cnt" b
+snippet w_algo_bi_sita_cnt "sita cnt" b
 ${1:int} ${2:cnt} = lower_bound(${3:A}.begin(), $3.end(), ${4:x}) - $3.begin();
 endsnippet
-snippet w_algo_izyou_cnt "izyou cnt" b
+snippet w_algo_bi_izyou_cnt "izyou cnt" b
 ${1:int} ${2:cnt} = ${3:A}.end() - lower_bound($3.begin(), $3.end(), ${4:x});
 endsnippet
-snippet w_algo_ue_cnt "ue cnt" b
+snippet w_algo_bi_ue_cnt "ue cnt" b
 ${1:int} ${2:cnt} = ${3:A}.end() - upper_bound($3.begin(), $3.end(), ${4:x});
 endsnippet
-snippet w_algo_ika_max "0, lim]" b
+snippet w_algo_bi_ika_max "0, lim]" b
 auto itr = ${1:st}.upper_bound(${2:A});
 if (itr == $1.begin()) continue;
 endsnippet
-snippet w_algo_sita_max "0, lim)" b
+snippet w_algo_bi_sita_max "0, lim)" b
 auto itr = ${1:st}.lower_bound(${2:A});
 if (itr == $1.begin()) continue;
 endsnippet
-snippet w_algo_izyou_min "[lim, N" b
+snippet w_algo_bi_izyou_min "[lim, N" b
 auto itr = ${1:st}.lower_bound(${2:A});
 if (itr == $1.end()) continue;
 endsnippet
-snippet w_algo_ue_min "(lim, N" b
+snippet w_algo_bi_ue_min "(lim, N" b
 auto itr = ${1:st}.upper_bound(${2:A});
 if (itr == $1.end()) continue;
 endsnippet
