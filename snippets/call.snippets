@@ -17,6 +17,9 @@ endsnippet
 snippet call_cycle "cycle detect" b
 vector<Edge<${1:long long}>> res = cycle_detect(${2:G}, ${3:true});
 endsnippet
+snippet call_topo "topo" b
+vector<int> sorted = topological_sort(${1:G});
+endsnippet
 
 # tree
 snippet call_kruskal "kruskal" b

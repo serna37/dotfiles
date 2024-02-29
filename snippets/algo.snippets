@@ -360,6 +360,21 @@ if (c1 or c2) {
 endsnippet
 
 # =========================================================
+# Algorithm Tree DFS
+# =========================================================
+snippet w_algo_dfs "dfs" b
+vector<int> depth;
+auto dfs = [&](auto f, int v, int p, int d) -> void {
+	depth[v] = d;
+	for (int nv : ${1:G}[v]) {
+		if (nv == p) continue;
+		f(f, nv, p, d + 1);
+	}
+};
+dfs(dfs, ${2:root}, -1, 0);
+endsnippet
+
+# =========================================================
 # Algorithm DP
 # =========================================================
 snippet w_algo_dp_frog "dp frog" b
