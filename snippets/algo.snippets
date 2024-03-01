@@ -183,9 +183,9 @@ snippet w_algo_bisearch "bisearch" b
 auto ${1:test} = [&](${2:long long} x) -> bool {
 	${3:return x >= K}
 };
-$2 ${4:L} = 0, ${5:R} = 1;
+$2 ${4:L} = 0, ${5:R} = 1, ${6:MID} = 0;
 while (!$1($5)) $5 <<= 1;
-while ($5 - $4 > 1) ($1($4 + ($5 - $4) / 2) ? $5 : $4) = $4 + ($5 - $4) / 2;
+while ($5 - $4 > 1) ($1($6 = $4 + ($5 - $4) / 2) ? $5 : $4) = $6;
 cout << $5 << endl;
 endsnippet
 snippet w_algo_bi_ika_cnt "ika cnt" b
