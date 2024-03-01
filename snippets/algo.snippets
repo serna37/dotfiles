@@ -275,9 +275,9 @@ $1.clear();
 endsnippet
 
 # =========================================================
-# Algorithm Graph BFS
+# Algorithm BFS
 # =========================================================
-snippet w_algo_bfs_graph "bfs graph" b
+snippet w_algo_bfs "bfs" b
 queue<int> q;
 q.push(${1:0});
 vector<int> dis(${2:N}, -1);
@@ -364,10 +364,23 @@ if (c1 or c2) {
 endsnippet
 
 # =========================================================
-# Algorithm Tree DFS
+# Algorithm DFS
 # =========================================================
 snippet w_algo_dfs "dfs" b
-vector<int> depth;
+vector<bool> seen(${1:N}, false);
+auto dfs = [&](auto f, int v) -> void {
+	seen[v] = true;
+	// 行きがけ
+	for (auto &&nv : ${2:G}[v]) {
+		if (seen[nv]) continue;
+		f(f, nv);
+	}
+	// 帰りがけ
+};
+dfs(dfs, ${3:0});
+endsnippet
+snippet w_algo_dfs_tree "dfs" b
+vector<int> depth(N);
 auto dfs = [&](auto f, int v, int p, int d) -> void {
 	depth[v] = d;
 	for (int nv : ${1:G}[v]) {
