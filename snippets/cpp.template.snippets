@@ -148,11 +148,13 @@ snippet isupper "is upper" b
 auto isupp = [](char c) -> bool { return isupper(c) != 0; };
 endsnippet
 snippet divceil "divceil" b
+// 負もok
 auto divCeil = []<class T>(T a, T b) -> T {
 	return a / b + (((a ^ b) > 0 and a % b != 0) ? 1 : 0);
 };
 endsnippet
 snippet divfloor "divfloor" b
+// 負もok
 auto divFloor = []<class T>(T a, T b) -> T {
 	return a / b - (((a ^ b) < 0 and a % b != 0) ? 1 : 0);
 };
@@ -214,6 +216,7 @@ snippet qu "queue" bi
 queue<${1:int}>
 endsnippet
 snippet pri "priority_queue" bi
+// emptyなとき0になるようpadding
 priority_queue<${1:int}> ${2:q};
 for (int i = 0; i < ${3:N}; i++) $2.push(${4:0});
 endsnippet
