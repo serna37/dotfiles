@@ -368,7 +368,7 @@ endsnippet
 # =========================================================
 snippet w_algo_dfs "dfs" b
 vector<bool> seen(${1:N}, false);
-auto dfs = [&](auto f, int v) -> void {
+auto dfs = [&](auto &f, int v) -> void {
 	seen[v] = true;
 	// 行きがけ
 	for (auto &&nv : ${2:G}[v]) {
@@ -381,7 +381,7 @@ dfs(dfs, ${3:0});
 endsnippet
 snippet w_algo_dfs_tree "dfs" b
 vector<int> depth(N);
-auto dfs = [&](auto f, int v, int p, int d) -> void {
+auto dfs = [&](auto &f, int v, int p, int d) -> void {
 	depth[v] = d;
 	for (int nv : ${1:G}[v]) {
 		if (nv == p) continue;
@@ -505,7 +505,7 @@ snippet w_algo_dp_bit "dp bit" b
 endsnippet
 snippet w_algo_dp_tree "dp tree" b
 vector<${1:long long}> dp(${2:N}, ${3:0});
-auto dfs = [&](auto f, int v, int par = -1) -> void {
+auto dfs = [&](auto &f, int v, int par = -1) -> void {
 	if (${4:tree}[v].size() == 1) {
 		dp[v] = 0;
 		return;
