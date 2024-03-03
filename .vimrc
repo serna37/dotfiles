@@ -109,6 +109,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'liuchengxu/vim-which-key'
+Plug 'rafi/awesome-vim-colorschemes'
 let g:airline_theme = 'onedark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
@@ -292,5 +293,6 @@ let g:startify_custom_header = s:start.btr_logo
 " onedark ---------------------------------
 if !glob('~/.vim/plugged/onedark.vim')->empty()
     colorscheme onedark
+    colorscheme hybrid_material
 endif
 
