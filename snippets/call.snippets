@@ -2,86 +2,89 @@
 # call
 # =========================================================
 # graph
-snippet call_dijk "dijk" b
-auto [dis, route] = dijkstra<${1:long long}>(${2:G}, ${3:start});
+snippet Dijk "Dijkstra" b
+auto [dis, route] = Dijkstra<${1:long long}>(${2:G}, ${3:start});
 endsnippet
-snippet call_Bellman "BellmanFord" b
+snippet Bellman "BellmanFord" b
 auto [dis, route] = BellmanFord<${1:long long}>(${2:G}, ${3:start});
 endsnippet
-snippet call_route "route restore" b
+snippet route "route restore" b
 vector<int> ${1:rt} = route_restore(route, ${2:goal});
 endsnippet
-snippet call_Warshall "WarshallFroyd" b
+snippet Warshall "WarshallFroyd" b
 auto [dis, negaCy] = WarshallFroyd<${1:long long}>(${2:G});
 endsnippet
-snippet call_cycle "cycle detect" b
-vector<Edge<${1:long long}>> res = cycle_detect(${2:G}, ${3:true});
+snippet cycle "cycle detect" b
+vector<Edge<${1:long long}>> res = cycle_detect(${2:G}, ${3:directed = true});
 endsnippet
-snippet call_con_com "connected components" b
+snippet con_com "connected components" b
 vector<vector<int>> components = connected_components(${1:G});
 vector<Graph<${2:long long}>> graphs = ccgraph($1);
 endsnippet
-snippet call_con_com_grid "connected components grid" b
+snippet con_com_grid "connected components grid" b
 vector<vector<pair<int, int>>> components = connected_components_grid(${1:G}, ${2:H}, ${3:W});
 endsnippet
-snippet call_topo "topo" b
+snippet topo "topo" b
 vector<int> sorted = topological_sort(${1:G});
 endsnippet
-snippet call_scc "scc" b
+snippet scc "scc" b
 auto [cnt, ids] = strongly_connected_component(${1:G});
 vector<vector<int>> vertexes = scc($1);
 vector<Graph<${2:long long}>> graphs = sccgraph($1);
 endsnippet
 
 # tree
-snippet call_kruskal "kruskal" b
-MinSpanTree<${1:long long}> mst = kruskal(${2:edges}, ${3:N});
+snippet kruskal "Kruskal" b
+MinSpanTree<${1:long long}> mst = Kruskal(${2:edges}, ${3:N});
 endsnippet
 
 # set
-snippet call_uf "union find" bi
+snippet uf "union find" bi
 UnionFind uf(${1:N});
 endsnippet
 
 # monoid
-snippet call_mono_min "Monoid min" bi
+snippet mono_custom "Monoid custom" bi
+Mono<${1:something}>
+endsnippet
+snippet mono_min "Monoid min" bi
 Mmin<${1:int}>
 endsnippet
-snippet call_mono_max "Monoid max" bi
+snippet mono_max "Monoid max" bi
 Mmax<${1:int}>
 endsnippet
-snippet call_mono_add "Monoid add" bi
+snippet mono_add "Monoid add" bi
 Madd<${1:int}>
 endsnippet
-snippet call_mono_mul "Monoid mul" bi
+snippet mono_mul "Monoid mul" bi
 Mmul<${1:int}>
 endsnippet
-snippet call_mono_gcd "Monoid gcd" bi
+snippet mono_gcd "Monoid gcd" bi
 Mgcd<${1:int}>
 endsnippet
-snippet call_mono_act_sum_add "Monoid Acted sum add" bi
+snippet mono_act_sum_add "Monoid Acted sum add" bi
 MAsumadd<${1:int}>
 endsnippet
-snippet call_mono_act_min_add "Monoid Acted min add" bi
+snippet mono_act_min_add "Monoid Acted min add" bi
 MAminadd<${1:int}>
 endsnippet
 
 # range
-snippet call_fwk "fwk" bi
+snippet fwk "fwk" bi
 FwkTree<${1}> fwk(${2:N});
 endsnippet
-snippet call_seg "seg" bi
+snippet seg "seg" bi
 SegTree<${1}> seg(${2:N});
 endsnippet
-snippet call_lseg "lseg" bi
+snippet lseg "lseg" bi
 LazySegTree<${1}> lseg(${2:N});
 endsnippet
-snippet call_starry "starry" b
+snippet starry "starry" b
 StarrySkyTree<${1:int}> sst(${2:N});
 endsnippet
 
 # seq
-snippet call_zip "zip" b
+snippet zip "zip" b
 auto [comp, cvt] = zip(${1:A});
 endsnippet
 
