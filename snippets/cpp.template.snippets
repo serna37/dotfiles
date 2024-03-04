@@ -48,7 +48,7 @@ for (${1:long long} ${2:i} = ${3:0}; $2 * $2 <= ${4:N}; $2++) {
 }
 endsnippet
 snippet forv "for vector" b
-for (${1:auto} ${2:&&v} : ${3:A}) {
+for (${1:auto} &&${2:v} : ${3:A}) {
 	${4}
 }
 endsnippet
@@ -92,9 +92,6 @@ ${1:A}.begin(), $1.end()
 endsnippet
 snippet all_rev "iterator reverse" bi
 ${1:A}.rbegin(), $1.rend()
-endsnippet
-snippet sum "sum" bi
-reduce(${1:A}.begin(), $1.end())${2};
 endsnippet
 snippet unique "unique" b
 sort(${1:A}.begin(), $1.end());
@@ -149,6 +146,12 @@ auto islow = [](char c) -> bool { return islower(c) != 0; };
 endsnippet
 snippet isupper "is upper" b
 auto isupp = [](char c) -> bool { return isupper(c) != 0; };
+endsnippet
+snippet ceil "ceil" iw
+(${1:A} + ${2:B} - 1) / $2
+endsnippet
+snippet ceil2 "ceil2" iw
+(${1:A} + 1) / 2
 endsnippet
 snippet divceil "divceil" b
 // 負もok
