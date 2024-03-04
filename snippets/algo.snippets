@@ -129,14 +129,27 @@ snippet w_cout_yes_no "yes no" b
 cout << (${1:condition} ? "${2:Yes}" : "${3:No}") << endl;
 endsnippet
 snippet w_cout_split_space  "split space" b
-cout << (${1:i} != 0 ? " " : "") << ${2:A}[$1] << ($1 == ${3:N} - 1 ? "\n" : "");
+for (int ${1:i} = 0; $1 < ${2:N}; $1++) {
+	if ($1) cout << " ";
+	cout << ${3:A}[$1];
+	if ($1 == $2 - 1) cout << endl;
+}
 endsnippet
-snippet w_cout_ex_loop "cout ex loop" b
+snippet w_cout_split_space_ex "split space ex" b
 int _c = 0, _s = ${1:st}.size();
 for (auto &&${2:v} : $1) {
 	if (_c++) cout << " ";
 	cout << $2;
-	if (_c == _s) cout << "\n";
+	if (_c == _s) cout << endl;
+}
+endsnippet
+snippet w_cout_split_space_grid "split space grid" b
+for (int ${1:i} = 0; $1 < ${2:N}; $1++) {
+	for (int ${3:j} = 0; $3 < ${4:M}; $3++) {
+		if ($3) cout << " ";
+		cout << ${5:G}[$1][$3];
+	}
+	cout << endl;
 }
 endsnippet
 snippet w_endl "endl" b
