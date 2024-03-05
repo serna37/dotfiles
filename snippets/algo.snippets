@@ -173,6 +173,18 @@ for (int ${1:i} = ${2:0}; $1 <${3:N}; $1++) {
 	anma |= ${4};
 }
 endsnippet
+snippet w_algo_gcd_all "gcd all" b
+${1:long long} ${2:GCD} = ${3:A}[0];
+for (int i = 1; i < ${4:N}; i++) {
+	$2 = gcd($2, $3[i]);
+}
+endsnippet
+snippet w_algo_lcm_all "lcm all" b
+${1:long long} ${2:LCM} = 1;
+for (int i = 0; i < ${3:N}; i++) {
+	$2 = lcm($2, ${4:A}[i]);
+}
+endsnippet
 snippet w_algo_permu_loop "next permutation" b
 do {${2}} while (next_permutation(${1:A}.begin(), $1.end()));
 endsnippet
