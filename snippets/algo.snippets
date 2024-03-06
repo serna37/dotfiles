@@ -355,7 +355,7 @@ dis[$1] = 0;
 while (!q.empty()) {
 	int v = q.front();
 	q.pop();
-	for (int nv : ${3:G}[v]) {
+	for (auto &&nv : ${3:G}[v]) {
 		if (dis[nv] == -1) {
 			dis[nv] = dis[v] + 1;
 			q.push(nv);
@@ -579,7 +579,7 @@ auto dfs = [&](auto &f, int v, int par = -1) -> void {
 		return;
 	}
 	$1 tmp = 0;
-	for (auto [from, to, cost, id] : $4[v]) {
+	for (auto &&[from, to, cost, id] : $4[v]) {
 		if (to == par) continue;
 		f(f, to, from);
 		tmp = ${5:max}(tmp, dp[to] + cost);
