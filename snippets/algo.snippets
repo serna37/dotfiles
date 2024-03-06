@@ -33,9 +33,22 @@ snippet win_1 "in 1" b
 ${1:int} ${2:N};
 cin >> $2;
 endsnippet
+snippet win_1vec "in 1 + vec" b
+${1:int} ${2:N};
+cin >> $2;
+vector<${3:int}> ${4:A}($2);
+for (int i = 0; i < $2; i++) {
+	cin >> $4[i];
+}
+endsnippet
 snippet win_2 "in 2" b
 ${1:int} ${2:N}, ${3:M};
 cin >> $2 >> $3;
+endsnippet
+snippet win_2minus "in 2 minus" b
+${1:int} ${2:N}, ${3:M};
+cin >> $2 >> $3;
+$2--, $3--;
 endsnippet
 snippet win_3 "in 3" b
 ${1:int} ${2:N}, ${3:M}, ${4:K};
