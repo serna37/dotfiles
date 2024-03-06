@@ -176,9 +176,9 @@ AtCoder() {
 #AtCoderLive() {
     #sleep $(expr `date -v21H -v00M -v00S +%s` - `date +%s` + 1) && AtCoder $1
 #}
-#AtCoderResolve() {
-    #rm -rf $1 && AtCoder $1
-#}
+AtCoderResolve() {
+    cd $AC_DIR && rm -rf $1 && AtCoder $1
+}
 AsakatuAtCoder() {
     cd $ASA_DIR
     file_name="main.cpp"
