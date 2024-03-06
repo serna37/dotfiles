@@ -13,6 +13,18 @@ int main() {
 endsnippet
 
 # =========================================================
+# macro
+# =========================================================
+snippet w_macro "macro" b
+#define $$ (get<0>(forward_as_tuple(_args...)))
+#define $(idx) (get<(idx)>(forward_as_tuple(_args...)))
+#define lambda(...) ([&](auto &&..._args) { return (__VA_ARGS__); })
+endsnippet
+snippet w_lambda "lambda" b
+auto ${1:func} = lambda(${2:$$});
+endsnippet
+
+# =========================================================
 # for while
 # =========================================================
 snippet for "for" b
