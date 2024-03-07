@@ -575,7 +575,15 @@ for (int i = 0; i < $2; i++) {
 cout << dp[$2][$3] << endl;
 endsnippet
 snippet algo_dp_lcs "dp lcs" b
-// WIP
+int ${3:s} = ${1:S}.size(), ${4:t} = ${2:T}.size();
+vector<vector<int>> dp($3 + 1, vector<int>($4 + 1, 0));
+for (int i = 0; i < $3 i++) {
+	for (int j = 0; j < $4; j++) {
+		dp[i + 1][j + 1] = max(
+			{dp[i][j + 1], dp[i + 1][j], dp[i][j] + ($1[i] == $2[j])});
+	}
+}
+cout << dp[$3][$4] << endl;
 endsnippet
 snippet algo_dp_lis "dp lis" b
 // WIP
