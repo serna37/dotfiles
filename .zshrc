@@ -113,7 +113,7 @@ hello() {
     #echo " AtCoderLive [contest_cd]"
     #echo " AtCoderResolve [contest_cd]"
     echo " AsakatuAtCoder"
-    echo " sandcpp"
+    echo " ww"
     echo "================="
     echo "... And other commands: alias"
     alias | bat
@@ -193,7 +193,7 @@ AsakatuAtCoder() {
     done
     vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
 }
-sandcpp() {
+ww() {
     cd $SAND_DIR
     v main.cpp
     #files=$(\fd -d 1 -t f)
