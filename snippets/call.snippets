@@ -3,16 +3,16 @@
 # =========================================================
 # graph
 snippet Dijkstra "Dijkstra" b
-auto [dis, route] = Dijkstra<${1:long long}>(${2:G}, ${3:start});
+auto [${1:dis}, ${2:route}] = Dijkstra<${3:long long}>(${4:G}, ${5:start});
 endsnippet
 snippet Bellman "BellmanFord" b
-auto [dis, route] = BellmanFord<${1:long long}>(${2:G}, ${3:start});
+auto [${1:dis}, ${2:route}] = BellmanFord<${3:long long}>(${4:G}, ${5:start});
 endsnippet
 snippet route "route restore" b
 vector<int> ${1:rt} = route_restore(route, ${2:goal});
 endsnippet
 snippet Warshall "WarshallFroyd" b
-auto [dis, negaCy] = WarshallFroyd<${1:long long}>(${2:G});
+auto [${1:dis}, negaCy] = WarshallFroyd<${2:long long}>(${3:G});
 endsnippet
 snippet cycle "cycle detect" b
 vector<Edge<${1:long long}>> res = cycle_detect(${2:G}, ${3:directed = true});
