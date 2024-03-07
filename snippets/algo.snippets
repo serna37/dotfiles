@@ -45,11 +45,6 @@ snippet in_2 "in 2" b
 ${1:int} ${2:N}, ${3:M};
 cin >> $2 >> $3;
 endsnippet
-snippet in_2_minus "in 2 minus" b
-${1:int} ${2:N}, ${3:M};
-cin >> $2 >> $3;
-$2--, $3--;
-endsnippet
 snippet in_3 "in 3" b
 ${1:int} ${2:N}, ${3:M}, ${4:K};
 cin >> $2 >> $3 >> $4;
@@ -126,7 +121,7 @@ endsnippet
 # =========================================================
 # output
 # =========================================================
-snippet fixed_setprecision "fixed precision" b
+snippet fixed_setprecision "fixed setprecision" b
 cout << fixed << setprecision(${1:20});
 endsnippet
 snippet cout "cout" b
@@ -164,7 +159,7 @@ cout << endl;
 endsnippet
 
 # =========================================================
-# Algorithm eval
+# Algorithm reduce eval
 # =========================================================
 snippet algo_alma "allmatch" b
 bool alma = true;
