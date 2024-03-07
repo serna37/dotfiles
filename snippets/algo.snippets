@@ -379,6 +379,24 @@ while (!q.empty()) {
 	}
 }
 endsnippet
+snippet algo_bfs_multi_start "bfs" b
+queue<int> q;
+vector<int> dis(${1:N}, -1);
+for (int i = 0; i < ${2:K}; i++) {
+	q.push(${3:C[i]});
+	dis[$3] = 0;
+}
+while (!q.empty()) {
+	int v = q.front();
+	q.pop();
+	for (auto &&nv : ${4:G}[v]) {
+		if (dis[nv] == -1) {
+			dis[nv] = dis[v] + 1;
+			q.push(nv);
+		}
+	}
+}
+endsnippet
 snippet algo_bfs_grid "bfs grid" b
 queue<pair<int, int>> q;
 q.push({${1:sy}, ${2:sx}});
