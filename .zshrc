@@ -195,7 +195,7 @@ AsakatuAtCoder() {
 }
 ww() {
     cd $SAND_DIR
-    v main.cpp
+    v z/main.cpp
     #files=$(\fd -d 1 -t f)
     #filtered_files=$(echo "$files" | grep -E '^[0-9]+\.cpp$')
     #if [ -z "$filtered_files" ]; then
