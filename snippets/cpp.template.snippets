@@ -15,13 +15,10 @@ endsnippet
 # =========================================================
 # macro
 # =========================================================
-snippet w_macro "macro" b
+snippet macro "macro" b
 #define $$ (get<0>(forward_as_tuple(_args...)))
 #define $(idx) (get<(idx)>(forward_as_tuple(_args...)))
 #define lambda(...) ([&](auto &&..._args) { return (__VA_ARGS__); })
-endsnippet
-snippet w_lambda "lambda" b
-auto ${1:func} = lambda(${2:$$});
 endsnippet
 
 # =========================================================
@@ -88,6 +85,9 @@ auto ${1:cal} = [${2:&}](auto &f, ${3:const int &a}) -> ${4:void} {
 	${5}
 	f(f, );
 };
+endsnippet
+snippet lambda_oneliner "lambda" b
+auto ${1:func} = lambda(${2:$$});
 endsnippet
 
 # =========================================================

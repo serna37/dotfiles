@@ -1,27 +1,27 @@
 # =========================================================
 # const
 # =========================================================
-snippet w_PI "PI" b
+snippet const_PI "PI" b
 const double PI = acos(-1);
 endsnippet
-snippet w_INFINITY "INFINITY" b
+snippet const_INFINITY "INFINITY" b
 template <class T> constexpr T inf = 0;
 template <> constexpr int inf<int> = 1001001001;
 template <> constexpr long long inf<long long> = 1001001001001001001ll;
 endsnippet
-snippet w_MOD_998244353 "mod" b
+snippet const_MOD_998244353 "mod" b
 #define mod(n) n %= MOD
 const long long MOD = 998244353;
 endsnippet
-snippet w_MOD_100000007 "mod" b
+snippet const_MOD_100000007 "mod" b
 #define mod(n) n %= MOD
 const long long MOD = 1000000007;
 endsnippet
-snippet w_grid_dydx4 "grid connector" b
+snippet const_grid_dydx4 "grid connector" b
 const vector<int> dx = {0, 1, 0, -1};
 const vector<int> dy = {1, 0, -1, 0};
 endsnippet
-snippet w_grid_dydx8 "grid connector" b
+snippet const_grid_dydx8 "grid connector" b
 const vector<int> dx = {0, 1, 0, -1, 1, -1, 1, -1};
 const vector<int> dy = {1, 0, -1, 0, 1, 1, -1, -1};
 endsnippet
@@ -29,11 +29,11 @@ endsnippet
 # =========================================================
 # input
 # =========================================================
-snippet win_1 "in 1" b
+snippet in_1 "in 1" b
 ${1:int} ${2:N};
 cin >> $2;
 endsnippet
-snippet win_1vec "in 1 + vec" b
+snippet in_1_vec "in 1 + vec" b
 ${1:int} ${2:N};
 cin >> $2;
 vector<${3:int}> ${4:A}($2);
@@ -41,38 +41,38 @@ for (int i = 0; i < $2; i++) {
 	cin >> $4[i];
 }
 endsnippet
-snippet win_2 "in 2" b
+snippet in_2 "in 2" b
 ${1:int} ${2:N}, ${3:M};
 cin >> $2 >> $3;
 endsnippet
-snippet win_2minus "in 2 minus" b
+snippet in_2_minus "in 2 minus" b
 ${1:int} ${2:N}, ${3:M};
 cin >> $2 >> $3;
 $2--, $3--;
 endsnippet
-snippet win_3 "in 3" b
+snippet in_3 "in 3" b
 ${1:int} ${2:N}, ${3:M}, ${4:K};
 cin >> $2 >> $3 >> $4;
 endsnippet
-snippet w_vec_in_1 "vec in 1" b
+snippet vec_in_1 "vec in 1" b
 vector<${1:int}> ${2:A}(${3:N});
 for (int i = 0; i < $3; i++) {
 	cin >> $2[i];
 }
 endsnippet
-snippet w_vec_in_2 "vec in 2" b
+snippet vec_in_2 "vec in 2" b
 vector<${1:int}> ${2:A}(${4:N}), ${3:B}($4);
 for (int i = 0; i < $4; i++) {
 	cin >> $2[i] >> $3[i];
 }
 endsnippet
-snippet w_vec_in_3 "vec in 3" b
+snippet vec_in_3 "vec in 3" b
 vector<${1:int}> ${2:A}(${5:N}), ${3:B}($5), ${4:C}($5);
 for (int i = 0; i < $5; i++) {
 	cin >> $2[i] >> $3[i] >> $4[i];
 }
 endsnippet
-snippet w_grid_in "grid in" b
+snippet grid_in "grid in" b
 vector<vector<${1:char}>> ${2:G}(${3:H}, vector<$1>(${4:W}));
 for (int i = 0; i < $3; i++) {
 	for (int j = 0; j < $4; j++) {
@@ -80,7 +80,7 @@ for (int i = 0; i < $3; i++) {
 	}
 }
 endsnippet
-snippet w_graph_in "graph in" b
+snippet graph_in "graph in" b
 vector<vector<${1:int}>> ${2:G}(${3:N});
 for (int i = 0; i < ${4:M}; i++) {
 	$1 ${5:A}, ${6:B};
@@ -90,7 +90,7 @@ for (int i = 0; i < ${4:M}; i++) {
 	$2[$6].push_back($5);
 }
 endsnippet
-snippet w_graph_cost_in "graph cost in" b
+snippet graph_cost_in "graph cost in" b
 Graph<${1:long long}> ${2:G}(${3:N});
 for (int i = 0; i < ${4:M}; i++) {
 	int from, to;
@@ -104,7 +104,7 @@ for (int i = 0; i < ${4:M}; i++) {
 	$2.add(to, from, cost, i);
 }
 endsnippet
-snippet w_edges_cin "edges in" b
+snippet edges_cin "edges in" b
 Graph<${1:long long}> ${2:G}(${3:N});
 vector<Edge<$1>> edges;
 for (int i = 0; i < ${4:M}; i++) {
@@ -122,23 +122,23 @@ endsnippet
 # =========================================================
 # output
 # =========================================================
-snippet w_fixed_setprecision "fixed precision" b
+snippet fixed_setprecision "fixed precision" b
 cout << fixed << setprecision(${1:20});
 endsnippet
-snippet w_cout "cout" b
+snippet cout "cout" b
 cout << ${1:ans} << endl;
 endsnippet
-snippet w_cout_yes_no "yes no" b
+snippet cout_yes_no "yes no" b
 cout << (${1:condition} ? "${2:Yes}" : "${3:No}") << endl;
 endsnippet
-snippet w_cout_split_space  "split space" b
+snippet cout_split_space  "split space" b
 for (int ${1:i} = 0; $1 < ${2:N}; $1++) {
 	if ($1) cout << " ";
 	cout << ${3:A}[$1];
 	if ($1 == $2 - 1) cout << endl;
 }
 endsnippet
-snippet w_cout_split_space_ex "split space ex" b
+snippet cout_split_space_ex "split space ex" b
 int _c = 0, _s = ${1:st}.size();
 for (auto &&${2:v} : $1) {
 	if (_c++) cout << " ";
@@ -146,7 +146,7 @@ for (auto &&${2:v} : $1) {
 	if (_c == _s) cout << endl;
 }
 endsnippet
-snippet w_cout_split_space_grid "split space grid" b
+snippet cout_split_space_grid "split space grid" b
 for (int ${1:i} = 0; $1 < ${2:N}; $1++) {
 	for (int ${3:j} = 0; $3 < ${4:M}; $3++) {
 		if ($3) cout << " ";
@@ -155,32 +155,32 @@ for (int ${1:i} = 0; $1 < ${2:N}; $1++) {
 	cout << endl;
 }
 endsnippet
-snippet w_endl "endl" b
+snippet endl "endl" b
 cout << endl;
 endsnippet
 
 # =========================================================
 # Algorithm eval
 # =========================================================
-snippet w_algo_alma "allmatch" b
+snippet algo_alma "allmatch" b
 bool alma = true;
 for (int ${1:i} = ${2:0}; $1 <${3:N}; $1++) {
 	alma &= ${4};
 }
 endsnippet
-snippet w_algo_anma "anymatch" b
+snippet algo_anma "anymatch" b
 bool anma = false;
 for (int ${1:i} = ${2:0}; $1 <${3:N}; $1++) {
 	anma |= ${4};
 }
 endsnippet
-snippet w_algo_gcd_all "gcd all" b
+snippet algo_gcd_all "gcd all" b
 ${1:long long} ${2:GCD} = ${3:A}[0];
 for (int i = 1; i < ${4:N}; i++) {
 	$2 = gcd($2, $3[i]);
 }
 endsnippet
-snippet w_algo_lcm_all "lcm all" b
+snippet algo_lcm_all "lcm all" b
 ${1:long long} ${2:LCM} = 1;
 for (int i = 0; i < ${3:N}; i++) {
 	$2 = lcm($2, ${4:A}[i]);
@@ -190,10 +190,10 @@ endsnippet
 # =========================================================
 # Algorithm Search
 # =========================================================
-snippet w_algo_permu_loop "next permutation" b
+snippet algo_permu_loop "next permutation" b
 do {${2}} while (next_permutation(${1:A}.begin(), $1.end()));
 endsnippet
-snippet w_algo_bit_loop "bit loop" b
+snippet algo_bit_loop "bit loop" b
 for (${1:long long} ${2:bit} = 0; $2 < (${3:1ll} << ${4:N}); $2++) {
 	${5:long long} tmp = 0;
 	for (int k = 0; k < $4; k++) {
@@ -204,7 +204,7 @@ for (${1:long long} ${2:bit} = 0; $2 < (${3:1ll} << ${4:N}); $2++) {
 	}
 }
 endsnippet
-snippet w_algo_bit_loop_2 "bit loop" b
+snippet algo_bit_loop_2 "bit loop" b
 for (int bit = 0; bit < (1 << ${1:H}); bit++) {
 	for (int bit2 = 0; bit2 < (1 << ${2:W}); bit2++) {
 		vector<int> ${3:h}, ${4:w};
@@ -220,13 +220,13 @@ for (int bit = 0; bit < (1 << ${1:H}); bit++) {
 }
 endsnippet
 # TODO bit演算系としてまとめ直したい
-snippet w_algo_bit_on_all_pattern "bit on all pattern" b
+snippet algo_bit_on_all_pattern "bit on all pattern" b
 for (long long i = ${1:N}; i > 0; i = (i - 1) & $1) {
 	cout << $1 - i << endl;
 }
 cout << $1 << endl;
 endsnippet
-snippet w_algo_syakutori "syakutori" b
+snippet algo_syakutori "syakutori" b
 // lを固定
 // 連続和がKまでrを増やす
 // whileがfalseになるので、区間の個数はr-l個
@@ -240,7 +240,7 @@ endsnippet
 # =========================================================
 # Algorithm BinarySearch
 # =========================================================
-snippet w_algo_bisearch "bisearch" b
+snippet algo_bisearch "bisearch" b
 auto ${1:test} = [&](${2:long long} x) -> bool {
 	${3:return x >= K}
 };
@@ -249,40 +249,40 @@ while (!$1($5)) $5 <<= 1; // 指数探索
 while ($5 - $4 > 1) ($1($6 = $4 + ($5 - $4) / 2) ? $5 : $4) = $6;
 cout << $5 << endl;
 endsnippet
-snippet w_algo_bi_ika_cnt "ika cnt" b
+snippet algo_bi_ika_cnt "ika cnt" b
 // 以下の個数 = より大きい最左のidx
 ${1:int} ${2:cnt} = upper_bound(${3:A}.begin(), $3.end(), ${4:x}) - $3.begin();
 endsnippet
-snippet w_algo_bi_sita_cnt "sita cnt" b
+snippet algo_bi_sita_cnt "sita cnt" b
 // より下の個数 = 以上最左のidx
 ${1:int} ${2:cnt} = lower_bound(${3:A}.begin(), $3.end(), ${4:x}) - $3.begin();
 endsnippet
-snippet w_algo_bi_izyou_cnt "izyou cnt" b
+snippet algo_bi_izyou_cnt "izyou cnt" b
 // 以上の個数
 ${1:int} ${2:cnt} = ${3:A}.end() - lower_bound($3.begin(), $3.end(), ${4:x});
 endsnippet
-snippet w_algo_bi_ue_cnt "ue cnt" b
+snippet algo_bi_ue_cnt "ue cnt" b
 // より大きい個数
 ${1:int} ${2:cnt} = ${3:A}.end() - upper_bound($3.begin(), $3.end(), ${4:x});
 endsnippet
-snippet w_algo_bi_ika_max "0, lim]" b
+snippet algo_bi_ika_max "0, lim]" b
 // 以下の最右
 auto itr = ${1:st}.upper_bound(${2:A});
 if (itr == $1.begin()) continue;
 --itr;
 endsnippet
-snippet w_algo_bi_sita_max "0, lim)" b
+snippet algo_bi_sita_max "0, lim)" b
 // より下の最右
 auto itr = ${1:st}.lower_bound(${2:A});
 if (itr == $1.begin()) continue;
 --itr;
 endsnippet
-snippet w_algo_bi_izyou_min "[lim, N" b
+snippet algo_bi_izyou_min "[lim, N" b
 // 以上の最左
 auto itr = ${1:st}.lower_bound(${2:A});
 if (itr == $1.end()) continue;
 endsnippet
-snippet w_algo_bi_ue_min "(lim, N" b
+snippet algo_bi_ue_min "(lim, N" b
 // より大きい最左
 auto itr = ${1:st}.upper_bound(${2:A});
 if (itr == $1.end()) continue;
@@ -291,19 +291,19 @@ endsnippet
 # =========================================================
 # Algorithm Range
 # =========================================================
-snippet w_algo_zeta "ruisekiwa" b
+snippet algo_zeta "ruisekiwa" b
 vector<${1:long long}> ${2:S}(${3:N} + 1);
 for (int i = 0; i < $3; i++) {
 	$2[i + 1] = $2[i] + ${4:A}[i];
 } // S_i = a_0 + ... + a_i-1 →
 endsnippet
-snippet w_algo_zeta_rev "ruisekiwa reverse" b
+snippet algo_zeta_rev "ruisekiwa reverse" b
 vector<${1:long long}> ${2:R}(${3:N} + 1);
 for (int i = $3 - 1; i >= 0; i--) {
 	$2[i] = $2[i + 1] + ${4:A}[i];
 } // S_i = ← a_n-i + ... + a_n-1
 endsnippet
-snippet w_algo_zeta_2D "2d ruisekiwa" b
+snippet algo_zeta_2D "2d ruisekiwa" b
 // 2次元ゼータ変換
 vector<vector<${1:long long}>> ${2:S}(${3:H} + 1, vector<$1>(${4:W} + 1));
 for (int i = 0; i < $3; i++) {
@@ -317,13 +317,13 @@ for (int i = 0; i < $3; i++) {
 	}
 }
 endsnippet
-snippet w_algo_moebius "diff" b
+snippet algo_moebius "diff" b
 vector<${1:int}> ${2:D}(${3:N-1});
 for (int i = 0; i < $3; i++) {
 	$2[i] = ${4:A}[i + 1] - $4[i];
 }
 endsnippet
-snippet w_algo_imos "imos" b
+snippet algo_imos "imos" b
 // imos
 ${1:A}[${2:l}]${3:++};
 $1[${4:r+1}]${5:--};
@@ -332,7 +332,7 @@ endsnippet
 # =========================================================
 # Algorithm seq
 # =========================================================
-snippet w_algo_seq_inv "seq inv" b
+snippet algo_seq_inv "seq inv" b
 auto [comp, cvt] = zip(${1:A});
 // $1の転頭数
 ${2:int} ${3:inv} = 0;
@@ -342,24 +342,24 @@ for (int i = 0; i < ${5:N}; i++) {
 	$4.act(comp[i], 1);
 }
 endsnippet
-snippet w_algo_merge_set "merge set" b
+snippet algo_merge_set "merge set" b
 if (${1:A}.size() > ${2:B}.size()) swap($1, $2);
 for (auto &&v : $1) $2.insert(v);
 $1.clear();
 endsnippet
-snippet w_algo_merge_vec "merge vec" b
+snippet algo_merge_vec "merge vec" b
 if (${1:A}.size() > ${2:B}.size()) swap($1, $2);
 for (auto &&v : $1) $2.push_back(v);
 $1.clear();
 endsnippet
-snippet w_algo_left "left" b
+snippet algo_left "left" b
 if (${1:A} > ${2:B}) swap($1, $2);
 endsnippet
 
 # =========================================================
 # Algorithm BFS
 # =========================================================
-snippet w_algo_bfs "bfs" b
+snippet algo_bfs "bfs" b
 queue<int> q;
 q.push(${1:0});
 vector<int> dis(${2:N}, -1);
@@ -375,7 +375,7 @@ while (!q.empty()) {
 	}
 }
 endsnippet
-snippet w_algo_bfs_grid "bfs grid" b
+snippet algo_bfs_grid "bfs grid" b
 queue<pair<int, int>> q;
 q.push({${1:sy}, ${2:sx}});
 vector<vector<int>> dis(${3:H}, vector<int>(${4:W}, -1));
@@ -393,23 +393,23 @@ while (!q.empty()) {
 	}
 }
 endsnippet
-snippet w_algo_grid_dydx "dydx" b
+snippet algo_grid_dydx "dydx" b
 for (int ${1:k} = 0; $1 < ${2:4}; $1++) {
 	int y = ${3:i} + dy[$1], x = ${4:j} + dx[$1];
 	if (y < 0 or x < 0 or ${5:row} <= y or ${6:col} <= x) continue;
 	${7}
 }
 endsnippet
-snippet w_algo_grid_filter "bfs grid filter" b
+snippet algo_grid_filter "bfs grid filter" b
 if (${1:y} < 0 or ${2:x} < 0 or ${3:row} <= $1 or ${4:col} <= $2) continue;
 endsnippet
-snippet w_algo_grid_cango "grid cango" b
+snippet algo_grid_cango "grid cango" b
 auto cango = [](const char &a) -> bool {
 	string white = "${1:.SG}";
 	return white.find(a) != string::npos;
 };
 endsnippet
-snippet w_algo_toguro "toguro" b
+snippet algo_toguro "toguro" b
 int y = 0, x = 0, d = 0;
 for
 y += dy[d], x += dx[d];
@@ -419,7 +419,7 @@ if (y < 0 or x < 0 or ${1:row} <= y or ${2:col} <= x or G[y][x] != -1) {
 	y += dy[d], x += dx[d]; // 進直す
 }
 endsnippet
-snippet w_algo_bingo "bingo" b
+snippet algo_bingo "bingo" b
 vector<int> cx(${1:N}); // クロス1
 iota(cx.begin(), cx.end(), 0);
 vector<int> cy = cx; // クロス2
@@ -446,7 +446,7 @@ endsnippet
 # =========================================================
 # Algorithm DFS
 # =========================================================
-snippet w_algo_dfs "dfs" b
+snippet algo_dfs "dfs" b
 vector<bool> seen(${1:N}, false);
 auto dfs = [&](auto &f, int v) -> void {
 	seen[v] = true;
@@ -459,7 +459,7 @@ auto dfs = [&](auto &f, int v) -> void {
 };
 dfs(dfs, ${3:0});
 endsnippet
-snippet w_algo_dfs_tree "dfs" b
+snippet algo_dfs_tree "dfs" b
 vector<int> depth(N);
 auto dfs = [&](auto &f, int v, int p, int d) -> void {
 	depth[v] = d;
@@ -474,7 +474,7 @@ endsnippet
 # =========================================================
 # Algorithm DP
 # =========================================================
-snippet w_algo_dp_frog "dp frog" b
+snippet algo_dp_frog "dp frog" b
 vector<${1:int}> dp(${2:N} + 1, ${3:inf<int>});
 dp[${4:0}] = ${5:0};
 for (int i = 0; i <= $2; i++) {
@@ -484,7 +484,7 @@ for (int i = 0; i <= $2; i++) {
 }
 cout << dp[$2] << endl;
 endsnippet
-snippet w_algo_dp_vacation "dp vacation" b
+snippet algo_dp_vacation "dp vacation" b
 vector<vector<${1:int}>> dp(${2:N} + 1, vector<$1>(${3:3}, 0));
 for (int i = 0; i < $2; i++) {
 	for (int j = 0; j < $3; j++) {
@@ -500,7 +500,7 @@ for (int i = 0; i < $3; i++) {
 }
 cout << ans << endl;
 endsnippet
-snippet w_algo_dp_partial "dp partial" b
+snippet algo_dp_partial "dp partial" b
 vector<vector<bool>> dp(${1:N} + 1, vector<bool>(${2:M} + 1, false));
 dp[0][0] = true;
 for (int i = 0; i < $1; i++) {
@@ -511,7 +511,7 @@ for (int i = 0; i < $1; i++) {
 }
 cout << (dp[$1][$2] ? "Yes" : "No") << endl;
 endsnippet
-snippet w_algo_dp_knapsack "dp knapsack" b
+snippet algo_dp_knapsack "dp knapsack" b
 vector<vector<${1:int}>> dp(${2:N} + 1, vector<$1>(${3:W} + 1, 0));
 for (int i = 0; i < $2; i++) {
 	for (int j = 0; j <= $3; j++) {
@@ -524,7 +524,7 @@ for (int i = 0; i < $2; i++) {
 }
 cout << dp[$2][$3] << endl;
 endsnippet
-snippet w_algo_dp_knapsack_alt "dp knapsack alt" b
+snippet algo_dp_knapsack_alt "dp knapsack alt" b
 int ${1:V} = ${2:1e5};
 vector<vector<${3:int}>> dp(${4:N} + 1, vector<$3>($1 + 1, inf<$3>));
 dp[0][0] = 0;
@@ -544,7 +544,7 @@ for (int i = 0; i <= $1; i++) {
 }
 cout << ans << endl;
 endsnippet
-snippet w_algo_dp_transition "dp transition" b
+snippet algo_dp_transition "dp transition" b
 vector<vector<${1:long long}>> dp(${2:N} + 1, vector<$1>(${3:M} + 1, 0));
 dp[0][0] = 1;
 for (int i = 0; i < $2; i++) {
@@ -557,19 +557,19 @@ for (int i = 0; i < $2; i++) {
 }
 cout << dp[$2][$3] << endl;
 endsnippet
-snippet w_algo_dp_lcs "dp lcs" b
+snippet algo_dp_lcs "dp lcs" b
 // WIP
 endsnippet
-snippet w_algo_dp_lis "dp lis" b
+snippet algo_dp_lis "dp lis" b
 // WIP
 endsnippet
-snippet w_algo_dp_order "dp order" b
+snippet algo_dp_order "dp order" b
 // WIP
 endsnippet
-snippet w_algo_dp_range "dp range" b
+snippet algo_dp_range "dp range" b
 // WIP
 endsnippet
-snippet w_algo_dp_seg "dp seg" b
+snippet algo_dp_seg "dp seg" b
 SegTree<Mmin<${1:long long}>> dp(${2:N+1});
 dp.set(0, 0);
 for (int i = 0; i < ${3:M}; i++) {
@@ -580,10 +580,10 @@ for (int i = 0; i < ${3:M}; i++) {
 }
 cout << dp[N] << endl;
 endsnippet
-snippet w_algo_dp_bit "dp bit" b
+snippet algo_dp_bit "dp bit" b
 // WIP
 endsnippet
-snippet w_algo_dp_tree "dp tree" b
+snippet algo_dp_tree "dp tree" b
 vector<${1:long long}> dp(${2:N}, ${3:0});
 auto dfs = [&](auto &f, int v, int par = -1) -> void {
 	if (${4:tree}[v].size() == 1) {
@@ -601,14 +601,14 @@ auto dfs = [&](auto &f, int v, int par = -1) -> void {
 dfs(dfs, N);
 cout << dp[N - 1] << endl;
 endsnippet
-snippet w_algo_dp_rerooting "dp rerooting" b
+snippet algo_dp_rerooting "dp rerooting" b
 // WIP
 endsnippet
 
 # =========================================================
 # Meaningful Mean
 # =========================================================
-snippet w_algo_meaningful_mean "meaningful mean" b
+snippet algo_meaningful_mean "meaningful mean" b
 int N, K;
 cin >> N >> K;
 vector<long long> a(N), S(N + 1);

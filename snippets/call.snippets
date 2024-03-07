@@ -2,7 +2,7 @@
 # call
 # =========================================================
 # graph
-snippet Dijk "Dijkstra" b
+snippet Dijkstra "Dijkstra" b
 auto [dis, route] = Dijkstra<${1:long long}>(${2:G}, ${3:start});
 endsnippet
 snippet Bellman "BellmanFord" b
@@ -34,7 +34,7 @@ vector<Graph<${2:long long}>> graphs = sccgraph($1);
 endsnippet
 
 # tree
-snippet kruskal "Kruskal" b
+snippet Kruskal "Kruskal" b
 MinSpanTree<${1:long long}> mst = Kruskal(${2:edges}, ${3:N});
 endsnippet
 
