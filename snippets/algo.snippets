@@ -363,27 +363,31 @@ for (int i = 0; i < ${5:N}; i++) {
 }
 endsnippet
 snippet algo_merge_set "merge set" b
-if (${1:A}.size() > ${2:B}.size()) swap($1, $2);
+// ${1:A}を${2:B}にマージ
+if ($1.size() > $2.size()) swap($1, $2);
 for (auto &&v : $1) $2.insert(v);
 $1.clear();
 endsnippet
 snippet algo_merge_vec "merge vec" b
-if (${1:A}.size() > ${2:B}.size()) swap($1, $2);
+// ${1:A}を${2:B}にマージ
+if ($1.size() > $2.size()) swap($1, $2);
 for (auto &&v : $1) $2.push_back(v);
 $1.clear();
 endsnippet
 snippet algo_swap_left "swap left" b
-if (${1:A} > ${2:B}) swap($1, $2);
+// ${1:A} < ${2:B} を保証する
+if ($1 > $2) swap($1, $2);
 endsnippet
 
 # =========================================================
 # Algorithm BFS
 # =========================================================
 snippet algo_bfs "bfs" b
+// 単一始点BFS
 queue<int> q;
-q.push(${1:0});
-vector<int> dis(${2:N}, -1);
-dis[$1] = 0;
+vector<int> dis(${1:N}, -1);
+q.push(${2:0});
+dis[$2] = 0;
 while (!q.empty()) {
 	int v = q.front();
 	q.pop();
@@ -396,6 +400,7 @@ while (!q.empty()) {
 }
 endsnippet
 snippet algo_bfs_multi_start "bfs multi start" b
+// 複数始点BFS
 queue<int> q;
 vector<int> dis(${1:N}, -1);
 for (int i = 0; i < ${2:K}; i++) {
@@ -414,6 +419,7 @@ while (!q.empty()) {
 }
 endsnippet
 snippet algo_bfs_grid "bfs grid" b
+// 単一始点グリッドBFS
 queue<pair<int, int>> q;
 q.push({${1:sy}, ${2:sx}});
 vector<vector<int>> dis(${3:H}, vector<int>(${4:W}, -1));
@@ -485,10 +491,11 @@ endsnippet
 # Algorithm DFS
 # =========================================================
 snippet algo_dfs "dfs" b
+// DFS
 vector<bool> seen(${1:N}, false);
 auto dfs = [&](auto &f, int v) -> void {
-	seen[v] = true;
 	// 行きがけ
+	seen[v] = true;
 	for (auto &&nv : ${2:G}[v]) {
 		if (seen[nv]) continue;
 		f(f, nv);
@@ -497,14 +504,18 @@ auto dfs = [&](auto &f, int v) -> void {
 };
 dfs(dfs, ${3:0});
 endsnippet
+# TODO これいらんかなぁ？
 snippet algo_dfs_tree "dfs" b
+// DFS
 vector<int> depth(N);
 auto dfs = [&](auto &f, int v, int p, int d) -> void {
+	// 行きがけ
 	depth[v] = d;
 	for (int nv : ${1:G}[v]) {
 		if (nv == p) continue;
 		f(f, nv, v, d + 1);
 	}
+	// 帰りがけ
 };
 dfs(dfs, ${2:root}, -1, 0);
 endsnippet
