@@ -117,31 +117,28 @@ endsnippet
 # =========================================================
 # output
 # =========================================================
-snippet fixed_setprecision "fixed setprecision" b
-cout << fixed << setprecision(${1:20});
-endsnippet
 snippet cout "cout" b
 cout << ${1:ans} << endl;
 endsnippet
-snippet cout_yes_no "yes no" b
+snippet cout_no_yes "yes no" b
 cout << (${1:condition} ? "${2:Yes}" : "${3:No}") << endl;
 endsnippet
-snippet cout_split_space  "split space" b
+snippet cout_vec "cout vector" b
 for (int ${1:i} = 0; $1 < ${2:N}; $1++) {
 	if ($1) cout << " ";
 	cout << ${3:A}[$1];
 }
 cout << endl;
 endsnippet
-snippet cout_split_space_ex "split space ex" b
-int _c = 0;
+snippet cout_all "cout all" b
+int i = 0;
 for (auto &&v : ${1:st}) {
-	if (_c++) cout << " ";
+	if (i++) cout << " ";
 	cout << v;
 }
 cout << endl;
 endsnippet
-snippet cout_split_space_grid "split space grid" b
+snippet cout_grid "cout grid" b
 for (int ${1:i} = 0; $1 < ${2:N}; $1++) {
 	for (int ${3:j} = 0; $3 < ${4:M}; $3++) {
 		if ($3) cout << " ";
@@ -150,8 +147,15 @@ for (int ${1:i} = 0; $1 < ${2:N}; $1++) {
 	cout << endl;
 }
 endsnippet
-snippet endl "endl" b
+snippet cout_map "cout map" b
+for (auto &&[k, v] : ${1:mp}) cout << "[" << k << "," << v << "] ";
 cout << endl;
+endsnippet
+snippet cout_endl "endl" b
+cout << endl;
+endsnippet
+snippet cout_fixed_setprecision "fixed setprecision" b
+cout << fixed << setprecision(${1:20});
 endsnippet
 
 # =========================================================
