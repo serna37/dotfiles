@@ -526,7 +526,7 @@ endsnippet
 snippet algo_dp_ans "dp ans" biw
 dp[${1:N}][${2:M}]
 endsnippet
-snippet algo_dp_ch_trans "dp" b
+snippet algo_dp_ch_trans "dp transition" b
 // 遷移
 dp[${1:i} + 1][${2:j to}] ${3:=  +=} dp[$1][${4:j from}];
 endsnippet
@@ -587,6 +587,7 @@ for (int i = 0; i < $2; i++) {
 }
 cout << dp[$2][$3] << endl;
 endsnippet
+
 snippet algo_dp_knapsack_alt "dp knapsack alt" b
 int ${1:V} = ${2:1e5};
 vector<vector<${3:int}>> dp(${4:N} + 1, vector<$3>($1 + 1, inf<$3>));
@@ -620,6 +621,7 @@ for (int i = 0; i < $2; i++) {
 }
 cout << dp[$2][$3] << endl;
 endsnippet
+
 snippet algo_dp_lcs "dp lcs" b
 int ${3:s} = ${1:S}.size(), ${4:t} = ${2:T}.size();
 vector<vector<int>> dp($3 + 1, vector<int>($4 + 1, 0));
