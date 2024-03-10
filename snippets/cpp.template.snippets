@@ -339,9 +339,11 @@ auto divFloor = []<class T>(T a, T b) -> T {
 };
 endsnippet
 snippet islower "is lower" b
+// bool値を返すようwrap
 auto islow = [](char c) -> bool { return islower(c) != 0; };
 endsnippet
 snippet isupper "is upper" b
+// bool値を返すようwrap
 auto isupp = [](char c) -> bool { return isupper(c) != 0; };
 endsnippet
 snippet split "split" b
@@ -395,6 +397,9 @@ pair<${1:int}, ${2:int}>
 endsnippet
 snippet tu "tuple" bi
 tuple<${1}>
+endsnippet
+snippet get "get" bi
+get<${1}>(${2})
 endsnippet
 
 snippet sta "stack" bi
