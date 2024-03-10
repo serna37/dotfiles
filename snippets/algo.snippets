@@ -528,7 +528,7 @@ endsnippet
 # =========================================================
 snippet algo_dp "dp" b
 vector<vector<${1:int}>> dp(${2:N + 1}, vector<$1>(${3:M + 1}, ${4:0}));
-dp[0][0] = 0;
+dp[${5:0}][${6:0}] = ${7:0};
 endsnippet
 snippet algo_dp_frog "dp frog" b
 vector<${1:int}> dp(${2:N} + 1, ${3:inf<int>});
