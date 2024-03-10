@@ -526,10 +526,15 @@ endsnippet
 # =========================================================
 # Algorithm DP
 # =========================================================
-snippet algo_dp "dp" b
-vector<vector<${1:int}>> dp(${2:N + 1}, vector<$1>(${3:M + 1}, ${4:0}));
-dp[${5:0}][${6:0}] = ${7:0};
+snippet algo_dp_ch_transition "dp" b
+dp[${1:i} + 1][${2:j to}] ${3:=  +=} dp[$1][${4:j from}];
 endsnippet
+snippet algo_dp_ch_knapsack "knapsack" b
+dp[${1:i} + 1][${2:j  j+tran}] = 
+	${3:min}(dp[$1 + 1][$2], dp[$1][${4:j  j-tran}] + ${5:cost});
+endsnippet
+
+# TODO 遷移式メインに修正中
 snippet algo_dp_frog "dp frog" b
 vector<${1:int}> dp(${2:N} + 1, ${3:inf<int>});
 dp[${4:0}] = ${5:0};
