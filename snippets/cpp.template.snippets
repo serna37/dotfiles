@@ -13,16 +13,7 @@ int main() {
 endsnippet
 
 # =========================================================
-# macro
-# =========================================================
-snippet macro "macro" b
-#define $$ (get<0>(forward_as_tuple(_args...)))
-#define $(idx) (get<(idx)>(forward_as_tuple(_args...)))
-#define lambda(...) ([&](auto &&..._args) { return (__VA_ARGS__); })
-endsnippet
-
-# =========================================================
-# for while
+# loop
 # =========================================================
 snippet for "for" b
 for (${1} ; ${2} ; ${3}) {
@@ -89,9 +80,6 @@ auto ${1:cal} = [${2:&}](auto &f, ${3:const int &a}) -> ${4:void} {
 	f(f, );
 };
 endsnippet
-snippet lambda_oneliner "lambda" b
-auto ${1:func} = lambda(${2:$$});
-endsnippet
 
 # =========================================================
 # STL
@@ -148,19 +136,6 @@ endsnippet
 snippet size "size" iw
 (int)${1:S}.size()
 endsnippet
-snippet debug_var "debug var" b
-cout << "${1:A}: " << $1 << endl; // TODO debug
-endsnippet
-snippet debug_loop "debug for" b
-cout << "debug_${1:A}:";            // TODO debug
-for (auto v : $1) cout << " " << v; // TODO debug
-cout << endl;                       // TODO debug
-endsnippet
-snippet islower "is lower" b
-auto islow = [](char c) -> bool { return islower(c) != 0; };
-endsnippet
-snippet isupper "is upper" b
-auto isupp = [](char c) -> bool { return isupper(c) != 0; };
 endsnippet
 snippet ceil "ceil" iw
 (${1:A} + ${2:B} - 1) / $2
@@ -179,6 +154,12 @@ snippet divfloor "divfloor" b
 auto divFloor = []<class T>(T a, T b) -> T {
 	return a / b - (((a ^ b) < 0 and a % b != 0) ? 1 : 0);
 };
+endsnippet
+snippet islower "is lower" b
+auto islow = [](char c) -> bool { return islower(c) != 0; };
+endsnippet
+snippet isupper "is upper" b
+auto isupp = [](char c) -> bool { return isupper(c) != 0; };
 endsnippet
 snippet split "split" b
 auto split = [](string s, char c) -> vector<string> {
