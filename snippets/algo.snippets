@@ -438,11 +438,8 @@ while (!q.empty()) {
 }
 endsnippet
 snippet algo_grid_dydx "dydx" b
-for (int ${1:k} = 0; $1 < ${2:4}; $1++) {
-	int y = ${3:i} + dy[$1], x = ${4:j} + dx[$1];
-	if (y < 0 or x < 0 or ${5:row} <= y or ${6:col} <= x) continue;
-	${7}
-}
+int y = ${1:i}, x = ${2:j};
+y += dy[${3:d}], x += dx[$3];
 endsnippet
 snippet algo_grid_filter "bfs grid filter" b
 if (${1:y} < 0 or ${2:x} < 0 or ${3:row} <= $1 or ${4:col} <= $2) continue;
