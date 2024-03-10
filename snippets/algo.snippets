@@ -226,23 +226,15 @@ while (1) {
 		int tmp = bit[i]; // i桁目の数字（$2進法）
 	}
 	// インクリメント
-	int order = $1 - 1;
-	bool stop = false;
+	int order = $1 - 1, stop = 0;
 	while (1) {
 		bit[order]++;
-		if (bit[order] > $2 - 1) {
-			// くりあげ
-			if (order == 0) {
-				// 最大桁が溢れた
-				stop = true;
-				break; 
-			}
-			bit[order] = 0;
-			order--;
-		} else {
-			// くりあがらない
-			break;
+		if (bit[order] < $2) break; // くりあげ終了
+		if (order == 0) { // 最大桁が溢れた
+			stop = 1;
+			break; 
 		}
+		bit[order--] = 0; // 繰り上げて次の桁
 	}
 	if (stop) break;
 }
