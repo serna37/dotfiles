@@ -66,7 +66,7 @@ while (${1:Q--}) {
 	${2}
 }
 endsnippet
-snippet conti "continue" b
+snippet filter "continue" b
 if (${1:filter}) continue;
 endsnippet
 
@@ -209,6 +209,9 @@ endsnippet
 
 snippet vec "vec" bi
 vector<${1:int}>
+endsnippet
+snippet vec2 "vec2" bi
+vector<vector<${1:int}>> ${2:dp}(${3:N+1}, vector<$1>(${4:M+1}, ${5:0}));
 endsnippet
 snippet st "set" bi
 set<${1:int}>
