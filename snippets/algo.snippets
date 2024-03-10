@@ -523,10 +523,18 @@ endsnippet
 # =========================================================
 # Algorithm DP
 # =========================================================
-snippet algo_dp_ch_transition "dp" b
+snippet algo_dp_ini "dp ini" b
+dp[${1:0}][${2:0}] = ${3:1}; // 初期状態
+endsnippet
+snippet algo_dp_ans "dp ans" biw
+dp[${1:N}][${2:M}]
+endsnippet
+snippet algo_dp_ch_trans "dp" b
+// 遷移
 dp[${1:i} + 1][${2:j to}] ${3:=  +=} dp[$1][${4:j from}];
 endsnippet
 snippet algo_dp_ch_knapsack "knapsack" b
+// ナップサック遷移
 dp[${1:i} + 1][${2:j  j+tran}] = 
 	${3:min}(dp[$1 + 1][$2], dp[$1][${4:j  j-tran}] + ${5:cost});
 endsnippet
@@ -642,6 +650,7 @@ for (int i = 0; i < ${3:M}; i++) {
 	auto [r, l, c] = T[i];
 	$1 asis = dp[r];
 	$1 tobe = dp.get(l, r) + c;
+	// 区間から1点へ配るDP
 	dp.set(r, min(asis, tobe));
 }
 cout << dp[N] << endl;
