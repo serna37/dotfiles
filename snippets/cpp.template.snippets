@@ -314,7 +314,11 @@ snippet ifinf "ifinf" iw
 (${1:ans} == ${2:INF} ? ${3:-1} : $1)
 endsnippet
 snippet mod "mod" b
-${1:ans} %= MOD;
+${1:ans} %= ${2:MOD};
+endsnippet
+snippet mod_cal "mod" b
+${1:some} ${2:cal};
+$1 %= ${3:MOD};
 endsnippet
 snippet ceil "ceil" iw
 (${1:A} + ${2:B} - 1) / $2
