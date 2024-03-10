@@ -218,6 +218,35 @@ for (int bit = 0; bit < (1 << ${1:H}); bit++) {
 	}
 }
 endsnippet
+snippet algo_bit_n_order "bit N" b
+// ${1:N}桁の${2:K}進数
+vector<int> bit($1, 0);
+while (1) {
+	for (int i = 0; i < $1; i++) {
+		int tmp = bit[i]; // i桁目の数字（$2進法）
+	}
+	// インクリメント
+	int order = $1 - 1;
+	bool stop = false;
+	while (1) {
+		bit[order]++;
+		if (bit[order] > $2 - 1) {
+			// くりあげ
+			if (order == 0) {
+				// 最大桁が溢れた
+				stop = true;
+				break; 
+			}
+			bit[order] = 0;
+			order--;
+		} else {
+			// くりあがらない
+			break;
+		}
+	}
+	if (stop) break;
+}
+endsnippet
 # TODO bit演算系としてまとめ直したい
 snippet algo_bit_on_all_pattern "bit on all pattern" b
 for (long long i = ${1:N}; i > 0; i = (i - 1) & $1) {
