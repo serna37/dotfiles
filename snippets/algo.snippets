@@ -3,14 +3,14 @@
 # =========================================================
 snippet const_inf "infinity" b
 template <class T> constexpr T inf = 0;
-template <> constexpr int inf<int> = 1001001001;
-template <> constexpr long long inf<long long> = 1001001001001001001ll;
+template <> constexpr int inf<int> = 1e9;
+template <> constexpr long long inf<long long> = 1e18;
 endsnippet
 snippet const_inf_i "infinity int" b
-constexpr int INF = 1001001001;
+constexpr int INF = 1e9;
 endsnippet
 snippet const_inf_l "infinity long long" b
-constexpr long long INF = 1001001001001001001ll;
+constexpr long long INF = 1e18;
 endsnippet
 snippet const_MOD_998244353 "mod" b
 #define mod(n) n %= MOD
