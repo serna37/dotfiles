@@ -9,6 +9,12 @@ template <class T> constexpr T inf = 0;
 template <> constexpr int inf<int> = 1001001001;
 template <> constexpr long long inf<long long> = 1001001001001001001ll;
 endsnippet
+snippet const_inf_i "infinity int" b
+constexpr int INF = 1001001001;
+endsnippet
+snippet const_inf_l "infinity long long" b
+constexpr long long INF = 1001001001001001001ll;
+endsnippet
 snippet const_MOD_998244353 "mod" b
 #define mod(n) n %= MOD
 const long long MOD = 998244353;
