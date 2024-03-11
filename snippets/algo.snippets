@@ -1,6 +1,10 @@
 # =========================================================
 # Algorithm reduce eval
 # =========================================================
+snippet algo_sum "sum" b
+${1:int} ${2:sum} = 0;
+for (int ${3:i} = ${4:0}; $3 <${5:N}; $3++) $2 += ${6:A}[i];
+endsnippet
 snippet algo_alma "allmatch" b
 bool alma = true;
 for (int ${1:i} = ${2:0}; $1 <${3:N}; $1++) {
