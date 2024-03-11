@@ -39,9 +39,6 @@ fu! SandboxNextCpp() abort
 endf
 com! SandboxNextCpp cal SandboxNextCpp()
 
-" DELETE TODO ROW
-com! TODOdelete exe "g/TODO/d"
-
 " ############################################################
 " #### PLUGINS
 " ############################################################
