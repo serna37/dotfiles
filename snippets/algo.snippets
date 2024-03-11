@@ -361,75 +361,26 @@ endsnippet
 # Algorithm DP
 # =========================================================
 snippet algo_dp "dp" b
-vector<vector<${1:int}>> ${2:dp}(${3:N+1}, vector<$1>(${4:M+1}, ${5:0}));
-endsnippet
-snippet algo_dp_ini "dp ini" b
-dp[${1:0}][${2:0}] = ${3:0}; // 初期状態
+vector<vector<${1:int}>> ${2:dp}(${3:N} + 1, vector<$1>(${4:M} + 1, ${5:0}));
+$2[${6:0}][${7:0}] = ${8:0};
+for (int i = 0; i < $3; i++) {
+	for (int j = 0; j <= $4; j++) {
+		${9}
+	}
+}
 endsnippet
 snippet algo_dp_ans "dp ans" biw
 dp[${1:N}][${2:M}]
 endsnippet
-snippet algo_dp_ch_trans "dp transition" b
-// 遷移
+snippet algo_dp_trans "dp transition" b
 dp[${1:i} + 1][${2:j to}] ${3:=  +=} dp[$1][${4:j from}];
 endsnippet
-snippet algo_dp_ch_knapsack "knapsack" b
-// ナップサック遷移
+snippet algo_dp_knapsack "knapsack" b
 dp[${1:i} + 1][${2:j  j+tran}] = 
 	${3:min}(dp[$1 + 1][$2], dp[$1][${4:j  j-tran}] + ${5:cost});
 endsnippet
 
 # TODO 遷移式メインに修正中
-snippet algo_dp_frog "dp frog" b
-vector<${1:int}> dp(${2:N} + 1, ${3:inf<int>});
-dp[${4:0}] = ${5:0};
-for (int i = 0; i <= $2; i++) {
-	for (int j = 0; j < ${6:M}; j++) {
-		${7}
-	}
-}
-cout << dp[$2] << endl;
-endsnippet
-snippet algo_dp_vacation "dp vacation" b
-vector<vector<${1:int}>> dp(${2:N} + 1, vector<$1>(${3:3}, 0));
-for (int i = 0; i < $2; i++) {
-	for (int j = 0; j < $3; j++) {
-		for (int k = 0; k < $3; k++) {
-			if (j == k) continue;
-			dp[i + 1][j] = max(dp[i + 1][j], dp[i][k] + ${4:A}[k][i]);
-		}
-	}
-}
-$1 ans = 0;
-for (int i = 0; i < $3; i++) {
-	ans = max(ans, dp[$2][i]);
-}
-cout << ans << endl;
-endsnippet
-snippet algo_dp_partial "dp partial" b
-vector<vector<bool>> dp(${1:N} + 1, vector<bool>(${2:M} + 1, false));
-dp[0][0] = true;
-for (int i = 0; i < $1; i++) {
-	for (int j = 0; j <= $2; j++) {
-		if (!dp[i][j]) continue;
-		${3:dp[i+1][j] = true;}
-	}
-}
-cout << (dp[$1][$2] ? "Yes" : "No") << endl;
-endsnippet
-snippet algo_dp_knapsack "dp knapsack" b
-vector<vector<${1:int}>> dp(${2:N} + 1, vector<$1>(${3:W} + 1, 0));
-for (int i = 0; i < $2; i++) {
-	for (int j = 0; j <= $3; j++) {
-		dp[i + 1][j] = dp[i][j];
-		if (${4:w}[i] <= j) {
-			dp[i + 1][j] = max(dp[i + 1][j], dp[i][j - $4[i]] + ${5:v}[i]);
-			dp[i + 1][j] = max(dp[i + 1][j], dp[i + 1][j - $4[i]] + $5[i]);
-		}
-	}
-}
-cout << dp[$2][$3] << endl;
-endsnippet
 
 snippet algo_dp_knapsack_alt "dp knapsack alt" b
 int ${1:V} = ${2:1e5};
@@ -450,19 +401,6 @@ for (int i = 0; i <= $1; i++) {
 	}
 }
 cout << ans << endl;
-endsnippet
-snippet algo_dp_transition "dp transition" b
-vector<vector<${1:long long}>> dp(${2:N} + 1, vector<$1>(${3:M} + 1, 0));
-dp[0][0] = 1;
-for (int i = 0; i < $2; i++) {
-	for (int j = 0; j <= $3; j++) {
-		dp[i + 1][j] += dp[i][j];
-		if (${4:j < 8 and S[i] == M[j]}) {
-			dp[i + 1][j + 1] += dp[i][j];
-		}
-	}
-}
-cout << dp[$2][$3] << endl;
 endsnippet
 
 snippet algo_dp_lcs "dp lcs" b
