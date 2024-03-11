@@ -19,15 +19,11 @@ for (int ${1:i} = ${2:0}; $1 <${3:N}; $1++) {
 endsnippet
 snippet algo_gcd_all "gcd all" b
 ${1:long long} ${2:GCD} = ${3:A}[0];
-for (int i = 1; i < ${4:N}; i++) {
-	$2 = gcd($2, $3[i]);
-}
+for (int i = 1; i < ${4:N}; i++) $2 = gcd($2, $3[i]);
 endsnippet
 snippet algo_lcm_all "lcm all" b
 ${1:long long} ${2:LCM} = 1;
-for (int i = 0; i < ${3:N}; i++) {
-	$2 = lcm($2, ${4:A}[i]);
-}
+for (int i = 0; i < ${3:N}; i++) $2 = lcm($2, ${4:A}[i]);
 endsnippet
 
 # =========================================================
