@@ -529,7 +529,7 @@ snippet algo_meaningful_mean "meaningful mean" b
 int N, K;
 cin >> N >> K;
 vector<long long> a(N), S(N + 1);
-for (int i = 0; i < N; i++) cin >> a[i];
+for (auto &&v : a) cin >> v;
 for (int i = 0; i < N; i++) S[i + 1] = S[i] + a[i] - K;
 vector<long long> cvt = S;
 sort(cvt.begin(), cvt.end());
