@@ -295,14 +295,14 @@ endsnippet
 snippet sort "sort" b
 sort(${1});
 endsnippet
-snippet swap "swap" b
-swap(${1} , ${2});
-endsnippet
 snippet reverse "reverse" b
 reverse(${1});
 endsnippet
 snippet iota "iota" b
 iota(${1});
+endsnippet
+snippet swap "swap" b
+swap(${1} , ${2});
 endsnippet
 snippet npos "npos" iw
 string::npos
@@ -334,10 +334,6 @@ ${1:(long long)} ${2:val} * ($2 - 1) / 2;
 endsnippet
 snippet mod "mod" b
 ${1:ans} %= ${2:MOD};
-endsnippet
-snippet mod_cal "mod" b
-${1:some} ${2:cal};
-$1 %= ${3:MOD};
 endsnippet
 snippet ceil "ceil" iw
 (${1:A} + ${2:B} - 1) / $2
