@@ -149,6 +149,7 @@ cpp() {
 }
 export AC_DIR="$HOME/git/contest"
 export ASA_DIR="$HOME/git/asakatu"
+export ADT_DIR="$HOME/git/adt"
 export SAND_DIR="$HOME/git/sandbox"
 AtCoder() {
     cd $AC_DIR
@@ -186,6 +187,20 @@ AsakatuAtCoder() {
     mkdir $dirname
     cd $dirname
     mkdir a b c d e f
+    dirs=(`\fd -d 1 -t d`)
+    for v in ${dirs[@]}; do
+        echo -e "[\e[34mINFO\e[m]touch file :\e[32m${v}${file_name}\e[m"
+        touch "${v}${file_name}"
+    done
+    vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
+}
+ADTAtCoder() {
+    cd $ADT_DIR
+    file_name="main.cpp"
+    dirname=`date '+%Y%m%d'`
+    mkdir $dirname
+    cd $dirname
+    mkdir c d e f g
     dirs=(`\fd -d 1 -t d`)
     for v in ${dirs[@]}; do
         echo -e "[\e[34mINFO\e[m]touch file :\e[32m${v}${file_name}\e[m"
