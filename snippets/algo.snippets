@@ -155,13 +155,13 @@ snippet algo_zeta "ruisekiwa" b
 vector<${1:long long}> ${2:S}(${3:N} + 1);
 for (int i = 0; i < $3; i++) {
 	$2[i + 1] = $2[i] + ${4:A}[i];
-} // S_i = a_0 + ... + a_i-1 →
+} // $2_i = $4_0 + ... + $4_i-1 →
 endsnippet
 snippet algo_zeta_rev "ruisekiwa reverse" b
 vector<${1:long long}> ${2:R}(${3:N} + 1);
 for (int i = $3 - 1; i >= 0; i--) {
 	$2[i] = $2[i + 1] + ${4:A}[i];
-} // S_i = ← a_n-i + ... + a_n-1
+} // $2_i = ← $4_n-i + ... + $4_n-1
 endsnippet
 snippet algo_zeta_2D "2d ruisekiwa" b
 // 2次元ゼータ変換
