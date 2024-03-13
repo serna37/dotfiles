@@ -73,6 +73,7 @@ aug cleaver_f
     au!
     au ColorScheme * hi CleverFDefaultLabel cterm=BOLD,underline ctermfg=40 ctermbg=0
 aug END
+let fscope_around_row = 1
 let g:fscope_highlight_priority = 0
 nnoremap <leader>w <Plug>(fscope-around-toggle)<Plug>(clever-f-reset)
 nnoremap # <Plug>(asterisk-z*)<Plug>(quickhl-manual-this)
@@ -290,6 +291,6 @@ let g:startify_custom_header = s:start.btr_logo
 " onedark ---------------------------------
 if !glob('~/.vim/plugged/onedark.vim')->empty()
     colorscheme onedark
-    colorscheme hybrid_material
+    "colorscheme hybrid_material
 endif
 

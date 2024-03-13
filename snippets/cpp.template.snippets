@@ -123,8 +123,8 @@ for (int i = 0; i < ${4:M}; i++) {
 endsnippet
 snippet edges_cin "edges in" b
 Graph<${1:long long}> ${2:G}(${3:N});
-vector<Edge<$1>> edges;
-for (int i = 0; i < ${4:M}; i++) {
+vector<Edge<$1>> ${4:E};
+for (int i = 0; i < ${5:M}; i++) {
 	int from, to;
 	cin >> from >> to;
 	from--, to--;
@@ -132,7 +132,7 @@ for (int i = 0; i < ${4:M}; i++) {
 	cin >> cost;
 	$2.add(from, to, cost, i);
 	$2.add(to, from, cost, i);
-	edges.push_back({from, to, cost, i});
+	$4.push_back({from, to, cost, i});
 }
 endsnippet
 
@@ -346,7 +346,7 @@ snippet size "size" b
 int ${1:N} = ${2:S}.size();
 endsnippet
 snippet size "size" iw
-(int)${1:S}.size()
+(int)${1:S}.size()${2}
 endsnippet
 snippet ifinf "ifinf" iw
 (${1:ans} == ${2:INF} ? ${3:-1} : $1)
