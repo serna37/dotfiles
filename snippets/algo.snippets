@@ -204,42 +204,44 @@ snippet algo_zip "zip short" b
 vector<${1:long long}> ${2:cvt} = ${3:target};
 sort($2.begin(), $2.end());
 $2.erase(unique($2.begin(), $2.end()), $2.end());
-for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
+for (auto &v : $3) {
+	v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
+}
 int ${4:cnt} = $2.size();
 endsnippet
-snippet algo_BIT "BIT short" b
-vector<${1:int}> ${2:BIT}(${3:N} + 1);
-for (int i = 1; i <= $3; i++) {
-	BIT[i] ${5:+}= ${4:A}[i - 1];
-	int f = i + (i & -i);
-	if (f <= N) BIT[f] $5= BIT[i];
+snippet algo_fwk_build "fwk short" b
+for (int i = 1, f = i + (i & -i); i <= ${1:N}; i++, f = i + (i & -i)) {
+	${2:fwk}[i] ${3:+}= ${4:A}[i - 1];
+	if (f <= $1) $2[f] $3= $2[i];
 }
 endsnippet
-snippet algo_BIT_act "BIT short" b
-for (int ${1:f} = ${2:idx +1}; $1 <= ${3:N}; $1 += $1 & -$1) {
-	${4:BIT}[$1] ${5:+}= ${6:act_value};
+snippet algo_fwk_act "fwk short" b
+for (int ${1:f} = ${2:1-idx}; $1 <= ${3:N}; $1 += $1 & -$1) {
+	${4:fwk}[$1] ${5:+}= ${6:act_value};
 }
 endsnippet
-snippet algo_BIT_get "BIT short" b
-for (int ${1:f} = ${2:idx +1}; $1; $1 -= $1 & -$1) {
-	${3:sum} ${4:+}= ${5:BIT}[$1];
+snippet algo_fwk_get "fwk short" b
+for (int ${1:f} = ${2:1-idx}; $1; $1 -= $1 & -$1) {
+	${3:sum} ${4:+}= ${5:fwk}[$1];
 }
 endsnippet
 snippet algo_seq_inv "seq inv" b
 vector<${1:long long}> ${2:cvt} = ${3:A};
 sort($2.begin(), $2.end());
 $2.erase(unique($2.begin(), $2.end()), $2.end());
-for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
+for (auto &v : $3) {
+	v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
+}
 int ${5:sz} = $2.size();
-vector<int> ${6:BIT}($5 + 1);
+vector<int> ${6:fwk}($5 + 1);
 ${7:long long} ${8:inv} = 0; // 左に倒れる$3_i < $3_j (i < j)な数
 int ${9:R} = $5 - 1; // 座標圧縮したため最大要素 = サイズ-1
 for (int i = 0; i < ${10:N}; i++) {
 	for (int f = $9 + 1; f; f -= f & -f) {
-		inv += $6[f];
+		$8 += $6[f];
 	}
 	for (int f = $3[i] + 1; f; f -= f & -f) {
-		inv -= $6[f];
+		$8 -= $6[f];
 	}
 	for (int f = $3[i] + 1; f <= $5; f += f & -f) {
 		$6[f]++;
