@@ -29,6 +29,14 @@ endsnippet
 # =========================================================
 # Algorithm Search
 # =========================================================
+snippet algo_4_pattern "4" b
+for (int ${1:k} = 0; $1 < 4; $1++) {
+	if ($1 & 1) { // x o x o
+	}
+	if ($1 & 2) { // x x o o
+	}
+}
+endsnippet
 snippet algo_permu_loop "next permutation" b
 do {${2}} while (next_permutation(${1:A}.begin(), $1.end()));
 endsnippet
