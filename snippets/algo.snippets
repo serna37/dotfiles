@@ -209,6 +209,9 @@ for (auto &v : $3) {
 }
 int ${4:cnt} = $2.size();
 endsnippet
+snippet algo_fwk "fwk short" b
+vector<${1:int}> ${2:fwk}(${3:N}${4:+1});
+endsnippet
 snippet algo_fwk_build "fwk short" b
 for (int i = 1, f = i + (i & -i); i <= ${1:N}; i++, f = i + (i & -i)) {
 	${2:fwk}[i] ${3:+}= ${4:A}[i - 1];
