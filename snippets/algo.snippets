@@ -207,6 +207,14 @@ $2.erase(unique($2.begin(), $2.end()), $2.end());
 for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
 int ${4:cnt} = $2.size();
 endsnippet
+snippet algo_BIT "BIT short" b
+vector<${1:int}> ${2:BIT}(${3:N} + 1);
+for (int i = 1; i <= $3; i++) {
+	BIT[i] ${5:+}= ${4:A}[i - 1];
+	int f = i + (i & -i);
+	if (f <= N) BIT[f] $5= BIT[i];
+}
+endsnippet
 snippet algo_BIT_act "BIT short" b
 for (int ${1:f} = ${2:idx +1}; $1 <= ${3:N}; $1 += $1 & -$1) {
 	${4:BIT}[$1] ${5:+}= ${6:act_value};
