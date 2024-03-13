@@ -210,6 +210,13 @@ for (int i = 0; i < ${5:N}; i++) {
 	$4.act(comp[i], 1);
 }
 endsnippet
+snippet algo_zip "zip short" b
+vector<${1:long long}> ${2:cvt} = ${3:target};
+sort($2.begin(), $2.end());
+$2.erase(unique($2.begin(), $2.end()), $2.end());
+for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
+int ${4:cnt} = $2.size();
+endsnippet
 snippet algo_merge "merge" b
 // ${1:A}を${2:B}にマージ
 if ($1.size() > $2.size()) swap($1, $2);
