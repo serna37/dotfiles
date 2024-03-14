@@ -62,10 +62,8 @@ auto ${3:cal} = [&](auto &f, int mi, int mx, int last = 0) -> void {
 	}
 	for (int i = mi; i <= mx; i++) {
 		$2[last] = i;
-		// 狭義単調増加
-		// mi = i + 1;
-		// 広義単調増加
-		// mi = i;
+		// mi = i + 1; // 狭義単調増加
+		// mi = i; // 広義単調増加
 		f(f, mi, mx, last + 1);
 	}
 };
