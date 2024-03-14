@@ -284,12 +284,12 @@ snippet filter "continue" b
 if (${1:filter}) ${2:continue};
 endsnippet
 snippet if "if" b
-if (${1}) {
+if ( ${1} ) {
 	${2}
 }
 endsnippet
 snippet elseif "else if" iw
-else if (${1}) {
+else if ( ${1} ) {
 	${2}
 }
 endsnippet
@@ -360,20 +360,27 @@ endsnippet
 # =========================================================
 # util
 # =========================================================
+
+# shortcut define
 snippet ok "ok" b
 bool ok = true;
 endsnippet
 snippet anma "anma" b
 bool anma = false;
 endsnippet
-snippet minus_2 "minus" b
-${1:A}--, ${2:B}--;
-endsnippet
 snippet size "size" b
 int ${1:N} = ${2:S}.size();
 endsnippet
 snippet size "size" iw
 (int)${1:S}.size()${2}
+endsnippet
+
+# shortcut calculation
+snippet minus_2 "minus" b
+${1:A}--, ${2:B}--;
+endsnippet
+snippet mod "mod" b
+${1:ans} %= ${2:MOD};
 endsnippet
 snippet range "range" iw
 ${1:S}[${2:i} + ${3:M}] - $1[$2]
@@ -384,15 +391,14 @@ endsnippet
 snippet nc2 "nc2" iw
 ${1:(long long)} ${2:val} * ($2 - 1) / 2;
 endsnippet
-snippet mod "mod" b
-${1:ans} %= ${2:MOD};
-endsnippet
 snippet ceil "ceil" iw
 (${1:A} + ${2:B} - 1) / $2
 endsnippet
 snippet ceil2 "ceil2" iw
 (${1:A} + 1) / 2
 endsnippet
+
+# wrap
 snippet divceil "divceil" b
 // 負もok
 auto divCeil = []<class T>(T a, T b) -> T {
@@ -413,6 +419,8 @@ snippet isupper "is upper" b
 // bool値を返すようwrap
 auto isupp = [](char c) -> bool { return isupper(c) != 0; };
 endsnippet
+
+# string
 snippet split "split" b
 auto split = [](string s, char c) -> vector<string> {
 	vector<string> S;
