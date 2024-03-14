@@ -1,0 +1,115 @@
+# =========================================================
+# input
+# =========================================================
+snippet in_1 "in 1" b
+${1:int} ${2:N};
+cin >> $2;
+endsnippet
+snippet in_1_vec "in 1 + vec" b
+${1:int} ${2:N};
+cin >> $2;
+vector<${3:int}> ${4:A}(${5:$2});
+for (int ${6:i} = ${7:0}; $6 <${8:$5}; $6++) {
+	cin >> $4[$6];
+}
+endsnippet
+snippet in_1_q "in 1 + q" b
+${1:int} ${2:Q};
+cin >> $2;
+while ($2--) {
+	${3}
+}
+endsnippet
+snippet in_2 "in 2" b
+${1:int} ${2:N}, ${3:M};
+cin >> $2 >> $3;
+endsnippet
+snippet in_3 "in 3" b
+${1:int} ${2:N}, ${3:M}, ${4:K};
+cin >> $2 >> $3 >> $4;
+endsnippet
+snippet in_4 "in 4" b
+${1:int} ${2:N}, ${3:M}, ${4:K}, ${5:S};
+cin >> $2 >> $3 >> $4 >> $5;
+endsnippet
+snippet vec_in_1 "vec in 1" b
+vector<${1:int}> ${2:A}(${3:N});
+for (int ${4:i} = ${5:0}; $4 <${6:$3}; $4++) {
+	cin >> $2[$4];
+}
+endsnippet
+snippet vec_in_2 "vec in 2" b
+vector<${1:int}> ${2:A}(${4:N}), ${3:B}($4);
+for (int ${5:i} = ${6:0}; $5 <${7:$4}; $5++) {
+	cin >> $2[$5] >> $3[$5];
+}
+endsnippet
+snippet vec_in_3 "vec in 3" b
+vector<${1:int}> ${2:A}(${5:N}), ${3:B}($5), ${4:C}($5);
+for (int ${6:i} = ${7:0}; $6 <${8:$5}; $6++) {
+	cin >> $2[$6] >> $3[$6] >> $4[$6];
+}
+endsnippet
+snippet vec_in_4 "vec in 4" b
+vector<${1:int}> ${2:A}(${6:N}), ${3:B}($6), ${4:C}($6), ${5:D}($6);
+for (int ${7:i} = ${8:0}; $7 <${9:$6}; $7++) {
+	cin >> $2[$7] >> $3[$7] >> $4[$7] >> $5[$7];
+}
+endsnippet
+snippet vec_in_resize "vec in resize" b
+vector<vector<${1:int}>> ${2:A}(${3:N});
+for (int ${4:i} = ${5:0}; $4 <${6:$3}; $4++) {
+	${7:int} ${8:a};
+	cin >> $8;
+	$2[$4].resize($8);
+	for (int ${9:j} = 0; $9 < $8; $9++) {
+		cin >> $2[$4][$9];
+	}
+}
+endsnippet
+snippet grid_in "grid in" b
+vector<vector<${1:char}>> ${2:G}(${3:H}, vector<$1>(${4:W}));
+for (int i = 0; i < $3; i++) {
+	for (int j = 0; j < $4; j++) {
+		cin >> $2[i][j];
+	}
+}
+endsnippet
+snippet graph_in "graph in" b
+vector<vector<${1:int}>> ${2:G}(${3:N});
+for (int i = 0; i < ${4:M}; i++) {
+	$1 ${5:A}, ${6:B};
+	cin >> $5 >> $6;
+	$5--, $6--;
+	$2[$5].push_back($6);
+	$2[$6].push_back($5);
+}
+endsnippet
+snippet graph_cost_in "graph cost in" b
+Graph<${1:long long}> ${2:G}(${3:N});
+for (int i = 0; i < ${4:M}; i++) {
+	int from, to;
+	cin >> from >> to;
+	from--, to--;
+	$1 cost;
+	cin >> cost;
+	$2.add(from, to);
+	$2.add(to, from);
+	$2.add(from, to, cost, i);
+	$2.add(to, from, cost, i);
+}
+endsnippet
+snippet edges_cin "edges in" b
+Graph<${1:long long}> ${2:G}(${3:N});
+vector<Edge<$1>> ${4:E};
+for (int i = 0; i < ${5:M}; i++) {
+	int from, to;
+	cin >> from >> to;
+	from--, to--;
+	$1 cost;
+	cin >> cost;
+	$2.add(from, to, cost, i);
+	$2.add(to, from, cost, i);
+	$4.push_back({from, to, cost, i});
+}
+endsnippet
