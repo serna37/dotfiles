@@ -89,6 +89,12 @@ for (int ${6:i} = ${7:0}; $6 <${8:$5}; $6++) {
 	cin >> $2[$6] >> $3[$6] >> $4[$6];
 }
 endsnippet
+snippet vec_in_4 "vec in 4" b
+vector<${1:int}> ${2:A}(${6:N}), ${3:B}($6), ${4:C}($6), ${5:D}($6);
+for (int ${7:i} = ${8:0}; $7 <${9:$6}; $7++) {
+	cin >> $2[$7] >> $3[$7] >> $4[$7] >> $5[$7];
+}
+endsnippet
 snippet grid_in "grid in" b
 vector<vector<${1:char}>> ${2:G}(${3:H}, vector<$1>(${4:W}));
 for (int i = 0; i < $3; i++) {
