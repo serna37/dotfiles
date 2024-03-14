@@ -454,6 +454,19 @@ dp[${1:i} + 1][${2:j  j+tran}] =
 	${3:min}(dp[$1 + 1][$2], dp[$1][${4:j  j-tran}] + ${5:cost});
 endsnippet
 
+# DP swap版
+snippet algo_dp_swap "dp swap" b
+vector<${1:int}> ${2:dp}(${3:K} + 1, ${4:0}), ${5:nx};
+$2[${6:0}] = ${7:0};
+for (int i = 0; i < ${8:N}; i++) {
+	$5 = $2;
+	for (int j = 0; j <= $3; j++) {
+		${9}
+	}
+	swap($2, $5);
+}
+endsnippet
+
 # TODO 遷移式メインに修正中
 
 snippet algo_dp_knapsack_alt "dp knapsack alt" b
