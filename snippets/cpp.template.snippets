@@ -102,6 +102,17 @@ for (int ${7:i} = ${8:0}; $7 <${9:$6}; $7++) {
 	cin >> $2[$7] >> $3[$7] >> $4[$7] >> $5[$7];
 }
 endsnippet
+snippet vec_in_resize "vec in resize" b
+vector<vector<${1:int}>> ${2:A}(${3:N});
+for (int ${4:i} = ${5:0}; $4 <${6:$3}; $4++) {
+	${7:int} ${8:a};
+	cin >> $8;
+	$2[$4].resize($8);
+	for (int ${9:j} = 0; $9 < $8; $9++) {
+		cin >> $2[$4][$9];
+	}
+}
+endsnippet
 snippet grid_in "grid in" b
 vector<vector<${1:char}>> ${2:G}(${3:H}, vector<$1>(${4:W}));
 for (int i = 0; i < $3; i++) {
@@ -290,7 +301,7 @@ endsnippet
 snippet filter "continue" b
 if (${1:filter}) ${2:continue};
 endsnippet
-snippet if "if" b
+snippet if "if" biw
 if ( ${1} ) {
 	${2}
 }
