@@ -26,6 +26,7 @@ for (int i = 0; i < ${3:N}; i++) {
 }
 endsnippet
 snippet algo_ren_cnt "ren cnt" b
+// 最大コンボ数を走査
 int ${1:ren_mx} = 0, ${2:ren} = 0;
 for (int ${3:i} = 0; $3 < ${4:N}; $3++) {
 	if (${5:condition}) {
@@ -52,6 +53,7 @@ snippet algo_permu_loop "next permutation" b
 do {${2}} while (next_permutation(${1:A}.begin(), $1.end()));
 endsnippet
 snippet algo_perm_seq_loop "permutation sequence" b
+// DFS重複順列列挙
 // mi ~ mx までの数で、要素数${1:N}の数列を順列全探索
 vector<int> ${2:perm}($1);
 auto ${3:cal} = [&](auto &f, int mi, int mx, int last = 0) -> void {
@@ -70,6 +72,7 @@ auto ${3:cal} = [&](auto &f, int mi, int mx, int last = 0) -> void {
 $3($3, ${4:1}, ${5:M});
 endsnippet
 snippet algo_bit_loop "bit loop" b
+// bit全探索
 for (${1:long long} ${2:bit} = 0; $2 < (${3:1ll} << ${4:N}); $2++) {
 	${5:long long} tmp = 0;
 	for (int k = 0; k < $4; k++) {
@@ -81,6 +84,7 @@ for (${1:long long} ${2:bit} = 0; $2 < (${3:1ll} << ${4:N}); $2++) {
 }
 endsnippet
 snippet algo_bit_loop_2 "bit loop" b
+// bit全探索
 for (int bit = 0; bit < (1 << ${1:H}); bit++) {
 	for (int bit2 = 0; bit2 < (1 << ${2:W}); bit2++) {
 		vector<int> ${3:h}, ${4:w};
@@ -124,6 +128,7 @@ for (long long i = ${1:N}; i > 0; i = (i - 1) & $1) {
 cout << $1 << endl;
 endsnippet
 snippet algo_syakutori "syakutori" b
+// 尺取法
 // lを固定
 // 連続和がKまでrを増やす
 // whileがfalseになるので、区間の個数はr-l個
@@ -138,6 +143,7 @@ endsnippet
 # Algorithm BinarySearch
 # =========================================================
 snippet algo_bisearch "bisearch" b
+// にぶたん
 auto ${1:test} = [&](${2:long long} x) -> bool {
 	${3:return x >= K}
 };
@@ -230,6 +236,7 @@ endsnippet
 # Algorithm seq
 # =========================================================
 snippet algo_zip "zip short" b
+// 座標圧縮
 vector<${1:long long}> ${2:cvt} = ${3:target};
 sort($2.begin(), $2.end());
 $2.erase(unique($2.begin(), $2.end()), $2.end());
@@ -237,6 +244,7 @@ for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
 int ${4:cnt} = $2.size();
 endsnippet
 snippet algo_fwk "fwk short" b
+// Fenwick Tree
 vector<${1:int}> ${2:fwk}(${3:N}${4:+1});
 endsnippet
 snippet algo_fwk_build "fwk short" b
@@ -252,13 +260,15 @@ snippet algo_fwk_get "fwk short" b
 for (int ${1:f} = ${2:1-idx}; $1; $1 -= $1 & -$1) ${3:sum} ${4:+}= ${5:fwk}[$1];
 endsnippet
 snippet algo_seq_inv "seq inv" b
+// 座標圧縮
 vector<${1:long long}> ${2:cvt} = ${3:A};
 sort($2.begin(), $2.end());
 $2.erase(unique($2.begin(), $2.end()), $2.end());
 for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
 int ${5:sz} = $2.size();
+// Fenwick Tree
 vector<int> ${6:fwk}($5 + 1);
-${7:long long} ${8:inv} = 0; // 右に倒れる$3_i < $3_j (i < j)な数
+${7:long long} ${8:inv} = 0; // 転倒数: 右に倒れる$3_i > $3_j (i < j)の回数
 int ${9:R} = $5 - 1; // 座標圧縮したため最大要素 = サイズ-1
 for (int i = 0; i < ${10:N}; i++) {
 	for (int f = $9 + 1; f; f -= f & -f) $8 += $6[f];
@@ -267,7 +277,7 @@ for (int i = 0; i < ${10:N}; i++) {
 }
 endsnippet
 snippet algo_merge "merge" b
-// ${1:A}を${2:B}にマージ
+// ${1:A}を${2:B}にマージテク
 if ($1.size() > $2.size()) swap($1, $2);
 for (auto &&v : $1) $2.${3:insert}(v);
 $1.clear();
@@ -336,7 +346,7 @@ while (!q.empty()) {
 }
 endsnippet
 snippet algo_grid_dydx "dydx" b
-int y = ${1:i}, x = ${2:j};
+int y = ${1:i}, x = ${2:j}; // 始点とする
 y += dy[${3:d}], x += dx[$3];
 endsnippet
 snippet algo_grid_filter "bfs grid filter" b
