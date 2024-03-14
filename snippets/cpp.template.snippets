@@ -255,6 +255,11 @@ for (long long ${1:i} = ${2:0}; $1 <${3:N}; $1++) {
 	${4}
 }
 endsnippet
+snippet fori_range "for range" b
+for (int ${1:i} = ${2:0}; $1 <${3:N} - ${4:M} + 1; $1++) {
+	${5}
+}
+endsnippet
 snippet foril_sqrt "foril sqrt" b
 for (${1:long long} ${2:i} = ${3:0}; ${4:$2*$2} <= ${5:N}; $2++) {
 	${6}
