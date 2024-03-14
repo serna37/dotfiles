@@ -52,21 +52,21 @@ snippet algo_permu_loop "next permutation" b
 do {${2}} while (next_permutation(${1:A}.begin(), $1.end()));
 endsnippet
 snippet algo_perm_seq_loop "permutation sequence" b
-// mi ~ mx までの数で、要素数${1:N}-1の数列を順列全探索
+// mi ~ mx までの数で、要素数${1:N}の数列を順列全探索
 vector<int> ${2:perm}($1);
-auto ${3:cal} = [&](auto &f, int mi, int mx, int depth = 0) -> void {
-	if (depth == $1) {
+auto ${3:cal} = [&](auto &f, int mi, int mx, int last = 0) -> void {
+	if (last == $1) {
 		// ベースケース。前周までで$1-1要素つくった、今=$1のとき終了
 		${6:some}
 		return;
 	}
 	for (int i = mi; i <= mx; i++) {
-		$2[depth] = i;
+		$2[last] = i;
 		// 狭義単調増加
 		// mi = i + 1;
 		// 広義単調増加
 		// mi = i;
-		f(f, depth + 1, mi, mx);
+		f(f, mi, mx, last + 1);
 	}
 };
 $3($3, ${4:1}, ${5:M});
