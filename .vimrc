@@ -19,6 +19,9 @@ nnoremap vv ^v$h
 " insert move
 inoremap {{ <Esc>A{}<Left>
 
+" deactive K
+nnoremap K :echo 'K'<CR>
+
 " SANDBOX CREATE NEXT CPP FILE
 fu! s:asc(x, y) abort
     return a:x == a:y ? 0 : a:x > a:y ? 1 : -1
