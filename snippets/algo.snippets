@@ -1,14 +1,14 @@
 # =========================================================
 # Algorithm reduce eval
 # =========================================================
-snippet algo_alma "allmatch" b
-${1:ok} &= ${2};
+snippet algo_allmatch "allmatch" b
+${1:alma} &= ${2};
 endsnippet
-snippet algo_anma "anymatch" b
+snippet algo_anymatch "anymatch" b
 ${1:anma} |= ${2};
 endsnippet
 snippet algo_sum_all "sum all" b
-${1:int} ${2:sum} = 0;
+${1:long long} ${2:sum} = 0;
 for (int ${3:i} = ${4:0}; $3 <${5:N}; $3++) {
 	$2 += ${6:A}[i];
 }
@@ -41,7 +41,7 @@ endsnippet
 # =========================================================
 # Algorithm Search
 # =========================================================
-snippet algo_4_pattern "4" b
+snippet algo_pattern_4 "4" b
 for (int ${1:k} = 0; $1 < 4; $1++) {
 	if ($1 & 1) { // x o x o
 	}
@@ -52,7 +52,7 @@ endsnippet
 snippet algo_permu_loop "next permutation" b
 do {${2}} while (next_permutation(${1:A}.begin(), $1.end()));
 endsnippet
-snippet algo_perm_seq_loop "permutation sequence" b
+snippet algo_permu_seq_loop "permutation sequence" b
 // DFS重複順列列挙
 // mi ~ mx までの数で、要素数${1:N}の数列を順列全探索
 vector<int> ${2:perm}($1);

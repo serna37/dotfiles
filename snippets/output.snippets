@@ -4,10 +4,10 @@
 snippet cout "cout" b
 cout << ${1:ans} << endl;
 endsnippet
-snippet cout "cout" iw
+snippet cout "cout" i
 cout << ${1}
 endsnippet
-snippet cout_no_yes "yes no" b
+snippet cout_san "cout ternary operator yes no" b
 cout << (${1:condition} ? "${2:Yes}" : "${3:No}") << endl;
 endsnippet
 snippet cout_vec "cout vector" b
@@ -21,12 +21,14 @@ snippet cout_vec_line "cout vec line" b
 for (int ${1:i} = 0; $1 < ${2:N}; $1++) cout << ${3:A}[$1] << endl;
 endsnippet
 snippet cout_all "cout all" b
-int ${1:i} = 0;
-for (auto &&v : ${2:st}) {
-	if ($1++) cout << " ";
-	cout << v;
+{ // cout all
+	int ${1:_i} = 0;
+	for (auto &&v : ${2:st}) {
+		if ($1++) cout << " ";
+		cout << v;
+	}
+	cout << endl;
 }
-cout << endl;
 endsnippet
 snippet cout_all_line "cout all line" b
 for (auto &&${1:v} : ${2:st}) cout << $1 << endl;
