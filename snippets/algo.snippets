@@ -231,10 +231,6 @@ if ($1.size() > $2.size()) swap($1, $2);
 for (auto &&v : $1) $2.${3:insert}(v);
 $1.clear();
 endsnippet
-snippet algo_swap_left "swap left" b
-// ${1:A} < ${2:B} を保証する
-if ($1 > $2) swap($1, $2);
-endsnippet
 
 # =========================================================
 # Algorithm BFS
