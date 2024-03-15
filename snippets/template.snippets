@@ -202,10 +202,19 @@ endsnippet
 snippet size "size" i
 (int)${1:S}.size()${2}
 endsnippet
-
-# shortcut calculation
 snippet minus_2 "minus" b
 ${1:A}--, ${2:B}--;
+endsnippet
+snippet saninf "ternary operator inf" i
+( ${1:ans} == ${2:INF} ? ${3:-1} : $1 )
+endsnippet
+
+# shortcut calculation
+snippet allmatch "allmatch" b
+${1:alma} &= ${2};
+endsnippet
+snippet anymatch "anymatch" b
+${1:anma} |= ${2};
 endsnippet
 snippet mod "mod" b
 ${1:ans} %= ${2:MOD};
@@ -217,9 +226,6 @@ endsnippet
 snippet range "range" i
 ${1:S}[${2:i} + ${3:M}] - $1[$2]
 endsnippet
-snippet saninf "ternary operator inf" i
-( ${1:ans} == ${2:INF} ? ${3:-1} : $1 )
-endsnippet
 snippet nc2 "nc2" i
 ${1:(long long)} ${2:val} * ($2 - 1) / 2;
 endsnippet
@@ -228,6 +234,44 @@ snippet ceil "ceil" i
 endsnippet
 snippet ceil2 "ceil2" i
 (${1:A} + 1) / 2
+endsnippet
+snippet sum_all "sum all" b
+${1:long long} ${2:sum} = 0;
+for (int ${3:i} = ${4:0}; $3 <${5:N}; $3++) {
+	$2 += ${6:A}[i];
+}
+endsnippet
+snippet gcd_all "gcd all" b
+${1:long long} ${2:GCD} = ${3:A}[0];
+for (int i = 1; i < ${4:N}; i++) {
+	$2 = gcd($2, $3[i]);
+}
+endsnippet
+snippet lcm_all "lcm all" b
+${1:long long} ${2:LCM} = 1;
+for (int i = 0; i < ${3:N}; i++) {
+	$2 = lcm($2, ${4:A}[i]);
+}
+endsnippet
+snippet ren_cnt "ren cnt" b
+// 最大コンボ数を走査
+int ${1:ren_mx} = 0, ${2:ren} = 0;
+for (int ${3:i} = 0; $3 < ${4:N}; $3++) {
+	if (${5:condition}) {
+		$2++;
+	} else {
+		$2 = 0;
+	}
+	$1 = max($1, $2);
+}
+endsnippet
+snippet pattern_4 "4" b
+for (int ${1:k} = 0; $1 < 4; $1++) {
+	if ($1 & 1) { // x o x o
+	}
+	if ($1 & 2) { // x x o o
+	}
+}
 endsnippet
 
 # wrap

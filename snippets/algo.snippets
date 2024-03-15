@@ -1,55 +1,8 @@
 # =========================================================
-# Algorithm reduce eval
-# =========================================================
-snippet algo_allmatch "allmatch" b
-${1:alma} &= ${2};
-endsnippet
-snippet algo_anymatch "anymatch" b
-${1:anma} |= ${2};
-endsnippet
-snippet algo_sum_all "sum all" b
-${1:long long} ${2:sum} = 0;
-for (int ${3:i} = ${4:0}; $3 <${5:N}; $3++) {
-	$2 += ${6:A}[i];
-}
-endsnippet
-snippet algo_gcd_all "gcd all" b
-${1:long long} ${2:GCD} = ${3:A}[0];
-for (int i = 1; i < ${4:N}; i++) {
-	$2 = gcd($2, $3[i]);
-}
-endsnippet
-snippet algo_lcm_all "lcm all" b
-${1:long long} ${2:LCM} = 1;
-for (int i = 0; i < ${3:N}; i++) {
-	$2 = lcm($2, ${4:A}[i]);
-}
-endsnippet
-snippet algo_ren_cnt "ren cnt" b
-// 最大コンボ数を走査
-int ${1:ren_mx} = 0, ${2:ren} = 0;
-for (int ${3:i} = 0; $3 < ${4:N}; $3++) {
-	if (${5:condition}) {
-		$2++;
-	} else {
-		$2 = 0;
-	}
-	$1 = max($1, $2);
-}
-endsnippet
-
-# =========================================================
 # Algorithm Search
 # =========================================================
-snippet algo_pattern_4 "4" b
-for (int ${1:k} = 0; $1 < 4; $1++) {
-	if ($1 & 1) { // x o x o
-	}
-	if ($1 & 2) { // x x o o
-	}
-}
-endsnippet
 snippet algo_permu_loop "next permutation" b
+// 順列全探索
 do {${2}} while (next_permutation(${1:A}.begin(), $1.end()));
 endsnippet
 snippet algo_permu_seq_loop "permutation sequence" b
@@ -439,7 +392,7 @@ endsnippet
 snippet algo_dp_add "dp add" b
 nx[${1:j + 1}] += dp[${2:j}];
 endsnippet
-snippet algo_chdp "dp knapsack" b
+snippet algo_dp_chdp "dp knapsack" b
 nx[${3:to}] = ${1:min}(nx[$3], dp[${2:from}] + ${4:cost});
 endsnippet
 
