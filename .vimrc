@@ -159,10 +159,14 @@ nnoremap <silent><Leader>b :CocCommand fzf-preview.Buffers<CR>
 nnoremap <silent><Leader>hf :CocCommand fzf-preview.MruFiles<CR>
 nnoremap <silent><Leader>e :CocCommand explorer --width 30<CR>
 nnoremap <silent><Leader>s :CocCommand fzf-preview.Lines<CR>
-nnoremap <silent><Leader>g :CocCommand fzf-preview.ProjectGrep .<CR>
 nnoremap <silent><Leader>m :CocCommand fzf-preview.Bookmarks<CR>
 nnoremap <silent><Leader>nn :CocCommand fzf-preview.MemoList<CR>
 nnoremap <silent><Leader>ng :CocCommand fzf-preview.MemoListGrep .<CR>
+fu s:grep() abort
+    let w = input('[word]>>', expand('<cword>'))
+    execute('CocCommand fzf-preview.ProjectGrep '.w)
+endf
+nnoremap <silent><Leader>g :cal <SID>grep()<CR>
 au DirChanged * cal execute('CocCommand explorer --no-focus --width 30')
 
 " ### Git
