@@ -32,15 +32,8 @@ auto [cnt, ids] = strongly_connected_component(${1:G});
 vector<vector<int>> vertexes = scc($1);
 vector<Graph<${2:long long}>> graphs = sccgraph($1);
 endsnippet
-
-# tree
 snippet Kruskal "Kruskal" b
 MinSpanTree<${1:long long}> mst = Kruskal(${2:edges}, ${3:vtx cnt});
-endsnippet
-
-# set
-snippet uf "union find" bi
-UnionFind uf(${1:N});
 endsnippet
 
 # monoid
@@ -69,7 +62,10 @@ snippet mono_act_min_add "Monoid Acted min add" bi
 MAminadd<${1:int}>
 endsnippet
 
-# range
+# data struct
+snippet uf "union find" bi
+UnionFind uf(${1:N});
+endsnippet
 snippet fwk "fwk" bi
 FwkTree<${1}> fwk(${2:N});
 endsnippet
@@ -79,12 +75,9 @@ endsnippet
 snippet lseg "lseg" bi
 LazySegTree<${1}> lseg(${2:N});
 endsnippet
-snippet starry "starry" b
+snippet dseg "dualseg" bi
+DualSegTree<${1}> dseg(${2:N});
+endsnippet
+snippet starry "starry" bi
 StarrySkyTree<${1:int}> sst(${2:N});
 endsnippet
-
-# seq
-snippet zip "zip" b
-auto [comp, cvt] = zip(${1:A});
-endsnippet
-
