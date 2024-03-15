@@ -55,11 +55,26 @@ endsnippet
 snippet mono_gcd "Monoid gcd" bi
 Mgcd<${1:int}>
 endsnippet
-snippet mono_act_sum_add "Monoid Acted sum add" bi
-MAsumadd<${1:int}>
+snippet mono_lcm "Monoid lcm" bi
+Mlcm<${1:int}>
+endsnippet
+snippet mono_xor "Monoid xor" bi
+Mxor<${1:int}>
+endsnippet
+snippet mono_set "Monoid set" bi
+Mset<${1:int}>
+endsnippet
+snippet mono_act_add_add "Monoid Acted add add" bi
+MAaddadd<${1:int}>
+endsnippet
+snippet mono_act_add_set "Monoid Acted add set" bi
+MAaddset<${1:int}>
 endsnippet
 snippet mono_act_min_add "Monoid Acted min add" bi
 MAminadd<${1:int}>
+endsnippet
+snippet mono_act_min_set "Monoid Acted min set" bi
+MAminset<${1:int}>
 endsnippet
 
 # data struct
@@ -72,11 +87,11 @@ endsnippet
 snippet seg "seg" bi
 SegTree<${1}> seg(${2:N});
 endsnippet
-snippet lseg "lseg" bi
-LazySegTree<${1}> lseg(${2:N});
-endsnippet
 snippet dseg "dualseg" bi
 DualSegTree<${1}> dseg(${2:N});
+endsnippet
+snippet lseg "lseg" bi
+LazySegTree<${1}> lseg(${2:N});
 endsnippet
 snippet starry "starry" bi
 StarrySkyTree<${1:int}> sst(${2:N});
