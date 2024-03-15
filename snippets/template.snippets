@@ -109,13 +109,13 @@ snippet filter "continue" b
 if (${1:filter}) ${2:continue};
 endsnippet
 snippet if "if" b
-if ( ${1:condition} ) {
-	${2:do something}
+if ( ${1} ) {
+	${2}
 }${3}
 endsnippet
 snippet elseif "else if" i
-else if ( ${1:condition} ) {
-	${2:do something}
+else if ( ${1} ) {
+	${2}
 }${3}
 endsnippet
 snippet else "else" i
