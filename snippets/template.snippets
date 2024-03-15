@@ -256,16 +256,11 @@ for (int i = 0; i < ${3:N}; i++) {
 	$2 = lcm($2, ${4:A}[i]);
 }
 endsnippet
-snippet ren_cnt "ren cnt" b
-// 最大コンボ数を走査
-int ${1:ren_mx} = 0, ${2:ren} = 0;
-for (int ${3:i} = 0; $3 < ${4:N}; $3++) {
-	if (${5:condition}) {
-		$2++;
-	} else {
-		$2 = 0;
-	}
-	$1 = max($1, $2);
+snippet ren_max "ren max" b
+int ${1:ren_max} = 0; // 最大コンボ数
+for (int ren = 0, ${2:i} = ${3:0}; $2 <${4:N}; $2++) {
+	ren = ( ${5:condition} ? ren + 1 : 0);
+	$1 = max($1, ren);
 }
 endsnippet
 snippet pattern_4 "4" b
