@@ -9,7 +9,7 @@ snippet algo_permu_seq_loop "permutation sequence" b
 // DFS重複順列列挙
 // mi ~ mx までの数で、要素数${1:N}の数列を順列全探索
 vector<int> ${2:perm}($1);
-auto ${3:cal} = [&](auto &f, int mi, int mx, int last = 0) -> void {
+auto ${3:dfs} = [&](auto &f, int mi, int mx, int last = 0) -> void {
 	if (last == $1) {
 		// ベースケース。前周までで$1-1要素つくった、今=$1のとき終了
 		${6:some}
@@ -53,7 +53,7 @@ for (int bit = 0; bit < (1 << ${1:H}); bit++) {
 }
 endsnippet
 snippet algo_bit_n_order "bit N" b
-// ${1:N}桁の${2:K}進数
+// ${1:N}桁の${2:K}進数 重複順列になる
 vector<int> bit($1, 0);
 while (1) {
 	for (int i = 0; i < $1; i++) {
