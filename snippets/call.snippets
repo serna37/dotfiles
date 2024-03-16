@@ -70,9 +70,6 @@ endsnippet
 snippet Bellman "BellmanFord" b
 auto [${1:dis}, ${2:route}] = BellmanFord<${3:long long}>(${4:G}, ${5:start});
 endsnippet
-snippet route "route restore" b
-vector<int> ${1:rt} = route_restore(route, ${2:goal});
-endsnippet
 snippet Warshall "WarshallFroyd" b
 auto [${1:dis}, negaCy] = WarshallFroyd<${2:long long}>(${3:G});
 endsnippet
@@ -95,6 +92,6 @@ vector<vector<int>> vertexes = scc($1);
 vector<Graph<${2:long long}>> graphs = sccgraph($1);
 endsnippet
 snippet Kruskal "Kruskal" b
-MinSpanTree<${1:long long}> mst = Kruskal(${2:edges}, ${3:vtx cnt});
+MinSpanTree<${1:long long}> mst = Kruskal<$1, UnionFind>(${2:edges}, ${3:vtx cnt});
 endsnippet
 
