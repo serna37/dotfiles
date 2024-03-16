@@ -204,6 +204,10 @@ Plug 'tpope/vim-repeat'
 let g:UltiSnipsExpandTrigger="<C-s>"
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+fu! s:expandSnippet() abort
+    cal feedkeys("A\<C-s>\<Esc>", 'x')
+endf
+nnoremap <silent><Leader>t :cal <SID>expandSnippet()<CR>
 fu! s:tailsemi() abort
     if getline('.')[-1:] != ';'
         execute('normal A;')
