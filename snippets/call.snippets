@@ -1,39 +1,25 @@
 # =========================================================
-# call ライブラリ機能を呼ぶ部分など
+# call ライブラリ関数を呼ぶ部分など
 # =========================================================
-# graph
-snippet Dijkstra "Dijkstra" b
-auto [${1:dis}, ${2:route}] = Dijkstra<${3:long long}>(${4:G}, ${5:start});
+
+# data struct
+snippet uf "union find" bi
+UnionFind uf(${1:N});
 endsnippet
-snippet Bellman "BellmanFord" b
-auto [${1:dis}, ${2:route}] = BellmanFord<${3:long long}>(${4:G}, ${5:start});
+snippet fwk "fwk" bi
+FwkTree<${1}> fwk(${2:N});
 endsnippet
-snippet route "route restore" b
-vector<int> ${1:rt} = route_restore(route, ${2:goal});
+snippet seg "seg" bi
+SegTree<${1}> seg(${2:N});
 endsnippet
-snippet Warshall "WarshallFroyd" b
-auto [${1:dis}, negaCy] = WarshallFroyd<${2:long long}>(${3:G});
+snippet dseg "dseg" bi
+DualSegTree<${1}> dseg(${2:N});
 endsnippet
-snippet cycle "cycle detect" b
-vector<Edge<${1:long long}>> res = cycle_detect(${2:G}, ${3:directed = true});
+snippet lseg "lseg" bi
+LazySegTree<${1}> lseg(${2:N});
 endsnippet
-snippet con_com "connected components" b
-vector<vector<int>> components = connected_components(${1:G});
-vector<Graph<${2:long long}>> graphs = ccgraph($1);
-endsnippet
-snippet con_com_grid "connected components grid" b
-vector<vector<pair<int, int>>> components = connected_components_grid(${1:G}, ${2:H}, ${3:W});
-endsnippet
-snippet topo "topo" b
-vector<int> sorted = topological_sort(${1:G});
-endsnippet
-snippet scc "scc" b
-auto [cnt, ids] = strongly_connected_component(${1:G});
-vector<vector<int>> vertexes = scc($1);
-vector<Graph<${2:long long}>> graphs = sccgraph($1);
-endsnippet
-snippet Kruskal "Kruskal" b
-MinSpanTree<${1:long long}> mst = Kruskal(${2:edges}, ${3:vtx cnt});
+snippet starry "starry" bi
+StarrySkyTree<${1:int}> sst(${2:N});
 endsnippet
 
 # monoid
@@ -77,22 +63,38 @@ snippet mono_act_min_set "Monoid Acted min set" bi
 MAminset<${1:int}>
 endsnippet
 
-# data struct
-snippet uf "union find" bi
-UnionFind uf(${1:N});
+# graph
+snippet Dijkstra "Dijkstra" b
+auto [${1:dis}, ${2:route}] = Dijkstra<${3:long long}>(${4:G}, ${5:start});
 endsnippet
-snippet fwk "fwk" bi
-FwkTree<${1}> fwk(${2:N});
+snippet Bellman "BellmanFord" b
+auto [${1:dis}, ${2:route}] = BellmanFord<${3:long long}>(${4:G}, ${5:start});
 endsnippet
-snippet seg "seg" bi
-SegTree<${1}> seg(${2:N});
+snippet route "route restore" b
+vector<int> ${1:rt} = route_restore(route, ${2:goal});
 endsnippet
-snippet dseg "dseg" bi
-DualSegTree<${1}> dseg(${2:N});
+snippet Warshall "WarshallFroyd" b
+auto [${1:dis}, negaCy] = WarshallFroyd<${2:long long}>(${3:G});
 endsnippet
-snippet lseg "lseg" bi
-LazySegTree<${1}> lseg(${2:N});
+snippet cycle "cycle detect" b
+vector<Edge<${1:long long}>> res = cycle_detect(${2:G}, ${3:directed = true});
 endsnippet
-snippet starry "starry" bi
-StarrySkyTree<${1:int}> sst(${2:N});
+snippet con_com "connected components" b
+vector<vector<int>> components = connected_components(${1:G});
+vector<Graph<${2:long long}>> graphs = ccgraph($1);
 endsnippet
+snippet con_com_grid "connected components grid" b
+vector<vector<pair<int, int>>> components = connected_components_grid(${1:G}, ${2:H}, ${3:W});
+endsnippet
+snippet topo "topo" b
+vector<int> sorted = topological_sort(${1:G});
+endsnippet
+snippet scc "scc" b
+auto [cnt, ids] = strongly_connected_component(${1:G});
+vector<vector<int>> vertexes = scc($1);
+vector<Graph<${2:long long}>> graphs = sccgraph($1);
+endsnippet
+snippet Kruskal "Kruskal" b
+MinSpanTree<${1:long long}> mst = Kruskal(${2:edges}, ${3:vtx cnt});
+endsnippet
+
