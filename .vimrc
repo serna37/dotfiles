@@ -63,9 +63,11 @@ Plug 'yuttie/comfortable-motion.vim'
 Plug 'voldikss/vim-floaterm'
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_keys='sfjkdawh'
+let g:EasyMotion_smartcase = 1
 let g:EasyMotion_disable_two_key_combo = 1
 "nnoremap s <Plug>(easymotion-sn)
-nnoremap s <Plug>(clever-f-reset)<Plug>(easymotion-bd-w)
+"nnoremap s <Plug>(clever-f-reset)<Plug>(easymotion-bd-w)
+nnoremap s <Plug>(clever-f-reset)<Plug>(easymotion-s)
 "nnoremap <Leader><Leader>w <Plug>(easymotion-overwin-w)
 nnoremap <C-j> <Plug>(edgemotion-j)<Plug>(anchor)
 nnoremap <C-k> <Plug>(edgemotion-k)<Plug>(anchor)
@@ -208,6 +210,8 @@ fu! s:expandSnippet() abort
     cal feedkeys("A\<C-s>\<Esc>", 'x')
 endf
 nnoremap <silent><Leader>t :cal <SID>expandSnippet()<CR>
+" TODO 次のエラーへ移動もいれたいね
+" TODO C-sのあとのEsc聞いてない
 fu! s:tailsemi() abort
     if getline('.')[-1:] != ';'
         execute('normal A;')
@@ -245,9 +249,17 @@ nnoremap <Leader>, <plug>(coc-diagnostic-next)
 nnoremap <Leader>. <plug>(coc-diagnostic-prev)
 nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : comfortable_motion#flick(100)
 nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : comfortable_motion#flick(-100)
+fu! s:cppFmt() abort
+    execute("v/./d")
+    try
+        cal CocAction('format')
+    catch
+    endtry
+endf
 aug fmt_cpp
     au!
-    au BufWrite *.cpp :try | cal CocAction('format') | catch | endtry
+    "au BufWrite *.cpp :try | cal CocAction('format') | catch | endtry
+    au BufWrite *.cpp cal <SID>cppFmt()
 aug END
 
 " ### util

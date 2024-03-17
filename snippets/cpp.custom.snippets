@@ -1,3 +1,132 @@
+#*cpp.custom.snippets*        Version 1.0
+#==============================================================================
+#CONTENTS                                                 *cpp.custom*
+#
+#    const ....................... |const|
+#    define ...................... |def some var|
+#    calculation ................. |calculation template|
+#    input ....................... |std cin|
+#    output ...................... |std cout|
+#
+#==============================================================================
+
+# =========================================================
+# const
+# =========================================================
+snippet INF_i "infinity int" b
+constexpr int INF = 1e9;
+endsnippet
+snippet INF_l "infinity long long" b
+constexpr long long INF = 1e18;
+endsnippet
+snippet MOD_998244353 "mod" b
+constexpr long long MOD = 998244353;
+endsnippet
+snippet MOD_100000007 "mod" b
+constexpr long long MOD = 1000000007;
+endsnippet
+snippet GRID_dydx4 "grid connector" b
+const vector<int> dx = {0, 1, 0, -1};
+const vector<int> dy = {1, 0, -1, 0};
+endsnippet
+snippet GRID_dydx8 "grid connector" b
+const vector<int> dx = {0, 1, 0, -1, 1, -1, 1, -1};
+const vector<int> dy = {1, 0, -1, 0, 1, 1, -1, -1};
+endsnippet
+snippet PI "PI" b
+const double PI = acos(-1);
+endsnippet
+
+# =========================================================
+# define
+# =========================================================
+snippet a "a" b
+int ans = ${1:0};
+endsnippet
+snippet la "a" b
+long long ans = ${1:0};
+endsnippet
+snippet c "c" b
+${1:int} cnt = ${2:0};
+endsnippet
+snippet ok "ok" b
+bool ok = true;
+endsnippet
+snippet alma "alma" b
+bool alma = true;
+endsnippet
+snippet anma "anma" b
+bool anma = false;
+endsnippet
+snippet size "size" b
+int ${1:N} = ${2:S}.size();
+endsnippet
+snippet size "size" i
+(int)${1:S}.size()${2}
+endsnippet
+snippet minus_2 "minus" b
+--${1:A}, --${2:B};
+endsnippet
+snippet saninf "ternary operator inf" i
+( ${1:ans} == ${2:INF} ? ${3:-1} : $1 )
+endsnippet
+
+# =========================================================
+# calculation
+# =========================================================
+snippet allmatch "allmatch" b
+${1:alma} &= ${2};
+endsnippet
+snippet anymatch "anymatch" b
+${1:anma} |= ${2};
+endsnippet
+snippet mod "mod" b
+${1:ans} %= ${2:MOD};
+endsnippet
+snippet mod_cal "mod" b
+${1:ans} ${2: += some};
+$1 %= ${3:MOD};
+endsnippet
+snippet range "range" i
+${1:S}[${2:i} + ${3:M}] - $1[$2]
+endsnippet
+snippet nc2 "nc2" i
+${1:(long long)} ${2:val} * ($2 - 1) / 2;
+endsnippet
+snippet ceil "ceil" i
+(${1:A} + ${2:B} - 1) / $2
+endsnippet
+snippet ceil2 "ceil2" i
+(${1:A} + 1) / 2
+endsnippet
+snippet sum_all "sum all" b
+${1:long long} ${2:sum} = 0;
+for (auto &&${3:v} : ${4:A}) $2 += $3;
+endsnippet
+snippet gcd_all "gcd all" b
+${1:long long} ${2:GCD} = 0;
+for (auto &&${3:v} : ${4:A}) $2 = gcd($2, $3);
+endsnippet
+snippet lcm_all "lcm all" b
+${1:long long} ${2:LCM} = 1;
+for (auto &&${3:v} : ${4:A}) $2 = lcm($2, $3);
+endsnippet
+snippet ren_max "ren max" b
+int ${1:ren_max} = 0; // 最大コンボ数
+for (int ren = 0, ${2:i} = ${3:0}; $2 <${4:N}; ++$2) {
+	ren = ( ${5:condition} ? ren + 1 : 0);
+	$1 = max($1, ren);
+}
+endsnippet
+snippet pattern_4 "4" b
+for (int ${1:k} = 0; $1 < 4; ++$1) {
+	if ($1 & 1) { // x o x o
+	}
+	if ($1 & 2) { // x x o o
+	}
+}
+endsnippet
+
 # =========================================================
 # input
 # =========================================================
@@ -160,4 +289,3 @@ endsnippet
 snippet cout_fixed_setprecision "fixed setprecision" b
 cout << fixed << setprecision(${1:20});
 endsnippet
-

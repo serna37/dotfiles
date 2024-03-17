@@ -192,6 +192,14 @@ AsakatuAtCoder() {
         echo -e "[\e[34mINFO\e[m]touch file :\e[32m${v}${file_name}\e[m"
         touch "${v}${file_name}"
     done
+    # TODO どうせなら全部js側で作りたいかも？？
+    if [[ -n $ASA_SAMPLE_DL ]]; then
+        for v in ${dirs[@]}; do
+            rm -rf "${v}test"
+        done
+        eval $ASA_SAMPLE_DL
+        cd ../
+    fi
     vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
 }
 ADTAtCoder() {
