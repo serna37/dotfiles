@@ -29,7 +29,7 @@ auto ${3:dfs} = [&](auto &f, int mi, int mx, int last = 0) -> void {
 		${6:some}
 		return;
 	}
-	for (int i = mi; i <= mx; i++) {
+	for (int i = mi; i <= mx; ++i) {
 		$2[last] = i;
 		// mi = i + 1; // 狭義単調増加
 		// mi = i; // 広義単調増加
@@ -40,9 +40,9 @@ $3($3, ${4:1}, ${5:M});
 endsnippet
 snippet algo_bit_loop "bit loop" b
 // bit全探索
-for (${1:long long} ${2:bit} = 0; $2 < (${3:1ll} << ${4:N}); $2++) {
+for (${1:long long} ${2:bit} = 0; $2 < (${3:1ll} << ${4:N}); ++$2) {
 	${5:long long} tmp = 0;
-	for (int k = 0; k < $4; k++) {
+	for (int k = 0; k < $4; ++k) {
 		// k番目を使うか
 		if ($2 & ($3 << k)) {
 			tmp |= ${6:A}[k];
@@ -52,14 +52,14 @@ for (${1:long long} ${2:bit} = 0; $2 < (${3:1ll} << ${4:N}); $2++) {
 endsnippet
 snippet algo_bit_loop_2 "bit loop" b
 // bit全探索
-for (int bit = 0; bit < (1 << ${1:H}); bit++) {
-	for (int bit2 = 0; bit2 < (1 << ${2:W}); bit2++) {
+for (int bit = 0; bit < (1 << ${1:H}); ++bit) {
+	for (int bit2 = 0; bit2 < (1 << ${2:W}); ++bit2) {
 		vector<int> ${3:h}, ${4:w};
-		for (int k = 0; k < $1; k++) {
+		for (int k = 0; k < $1; ++k) {
 			// k番目を使うか
 			if (bit & (1 << k)) $3.push_back(k);
 		}
-		for (int k = 0; k < $2; k++) {
+		for (int k = 0; k < $2; ++k) {
 			// k番目を使うか
 			if (bit2 & (1 << k)) $4.push_back(k);
 		}
@@ -70,13 +70,13 @@ snippet algo_bit_n_order "bit N" b
 // ${1:N}桁の${2:K}進数 重複順列になる
 vector<int> bit($1, 0);
 while (1) {
-	for (int i = 0; i < $1; i++) {
+	for (int i = 0; i < $1; ++i) {
 		int tmp = bit[i]; // i桁目の数字（$2進法）
 	}
 	// インクリメント
 	int order = $1 - 1, stop = 0;
 	while (1) {
-		bit[order]++;
+		++bit[order];
 		if (bit[order] < $2) break; // くりあげ終了
 		if (order == 0) { // 最大桁が溢れた
 			stop = 1;
@@ -162,40 +162,40 @@ endsnippet
 # =========================================================
 snippet algo_zeta "ruisekiwa" b
 vector<${1:long long}> ${2:S}(${3:N} + 1);
-for (int i = 0; i < $3; i++) {
+for (int i = 0; i < $3; ++i) {
 	$2[i + 1] = $2[i] + ${4:A}[i];
 } // $2_i = $4_0 + ... + $4_i-1 →
 endsnippet
 snippet algo_zeta_rev "ruisekiwa reverse" b
 vector<${1:long long}> ${2:R}(${3:N} + 1);
-for (int i = $3 - 1; i >= 0; i--) {
+for (int i = $3 - 1; i >= 0; --i) {
 	$2[i] = $2[i + 1] + ${4:A}[i];
 } // $2_i = ← $4_n-i + ... + $4_n-1
 endsnippet
 snippet algo_zeta_2D "2d ruisekiwa" b
 // 2次元ゼータ変換
 vector<vector<${1:long long}>> ${2:S}(${3:H} + 1, vector<$1>(${4:W} + 1));
-for (int i = 0; i < $3; i++) {
-	for (int j = 0; j < $4; j++) {
+for (int i = 0; i < $3; ++i) {
+	for (int j = 0; j < $4; ++j) {
 		$2[i + 1][j + 1] = $2[i + 1][j] + ${5:A}[i][j];
 	}
 }
-for (int i = 0; i < $3; i++) {
-	for (int j = 0; j < $4; j++) {
+for (int i = 0; i < $3; ++i) {
+	for (int j = 0; j < $4; ++j) {
 		$2[i + 1][j + 1] += $2[i][j + 1];
 	}
 }
 endsnippet
 snippet algo_moebius "diff" b
 vector<${1:int}> ${2:D}(${3:N-1});
-for (int i = 0; i < $3; i++) {
+for (int i = 0; i < $3; ++i) {
 	$2[i] = ${4:A}[i + 1] - $4[i];
 }
 endsnippet
 snippet algo_imos "imos" b
 // imos
-${1:A}[${2:l}]${3:++};
-$1[${4:r+1}]${5:--};
+${3:++}${1:A}[${2:l}];
+${5:--}$1[${4:r+1}];
 endsnippet
 
 # =========================================================
@@ -215,7 +215,7 @@ for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
 int ${4:sz} = $2.size();
 endsnippet
 snippet algo_fwk_build "fwk build" b
-for (int i = 1, f = i + (i & -i); i <= ${1:N}; i++, f = i + (i & -i)) {
+for (int i = 1, f = i + (i & -i); i <= ${1:N}; ++i, f = i + (i & -i)) {
 	${2:fwk}[i] ${3:+}= ${4:A}[i - 1];
 	if (f <= $1) $2[f] $3= $2[i];
 }
@@ -235,10 +235,10 @@ int ${5:sz} = $2.size();
 vector<int> ${6:fwk}($5 + 1);
 ${7:long long} ${8:inv} = 0; // 転倒数: 右に倒れる$3_i > $3_j (i < j)の回数
 int ${9:R} = $5 - 1; // 座標圧縮したため最大要素 = サイズ-1
-for (int i = 0; i < ${10:N}; i++) {
+for (int i = 0; i < ${10:N}; ++i) {
 	for (int f = $9 + 1; f; f -= f & -f) $8 += $6[f];
 	for (int f = $3[i] + 1; f; f -= f & -f) $8 -= $6[f];
-	for (int f = $3[i] + 1; f <= $5; f += f & -f) $6[f]++;
+	for (int f = $3[i] + 1; f <= $5; f += f & -f) ++$6[f];
 }
 endsnippet
 
@@ -266,7 +266,7 @@ snippet algo_bfs_multi_start "bfs multi start" b
 // 複数始点BFS
 queue<int> q;
 vector<int> dis(${1:N}, -1);
-for (int i = 0; i < ${2:K}; i++) {
+for (int i = 0; i < ${2:K}; ++i) {
 	q.push(${3:C[i]});
 	dis[$3] = 0;
 }
@@ -290,7 +290,7 @@ dis[$1][$2] = 0;
 while (!q.empty()) {
 	auto [py, px] = q.front();
 	q.pop();
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; ++i) {
 		int y = py + dy[i], x = px + dx[i];
 		if (y < 0 or x < 0 or $3 <= y or $4 <= x) continue;
 		if (dis[y][x] == -1 and cango(${5:G}[y][x])) {
@@ -321,7 +321,7 @@ for
 y += dy[d], x += dx[d];
 if (y < 0 or x < 0 or ${1:row} <= y or ${2:col} <= x or G[y][x] != -1) {
 	y -= dy[d], x -= dx[d]; // やっぱ戻って
-	d++, d %= 4; // 方向変えて
+	++d, d %= 4; // 方向変えて
 	y += dy[d], x += dx[d]; // 進直す
 }
 endsnippet
@@ -332,11 +332,11 @@ vector<int> cy = cx; // クロス2
 reverse(cy.begin(), cy.end());
 bool c1 = true, c2 = true;
 ${2:int} check_val = ${3:-1};
-for (int i = 0; i < $1; i++) {
+for (int i = 0; i < $1; ++i) {
 	c1 &= ${4:A}[i][cx[i]] == check_val; // 左上から右下
 	c2 &= $4[i][cy[i]] == check_val; // 右上から左下
 	bool alma = true, alma2 = true;
-	for (int j = 0; j < $1; j++) {
+	for (int j = 0; j < $1; ++j) {
 		alma &= $4[i][j] == check_val; // 行内でallmatch
 		alma2 &= $4[j][i] == check_val; // 列内でallmatch
 	}
@@ -388,7 +388,7 @@ endsnippet
 snippet algo_dp "dp" b
 vector<${1:int}> ini(${2:K} + 1, ${3:0}), dp, nx;
 dp = ini, dp[${4:0}] = ${5:0};
-for (int i = 0; i < ${6:N}; i++) {
+for (int i = 0; i < ${6:N}; ++i) {
 	nx = ${7:dp or ini};
 	${8:transition 0 <= M}
 	swap(dp, nx);
@@ -408,8 +408,8 @@ snippet algo_dp_knapsack_alt "dp knapsack alt" b
 int ${1:V} = ${2:1e5};
 vector<vector<${3:int}>> dp(${4:N} + 1, vector<$3>($1 + 1, inf<$3>));
 dp[0][0] = 0;
-for (int i = 0; i < $4; i++) {
-	for (int j = 0; j <= $1; j++) {
+for (int i = 0; i < $4; ++i) {
+	for (int j = 0; j <= $1; ++j) {
 		dp[i + 1][j] = min(dp[i + 1][j], dp[i][j]);
 		if (v[i] <= j) {
 			dp[i + 1][j] = min(dp[i + 1][j], dp[i][j - ${5:v}[i]] + ${6:w}[i]);
@@ -417,7 +417,7 @@ for (int i = 0; i < $4; i++) {
 	}
 }
 $3 ans = 0;
-for (int i = 0; i <= $1; i++) {
+for (int i = 0; i <= $1; ++i) {
 	if (dp[$4][i] <= ${7:W}) {
 		ans = max(ans, i);
 	}
@@ -428,8 +428,8 @@ endsnippet
 snippet algo_dp_lcs "dp lcs" b
 int ${3:s} = ${1:S}.size(), ${4:t} = ${2:T}.size();
 vector<vector<int>> dp($3 + 1, vector<int>($4 + 1, 0));
-for (int i = 0; i < $3; i++) {
-	for (int j = 0; j < $4; j++) {
+for (int i = 0; i < $3; ++i) {
+	for (int j = 0; j < $4; ++j) {
 		dp[i + 1][j + 1] = max(
 			{dp[i][j + 1], dp[i + 1][j], dp[i][j] + ($1[i] == $2[j])});
 	}
@@ -448,7 +448,7 @@ endsnippet
 snippet algo_dp_seg "dp seg" b
 SegTree<Mmin<${1:long long}>> dp(${2:N+1});
 dp.set(0, 0);
-for (int i = 0; i < ${3:M}; i++) {
+for (int i = 0; i < ${3:M}; ++i) {
 	auto [r, l, c] = T[i];
 	$1 asis = dp[r];
 	$1 tobe = dp.get(l, r) + c;
