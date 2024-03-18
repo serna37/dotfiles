@@ -67,7 +67,7 @@ for (int bit = 0; bit < (1 << ${1:H}); ++bit) {
 }
 endsnippet
 snippet algo_bit_n_order "bit N" b
-// ${1:N}桁の${2:K}進数 重複順列になる
+// ${1:N}桁の${2:K}進数 重複順列
 vector<int> bit($1, 0);
 while (1) {
 	for (int i = 0; i < $1; ++i) {
@@ -208,6 +208,7 @@ for (auto &&v : $1) $2.${3:insert}(v);
 $1.clear();
 endsnippet
 snippet algo_zip "zip" b
+// 座標圧縮
 vector<${1:long long}> ${2:cvt} = ${3:target};
 sort($2.begin(), $2.end());
 $2.erase(unique($2.begin(), $2.end()), $2.end());
@@ -215,6 +216,7 @@ for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
 int ${4:sz} = $2.size();
 endsnippet
 snippet algo_fwk "fwk" b
+// Fenwick Tree
 vector<${1:int}> ${2:fwk}(${3:N+1});
 endsnippet
 snippet algo_fwk_build "fwk build" b
@@ -389,7 +391,7 @@ endsnippet
 # Algorithm DP
 # =========================================================
 snippet algo_dp "dp" b
-// i番目の行での${1:M}個の状態
+// DP i番目の行での${1:M}個の状態
 ${2:vector<int>} def($1+1, ${3:INF});
 auto dp = def, nx = dp;
 endsnippet
@@ -433,6 +435,8 @@ cout << ans << endl;
 endsnippet
 
 snippet algo_dp_lcs "dp lcs" b
+// WIP
+// LCS
 int ${3:s} = ${1:S}.size(), ${4:t} = ${2:T}.size();
 vector<vector<int>> dp($3 + 1, vector<int>($4 + 1, 0));
 for (int i = 0; i < $3; ++i) {
@@ -445,14 +449,18 @@ cout << dp[$3][$4] << endl;
 endsnippet
 snippet algo_dp_lis "dp lis" b
 // WIP
+// LIS
 endsnippet
 snippet algo_dp_order "dp order" b
 // WIP
+// 桁DP
 endsnippet
 snippet algo_dp_range "dp range" b
 // WIP
+// 区間DP
 endsnippet
 snippet algo_dp_seg "dp seg" b
+// セグ木DP
 SegTree<Mmin<${1:long long}>> dp(${2:N+1});
 dp.set(0, 0);
 for (int i = 0; i < ${3:M}; ++i) {
@@ -466,8 +474,10 @@ cout << dp[N] << endl;
 endsnippet
 snippet algo_dp_bit "dp bit" b
 // WIP
+// bit集合DP
 endsnippet
 snippet algo_dp_tree "dp tree" b
+// 木DP
 vector<${1:long long}> dp(${2:N}, ${3:0});
 auto dfs = [&](auto &f, int v, int par = -1) -> void {
 	if (${4:tree}[v].size() == 1) {
@@ -487,5 +497,6 @@ cout << dp[N - 1] << endl;
 endsnippet
 snippet algo_dp_rerooting "dp rerooting" b
 // WIP
+// 全方位木DP
 endsnippet
 
