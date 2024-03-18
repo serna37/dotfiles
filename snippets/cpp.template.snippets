@@ -54,8 +54,14 @@ endsnippet
 snippet mul "mul" bi
 multiset<${1:int}>
 endsnippet
+snippet sterase "st erase" b
+${1:st}.erase($1.find(${2:val}));
+endsnippet
 snippet mp "map" bi
 map<${1:int}, ${2:int}>
+endsnippet
+snippet mperase "mp erase" b
+if (--${1:mp}[${2:key}] == 0) $1.erase($2);
 endsnippet
 snippet uno "unordered_map" bi
 unordered_map<${1:int}, ${2:int}>
