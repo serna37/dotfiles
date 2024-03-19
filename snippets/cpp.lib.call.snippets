@@ -4,22 +4,22 @@
 
 # data struct
 snippet uf "union find" bi
-UnionFind uf(${1:N});
+UnionFind ${1:uf}(${2:N});
 endsnippet
 snippet fwk "fwk" bi
-FwkTree<${1}> fwk(${2:N});
+FwkTree<${1}> ${2:fwk}(${3:N});
 endsnippet
 snippet seg "seg" bi
-SegTree<${1}> seg(${2:N});
+SegTree<${1}> ${2:seg}(${3:N});
 endsnippet
 snippet dseg "dseg" bi
-DualSegTree<${1}> dseg(${2:N});
+DualSegTree<${1}> ${2:dseg}(${3:N});
 endsnippet
 snippet lseg "lseg" bi
-LazySegTree<${1}> lseg(${2:N});
+LazySegTree<${1}> ${2:lseg}(${3:N});
 endsnippet
 snippet starry "starry" bi
-StarrySkyTree<${1:int}> sst(${2:N});
+StarrySkyTree<${1:int}> ${2:sst}(${3:N});
 endsnippet
 
 # monoid
