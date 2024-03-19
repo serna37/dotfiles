@@ -31,6 +31,12 @@ int main() {
 	cin.tie(0);${2}
 }
 endsnippet
+snippet fastio_extend "fast io" b
+#define endl "\n"
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+endsnippet
 
 # =========================================================
 # type
@@ -279,23 +285,23 @@ endsnippet
 # =========================================================
 # wrap
 # =========================================================
-snippet divceil "divceil" b
+snippet wrap_divceil "divceil" b
 // 負の場合0側へ丸めない
 auto divCeil = []<class T>(T a, T b) -> T {
 	return a / b + (((a ^ b) > 0 and a % b != 0) ? 1 : 0);
 };
 endsnippet
-snippet divfloor "divfloor" b
+snippet wrap_divfloor "divfloor" b
 // 負の場合0側へ丸めない
 auto divFloor = []<class T>(T a, T b) -> T {
 	return a / b - (((a ^ b) < 0 and a % b != 0) ? 1 : 0);
 };
 endsnippet
-snippet islower "is lower" b
+snippet wrap_islower "is lower" b
 // bool値を返すようwrap
 auto islow = [](char c) -> bool { return islower(c) != 0; };
 endsnippet
-snippet isupper "is upper" b
+snippet wrap_isupper "is upper" b
 // bool値を返すようwrap
 auto isupp = [](char c) -> bool { return isupper(c) != 0; };
 endsnippet

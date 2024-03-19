@@ -217,6 +217,8 @@ fu! s:tailsemi() abort
         execute('normal A;')
     endif
 endf
+" GOで一番下にINSERTモード時、保存とzzする
+nnoremap O :w<CR>zzO
 noremap <silent><Plug>(tailsemi) :<C-u>cal <SID>tailsemi()<CR>
 inoremap ;; <Esc><Plug>(tailsemi)<Esc>:w<CR>
 inoremap ;<CR> <Esc><Plug>(tailsemi)<Esc>:w<CR>o
