@@ -9,10 +9,6 @@ inoremap <expr><CR> pumvisible() ? '<C-y>' : '<CR>'
 inoremap <expr><Tab> pumvisible() ? '<C-n>' : '<C-t>'
 inoremap <expr><S-Tab> pumvisible() ? '<C-p>' : '<S-Tab>'
 
-" terminal
-"nnoremap <silent><Leader>t :cal popup_create(term_start([&shell],#{hidden:1,term_finish:'close'}),#{border:[],minwidth:&columns*3/4,minheight:&lines*3/4})<CR>
-"nnoremap <silent><Leader>g :cal popup_create(term_start(['lazygit'],#{hidden:1,term_finish:'close'}),#{border:[],minwidth:&columns*3/4,minheight:&lines*3/4})<CR>
-
 " row visual
 nnoremap vv ^v$h
 
@@ -65,10 +61,8 @@ let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_keys='sfjkdawh'
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_disable_two_key_combo = 1
-"nnoremap s <Plug>(easymotion-sn)
-"nnoremap s <Plug>(clever-f-reset)<Plug>(easymotion-bd-w)
 nnoremap s <Plug>(clever-f-reset)<Plug>(easymotion-s)
-"nnoremap <Leader><Leader>w <Plug>(easymotion-overwin-w)
+nnoremap <Leader><Leader>w <Plug>(easymotion-overwin-w)
 nnoremap <C-j> <Plug>(edgemotion-j)<Plug>(anchor)
 nnoremap <C-k> <Plug>(edgemotion-k)<Plug>(anchor)
 let g:clever_f_smart_case = 1
@@ -94,9 +88,6 @@ tnoremap <C-w> <Esc><BS>
 tnoremap <C-x> <C-w><S-n>
 tnoremap <silent><C-t> <C-\><C-n>:FloatermNew<CR>
 tnoremap <silent><S-Tab> <C-\><C-n>:FloatermNext<CR>
-" TODO fix
-"nnoremap <silent><Leader>t :FloatermToggle<CR>
-"tnoremap <silent><Leader>t <C-w>:FloatermToggle<CR>
 let g:floaterm_keymap_toggle = '<F12>'
 let g:floaterm_width = 0.5
 let g:floaterm_height = 0.7
@@ -133,13 +124,11 @@ fu! s:moveBuf(flg) abort
     let buf_id = buf_idx == len(buf_arr) ? buf_arr[0] : buf_arr[buf_idx]
     exe 'b '.buf_id
 endf
-
 fu! s:closeBuf() abort
     let now_b = bufnr('%')
     cal s:moveBuf('prev')
     execute('bd ' . now_b)
 endf
-
 noremap <silent><Plug>(buf-prev) :<C-u>cal <SID>moveBuf('prev')<CR>
 noremap <silent><Plug>(buf-next) :<C-u>cal <SID>moveBuf('next')<CR>
 noremap <silent><Plug>(buf-close) :<C-u>cal <SID>closeBuf()<CR>
@@ -211,13 +200,12 @@ fu! s:expandSnippet() abort
 endf
 nnoremap <silent><Leader>t :cal <SID>expandSnippet()<CR>
 " TODO 次のエラーへ移動もいれたいね
-" TODO C-sのあとのEsc聞いてない
+" TODO C-sのあとのEsc効いてない
 fu! s:tailsemi() abort
     if getline('.')[-1:] != ';'
         execute('normal A;')
     endif
 endf
-" GOで一番下にINSERTモード時、保存とzzする
 nnoremap O :w<CR>zzO
 noremap <silent><Plug>(tailsemi) :<C-u>cal <SID>tailsemi()<CR>
 inoremap ;; <Esc><Plug>(tailsemi)<Esc>:w<CR>
@@ -281,7 +269,6 @@ let g:ac_vim_bell_times_limit = 31
 call plug#end()
 
 
-
 " startify -------------------------------
 let s:start = #{}
 
@@ -316,6 +303,5 @@ let g:startify_custom_header = s:start.btr_logo
 " onedark ---------------------------------
 if !glob('~/.vim/plugged/onedark.vim')->empty()
     colorscheme onedark
-    "colorscheme hybrid_material
 endif
 
