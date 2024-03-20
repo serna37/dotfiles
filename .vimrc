@@ -302,6 +302,10 @@ let g:startify_custom_header = s:start.btr_logo
 
 " onedark ---------------------------------
 if !glob('~/.vim/plugged/onedark.vim')->empty()
+    aug onedark_comment
+        au!
+        au ColorScheme * hi Comment term=bold ctermfg=245 guifg=#5C6370
+    aug END
     colorscheme onedark
 endif
 
