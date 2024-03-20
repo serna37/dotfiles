@@ -120,40 +120,40 @@ while ($5 - $4 > 1) ($1($6 = $4 + ($5 - $4) / 2) ? $5 : $4) = $6;
 cout << $5 << endl;
 endsnippet
 snippet algo_bi_ika_cnt "ika cnt" b
-// 以下の個数 = より大きい最左のidx
+// $3のうち、$4以下の個数 = $4より大きい最左のidx
 ${1:int} ${2:cnt} = upper_bound(${3:A}.begin(), $3.end(), ${4:x}) - $3.begin();
 endsnippet
 snippet algo_bi_sita_cnt "sita cnt" b
-// より下の個数 = 以上最左のidx
+// $3のうち、$4より下の個数 = $4以上最左のidx
 ${1:int} ${2:cnt} = lower_bound(${3:A}.begin(), $3.end(), ${4:x}) - $3.begin();
 endsnippet
 snippet algo_bi_izyou_cnt "izyou cnt" b
-// 以上の個数
+// $3のうち、$4以上の個数
 ${1:int} ${2:cnt} = ${3:A}.end() - lower_bound($3.begin(), $3.end(), ${4:x});
 endsnippet
 snippet algo_bi_ue_cnt "ue cnt" b
-// より大きい個数
+// $3のうち、$4より大きい個数
 ${1:int} ${2:cnt} = ${3:A}.end() - upper_bound($3.begin(), $3.end(), ${4:x});
 endsnippet
 snippet algo_bi_ika_max "0, lim]" b
-// 以下の最右
+// $2以下の最右
 auto itr = ${1:st}.upper_bound(${2:A});
 if (itr == $1.begin()) continue;
 --itr;
 endsnippet
 snippet algo_bi_sita_max "0, lim)" b
-// より下の最右
+// $2より下の最右
 auto itr = ${1:st}.lower_bound(${2:A});
 if (itr == $1.begin()) continue;
 --itr;
 endsnippet
 snippet algo_bi_izyou_min "[lim, N" b
-// 以上の最左
+// $2以上の最左
 auto itr = ${1:st}.lower_bound(${2:A});
 if (itr == $1.end()) continue;
 endsnippet
 snippet algo_bi_ue_min "(lim, N" b
-// より大きい最左
+// $2より大きい最左
 auto itr = ${1:st}.upper_bound(${2:A});
 if (itr == $1.end()) continue;
 endsnippet
@@ -199,6 +199,9 @@ snippet algo_imos "imos" b
 // imos
 ${3:++}${1:A}[${2:l}];
 ${5:--}$1[${4:r+1}];
+endsnippet
+snippet algo_imos_2D "2d imos" b
+// TODO
 endsnippet
 
 # =========================================================
@@ -506,9 +509,12 @@ snippet algo "food for thought" bi
 [ ☠️  バグ狩り典型 ]
 - 掛け算→ 溢れないよう割る
 - 引き算いっぱい→ 割り算
+- 誤差対策：A < BはA < B - EPS
 - 配列外参照→ 最小が0以下、最大がN-1
 - 0除算→ 割る数が0になるか考慮
 - オーバーフロー→ long longにしなさい
+- DP初期化忘れ、ループ範囲不足はないか？
+- コーナーケースに問題がないか？
 - 嘘貪欲ではないか？→ 漸化式ができるならDP
 - ◯個のはず、はやめて明確な条件まで愚直ループ
 
