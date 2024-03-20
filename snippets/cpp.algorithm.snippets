@@ -413,6 +413,13 @@ endsnippet
 snippet algo_dp_chdp "chdp knapsack" b
 nx[${3:to}] = ${1:min}(nx[$3], dp[${2:from}] + ${4:cost});
 endsnippet
+snippet algo_dp_seg "dp seg" b
+SegTree<${1:Mmin}<${2:long long}>> ${3:dp}(${4:区間長} + 1);
+$3.set(${5:0}, ${6:初期コスト});
+endsnippet
+snippet algo_dp_chdp_seg "chdp seg" b
+${1:dp}.set(${4:to}, ${2:min}($1[$4], $1.get(${3:from l, r}) + ${5:cost}));
+endsnippet
 
 # TODO 遷移式メインに修正中
 
@@ -462,22 +469,6 @@ endsnippet
 snippet algo_dp_range "dp range" b
 // WIP
 // 区間DP
-endsnippet
-snippet algo_dp_seg "dp seg" b
-// セグ木DP
-SegTree<${1:Mmin}<${2:long long}>> ${3:dp}(${4:区間長} + 1);
-$3.set(${5:0}, ${6:初期コスト});
-for (int i = 0; i < ${7:更新回数}; ++i) {
-	// 区間
-	int l = 0, r = 0;
-	// 新規コスト
-	$2 cost = 0;
-	// 緩和先
-	int upd = 0;
-	// 区間から1点へ配るDP
-	$3.set(upd, min($3[upd], $3.get(l, r) + cost));
-}
-cout << $3[$4] << endl;
 endsnippet
 snippet algo_dp_bit "dp bit" b
 // WIP
