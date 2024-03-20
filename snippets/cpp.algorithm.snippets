@@ -17,11 +17,11 @@
 # Algorithm Search
 # =========================================================
 snippet algo_permu_loop "next permutation" b
-// 順列全探索 O(N!)
+// 順列全探索 O(N!) N<12程度
 do {${2}} while (next_permutation(${1:A}.begin(), $1.end()));
 endsnippet
-snippet algo_permu_seq "permutation sequence" b
-// DFS重複順列列挙 単調増加ならO(N+M-1 choose M-1) 目安 O(N^(M-2))くらいな気がする
+snippet algo_permu_dfs_seq "permutation sequence" b
+// DFS重複順列列挙 単調増加ならO(N+M-1 choose M-1) 目安N<10程度
 // $4 ~ $5 までの数で、要素数${1:N}の数列を順列全探索
 vector<int> ${2:perm}($1);
 auto ${3:dfs} = [&](auto &f, int mi, int mx, int last = 0) -> void {
@@ -40,7 +40,7 @@ auto ${3:dfs} = [&](auto &f, int mi, int mx, int last = 0) -> void {
 $3($3, ${4:1}, ${5:M});
 endsnippet
 snippet algo_bit_loop "bit loop" b
-// bit全探索 O(2^N)
+// bit全探索 O(2^N) N<25程度
 for (${1:long long} ${2:bit} = 0; $2 < (${3:1ll} << ${4:N}); ++$2) {
 	${5:long long} tmp = 0;
 	for (int k = 0; k < $4; ++k) {
@@ -52,7 +52,7 @@ for (${1:long long} ${2:bit} = 0; $2 < (${3:1ll} << ${4:N}); ++$2) {
 }
 endsnippet
 snippet algo_bit_loop_2 "bit loop" b
-// bit全探索 O(2^N)
+// bit全探索 O(2^N) N<25程度
 for (int bit = 0; bit < (1 << ${1:H}); ++bit) {
 	for (int bit2 = 0; bit2 < (1 << ${2:W}); ++bit2) {
 		vector<int> ${3:h}, ${4:w};
@@ -68,7 +68,7 @@ for (int bit = 0; bit < (1 << ${1:H}); ++bit) {
 }
 endsnippet
 snippet algo_bit_n_order "bit N" b
-// ${1:N}桁の${2:K}進数 重複順列 O($2^$1)
+// ${1:N}桁の${2:K}進数 重複順列 O($2^$1) N<10程度
 vector<int> bit($1, 0);
 while (1) {
 	for (int i = 0; i < $1; ++i) {
@@ -205,7 +205,7 @@ endsnippet
 # Algorithm seq
 # =========================================================
 snippet algo_merge "merge" b
-// ${1:A}を${2:B}にマージテク O(amor logN)
+// ${1:A}を${2:B}にマージテク amortized O(logN)
 if ($1.size() > $2.size()) swap($1, $2);
 for (auto &&v : $1) $2.${3:insert}(v);
 $1.clear();
