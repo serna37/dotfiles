@@ -16,7 +16,7 @@ nnoremap vv ^v$h
 inoremap {{ <Esc>A{}<Left>
 
 " deactive K
-nnoremap K :echo 'K'<CR>
+nmap K :echo 'K'<CR>
 
 " SANDBOX CREATE NEXT CPP FILE
 fu! s:asc(x, y) abort
