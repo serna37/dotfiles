@@ -18,20 +18,20 @@
 # =========================================================
 snippet template "template header" b
 #include <bits/stdc++.h>
-using namespace std;${1}
-int main() {${2}
-}
-endsnippet
-snippet tempate_fastio "fast io" b
-#include <bits/stdc++.h>
 using namespace std;
-#define endl "\n"${1}
+// (必要なら)高速改行
+${1}
+// 定数・ライブラリ
+${2}
 int main() {
-	ios::sync_with_stdio(false);
-	cin.tie(0);${2}
-}
+	// (必要なら)高速IO
+	${3}
+
+	${4:algorithm}
+} // 計上パート ans宣言
 endsnippet
 snippet fastio_macro "fast io" b
+// インタラクティブ時は使用不可
 #define endl "\n"
 endsnippet
 snippet fastio_tie "fast io" b
@@ -116,14 +116,18 @@ endsnippet
 snippet lambda "function lambda" b
 auto ${1:cal} = [${2:&}](${3:const int &a}) -> ${4:void} {
 	${5}
+	// 外側と変数名が被った場合
+	// キャプチャより、引数を優先
 };
 endsnippet
 snippet lambda_re "lambda recursive" b
 auto ${1:cal} = [${2:&}](auto &f, ${3:const int &a}) -> ${4:void} {
 	${5:base_case}
-	// memo
-	// no memo
-	f(f, );
+	// 終了条件でreturn
+
+	// メモにあれば使用
+	// なければメモに追加
+	// f(f, ); で再帰呼び出し
 };
 endsnippet
 
@@ -158,6 +162,7 @@ for (int ${1:i} = ${2:0}; $1 <${3:H}; ++$1) {
 }
 endsnippet
 snippet fori_re "for i reverse" b
+// 反転
 for (int ${1:i} = ${2:N-1}; $1 >=${3:0}; --$1) {
 	${4}
 }
@@ -241,10 +246,12 @@ snippet all_rev "iterator reverse" i
 ${1:A}.rbegin(), $1.rend()
 endsnippet
 snippet unique "unique" b
+// sort重複削除
 sort(${1:A}.begin(), $1.end());
 $1.erase(unique($1.begin(), $1.end()), $1.end());
 endsnippet
 snippet transform "transform" b
+// 大文字小文字を変換
 std::transform(${1:str}.begin(), $1.end(), $1.begin(), ::${2:tolower});
 endsnippet
 snippet max_e "max element" i
@@ -268,6 +275,7 @@ snippet swap "swap" b
 swap(${1} , ${2});
 endsnippet
 snippet swap_left "swap left" b
+// $1 < $2を保証する
 if (${1:A} > ${2:B}) swap($1, $2);
 endsnippet
 snippet npos "npos" i

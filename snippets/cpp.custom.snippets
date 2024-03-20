@@ -35,6 +35,8 @@ snippet MAX "MAX int" b
 constexpr int MAX = ${1:2e6};
 endsnippet
 snippet GRID_dydx4 "grid connector" b
+// 下右上左
+// DRUL
 const vector<int> dx = {0, 1, 0, -1};
 const vector<int> dy = {1, 0, -1, 0};
 endsnippet
@@ -120,6 +122,7 @@ ${1:long long} ${2:LCM} = 1;
 for (auto &&${3:v} : ${4:A}) $2 = lcm($2, $3);
 endsnippet
 snippet ren_max "ren max" b
+// 条件を満たす、最大コンボ数
 int ${1:ren_max} = 0;
 for (int ren = 0, ${2:i} = ${3:0}; $2 <${4:N}; ++$2) {
 	ren = ( ${5:condition} ? ren + 1 : 0);
@@ -225,13 +228,17 @@ endsnippet
 snippet graph_cost_in "graph cost in" b
 Graph<${1:long long}> ${2:G}(${3:N});
 for (int i = 0; i < ${4:M}; ++i) {
+	// 頂点
 	int from, to;
 	cin >> from >> to;
 	--from, --to;
+	// コスト
 	$1 cost;
 	cin >> cost;
+	// コストなしの時
 	$2.add(from, to);
 	$2.add(to, from);
+	// コストあり
 	$2.add(from, to, cost, i);
 	$2.add(to, from, cost, i);
 }
@@ -240,13 +247,17 @@ snippet edges_cin "edges in" b
 Graph<${1:long long}> ${2:G}(${3:N});
 vector<Edge<$1>> ${4:E};
 for (int i = 0; i < ${5:M}; ++i) {
+	// 頂点
 	int from, to;
 	cin >> from >> to;
 	--from, --to;
+	// コスト
 	$1 cost;
 	cin >> cost;
+	// コストありグラフ
 	$2.add(from, to, cost, i);
 	$2.add(to, from, cost, i);
+	// 辺
 	$4.push_back({from, to, cost, i});
 }
 endsnippet
