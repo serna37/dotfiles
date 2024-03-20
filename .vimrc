@@ -185,16 +185,17 @@ let g:vista_sidebar_width = 15
 let g:minimap_git_colors = 1
 
 " ### Writing
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 Plug 'markonm/traces.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'matze/vim-move'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-let g:UltiSnipsExpandTrigger="<C-s>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+inoremap <C-s> <Plug>(coc-snippets-expand)
+"let g:UltiSnipsExpandTrigger="<C-s>"
+"let g:UltiSnipsJumpForwardTrigger="<Tab>"
+"let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 fu! s:expandSnippet() abort
     cal feedkeys("A\<C-s>\<Esc>", 'x')
 endf
