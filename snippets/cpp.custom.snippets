@@ -98,6 +98,12 @@ endsnippet
 snippet ceil2 "ceil2" i
 (${1:A} + 1) / 2
 endsnippet
+snippet odd "odd" i
+${1:i} & 1
+endsnippet
+snippet even "even" i
+${1:i} % 2 == 0
+endsnippet
 snippet sum_all "sum all" b
 ${1:long long} ${2:sum} = 0;
 for (auto &&${3:v} : ${4:A}) $2 += $3;
