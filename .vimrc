@@ -20,9 +20,8 @@ nmap K :echo 'K'<CR>
 
 " コメントを消し保存+全コピー
 fu! TrimCommentAllYank() abort
-    %s/\/\/.*/ /g
-    w
-    %y
+    try | %s/\/\/.*/ /g | catch
+    endtry | w | %y
 endf
 nnoremap <silent><Leader>u :<C-u>cal TrimCommentAllYank()<CR><Esc>
 
