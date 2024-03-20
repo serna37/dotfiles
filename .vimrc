@@ -247,17 +247,9 @@ nnoremap <Leader>, <plug>(coc-diagnostic-next)
 nnoremap <Leader>. <plug>(coc-diagnostic-prev)
 nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : comfortable_motion#flick(100)
 nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : comfortable_motion#flick(-100)
-fu! s:cppFmt() abort
-    "execute("v/./d")
-    try
-        cal CocAction('format')
-    catch
-    endtry
-endf
 aug fmt_cpp
     au!
-    "au BufWrite *.cpp :try | cal CocAction('format') | catch | endtry
-    au BufWrite *.cpp cal <SID>cppFmt()
+    au BufWrite *.cpp :try | cal CocAction('format') | catch | endtry
 aug END
 
 " ### util
