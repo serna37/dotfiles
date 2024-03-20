@@ -395,8 +395,8 @@ endsnippet
 # =========================================================
 snippet algo_dp "dp" b
 // DP i番目の行での${1:M}個の状態
-${2:vector<int>} def($1+1, ${3:INF});
-auto dp = def, nx = dp;
+${2:vector<int>} ${3:def}($1+1, ${4:INF});
+auto dp = $3, nx = dp;
 endsnippet
 snippet algo_dp_ini "dp ini" b
 dp[${1:0}] = ${2:0};
@@ -410,13 +410,14 @@ endsnippet
 snippet algo_dp_add "dp add" b
 nx[${1:j + 1}] += dp[${2:j}];
 endsnippet
-snippet algo_dp_chdp "dp knapsack" b
+snippet algo_dp_chdp "chdp knapsack" b
 nx[${3:to}] = ${1:min}(nx[$3], dp[${2:from}] + ${4:cost});
 endsnippet
 
 # TODO 遷移式メインに修正中
 
 snippet algo_dp_knapsack_alt "dp knapsack alt" b
+// TODO これ理解したら汎用化したいね
 int ${1:V} = ${2:1e5};
 vector<vector<${3:int}>> dp(${4:N} + 1, vector<$3>($1 + 1, inf<$3>));
 dp[0][0] = 0;
@@ -438,7 +439,7 @@ cout << ans << endl;
 endsnippet
 
 snippet algo_dp_lcs "dp lcs" b
-// WIP
+// WIP これは長さだけ。本体を求めるものもある
 // LCS
 int ${3:s} = ${1:S}.size(), ${4:t} = ${2:T}.size();
 vector<vector<int>> dp($3 + 1, vector<int>($4 + 1, 0));
@@ -483,7 +484,8 @@ snippet algo_dp_bit "dp bit" b
 // bit集合DP
 endsnippet
 snippet algo_dp_tree "dp tree" b
-// 木DP
+// TODO
+// 頂点vの部分木を対象とした木DP
 vector<${1:long long}> dp(${2:N}, ${3:0});
 auto dfs = [&](auto &f, int v, int par = -1) -> void {
 	if (${4:tree}[v].size() == 1) {

@@ -37,7 +37,7 @@ snippet PI "PI" b
 const double PI = acos(-1);
 endsnippet
 snippet MAX "MAX int" b
-constexpr int MAX = ${1:5e5};
+constexpr int MAX = ${1:2e6};
 endsnippet
 
 # =========================================================
@@ -90,7 +90,7 @@ snippet range "range" i
 ${1:S}[${2:i} + ${3:M}] - $1[$2]
 endsnippet
 snippet nc2 "nc2" i
-${1:(long long)} ${2:val} * ($2 - 1) / 2;
+${1:(long long)} ${2:val} * ($2 - 1) / 2
 endsnippet
 snippet ceil "ceil" i
 (${1:A} + ${2:B} - 1) / $2
@@ -285,3 +285,4 @@ endsnippet
 snippet cout_fixed_setprecision "fixed setprecision" b
 cout << fixed << setprecision(${1:20});
 endsnippet
+
