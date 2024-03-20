@@ -17,34 +17,42 @@
 # Algorithm Search
 # =========================================================
 snippet algo_permu_loop "next permutation" b
-// 順列全探索 O(N!) N<12程度
+// 順列全探索
+// O(N!) N < 12程度
 do {${2}} while (next_permutation(${1:A}.begin(), $1.end()));
 endsnippet
 snippet algo_permu_dfs_seq "permutation sequence" b
-// DFS重複順列列挙 単調増加ならO(N+M-1 choose M-1) 目安N<10程度
+// DFSでの重複順列列挙
+// 単調増加ならO(N+M-1 choose M-1) 目安
+// N < 10程度
 // $4 ~ $5 までの数で、要素数${1:N}の数列を順列全探索
 vector<int> ${2:perm}($1);
 auto ${3:dfs} = [&](auto &f, int mi, int mx, int last = 0) -> void {
 	if (last == $1) {
-		// ベースケース。前周までで$1-1要素つくった、今=$1のとき終了
+		// ベースケース
+		// 前周までで$1-1要素つくった、今=$1のとき終了
 		${6:some}
 		return;
 	}
 	for (int i = mi; i <= mx; ++i) {
 		$2[last] = i;
-		// mi = i + 1; // 狭義単調増加
-		// mi = i; // 広義単調増加
+		// 狭義単調増加の場合
+		// mi = i + 1;
+
+		// 広義単調増加の場合
+		// mi = i;
 		f(f, mi, mx, last + 1);
 	}
 };
 $3($3, ${4:1}, ${5:M});
 endsnippet
 snippet algo_bit_loop "bit loop" b
-// bit全探索 O(2^N) N<25程度
+// bit全探索
+// O(2^N) N < 25程度
 for (${1:long long} ${2:bit} = 0; $2 < (${3:1ll} << ${4:N}); ++$2) {
 	${5:long long} tmp = 0;
 	for (int k = 0; k < $4; ++k) {
-		// k番目を使うか
+		// k番目を使うかどうか
 		if ($2 & ($3 << k)) {
 			tmp |= ${6:A}[k];
 		}
@@ -52,23 +60,30 @@ for (${1:long long} ${2:bit} = 0; $2 < (${3:1ll} << ${4:N}); ++$2) {
 }
 endsnippet
 snippet algo_bit_loop_2 "bit loop" b
-// bit全探索 O(2^N) N<25程度
+// bit全探索
+// O(2^N) N < 25程度
 for (int bit = 0; bit < (1 << ${1:H}); ++bit) {
 	for (int bit2 = 0; bit2 < (1 << ${2:W}); ++bit2) {
 		vector<int> ${3:h}, ${4:w};
 		for (int k = 0; k < $1; ++k) {
-			// k番目を使うか
+			// $1側の
+			// k番目を使う場合、この配列にidx入れてる
 			if (bit & (1 << k)) $3.push_back(k);
 		}
+
 		for (int k = 0; k < $2; ++k) {
-			// k番目を使うか
+			// $2側の
+			// k番目を使う場合、この配列にidx入れてる
 			if (bit2 & (1 << k)) $4.push_back(k);
 		}
 	}
 }
 endsnippet
 snippet algo_bit_n_order "bit N" b
-// ${1:N}桁の${2:K}進数 重複順列 O($2^$1) N<10程度
+// ${1:N}桁
+// ${2:K}進数
+// 非再帰 重複順列列挙
+// O($2^$1) N < 10程度
 vector<int> bit($1, 0);
 while (1) {
 	for (int i = 0; i < $1; ++i) {
@@ -77,13 +92,17 @@ while (1) {
 	// インクリメント
 	int order = $1 - 1, stop = 0;
 	while (1) {
-		++bit[order];
+		++bit[order]; // 下1桁目から増やす
 		if (bit[order] < $2) break; // くりあげ終了
-		if (order == 0) { // 最大桁が溢れた
+
+		// 最大桁が溢れたら全体whileを終了
+		if (order == 0) {
 			stop = 1;
 			break; 
 		}
-		bit[order--] = 0; // 繰り上げて次の桁
+
+		// 繰り上げるので今の桁は0、次の桁に行く
+		bit[order--] = 0;
 	}
 	if (stop) break;
 }
@@ -97,7 +116,10 @@ cout << $1 << endl;
 endsnippet
 snippet algo_syakutori "syakutori" b
 // 尺取法 O(N)
-// l固定、できるだけrを増やす。区間はr-l個
+// 連続の和が$4以下である、最大長を求める
+// 1. lを固定する
+// 2. できるだけrを増やす
+// 3. 区間の個数はr-l個
 for (int l = 0, r = 0, ${1:sum} = 0; l < ${2:N}; $1 -= ${3:A}[l++]) {
 	while (r < $2 and $1 + $3[r] <= ${4:K}) {
 		$1 += $3[r++];
@@ -114,17 +136,20 @@ snippet algo_bisearch "bisearch" b
 auto ${1:test} = [&](${2:long long} x) -> bool {
 	${3:return x >= K}
 };
+// $4: ダメな左側    $5: 満たす右側
 $2 ${4:L} = 0, ${5:R} = 1, ${6:MID} = 0;
 while (!$1($5)) $5 <<= 1; // 指数探索
 while ($5 - $4 > 1) ($1($6 = $4 + ($5 - $4) / 2) ? $5 : $4) = $6;
 cout << $5 << endl;
 endsnippet
 snippet algo_bi_ika_cnt "ika cnt" b
-// $3のうち、$4以下の個数 = $4より大きい最左のidx
+// $3のうち、$4以下の個数
+// $4より大きい最左のidx
 ${1:int} ${2:cnt} = upper_bound(${3:A}.begin(), $3.end(), ${4:x}) - $3.begin();
 endsnippet
 snippet algo_bi_sita_cnt "sita cnt" b
-// $3のうち、$4より下の個数 = $4以上最左のidx
+// $3のうち、$4より下の個数
+// $4以上最左のidx
 ${1:int} ${2:cnt} = lower_bound(${3:A}.begin(), $3.end(), ${4:x}) - $3.begin();
 endsnippet
 snippet algo_bi_izyou_cnt "izyou cnt" b
@@ -163,6 +188,8 @@ endsnippet
 # =========================================================
 snippet algo_zeta "ruisekiwa" b
 // 累積和$2_i := 0-indexedで$4のi個分の和
+// forループ、漸化は固定で
+// +A[i]以降はカスタムできる
 vector<${1:long long}> ${2:S}(${3:N} + 1);
 for (int i = 0; i < $3; ++i) {
 	$2[i + 1] = $2[i] + ${4:A}[i];
@@ -170,6 +197,8 @@ for (int i = 0; i < $3; ++i) {
 endsnippet
 snippet algo_zeta_rev "ruisekiwa reverse" b
 // 累積和$2_i := 0-indexedで$4のi個分の和
+// for rev ループ、漸化は固定で
+// +A[i]以降はカスタムできる
 vector<${1:long long}> ${2:R}(${3:N} + 1);
 for (int i = $3 - 1; i >= 0; --i) {
 	$2[i] = $2[i + 1] + ${4:A}[i];
@@ -178,11 +207,13 @@ endsnippet
 snippet algo_zeta_2D "2d ruisekiwa" b
 // 2次元ゼータ変換
 vector<vector<${1:long long}>> ${2:S}(${3:H} + 1, vector<$1>(${4:W} + 1));
+// まず横向きに足す
 for (int i = 0; i < $3; ++i) {
 	for (int j = 0; j < $4; ++j) {
 		$2[i + 1][j + 1] = $2[i + 1][j] + ${5:A}[i][j];
 	}
 }
+// 次に縦向きに足す
 for (int i = 0; i < $3; ++i) {
 	for (int j = 0; j < $4; ++j) {
 		$2[i + 1][j + 1] += $2[i][j + 1];
@@ -197,8 +228,13 @@ for (int i = 0; i < $3; ++i) {
 endsnippet
 snippet algo_imos "imos" b
 // imos
+// 操作区間がlからrなら
+// lに足し、r+1から引く
+// 末端が配列範囲外なら、操作しなくていい
 ${3:++}${1:A}[${2:l}];
-${5:--}$1[${4:r+1}];
+if ($4 < ${6:N}) ${5:--}$1[${4:r+1}];
+// このあと累積和で復元する
+algo_zeta
 endsnippet
 snippet algo_imos_2D "2d imos" b
 // TODO
@@ -208,7 +244,8 @@ endsnippet
 # Algorithm seq
 # =========================================================
 snippet algo_merge "merge" b
-// ${1:A}を${2:B}にマージテク amortized O(logN)
+// ${1:A}を${2:B}にマージテク
+// amortized O(logN)
 if ($1.size() > $2.size()) swap($1, $2);
 for (auto &&v : $1) $2.${3:insert}(v);
 $1.clear();
@@ -216,40 +253,56 @@ endsnippet
 snippet algo_zip "zip" b
 // 座標圧縮 O(NlogN)
 vector<${1:long long}> ${2:cvt} = ${3:target};
+// sort重複削除
 sort($2.begin(), $2.end());
 $2.erase(unique($2.begin(), $2.end()), $2.end());
+// 元配列でにぶたんした、idxに変換する(圧縮)
 for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
+// 重複削除後の種類数
 int ${4:sz} = $2.size();
 endsnippet
 snippet algo_fwk "fwk" b
 // Fenwick Tree O(logN)
+// 1-indexedなので注意する
 vector<${1:int}> ${2:fwk}(${3:N+1});
 endsnippet
 snippet algo_fwk_build "fwk build" b
+// Fenwick Treeを配列$4でビルドする
 for (int i = 1, f = i + (i & -i); i <= ${1:N}; ++i, f = i + (i & -i)) {
 	${2:fwk}[i] ${3:+}= ${4:A}[i - 1];
 	if (f <= $1) $2[f] $3= $2[i];
 }
 endsnippet
 snippet algo_fwk_act "fwk act" b
+// Fenwick Tree 1点更新
 for (int ${1:f} = ${2:1-idx}; $1 <= ${3:N}; $1 += $1 & -$1) ${4:fwk}[$1] ${5:+}= ${6:act_value};
 endsnippet
 snippet algo_fwk_get "fwk get" b
-for (int ${1:f} = ${2:1-idx}; $1; $1 -= $1 & -$1) ${3:sum} ${4:+}= ${5:fwk}[$1];
+// Fenwick Tree 区間取得
+// $3に値を入れる
+for (int ${1:f} = ${2:1-idx}; $1; $1 -= $1 & -$1) ${3:ans} ${4:+}= ${5:fwk}[$1];
 endsnippet
 snippet algo_seq_inv "seq inv" b
 // 転頭数 O(NlogN)
+// $3配列の転倒数を求める
 vector<${1:long long}> ${2:cvt} = ${3:A};
+// 座標圧縮
 sort($2.begin(), $2.end());
 $2.erase(unique($2.begin(), $2.end()), $2.end());
 for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
+// 圧縮後の種類数
 int ${5:sz} = $2.size();
+// 追加しながらFenwick Treeの右側を足し上げる
 vector<int> ${6:fwk}($5 + 1);
 ${7:long long} ${8:inv} = 0; // 転倒数: 右に倒れる$3_i > $3_j (i < j)の回数
 int ${9:R} = $5 - 1; // 座標圧縮したため最大要素 = サイズ-1
 for (int i = 0; i < ${10:N}; ++i) {
+	// 全区間
 	for (int f = $9 + 1; f; f -= f & -f) $8 += $6[f];
+	// 今の数以下の個数を引く
+	// 今より左側の数列で、今の数「より大きいもの」の個数を数える
 	for (int f = $3[i] + 1; f; f -= f & -f) $8 -= $6[f];
+	// 今の数をカウント+1
 	for (int f = $3[i] + 1; f <= $5; f += f & -f) ++$6[f];
 }
 endsnippet
@@ -261,13 +314,17 @@ snippet algo_bfs "bfs" b
 // 単一始点BFS O(N+M)
 queue<int> q;
 vector<int> dis(${1:N}, -1);
+// 始点をセット
 q.push(${2:0});
 dis[$2] = 0;
 while (!q.empty()) {
 	int v = q.front();
 	q.pop();
+	// 連結頂点へ
 	for (auto &&nv : ${3:G}[v]) {
+		// 初訪問のみ
 		if (dis[nv] == -1) {
+			// 距離+1
 			dis[nv] = dis[v] + 1;
 			q.push(nv);
 		}
@@ -278,6 +335,7 @@ snippet algo_bfs_multi_start "bfs multi start" b
 // 複数始点BFS O(N+M)
 queue<int> q;
 vector<int> dis(${1:N}, -1);
+// 複数の始点をセットする
 for (int i = 0; i < ${2:K}; ++i) {
 	q.push(${3:C[i]});
 	dis[$3] = 0;
@@ -285,8 +343,11 @@ for (int i = 0; i < ${2:K}; ++i) {
 while (!q.empty()) {
 	int v = q.front();
 	q.pop();
+	// 連結頂点へ
 	for (auto &&nv : ${4:G}[v]) {
+		// 初訪問のみ
 		if (dis[nv] == -1) {
+			// 距離+1
 			dis[nv] = dis[v] + 1;
 			q.push(nv);
 		}
@@ -296,16 +357,25 @@ endsnippet
 snippet algo_bfs_grid "bfs grid" b
 // 単一始点グリッドBFS O(N+M)
 queue<pair<int, int>> q;
+// 始点の座標
 q.push({${1:sy}, ${2:sx}});
 vector<vector<int>> dis(${3:H}, vector<int>(${4:W}, -1));
+// 始点は距離0
 dis[$1][$2] = 0;
 while (!q.empty()) {
+	// 今の点の座標
 	auto [py, px] = q.front();
 	q.pop();
+	// 4方グリッドへすすむ
 	for (int i = 0; i < 4; ++i) {
 		int y = py + dy[i], x = px + dx[i];
+
+		// 領域外なら無視
 		if (y < 0 or x < 0 or $3 <= y or $4 <= x) continue;
+
+		// 初訪問かつ、行けるマスであれば
 		if (dis[y][x] == -1 and cango(${5:G}[y][x])) {
+			// 距離+1
 			dis[y][x] = dis[py][px] + 1;
 			q.push({y, x});
 		}
@@ -314,44 +384,56 @@ while (!q.empty()) {
 endsnippet
 snippet algo_grid_dydx "dydx" b
 int y = ${1:i}, x = ${2:j}; // 始点とする
-y += dy[${3:d}], x += dx[$3];
+y += dy[${3:d}], x += dx[$3]; // マス移動する
 endsnippet
 snippet algo_grid_filter "bfs grid filter" b
 // 領域外
-if (${1:y} < 0 or ${2:x} < 0 or ${3:row} <= $1 or ${4:col} <= $2) continue;
+if (${1:y} < 0 or ${2:x} < 0 or ${3:row} <= $1 or ${4:col} <= $2) ${5:continue};
 endsnippet
 snippet algo_grid_cango "grid cango" b
-// 進めるか判定
+// 進めるか判定する関数
 auto cango = [](const char &a) -> bool {
 	string white = "${1:.SG}";
 	return white.find(a) != string::npos;
 };
 endsnippet
 snippet algo_grid_toguro "toguro" b
-int y = 0, x = 0, d = 0;
+// グリッドをとぐろ状に進む
+// 始点、方向d
+int y = 0, x = 0, d = 0; // GRID_dydxのインデックスと対応
 for
-y += dy[d], x += dx[d];
+y += dy[d], x += dx[d]; // d方向に進む
+// 領域外、または進めないマスの場合
 if (y < 0 or x < 0 or ${1:row} <= y or ${2:col} <= x or G[y][x] != -1) {
 	y -= dy[d], x -= dx[d]; // やっぱ戻って
 	++d, d %= 4; // 方向変えて
-	y += dy[d], x += dx[d]; // 進直す
+	y += dy[d], x += dx[d]; // 進み直す
 }
 endsnippet
 snippet algo_grid_bingo "bingo" b
+// 縦横ナナメに、そろっているか判定
 vector<int> cx(${1:N}); // クロス1
 iota(cx.begin(), cx.end(), 0);
+
 vector<int> cy = cx; // クロス2
 reverse(cy.begin(), cy.end());
+
 bool c1 = true, c2 = true;
+
+// 確認する値
 ${2:int} check_val = ${3:-1};
 for (int i = 0; i < $1; ++i) {
-	c1 &= ${4:A}[i][cx[i]] == check_val; // 左上から右下
-	c2 &= $4[i][cy[i]] == check_val; // 右上から左下
+	// ナナメを判定
+	c1 &= ${4:A}[i][cx[i]] == check_val; // 左上から右下にallmatch
+	c2 &= $4[i][cy[i]] == check_val; // 右上から左下にallmatch
+
+	// 縦横を判定
 	bool alma = true, alma2 = true;
 	for (int j = 0; j < $1; ++j) {
 		alma &= $4[i][j] == check_val; // 行内でallmatch
 		alma2 &= $4[j][i] == check_val; // 列内でallmatch
 	}
+
 	if (alma or alma2) {
 		cout << "TODO row col allmatch" << endl;
 	}
@@ -397,23 +479,37 @@ endsnippet
 # Algorithm DP
 # =========================================================
 snippet algo_dp "dp" b
+// 作りたいものの状態を、時間順に配列にしよう
 // DP i番目の行での${1:M}個の状態
+// $3は構造の定義
 ${2:vector<int>} ${3:def}($1+1, ${4:INF});
 auto dp = $3, nx = dp;
+// 今行をdp、次行をnx、swapすることで2次元テーブルを省エネ
+// 最終的にはdpに答えが入る
+// DPテーブルを初期化すること
 endsnippet
 snippet algo_dp_ini "dp ini" b
 dp[${1:0}] = ${2:0};
 endsnippet
 snippet algo_dp_for "dp for" b
 for (int i = 0; i < ${1:N}; ++i, swap(dp, nx)) {
+	// 今行を次行に遷移し、行を埋める
+	// 選ばない場合の、緩和や通り数の加算はnx=dp
 	nx = ${2:dp=i番目を選ばない場合の緩和 or def=必ず選ぶ場合};
-	${3:横向きループ 0 <= M で遷移式}
+	// 漸化式部分
+	${3}
 }
 endsnippet
 snippet algo_dp_add "dp add" b
+// dp_j  dp_j+1
+//      ↘︎ ↓
+// nx_j  nx_j+1
 nx[${1:j + 1}] += dp[${2:j}];
 endsnippet
 snippet algo_dp_chdp "chdp knapsack" b
+// dp_from   dp(nx=dpで緩和済み)
+//    +cost ↘︎  ↓
+//          nx_to
 nx[${3:to}] = ${1:min}(nx[$3], dp[${2:from}] + ${4:cost});
 endsnippet
 snippet algo_dp_seg "dp seg" b
@@ -421,6 +517,9 @@ SegTree<${1:Mmin}<${2:long long}>> ${3:dp}(${4:区間長} + 1);
 $3.set(${5:0}, ${6:初期コスト});
 endsnippet
 snippet algo_dp_chdp_seg "chdp seg" b
+// | dp_l  dp_l+1  ... dp_r-1 | dp_r  ...
+//      ↘︎ ↘︎ ↓ ↓ ↙︎ ↙︎  区間取得+cost
+//         dp_to   と緩和
 ${1:dp}.set(${4:to}, ${2:min}($1[$4], $1.get(${3:from l, r}) + ${5:cost}));
 endsnippet
 
