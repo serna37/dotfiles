@@ -18,6 +18,14 @@ inoremap {{ <Esc>A{}<Left>
 " deactive K
 nmap K :echo 'K'<CR>
 
+" コメントを消し保存+全コピー
+fu! TrimCommentAllYank() abort
+    %s/\/\/.*/ /g
+    w
+    %y
+endf
+nnoremap <silent><Leader>u :<C-u>cal TrimCommentAllYank()<CR><Esc>
+
 " SANDBOX CREATE NEXT CPP FILE
 fu! s:asc(x, y) abort
     return a:x == a:y ? 0 : a:x > a:y ? 1 : -1
