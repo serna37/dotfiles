@@ -495,7 +495,8 @@ snippet algo_dp_for "dp for" b
 for (int i = 0; i < ${1:N}; ++i, swap(dp, nx)) {
 	// 今行を次行に遷移し、行を埋める
 	// 選ばない場合の、緩和や通り数の加算はnx=dp
-	nx = ${2:dp=i番目を選ばない場合の緩和 or def=必ず選ぶ場合};
+	// 必ず選ぶ場合、初期化行にしたい場合nx=def
+	nx = ${2:dp def};
 	// 漸化式部分
 	${3}
 }
