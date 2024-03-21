@@ -556,9 +556,9 @@ for (int i = 0; i < ${1:N}; ++i, swap(dp, nx)) {
 endsnippet
 snippet algo_dp_add "dp add" b
 // ===========================
-// dp_j  dp_j+1
+// dp_j  dp_$1
 //      ↘︎ ↓
-// nx_j  nx_j+1
+// nx_j  nx_$1
 nx[${1:j + 1}] += dp[${2:j}];
 endsnippet
 snippet algo_dp_chdp "chdp knapsack" b
