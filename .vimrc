@@ -136,7 +136,7 @@ tnoremap <C-x> <C-w><S-n>
 tnoremap <silent><C-t> <C-\><C-n>:FloatermNew<CR>
 tnoremap <silent><S-Tab> <C-\><C-n>:FloatermNext<CR>
 let g:floaterm_keymap_toggle = '<F12>'
-let g:floaterm_width = 0.5
+let g:floaterm_width = 0.7
 let g:floaterm_height = 0.7
 let g:floaterm_position = 'bottomright'
 
