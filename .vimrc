@@ -45,8 +45,6 @@ fu! Fmt4Submisstion() abort
     " 2. debug出力も削除
     try | %s/debug(.*/ /g | catch
     endtry
-    try | %s/debug_grid(.*/ /g | catch
-    endtry
 
     " 3. //から右を全て削除
     try | %s/\/\/.*/ /g | catch
