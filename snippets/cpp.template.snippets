@@ -309,6 +309,17 @@ snippet __builtin_popcountll "__builtin_popcountll" i
 __builtin_popcountll(${1})
 endsnippet
 
+# do not use rand
+snippet random "Mersenne Twister" b
+// [a, b)で乱数生成 メルセンヌツイスタ
+mt19937 ${1:mt}(chrono::steady_clock::now().time_since_epoch().count());
+auto ${2:gen} = [&](int a, int b) -> int {
+	uniform_int_distribution<int> dist(a, b - 1);
+	return dist($1);
+};
+int ${3:randome_number} = $2(${4:1}, ${5:1e3 + 1});
+endsnippet
+
 # =========================================================
 # wrap
 # =========================================================
