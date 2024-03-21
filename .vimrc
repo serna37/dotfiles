@@ -18,12 +18,45 @@ inoremap {{ <Esc>A{}<Left>
 " deactive K
 nmap K :echo 'K'<CR>
 
-" コメントを消し保存+全コピー
-fu! TrimCommentAllYank() abort
+fu! Fmt4Submisstion() abort
+    " 0. clangdが停止しているとフォーマッタ機能しないので再読み込み
+    e!
+
+    " 1. debug定義を削除
+    " // --- debug_start
+    " から
+    " // --- debug_end
+    " までの行を全て削除
+    let flg = 0
+    let row = 0
+    for v in getline(0, '$')
+        let row += 1
+        if v == '// --- debug_start'
+            let flg = 1
+        endif
+        if v == '// --- debug_end'
+            let flg = 0
+        endif
+        if flg
+            cal setline(row, '')
+        endif
+    endfor
+
+    " 2. debug出力も削除
+    try | %s/debug(.*/ /g | catch
+    endtry
+
+    " 3. //から右を全て削除
     try | %s/\/\/.*/ /g | catch
-    endtry | w | %y
+    endtry
+
+    " 4. 保存時点でフォーマッタが走る、全コピ
+    w | %y
+
+    " end. 一番上にいく
+    cal cursor(1, 1)
 endf
-nnoremap <silent><Leader>u :<C-u>cal TrimCommentAllYank()<CR><Esc>
+nnoremap <silent><Leader>u :<C-u>cal Fmt4Submisstion()<CR><Esc>
 
 " SANDBOX CREATE NEXT CPP FILE
 fu! s:asc(x, y) abort
