@@ -19,16 +19,33 @@
 snippet template "template header" b
 #include <bits/stdc++.h>
 using namespace std;
-// (必要なら)高速改行
-${1}
-// 定数・ライブラリ
-${2}
+${1:定数・ライブラリ}
 int main() {
-	// (必要なら)高速IO
-	${3}
-	// 出力は小数ですか？
+	// ===============
+	// 小数setprecision
+	// MOD
+	// long long
+	// 困ったらalgo
+	// ===============
+	${2}
+} // 計上パート ans宣言
+endsnippet
+snippet template_fastio "template with fastio" b
+#include <bits/stdc++.h>
+using namespace std;
+// インタラクティブ時は使用不可
+#define endl "\n"
+${1:定数・ライブラリ}
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+	// ===============
+	// 小数setprecision
+	// MOD
+	// long long
+	// 困ったらalgo
+	// ===============
 	${4}
-
 } // 計上パート ans宣言
 endsnippet
 snippet fastio_macro "fast io" b
