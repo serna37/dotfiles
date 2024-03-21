@@ -58,6 +58,9 @@ fu! Fmt4Submisstion() abort
 endf
 nnoremap <silent><Leader>u :<C-u>cal Fmt4Submisstion()<CR><Esc>
 
+" clangd再起動のため、バッファ再読み込み
+nnoremap <silent><Leader><Leader><Leader> :<C-u>e!<CR>
+
 " SANDBOX CREATE NEXT CPP FILE
 fu! s:asc(x, y) abort
     return a:x == a:y ? 0 : a:x > a:y ? 1 : -1

@@ -317,6 +317,8 @@ snippet debug "debug" b
 debug(${1});
 endsnippet
 snippet template_debug "debug" b
+#include <bits/stdc++.h>
+using namespace std;
 // --- debug_start
 // ==========================================================================
 // ==========================================================================
@@ -367,12 +369,12 @@ template <typename A, typename B> string to_string(pair<A, B> p) {
 template <typename A, typename B, typename C>
 string to_string(tuple<A, B, C> p) {
 	return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " +
-		   to_string(get<2>(p)) + ")";
+					to_string(get<2>(p)) + ")";
 }
 template <typename A, typename B, typename C, typename D>
 string to_string(tuple<A, B, C, D> p) {
 	return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " +
-		   to_string(get<2>(p)) + ", " + to_string(get<3>(p)) + ")";
+					to_string(get<2>(p)) + ", " + to_string(get<3>(p)) + ")";
 }
 void debug_out() {
 	cerr << endl;
@@ -385,5 +387,18 @@ template <typename Head, typename... Tail> void debug_out(Head H, Tail... T) {
 // --- debug_end
 // ==========================================================================
 // ==========================================================================
+
+${1:定数・ライブラリ}
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+	// ===============
+	// 小数setprecision
+	// MOD
+	// long long
+	// 困ったらalgo
+	// ===============
+	${2}
+} // 計上パート ans宣言
 endsnippet
 
