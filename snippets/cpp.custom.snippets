@@ -7,6 +7,7 @@
 #    calculation ................. |calculation template|
 #    input ....................... |std cin|
 #    output ...................... |std cout|
+#    debug ....................... |debug|
 #
 #==============================================================================
 
@@ -307,5 +308,27 @@ cout << endl;
 endsnippet
 snippet cout_fixed_setprecision "fixed setprecision" b
 cout << fixed << setprecision(${1:20});
+endsnippet
+
+# =========================================================
+# debug
+# =========================================================
+snippet algo_debug "debug" b
+// ========================================================
+{
+	auto debug = [&]() -> void {
+		/** [a, b)で乱数生成 メルセンヌツイスタ */
+		mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
+		auto gen = [&](int a, int b) -> int {
+			uniform_int_distribution<int> dist(a, b - 1);
+			return dist(mt);
+		};
+		// 入力を作成
+		int N = gen(1, 1e3);
+		cout << N << endl;
+	};
+	debug();
+}
+// ========================================================
 endsnippet
 
