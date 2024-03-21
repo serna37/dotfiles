@@ -20,7 +20,7 @@ nmap K :echo 'K'<CR>
 
 fu! Fmt4Submisstion() abort
     " 0. clangdが停止しているとフォーマッタ機能しないので再読み込み
-    e!
+    w | e!
 
     " 1. debug定義を削除
     " // --- debug_start
@@ -61,7 +61,7 @@ endf
 nnoremap <silent><Leader>u :<C-u>cal Fmt4Submisstion()<CR><Esc>
 
 " clangd再起動のため、バッファ再読み込み
-nnoremap <silent><Leader><Leader><Leader> :<C-u>e!<CR>
+nnoremap <silent><Leader><Leader><Leader> :<C-u>w<CR>:e!<CR>
 
 " SANDBOX CREATE NEXT CPP FILE
 fu! s:asc(x, y) abort
