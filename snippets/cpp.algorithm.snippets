@@ -135,14 +135,30 @@ endsnippet
 snippet algo_bisearch "bisearch" b
 // にぶたん O(logN)
 auto ${1:test} = [&](${2:long long} x) -> bool {
+	// 条件を記述
+	// x x x o o o o
+	//       ↑ここを求める
 	${3:return x >= K}
 };
 // $4: ダメな左側    $5: 満たす右側
 $2 ${4:L} = 0, ${5:R} = 1, ${6:MID} = 0;
 while (!$1($5)) $5 <<= 1; // 指数探索
-while ($5 - $4 > 1) ($1($6 = $4 + ($5 - $4) / 2) ? $5 : $4) = $6;
-// 整数でなく実数の場合、差が1はダメなのでループ回数を決める
-// 差がEPSでもいい
+while (abs($5 - $4) > 1) ($1($6 = $4 + ($5 - $4) / 2) ? $5 : $4) = $6;
+cout << $5 << endl;
+endsnippet
+snippet algo_bisearch_real_numbers "bisearch R" b
+// 実数にぶたん O(logN)
+auto ${1:test} = [&](${2:double} x) -> bool {
+	// 条件を記述
+	// x x x o o o o
+	//       ↑ここを求める
+	${3:return x >= K}
+};
+// $4: ダメな左側    $5: 満たす右側
+$2 ${4:L} = 0, ${5:R} = 1, ${6:MID} = 0;
+while (!$1($5)) $5 *= 2; // 指数探索
+while (abs($5 - $4) > EPS and abs($5 - $4) / max($5, $4) > EPS)
+	($1($6 = $4 + ($5 - $4) / 2) ? $5 : $4) = $6;
 cout << $5 << endl;
 endsnippet
 snippet algo_bi_ika_cnt_idx "ika cnt" b
