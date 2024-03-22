@@ -16,6 +16,7 @@
 # =========================================================
 snippet PI "PI" b
 const double PI = acos(-1);
+auto rad = [](const double &d) -> double { return d * PI / 180; };
 endsnippet
 snippet INF "infinity int" b
 constexpr int INF = 1e9;
