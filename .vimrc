@@ -55,7 +55,7 @@ fu! Fmt4Submisstion() abort
 
     " end. 一番上にいく
     cal cursor(1, 1)
-    cal popup_notification(['⭐️ 圧縮&コピー完了⭐️'], #{line: &lines})
+    cal popup_notification(['⭐️ 圧縮&コピー完了⭐️'], #{line: &lines/2, col: &columns/3})
 endf
 nnoremap <silent><Leader>u :<C-u>cal Fmt4Submisstion()<CR><Esc>
 
