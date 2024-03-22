@@ -208,8 +208,8 @@ nnoremap <silent><Leader>g :cal <SID>grep()<CR>
 au DirChanged * cal execute('CocCommand explorer --no-focus --width 30')
 
 " ### Git
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+"Plug 'tpope/vim-fugitive'
+"Plug 'airblade/vim-gitgutter' " <- too heavy with clangd LSP, snippet stop.
 
 " ### Reading
 Plug 'junegunn/rainbow_parentheses.vim'
