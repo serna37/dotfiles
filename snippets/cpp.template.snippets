@@ -16,15 +16,20 @@
 # =========================================================
 # template
 # =========================================================
-snippet serna37_w "template header" b
+snippet serna37_w "template base" b
 #include <bits/stdc++.h>
 using namespace std;
 // =====================================
-// XXX 要削除
+// XXX 提出前に要削除
 #include <bits/debug.hpp>
+// =====================================
+// ⭐️ fastio_macro
+// ⭐️ INF__MAX__MOD__GRID__PI__EPS(modify)
 // =====================================
 ${1}
 int main() {
+	// ⭐️ fastio_tie
+	// ⭐️ cout_fixed_setprecision double
 	${2}
 }
 endsnippet
@@ -37,10 +42,13 @@ ios::sync_with_stdio(false);
 cin.tie(0);
 endsnippet
 snippet include_debug "debug" b
+// =====================================
+// XXX 要削除
 // cp ~/git/dotfiles/cpp/debug.hpp /opt/homebrew/Cellar/gcc/13.2.0/include/c++/13/aarch64-apple-darwin22/bits
 // or
 // cp ~/git/library/others/debug.hpp /opt/homebrew/Cellar/gcc/13.2.0/include/c++/13/aarch64-apple-darwin22/bits
 #include <bits/debug.hpp>
+// =====================================
 endsnippet
 
 # =========================================================
