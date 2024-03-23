@@ -1,5 +1,5 @@
 " ############################################################
-" #### Custom
+" #### Base
 " ############################################################
 " leader
 let mapleader = "\<Space>"
@@ -9,16 +9,20 @@ inoremap <expr><CR> pumvisible() ? '<C-y>' : '<CR>'
 inoremap <expr><Tab> pumvisible() ? '<C-n>' : '<C-t>'
 inoremap <expr><S-Tab> pumvisible() ? '<C-p>' : '<S-Tab>'
 
-" row visual
+" ############################################################
+" #### Custom
+" ############################################################
+
+" 先頭空白と改行コードを除く行選択
 nnoremap vv ^v$h
 
-" deactive K
-nmap K :echo 'K'<CR>
+" シェルで辺なことするので無効化
+nnoremap K :echo 'K'<CR>
 
+" 提出用圧縮コピペ
 fu! Fmt4Submisstion() abort
     " 0. clangdが停止しているとフォーマッタ機能しないので再読み込み
     w | e!
-
     " (debugライブラリ直書き時用)
     " 1. debug定義を削除
     " // --- debug_start
@@ -39,7 +43,6 @@ fu! Fmt4Submisstion() abort
             cal setline(row, '')
         endif
     endfor
-
     " 2. debugのincludeを削除
     let row = 0
     for v in getline(0, '$')
@@ -49,18 +52,14 @@ fu! Fmt4Submisstion() abort
             break
         endif
     endfor
-
     " 3. debug出力も削除
     try | %s/debug(.*/ /g | catch
     endtry
-
     " 4. //から右を全て削除
     try | %s/\/\/.*/ /g | catch
     endtry
-
     " 5. 保存時点でフォーマッタが走る、全コピ
     w | %y
-
     " end. 一番上にいく
     cal cursor(1, 1)
     cal popup_notification(['⭐️ 圧縮&コピー完了⭐️'], #{line: &lines/2, col: &columns/3})
@@ -68,12 +67,12 @@ endf
 nnoremap <silent><Leader>u :<C-u>cal Fmt4Submisstion()<CR><Esc>
 
 " clangd再起動のため、バッファ再読み込み
-nnoremap <silent><Leader><Leader><Leader> :<C-u>w<CR>:e!<CR>
+nnoremap <silent><Leader>GO :<C-u>w<CR>:e!<CR>GO
 
 " 定数等の記述のためにヘッド(3行目)に行く
 nnoremap <silent><Leader>H 2Go
 
-" SANDBOX CREATE NEXT CPP FILE
+" SANDBOX 連番ファイル作成
 fu! s:asc(x, y) abort
     return a:x == a:y ? 0 : a:x > a:y ? 1 : -1
 endf
