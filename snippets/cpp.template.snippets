@@ -28,9 +28,10 @@ using namespace std;
 // =====================================
 ${1}
 int main() {
-	// ⭐️ fastio_tie
-	// ⭐️ cout_fixed_setprecision double
 	${2}
+	// fastio_tie
+	// cout_fixed_setprecision
+	${3}
 }
 endsnippet
 snippet fastio_macro "fast io" b
@@ -41,14 +42,17 @@ snippet fastio_tie "fast io" b
 ios::sync_with_stdio(false);
 cin.tie(0);
 endsnippet
-snippet include_debug "debug" b
+snippet debug_include "debug" b
 // =====================================
-// XXX 要削除
+// XXX 要請: 以下のいずれかが実施済みであること
 // cp ~/git/dotfiles/cpp/debug.hpp /opt/homebrew/Cellar/gcc/13.2.0/include/c++/13/aarch64-apple-darwin22/bits
-// or
 // cp ~/git/library/others/debug.hpp /opt/homebrew/Cellar/gcc/13.2.0/include/c++/13/aarch64-apple-darwin22/bits
+// XXX 提出前に要削除
 #include <bits/debug.hpp>
 // =====================================
+endsnippet
+snippet debug "debug" b
+debug(${1});
 endsnippet
 
 # =========================================================

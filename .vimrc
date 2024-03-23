@@ -66,11 +66,11 @@ fu! Fmt4Submisstion() abort
 endf
 nnoremap <silent><Leader>u :<C-u>cal Fmt4Submisstion()<CR><Esc>
 
-" clangd再起動のため、バッファ再読み込み
-nnoremap <silent><Leader><Leader><Leader> :<C-u>w<CR>:e!<CR>
+" clangd(LSP)再起動のため、バッファ再読み込み
+nnoremap <silent><Leader>l :<C-u>w<CR>:e!<CR>zz
 
-" 定数等の記述のためにヘッド(3行目)に行く
-nnoremap <silent><Leader>H 2Go
+" 定数等の記述のためにヘッド(main関数の1行上)に行く
+nnoremap <silent><Leader>H 0<Plug>(edgemotion-k)O
 
 " SANDBOX 連番ファイル作成
 fu! s:asc(x, y) abort
@@ -250,12 +250,12 @@ inoremap <C-s> <Plug>(coc-snippets-expand)
 "let g:UltiSnipsExpandTrigger="<C-s>"
 "let g:UltiSnipsJumpForwardTrigger="<Tab>"
 "let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+" TODO 次のエラーへ移動もいれたいね
+" TODO C-sのあとのEsc効いてない
 fu! s:expandSnippet() abort
     cal feedkeys("A\<C-s>\<Esc>", 'x')
 endf
 nnoremap <silent><Leader>t :cal <SID>expandSnippet()<CR>
-" TODO 次のエラーへ移動もいれたいね
-" TODO C-sのあとのEsc効いてない
 fu! s:tailsemi() abort
     if getline('.')[-1:] != ';'
         execute('normal A;')
