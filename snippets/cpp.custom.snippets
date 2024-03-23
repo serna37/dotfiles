@@ -94,8 +94,17 @@ endsnippet
 snippet anymatch "anymatch" b
 ${1:anma} |= ${2};
 endsnippet
-snippet mod "mod" b
-${1:ans} %= ${2:MOD};
+snippet sum_all "sum all" b
+${1:long long} ${2:sum} = 0;
+for (auto &&v : ${3:A}) $2 += v;
+endsnippet
+snippet gcd_all "gcd all" b
+${1:long long} ${2:GCD} = 0;
+for (auto &&v : ${3:A}) $2 = gcd($2, v);
+endsnippet
+snippet lcm_all "lcm all" b
+${1:long long} ${2:LCM} = 1;
+for (auto &&v : ${3:A}) $2 = lcm($2, v);
 endsnippet
 snippet mod "mod" i
 ${1:ans} %= ${2:MOD}
@@ -120,18 +129,6 @@ ${1:i} & 1
 endsnippet
 snippet even "even" i
 ${1:i} % 2 == 0
-endsnippet
-snippet sum_all "sum all" b
-${1:long long} ${2:sum} = 0;
-for (auto &&v : ${3:A}) $2 += v;
-endsnippet
-snippet gcd_all "gcd all" b
-${1:long long} ${2:GCD} = 0;
-for (auto &&v : ${3:A}) $2 = gcd($2, v);
-endsnippet
-snippet lcm_all "lcm all" b
-${1:long long} ${2:LCM} = 1;
-for (auto &&v : ${3:A}) $2 = lcm($2, v);
 endsnippet
 snippet ren_max "ren max" b
 // 条件を満たす、最大コンボ数
