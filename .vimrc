@@ -22,6 +22,7 @@ fu! Fmt4Submisstion() abort
     " 0. clangdが停止しているとフォーマッタ機能しないので再読み込み
     w | e!
 
+    " (debugライブラリ直書き時用)
     " 1. debug定義を削除
     " // --- debug_start
     " から
@@ -42,15 +43,25 @@ fu! Fmt4Submisstion() abort
         endif
     endfor
 
-    " 2. debug出力も削除
+    " 2. debugのincludeを削除
+    let row = 0
+    for v in getline(0, '$')
+        let row += 1
+        if v == '#include <bits/debug.hpp>'
+            cal setline(row, '')
+            break
+        endif
+    endfor
+
+    " 3. debug出力も削除
     try | %s/debug(.*/ /g | catch
     endtry
 
-    " 3. //から右を全て削除
+    " 4. //から右を全て削除
     try | %s/\/\/.*/ /g | catch
     endtry
 
-    " 4. 保存時点でフォーマッタが走る、全コピ
+    " 5. 保存時点でフォーマッタが走る、全コピ
     w | %y
 
     " end. 一番上にいく

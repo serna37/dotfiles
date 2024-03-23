@@ -19,7 +19,13 @@
 snippet serna37_w "template header" b
 #include <bits/stdc++.h>
 using namespace std;
+// =====================================
+// XXX 要削除
+#include <bits/debug.hpp>
+// =====================================
+${1}
 int main() {
+	${2}
 }
 endsnippet
 snippet fastio_macro "fast io" b
@@ -29,6 +35,12 @@ endsnippet
 snippet fastio_tie "fast io" b
 ios::sync_with_stdio(false);
 cin.tie(0);
+endsnippet
+snippet include_debug "debug" b
+// cp ~/git/dotfiles/cpp/debug.hpp /opt/homebrew/Cellar/gcc/13.2.0/include/c++/13/aarch64-apple-darwin22/bits
+// or
+// cp ~/git/library/others/debug.hpp /opt/homebrew/Cellar/gcc/13.2.0/include/c++/13/aarch64-apple-darwin22/bits
+#include <bits/debug.hpp>
 endsnippet
 
 # =========================================================
