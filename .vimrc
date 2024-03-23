@@ -12,9 +12,6 @@ inoremap <expr><S-Tab> pumvisible() ? '<C-p>' : '<S-Tab>'
 " row visual
 nnoremap vv ^v$h
 
-" insert move
-inoremap {{ <Esc>A{}<Left>
-
 " deactive K
 nmap K :echo 'K'<CR>
 
@@ -265,7 +262,10 @@ fu! s:tailsemi() abort
         execute('normal A;')
     endif
 endf
-nnoremap O :w<CR>zzO
+" 右端に行きたい
+inoremap {{ <Esc>A{}<Left>
+" 一番下行から書く時に、画面真ん中に
+nnoremap O zzO
 noremap <silent><Plug>(tailsemi) :<C-u>cal <SID>tailsemi()<CR>
 inoremap ;; <Esc><Plug>(tailsemi)<Esc>:w<CR>
 inoremap ;<CR> <Esc><Plug>(tailsemi)<Esc>:w<CR>o
