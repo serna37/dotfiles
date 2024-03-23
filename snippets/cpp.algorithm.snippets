@@ -2,10 +2,11 @@
 #==============================================================================
 #CONTENTS                                                 *cpp.algorithm*
 #
-#    Search ......................... |brute force|
+#    Brute Force .................... |brute force|
 #    Binary Search  ................. |binary search|
 #    Range .......................... |sequence range algorithm|
 #    Sequence ....................... |sequence, others algorithm|
+#    Fenwick ........................ |fenwick tree|
 #    BFS ............................ |BFS, grid|
 #    DFS ............................ |DFS, tree|
 #    DP ............................. |DP transition|
@@ -14,23 +15,20 @@
 #==============================================================================
 
 # =========================================================
-# Search
+# Brute Force
 # =========================================================
-snippet algo_permutation_loop "next permutation" b
-// =====================================
+snippet algo_brute_permutation "next permutation" b
+// =========================
 // 順列全探索
 // O(N!) N < 12程度
-// 1 2 3
-// 1 3 2
-// 2 1 3 ...
+// 1 2 3,  1 3 2,  2 1 3,  2 3 1,  ...
 do {${2}} while (next_permutation(${1:A}.begin(), $1.end()));
 // ⭐️ ソートはしましたか？
 endsnippet
-snippet algo_permutation_dfs_seq "DFS重複順列列挙" b
-// =====================================
+snippet algo_brute_permutation_dfs_seq "DFS重複順列列挙" b
+// =========================
 // 順列全探索 DFSで重複順列列挙
-// 単調増加ならO(N+M-1 choose M-1) 目安
-// N < 10程度(もうちょいいけるかも)
+// 単調増加ならO(N+M-1 choose M-1) 目安    N < 10程度(もうちょいいけるかも)
 // $4 ~ $5 までの数で、要素数${1:N}の数列を順列全探索
 vector<int> ${2:perm}($1);
 auto ${3:dfs} = [&](auto &f, int mi, int mx, int last = 0) -> void {
@@ -54,8 +52,8 @@ auto ${3:dfs} = [&](auto &f, int mi, int mx, int last = 0) -> void {
 };
 $3($3, ${4:1}, ${5:M});
 endsnippet
-snippet algo_bit_loop "bit loop" b
-// =====================================
+snippet algo_brute_bit_loop "bit loop" b
+// =========================
 // bit全探索
 // O(2^N) N < 25程度
 for (${1:long long} ${2:bit} = 0; $2 < (${3:1ll} << ${4:N}); ++$2) {
@@ -70,8 +68,8 @@ for (${1:long long} ${2:bit} = 0; $2 < (${3:1ll} << ${4:N}); ++$2) {
 	}
 }
 endsnippet
-snippet algo_bit_loop_2 "bit loop" b
-// =====================================
+snippet algo_brute_bit_loop_2 "bit loop" b
+// =========================
 // bit全探索 2重
 // O(2^N) N < 12程度
 for (int bit = 0; bit < (1 << ${1:H}); ++bit) {
@@ -96,17 +94,14 @@ for (int bit = 0; bit < (1 << ${1:H}); ++bit) {
 	}
 }
 endsnippet
-snippet algo_bit_n_order "bit N" b
-// =====================================
+snippet algo_brute_bit_n_order "bit N" b
+// =========================
 // bit全探索 非再帰 重複順列列挙 O($2^$1) N < 10程度
 // ${1:N}桁 ${2:K}進数
 vector<int> bit($1, 0);
-// bit = {0, 0, 0}
-// bit = {0, 0, 1}
-// bit = {0, 1, 0}
-// bit = {0, 1, 1} ...
+// bit = {0,0,0}, {0,0,1}, {0,1,0}, {0,1,1} ...
 while (1) {
-	// bit = {1, 1, 0} を左から見るループ
+	// bit = {1,1,0} を左から見るループ
 	for (int i = 0; i < $1; ++i) {
 		int tmp = bit[i]; // i桁目の数字（$2進法）
 	}
@@ -129,35 +124,18 @@ while (1) {
 }
 endsnippet
 # TODO bit演算系としてまとめ直したい
-snippet algo_bit_on_all_pattern "bit on all pattern" b
+snippet algo_brute_bit_on_all_pattern "bit on all pattern" b
 for (long long i = ${1:N}; i > 0; i = (i - 1) & $1) {
 	cout << $1 - i << endl;
 }
 cout << $1 << endl;
-endsnippet
-snippet algo_syakutori "尺取法" b
-// =====================================
-// 尺取法 O(N)
-// 連続の和が$4以下である、最大長を求める
-// 1. lを固定し、できるだけrを増やす
-// 2. 区間をひとつ右に。和の区間から左端が抜ける
-// 3. 区間の個数はr-l個
-for (int l = 0, r = 0, ${1:sum} = 0; l < ${2:N}; $1 -= ${3:A}[l++]) {
-	// 2, 3, 1, 4, 5, 8, 6, 7
-	//    l     r  和が7までrをずらす
-	//    <----->  長さ3
-	while (r < $2 and $1 + $3[r] <= ${4:K}) {
-		$1 += $3[r++];
-	}
-	${5:ans} += r - l;
-}
 endsnippet
 
 # =========================================================
 # Binary Search
 # =========================================================
 snippet algo_bisearch "bisearch" b
-// =====================================
+// =========================
 // にぶたん O(logN)
 auto ${1:test} = [&](${2:long long} x) -> bool {
 	// oになる条件を記述
@@ -172,7 +150,7 @@ while (abs($5 - $4) > 1) ($1($6 = $4 + ($5 - $4) / 2) ? $5 : $4) = $6;
 cout << $5 << endl;
 endsnippet
 snippet algo_bisearch_real_numbers "bisearch Real Number" b
-// =====================================
+// =========================
 // 実数にぶたん O(logN)
 auto ${1:test} = [&](${2:double} x) -> bool {
 	// oになる条件を記述
@@ -188,7 +166,7 @@ while (abs($5 - $4) > EPS and abs($5 - $4) / max($5, $4) > EPS)
 cout << $5 << endl;
 endsnippet
 snippet algo_bisearch_ika_cnt_idx "以下の個数" b
-// =====================================
+// =========================
 // $3のうち、$4以下の個数  =  $4より大きい最左のidx
 //          ↓8の場合
 // 0 1 2 3 4  5
@@ -197,7 +175,7 @@ snippet algo_bisearch_ika_cnt_idx "以下の個数" b
 ${1:int} ${2:cnt} = upper_bound(${3:A}.begin(), $3.end(), ${4:x}) - $3.begin();
 endsnippet
 snippet algo_bisearch_sita_cnt_idx "より下の個数" b
-// =====================================
+// =========================
 // $3のうち、$4より下の個数  =  $4以上最左のidx
 //         ↓4の場合
 // 0 1 2 3 4
@@ -206,7 +184,7 @@ snippet algo_bisearch_sita_cnt_idx "より下の個数" b
 ${1:int} ${2:cnt} = lower_bound(${3:A}.begin(), $3.end(), ${4:x}) - $3.begin();
 endsnippet
 snippet algo_bisearch_izyou_cnt "以上の個数" b
-// =====================================
+// =========================
 // 1 2 2 3 4 21 22 23 23
 //         4
 //         |<---------->
@@ -214,7 +192,7 @@ snippet algo_bisearch_izyou_cnt "以上の個数" b
 ${1:int} ${2:cnt} = ${3:A}.end() - lower_bound($3.begin(), $3.end(), ${4:x});
 endsnippet
 snippet algo_bisearch_ue_cnt "より上の個数" b
-// =====================================
+// =========================
 // 1 2 2 3 4 21 22 23 23
 //         4 |
 //           |<-------->
@@ -222,7 +200,7 @@ snippet algo_bisearch_ue_cnt "より上の個数" b
 ${1:int} ${2:cnt} = ${3:A}.end() - upper_bound($3.begin(), $3.end(), ${4:x});
 endsnippet
 snippet algo_bisearch_ika_max "0, lim]" b
-// =====================================
+// =========================
 // 1 2 2 3 4 21 22 23 23
 //         4
 // ------->o
@@ -232,7 +210,7 @@ if (itr == $1.begin()) continue;
 --itr;
 endsnippet
 snippet algo_bisearch_sita_max "0, lim)" b
-// =====================================
+// =========================
 // 1 2 2 3 4 21 22 23 23
 //       | 4
 // ----->o
@@ -242,7 +220,7 @@ if (itr == $1.begin()) continue;
 --itr;
 endsnippet
 snippet algo_bisearch_izyou_min "[lim, N" b
-// =====================================
+// =========================
 // 1 2 2 3 4 21 22 23 23
 //         4
 //         o<-----
@@ -251,7 +229,7 @@ auto itr = ${1:st}.lower_bound(${2:A});
 if (itr == $1.end()) continue;
 endsnippet
 snippet algo_bisearch_ue_min "(lim, N" b
-// =====================================
+// =========================
 // 1 2 2 3 4 21 22 23 23
 //         4 |
 //           o<-----
@@ -263,8 +241,25 @@ endsnippet
 # =========================================================
 # Range
 # =========================================================
-snippet algo_zeta "累積和" b
-// =====================================
+snippet algo_range_syakutori "尺取法" b
+// =========================
+// 尺取法 O(N)
+// 連続の和が$4以下である、最大長を求める
+// 1. lを固定し、できるだけrを増やす
+// 2. 区間をひとつ右に。和の区間から左端が抜ける
+// 3. 区間の個数はr-l個
+for (int l = 0, r = 0, ${1:sum} = 0; l < ${2:N}; $1 -= ${3:A}[l++]) {
+	// 2, 3, 1, 4, 5, 8, 6, 7
+	//    l     r  和が7までrをずらす
+	//    <----->  長さ3
+	while (r < $2 and $1 + $3[r] <= ${4:K}) {
+		$1 += $3[r++];
+	}
+	${5:ans} += r - l;
+}
+endsnippet
+snippet algo_range_zeta "累積和" b
+// =========================
 // 累積和   左からi個ぶんの和   S_i = Σ A_0〜A_i-1
 // Σ[l, r) = S[r] - S[l]
 vector<${1:long long}> ${2:S}(${3:N} + 1);
@@ -275,8 +270,8 @@ for (int i = 0; i < $3; ++i) {
 	// if (i & 1) $2[i + 1] += $4[i] - $4[i - 1];
 }
 endsnippet
-snippet algo_zeta_rev "ruisekiwa reverse" b
-// =====================================
+snippet algo_range_zeta_rev "ruisekiwa reverse" b
+// =========================
 // 反転累積和   Aiから右全部の和   R_i = Σ A_n-i〜A_last
 vector<${1:long long}> ${2:R}(${3:N} + 1);
 for (int i = $3 - 1; i >= 0; --i) {
@@ -289,8 +284,8 @@ for (int i = $3 - 1; i >= 0; --i) {
 // Σ 左からAi-1まで + Σ Aiから右全部 = S[i] + R[i]
 // Ai番目を無視: Σ A0_Ai-1 + Σ Ai+1_last = S[i] + R[i+1]
 endsnippet
-snippet algo_zeta_2D "2d ruisekiwa" b
-// =====================================
+snippet algo_range_zeta_2D "2d ruisekiwa" b
+// =========================
 // 2次元ゼータ変換
 vector<vector<${1:long long}>> ${2:S}(${3:H} + 1, vector<$1>(${4:W} + 1));
 // まず横向きに足す     1 1 1 1  →  1 2 3 4
@@ -312,16 +307,16 @@ for (int i = 0; i < $3; ++i) {
 // from(s, t) to(x, y)
 //           S[y][x] - S[y][s] - S[t][x] + S[t][s]
 endsnippet
-snippet algo_moebius "diff" b
-// =====================================
+snippet algo_range_moebius "diff" b
+// =========================
 // メビウス変換
 vector<${1:int}> ${2:D}(${3:N-1});
 for (int i = 0; i < $3; ++i) {
 	$2[i] = ${4:A}[i + 1] - $4[i];
 }
 endsnippet
-snippet algo_imos "imos" b
-// =====================================
+snippet algo_range_imos "imos" b
+// =========================
 // imos
 // 0 0 0 0 0 0 0 0 0        末端が配列外なら、操作不要
 //   |<-------->|    区間+1
@@ -331,8 +326,8 @@ snippet algo_imos "imos" b
 ${3:++}${1:A}[${2:l}];
 if ($4 < ${6:N}) ${5:--}$1[${4:r+1}];
 endsnippet
-snippet algo_imos_2D "2d imos" b
-// =====================================
+snippet algo_range_imos_2D "2d imos" b
+// =========================
 // 2次元imos
 // A+1  A | -1              末端が配列外なら、操作不要
 // A    A |
@@ -344,8 +339,8 @@ endsnippet
 # =========================================================
 # Sequence
 # =========================================================
-snippet algo_merge "merge" b
-// =====================================
+snippet algo_seq_merge "merge" b
+// =========================
 // ${1:A}を${2:B}にマージテク
 // amortized O(logN)
 // {1, 3, 4}  ->  {2}
@@ -354,8 +349,8 @@ if ($1.size() > $2.size()) swap($1, $2);
 for (auto &&v : $1) $2.${3:insert}(v);
 $1.clear();
 endsnippet
-snippet algo_zip "zip" b
-// =====================================
+snippet algo_seq_zip "zip" b
+// =========================
 // 座標圧縮 O(NlogN)
 vector<${1:long long}> ${2:cvt} = ${3:target};
 // sort重複削除
@@ -366,32 +361,8 @@ for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
 // 重複削除後の種類数
 int ${4:sz} = $2.size();
 endsnippet
-snippet algo_fwk "fwk" b
-// =====================================
-// Fenwick Tree O(logN)
-// 1-indexedなので注意する
-vector<${1:int}> ${2:fwk}(${3:sz+1});
-endsnippet
-snippet algo_fwk_build "fwk build" b
-// =====================================
-// Fenwick Treeを配列$4でビルドする
-for (int i = 1, f = i + (i & -i); i <= ${1:N}; ++i, f = i + (i & -i)) {
-	${2:fwk}[i] ${3:+}= ${4:A}[i - 1];
-	if (f <= $1) $2[f] $3= $2[i];
-}
-endsnippet
-snippet algo_fwk_act "fwk act" b
-// =====================================
-// Fenwick Tree 1点更新
-for (int ${1:f} = ${2:1-idx}; $1 <= ${3:fwk-size}; $1 += $1 & -$1) ${4:fwk}[$1] ${5:+}= ${6:act_value};
-endsnippet
-snippet algo_fwk_get "fwk get" b
-// =====================================
-// Fenwick Tree 区間取得  結果を$3に値を入れる
-for (int ${1:f} = ${2:1-idx}; $1; $1 -= $1 & -$1) ${3:ans} ${4:+}= ${5:fwk}[$1];
-endsnippet
 snippet algo_seq_inv "seq inv" b
-// =====================================
+// =========================
 // 転頭数 O(NlogN)
 // 右に倒れるA_i > A_j (i < j)の回数
 vector<${1:long long}> ${2:cvt} = ${3:A};
@@ -417,10 +388,38 @@ for (int i = 0; i < ${10:N}; ++i) {
 endsnippet
 
 # =========================================================
-# Algorithm BFS
+# Fenwick
+# =========================================================
+snippet algo_fwk "fwk" b
+// =========================
+// Fenwick Tree O(logN)
+// 1-indexedなので注意する
+vector<${1:int}> ${2:fwk}(${3:sz+1});
+endsnippet
+snippet algo_fwk_build "fwk build" b
+// =========================
+// Fenwick Treeを配列$4でビルドする
+for (int i = 1, f = i + (i & -i); i <= ${1:N}; ++i, f = i + (i & -i)) {
+	${2:fwk}[i] ${3:+}= ${4:A}[i - 1];
+	if (f <= $1) $2[f] $3= $2[i];
+}
+endsnippet
+snippet algo_fwk_act "fwk act" b
+// =========================
+// Fenwick Tree 1点更新
+for (int ${1:f} = ${2:1-idx}; $1 <= ${3:fwk-size}; $1 += $1 & -$1) ${4:fwk}[$1] ${5:+}= ${6:act_value};
+endsnippet
+snippet algo_fwk_get "fwk get" b
+// =========================
+// Fenwick Tree 区間取得  結果を$3に値を入れる
+for (int ${1:f} = ${2:1-idx}; $1; $1 -= $1 & -$1) ${3:ans} ${4:+}= ${5:fwk}[$1];
+endsnippet
+
+# =========================================================
+# BFS
 # =========================================================
 snippet algo_bfs "bfs" b
-// =====================================
+// =========================
 // 単一始点BFS O(N+M)
 queue<int> q;
 vector<int> dis(${1:N}, -1);
@@ -447,7 +446,7 @@ while (!q.empty()) {
 }
 endsnippet
 snippet algo_bfs_multi_start "bfs multi start" b
-// =====================================
+// =========================
 // 複数始点BFS O(N+M)
 queue<int> q;
 vector<int> dis(${1:N}, -1);
@@ -476,7 +475,7 @@ while (!q.empty()) {
 }
 endsnippet
 snippet algo_bfs_grid "bfs grid" b
-// =====================================
+// =========================
 // 単一始点グリッドBFS O(N+M)
 queue<pair<int, int>> q;
 // 始点の座標
@@ -505,17 +504,17 @@ while (!q.empty()) {
 }
 endsnippet
 snippet algo_grid_dydx "dydx" b
-// =====================================
+// =========================
 int y = ${1:i}, x = ${2:j}; // 始点とする
 y += dy[${3:d}], x += dx[$3]; // マス移動する
 endsnippet
 snippet algo_grid_filter "bfs grid filter" b
-// =====================================
+// =========================
 // 領域外
 if (${1:y} < 0 or ${2:x} < 0 or ${3:row} <= $1 or ${4:col} <= $2) ${5:continue};
 endsnippet
 snippet algo_grid_cango "grid cango" b
-// =====================================
+// =========================
 // 進めるか判定する関数
 auto cango = [](const char &a) -> bool {
 	string white = "${1:.SG}";
@@ -523,7 +522,7 @@ auto cango = [](const char &a) -> bool {
 };
 endsnippet
 snippet algo_grid_toguro "toguro" b
-// =====================================
+// =========================
 // グリッドをとぐろ状に進む
 //   _______
 //   _____  |
@@ -542,7 +541,7 @@ if (y < 0 or x < 0 or ${1:row} <= y or ${2:col} <= x or G[y][x] != -1) {
 }
 endsnippet
 snippet algo_grid_bingo "bingo" b
-// =====================================
+// =========================
 // 縦横ナナメに、そろっているか判定
 // O(N^2)
 // x|o|x   x x x   o x x
@@ -582,23 +581,30 @@ for (int i = 0; i < $1; ++i) {
 	// alma = i行目のよこがビンゴ
 	// alma2= i列目の縦がビンゴ
 	if (alma or alma2) {
-		cout << "TODO row col allmatch" << endl;
+		cout << "row col allmatch" << endl;
 	}
 }
 // c1 = クロス1がビンゴ
 // c2 = クロス2がビンゴ
 if (c1 or c2) {
-	cout << "TODO cross allmatch" << endl;
+	cout << "cross allmatch" << endl;
 }
 endsnippet
 
 # =========================================================
 # DFS
 # =========================================================
-# TODO 具体例
 snippet algo_dfs "dfs" b
-// =====================================
+// =========================
 // DFS O(N+M)
+//         o
+//       ↙︎↗︎  ↘︎
+//      o      A
+//   ↙︎↗︎ ↘︎↖︎   行 ↘︎ ↖︎ 帰
+//  o    o        B
+//
+// 行きがけ: A→Bに来たあと。 今の頂点=引数v=B
+// 帰りがけ: B→Aに戻る前。今の頂点=引数v=B
 vector<bool> seen(${1:N}, false);
 auto dfs = [&](auto &f, int v) -> void {
 	// 行きがけ
@@ -612,26 +618,34 @@ auto dfs = [&](auto &f, int v) -> void {
 dfs(dfs, ${3:0});
 endsnippet
 snippet algo_dfs_tree "dfs" b
-// =====================================
-// 木の深さDFS O(N+M)
+// =========================
+// 木の深さDFS O(N+M)     depth
+//         o           ---- 0
+//       ↙︎↗︎  ↘︎
+//      o      A       ---- 1
+//   ↙︎↗︎ ↘︎↖︎   行 ↘︎ ↖︎ 帰
+//  o    o        B    ---- 2
+//
+// 行きがけ: A→Bに来たあと。 今の頂点=引数v=B
+// 帰りがけ: B→Aに戻る前。今の頂点=引数v=B
 vector<int> depth(N);
 auto dfs = [&](auto &f, int v, int p, int d) -> void {
 	// 行きがけ
 	depth[v] = d;
 	for (int nv : ${1:G}[v]) {
-		if (nv == p) continue;
+		if (nv == p) continue; // 親へ戻らない
 		f(f, nv, v, d + 1);
 	}
 	// 帰りがけ
 };
-dfs(dfs, ${2:root}, -1, 0);
+dfs(dfs, ${2:root}, -1, 0); // 親なし
 endsnippet
 
 # =========================================================
 # DP
 # =========================================================
 snippet algo_dp "dp" b
-// =====================================
+// =========================
 // 成果物の時間順な状態管理
 // i番目の行での${1:M}個の状態
 // 0 0 0 0 0
@@ -642,13 +656,13 @@ auto dp = $3, nx = dp; // 今行をdp、次行をnx
 algo_dp_ini
 endsnippet
 snippet algo_dp_ini "dp ini" b
-// =====================================
+// =========================
 // 状態0での コスト | 通り数
 dp[${1:0}] = ${2:0};
 algo_dp_for
 endsnippet
 snippet algo_dp_for "dp for" b
-// =====================================
+// =========================
 // 縦向きにループ
 // ↓ | 0 0 0 0 0
 // ↓ |   ↘︎ ↓
@@ -664,26 +678,26 @@ for (int i = 0; i < ${1:N}; ++i, swap(dp, nx)) {
 // 最終行はdp
 endsnippet
 snippet algo_dp_add "dp add" b
-// =====================================
+// =========================
 // dp_j  dp_$1
 //     ↘︎  ↓    加算
 // nx_j  nx_$1
 nx[${1:j + 1}] += dp[${2:j}];
 endsnippet
 snippet algo_dp_chdp "chdp knapsack" b
-// =====================================
+// =========================
 // dp_from   dp (nx=dpで緩和済み)
 //    +cost ↘︎  ↓
 //          nx_to
 nx[${3:to}] = ${1:min}(nx[$3], dp[${2:from}] + ${4:cost});
 endsnippet
 snippet algo_dp_seg "dp seg" b
-// =====================================
+// =========================
 SegTree<${1:Mmin}<${2:long long}>> ${3:dp}(${4:区間長} + 1);
 $3.set(${5:0}, ${6:初期コスト});
 endsnippet
 snippet algo_dp_chdp_seg "chdp seg" b
-// =====================================
+// =========================
 // | dp_l  dp_l+1  ... dp_r-1 | dp_r  ...
 //      ↘︎ ↘︎ ↓ ↓ ↙︎ ↙︎  区間取得+cost
 //         dp_to   と緩和
@@ -768,17 +782,17 @@ snippet algo_dp_rerooting "dp rerooting" b
 // 全方位木DP
 endsnippet
 snippet algo_dp_doubling "doubling" b
-// =====================================
+// =========================
 // ダブリング
 long long log = 1;
 while ((1ll << log) <= K) log++;
-// =====================================
+// =========================
 // dp[i][j] := 2^i 回で行くところ、j種類
 vector<vector<long long>> dp(log, vector<long long>(${1:N}));
 for (int i = 0; i < N; ++i) {
 	dp[0][i] = ${2:A}[i];
 }
-// =====================================
+// =========================
 // 前計算 ~2回次への遷移~
 //   j dp0  dp1  dp2  ...  dp_last
 // i
@@ -792,22 +806,22 @@ for (int i = 0; i < N; ++i) {
 // ◽️2回次は
 //     2回次[j] = 今行[ 1回次のj ]
 //   dp[i + 1][j] = dp[i][ dp[i][j] ]
-// =====================================
+// =========================
 for (int i = 0; i < log - 1; ++i) {
 	for (int j = 0; j < N; j++) {
 		// 漸化式
-		// TODO choose
+		// choose
 		dp[i + 1][j] = dp[i][dp[i][j]];
-		dp[i + 1][j] = dp[i][j] + dp[i][(j + dp[i][j]) % N];
+		// dp[i + 1][j] = dp[i][j] + dp[i][(j + dp[i][j]) % N];
 	}
 }
-// =====================================
+// =========================
 // クエリ
 long long ans = 0;
 for (int i = 0; K > 0; ++i) {
-	// TODO choose
+	// choose
 	if (K & 1) ans = dp[i][ans];
-	if (K & 1) ans += dp[i][ans % N];
+	// if (K & 1) ans += dp[i][ans % N];
 	K >>= 1;
 }
 cout << ans << endl;
@@ -816,7 +830,8 @@ endsnippet
 # =========================================================
 # Food for thought
 # =========================================================
-snippet serna37 "food for thought" bi
+snippet serna37 "food for thought (cheat sheet) preview only" bi
+### チートシート (プレビューのみ)
 [ ☠️  バグ狩り典型 ]
 - 掛け算          :溢れないよう割る
 - 引き算          :割り算
