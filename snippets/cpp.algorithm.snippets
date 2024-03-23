@@ -658,6 +658,53 @@ snippet algo_dp_rerooting "dp rerooting" b
 // WIP
 // 全方位木DP
 endsnippet
+snippet algo_dp_doubling "doubling" b
+// ===========================
+// ダブリング
+long long log = 1;
+while ((1ll << log) <= K) log++;
+
+// dp[i][j] := 2^i 回で行くところ、j種類
+vector<vector<long long>> dp(log, vector<long long>(${1:N}));
+for (int i = 0; i < N; ++i) {
+	dp[0][i] = ${2:A}[i];
+}
+// 前計算 ~2回次への遷移~
+//   j dp0  dp1  dp2  ...  dp_last
+// i
+// 0             dp[i][j] 1個次があるので
+// 1       dp[i][j] ↲  ここに行きたい
+// ...
+
+// 1回次(普通のDP)の遷移は
+//       次行[j] = 今行[j]
+//    dp[i + 1][j] = dp[i][j]
+
+// dp[i][j] は2^iで行った時の何種類目か、なので
+
+// 2回次は
+//     2回次[j] = 今行[ 1回次のj ]
+//   dp[i + 1][j] = dp[i][ dp[i][j] ]
+
+for (int i = 0; i < log - 1; ++i) {
+	for (int j = 0; j < N; j++) {
+		// 漸化式
+		// TODO choose
+		dp[i + 1][j] = dp[i][dp[i][j]];
+		dp[i + 1][j] = dp[i][j] + dp[i][(j + dp[i][j]) % N];
+	}
+}
+
+// クエリ
+long long ans = 0;
+for (int i = 0; K > 0; ++i) {
+	// TODO choose
+	if (K & 1) ans = dp[i][ans];
+	if (K & 1) ans += dp[i][ans % N];
+	K >>= 1;
+}
+cout << ans << endl;
+endsnippet
 
 # =========================================================
 # Food for thought
