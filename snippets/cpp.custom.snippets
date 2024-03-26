@@ -93,17 +93,21 @@ endsnippet
 snippet anymatch "anymatch" b
 ${1:anma} |= ${2};
 endsnippet
+snippet cnt_all "cnt all" b
+map<int, int> mp;
+for (auto &&v : ${1:A}) ++mp[v];
+endsnippet
 snippet sum_all "sum all" b
-${1:long long} ${2:sum} = 0;
-for (auto &&v : ${3:A}) $2 += v;
+long long sum = 0;
+for (auto &&v : ${1:A}) sum += v;
 endsnippet
 snippet gcd_all "gcd all" b
-${1:long long} ${2:GCD} = 0;
-for (auto &&v : ${3:A}) $2 = gcd($2, v);
+long long GCD = 0;
+for (auto &&v : ${1:A}) GCD = gcd(GCD, v);
 endsnippet
 snippet lcm_all "lcm all" b
-${1:long long} ${2:LCM} = 1;
-for (auto &&v : ${3:A}) $2 = lcm($2, v);
+long long LCM = 1;
+for (auto &&v : ${1:A}) LCM = lcm(LCM, v);
 endsnippet
 snippet mod "mod" i
 ${1:ans} %= ${2:MOD}

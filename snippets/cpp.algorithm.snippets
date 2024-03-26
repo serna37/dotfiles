@@ -265,8 +265,7 @@ vector<${1:long long}> ${2:S}(${3:N} + 1);
 for (int i = 0; i < $3; ++i) {
 	$2[i + 1] = $2[i] + ${4:A}[i];
 	// 0-1, 2-3, .... 2項差の累積和
-	// $2[i + 1] = $2[i];
-	// if (i & 1) $2[i + 1] += $4[i] - $4[i - 1];
+	// $2[i + 1] = $2[i]; if (i & 1) $2[i + 1] += $4[i] - $4[i - 1];
 }
 endsnippet
 snippet algo_range_zeta_rev "ruisekiwa reverse" b
@@ -276,11 +275,10 @@ vector<${1:long long}> ${2:R}(${3:N} + 1);
 for (int i = $3 - 1; i >= 0; --i) {
 	$2[i] = $2[i + 1] + ${4:A}[i];
 	// 2項差の累積和(右端から) ..., N-4 - N-3, N-2 - N-1
-	// $2[i] = $2[i + 1];
-	// if (i & 1) $2[i] += $4[i + 1] - $4[i];
+	// $2[i] = $2[i + 1]; if (i & 1) $2[i] += $4[i + 1] - $4[i];
 }
-// 両端累積和の合成法
-// Σ 左からAi-1まで + Σ Aiから右全部 = S[i] + R[i]
+// =========================
+// 両端累積和の合成法: Σ 左からAi-1まで + Σ Aiから右全部 = S[i] + R[i]
 // Ai番目を無視: Σ A0_Ai-1 + Σ Ai+1_last = S[i] + R[i+1]
 endsnippet
 snippet algo_range_zeta_2D "2d ruisekiwa" b
