@@ -279,7 +279,7 @@ for (int i = $3 - 1; i >= 0; --i) {
 }
 // =========================
 // 両端累積和の合成法: Σ 左からAi-1まで + Σ Aiから右全部 = S[i] + R[i]
-// Ai番目を無視: Σ A0_Ai-1 + Σ Ai+1_last = S[i] + R[i+1]
+//       Ai番目を無視: Σ 左からAi-1まで + Σ Ai+1から右全部 = S[i] + R[i+1]
 endsnippet
 snippet algo_range_zeta_2D "2d ruisekiwa" b
 // =========================
