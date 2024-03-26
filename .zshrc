@@ -65,7 +65,7 @@ alias top='btm --battery --enable_cache_memory'
 # cd
 alias ..='cd ..'
 #alias c='cd ~/git && clear'
-alias cc='cd'
+#alias cc='cd'
 
 # tools
 alias g='lazygit'
@@ -113,6 +113,7 @@ hello() {
     #echo " AtCoderLive [contest_cd]"
     #echo " AtCoderResolve [contest_cd]"
     echo " AsakatuAtCoder"
+    echo " cc"
     echo " ww"
     echo "================="
     echo "... And other commands: alias"
@@ -144,8 +145,19 @@ google() {
 cpp() {
     filename=$1
     file="${filename%.*}"
-    g++ -std=c++23 -mtune=native -march=native -fconstexpr-depth=2147483647 -fconstexpr-loop-limit=2147483647 -fconstexpr-ops-limit=2147483647 -o $file $1 && ./$file
+    g++ -std=c++23 -Wall -Wextra -mtune=native -march=native -fconstexpr-depth=2147483647 -fconstexpr-loop-limit=2147483647 -fconstexpr-ops-limit=2147483647 -o $file $1 && ./$file
     rm ./$file
+}
+export CC_EXE_PROBLEM="a"
+cc() {
+    if [ $# -eq 1 ]; then
+        export CC_EXE_PROBLEM=$1
+    fi
+    echo -e "[\e[34mINFO\e[m] execute :\e[32m$CC_EXE_PROBLEM/main.cpp\e[m"
+    echo " == input == "
+    echo -e "\e[31m------------------------\e[m"
+    cpp ./$CC_EXE_PROBLEM/main.cpp
+    echo -e "\e[31m------------------------\e[m"
 }
 export AC_DIR="$HOME/git/contest"
 export ASA_DIR="$HOME/git/asakatu"
@@ -162,14 +174,14 @@ AtCoder() {
     acc config default-test-dirname-format test
     valid=`acc contest $contest_cd`
     if [[ $valid == ''  ]]; then
-        echo -e "[\e[31mERROR\e[m]create faild."
+        echo -e "[\e[31mERROR\e[m] create faild."
         return
     fi
     acc new $contest_cd
     cd $contest_cd
     dirs=(`\fd -d 1 -t d`)
     for v in ${dirs[@]}; do
-        echo -e "[\e[34mINFO\e[m]touch file :\e[32m${v}${file_name}\e[m"
+        echo -e "[\e[34mINFO\e[m] touch file :\e[32m${v}${file_name}\e[m"
         touch "${v}${file_name}"
     done
     vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
@@ -189,7 +201,7 @@ AsakatuAtCoder() {
     mkdir a b c d e f
     dirs=(`\fd -d 1 -t d`)
     for v in ${dirs[@]}; do
-        echo -e "[\e[34mINFO\e[m]touch file :\e[32m${v}${file_name}\e[m"
+        echo -e "[\e[34mINFO\e[m] touch file :\e[32m${v}${file_name}\e[m"
         touch "${v}${file_name}"
     done
     if [[ -n $ASA_SAMPLE_DL ]]; then
@@ -210,7 +222,7 @@ ADTAtCoder() {
     mkdir c d e f g
     dirs=(`\fd -d 1 -t d`)
     for v in ${dirs[@]}; do
-        echo -e "[\e[34mINFO\e[m]touch file :\e[32m${v}${file_name}\e[m"
+        echo -e "[\e[34mINFO\e[m] touch file :\e[32m${v}${file_name}\e[m"
         touch "${v}${file_name}"
     done
     vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
