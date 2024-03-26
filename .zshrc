@@ -81,7 +81,7 @@ alias q='exit'
 alias x86brew='arch -x86_64 /usr/local/bin/brew'
 alias rezsh='exec $SHELL -l'
 alias ss='gtimeout 5 '
-alias w='date&&cal&&unfog&&gtimeout 3 cmatrix;genact -s 5 --exit-after-modules 1 -m botnet && genact -s 3 --exit-after-modules 1 -m bruteforce && '
+alias w='date&&cal&&unfog&&gtimeout 3 cmatrix;genact -s 10 --exit-after-modules 1 -m botnet && genact -s 10 --exit-after-modules 1 -m bruteforce && '
 alias wv='w zv'
 
 # tutorial command

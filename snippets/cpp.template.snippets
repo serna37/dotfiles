@@ -131,18 +131,34 @@ endsnippet
 snippet lambda "function lambda" b
 auto ${1:cal} = [${2:&}](${3:const int &a}) -> ${4:void} {
 	${5}
-	// 外側と変数名が被った場合
-	// キャプチャより、引数を優先
+	// 外側と変数名が被った場合、キャプチャより引数を優先
 };
 endsnippet
-snippet lambda_re "lambda recursive" b
-auto ${1:cal} = [${2:&}](auto &f, ${3:const int &a}) -> ${4:void} {
-	${5:base_case}
+snippet lambda_rec_dfs "lambda recursive dfs" b
+auto ${1:dfs} = [${2:&}](auto &f, ${3:const int &a}) -> ${4:void} {
 	// 終了条件でreturn
+	${5}
+
+	// 行きがけ + 再帰
+	// o o             o o
+	//     o o     o o
+	//         o o ←ここまで行く
+	// f(f, )
+
+	// 帰りがけ
+};
+endsnippet
+snippet lambda_rec_memo "lambda recursive memo" b
+auto ${1:rec} = [${2:&}](auto &f, ${3:const int &a}) -> ${4:void} {
+	// 終了条件でreturn
+	${5}
+	// if (a == 0) return 0;
 
 	// メモにあれば使用
+	if (mp.count()) return mp[];
+
 	// なければメモに追加
-	// f(f, ); で再帰呼び出し
+	return mp[] = f(f, );
 };
 endsnippet
 
