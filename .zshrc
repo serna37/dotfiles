@@ -75,6 +75,7 @@ alias cppini='cp ~/git/dotfiles/cpp/.clang-format . && cp ~/git/dotfiles/cpp/com
 alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
 alias clock='tty-clock -sc -C2'
 alias c='cpp main.cpp'
+alias debug='cc'
 
 # util
 alias q='exit'
@@ -148,7 +149,7 @@ cpp() {
     g++ -std=c++23 -Wall -Wextra -mtune=native -march=native -fconstexpr-depth=2147483647 -fconstexpr-loop-limit=2147483647 -fconstexpr-ops-limit=2147483647 -o $file $1 && ./$file
     rm ./$file
 }
-export CC_EXE_PROBLEM="a"
+export CC_EXE_PROBLEM="z"
 cc() {
     if [ $# -eq 1 ]; then
         export CC_EXE_PROBLEM=$1
