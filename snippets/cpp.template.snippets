@@ -9,7 +9,6 @@
 #    while .......................... |while|
 #    if ............................. |if, ternary operator|
 #    STL ............................ |chmax, sort, ...|
-#    wrap ........................... |wrap function for C++|
 #
 #==============================================================================
 
@@ -337,29 +336,5 @@ auto ${2:gen} = [&](int a, int b) -> int {
 	return dist($1);
 };
 int ${3:randome_number} = $2(${4:1}, ${5:1e3 + 1});
-endsnippet
-
-# =========================================================
-# wrap
-# =========================================================
-snippet wrap_divceil "divceil" b
-// 負の場合0側へ丸めない
-auto divCeil = []<class T>(T a, T b) -> T {
-	return a / b + (((a ^ b) > 0 and a % b != 0) ? 1 : 0);
-};
-endsnippet
-snippet wrap_divfloor "divfloor" b
-// 負の場合0側へ丸めない
-auto divFloor = []<class T>(T a, T b) -> T {
-	return a / b - (((a ^ b) < 0 and a % b != 0) ? 1 : 0);
-};
-endsnippet
-snippet wrap_islower "is lower" b
-// bool値を返すようwrap
-auto islow = [](char c) -> bool { return islower(c) != 0; };
-endsnippet
-snippet wrap_isupper "is upper" b
-// bool値を返すようwrap
-auto isupp = [](char c) -> bool { return isupper(c) != 0; };
 endsnippet
 
