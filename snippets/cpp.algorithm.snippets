@@ -593,6 +593,16 @@ if (c1 or c2) {
 	cout << "cross allmatch" << endl;
 }
 endsnippet
+snippet algo_grid_transpose "grid transpose" b
+swap(${1:H}, ${2:W});
+vector<vector<${3:char}>> ${4:E}($1, vector<$3>($2));
+for (int ${5:i} = 0; $5 < $1; ++$5) {
+	for (int ${6:j} = 0; $6 < $2; ++$6) {
+		$4[$5][$6] = ${7:G}[$6][$5];
+	}
+}
+$7 = $4;
+endsnippet
 
 # =========================================================
 # DFS
