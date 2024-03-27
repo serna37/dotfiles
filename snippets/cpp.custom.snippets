@@ -5,6 +5,7 @@
 #    const ....................... |const|
 #    define ...................... |def some var|
 #    calculation ................. |calculation template|
+#    util ........................ |utility|
 #    input ....................... |std cin|
 #    output ...................... |std cout|
 #
@@ -15,8 +16,6 @@
 # =========================================================
 snippet PI "PI" b
 const double PI = acos(-1);
-auto rad = [](const double &d) -> double { return d * PI / 180; };
-auto deg = [](const double &r) -> double { return r * 180 / PI; };
 endsnippet
 snippet INF "infinity int" b
 constexpr int INF = 1e9;
@@ -133,7 +132,21 @@ endsnippet
 snippet even "even" i
 ${1:i} % 2 == 0
 endsnippet
-snippet ren_max "ren max" b
+snippet pattern_4 "4パターン" b
+for (int ${1:k} = 0; $1 < 4; ++$1) {
+	if ($1 & 1) { // x o x o
+	}
+	if ($1 & 2) { // x x o o
+	}
+}
+endsnippet
+
+# =========================================================
+# util
+# =========================================================
+
+# short logic
+snippet util_ren_max "ren max" b
 // 条件を満たす、最大コンボ数
 int ${1:ren_max} = 0;
 for (int ren = 0, ${2:i} = ${3:0}; $2 <${4:N}; ++$2) {
@@ -141,12 +154,205 @@ for (int ren = 0, ${2:i} = ${3:0}; $2 <${4:N}; ++$2) {
 	$1 = max($1, ren);
 }
 endsnippet
-snippet pattern_4 "4パターン" b
-for (int ${1:k} = 0; $1 < 4; ++$1) {
-	if ($1 & 1) { // x o x o
+
+# wrapper
+snippet util_divceil "divceil" b
+// 負の場合0側へ丸めない
+auto divCeil = []<class T>(T a, T b) -> T {
+	return a / b + (((a ^ b) > 0 and a % b != 0) ? 1 : 0);
+};
+endsnippet
+snippet util_divfloor "divfloor" b
+// 負の場合0側へ丸めない
+auto divFloor = []<class T>(T a, T b) -> T {
+	return a / b - (((a ^ b) < 0 and a % b != 0) ? 1 : 0);
+};
+endsnippet
+
+# string
+snippet util_string_islower "string islower" b
+// bool値を返すようwrap
+auto islow = [](char c) -> bool { return islower(c) != 0; };
+endsnippet
+snippet util_string_isupper "string isupper" b
+// bool値を返すようwrap
+auto isupp = [](char c) -> bool { return isupper(c) != 0; };
+endsnippet
+snippet util_string_lpad "string lpad" b
+auto lpad = [](const string &S, int size, char ch) -> string {
+	int N = S.size();
+	if (N >= size) return S;
+	return string(size - N, ch) + S;
+};
+endsnippet
+snippet util_string_rpad "string rpad" b
+auto rpad = [](const string &S, const int &size, const char &ch) -> string {
+	int N = S.size();
+	if (N >= size) return S;
+	return S + string(size - N, ch);
+};
+endsnippet
+snippet util_string_finds "string finds" b
+// T中のS出現場所を全列挙
+auto finds = [](const string &T, const string &S) -> vector<int> {
+	vector<int> pos;
+	auto p = T.find(S);
+	while (p != string::npos) {
+		pos.emplace_back(p);
+		p = T.find(S, p + 1);
 	}
-	if ($1 & 2) { // x x o o
+	return pos;
+};
+endsnippet
+snippet util_string_split "string split" b
+// aaaAaaa.split(A) -> aaa, aaa    BBB.split(A) -> ""
+auto split = [](const string &S, const char &sep) -> vector<string> {
+	vector<string> res = {""};
+	for (auto &&v : S) {
+		if (v == sep) {
+			res.emplace_back("");
+		} else {
+			res.back() += v;
+		}
 	}
+	return res;
+};
+endsnippet
+snippet util_string_split_multi "string split multi" b
+// aaaABaaa.split(AB) -> aaa, aaa
+auto split = [](const string &S, const string &seps) -> vector<string> {
+	vector<string> res = {""};
+	for (auto &&v : S) {
+		if (count(seps.begin(), seps.end(), v)) {
+			res.emplace_back("");
+		} else {
+			res.back() += v;
+		}
+	}
+	return res;
+};
+endsnippet
+
+# geo
+snippet util_rad "rad" b
+// 度数法 → 弧度法
+auto rad = [](const double &d) -> double { return d * PI / 180; };
+endsnippet
+snippet util_deg "deg" b
+// 弧度法 → 度数法
+auto deg = [](const double &r) -> double { return r * 180 / PI; };
+endsnippet
+snippet util_geo_area_triangle "geo area triangle" b
+auto area_triangle = []<class T>(T x1, T y1, T x2, T y2, T x3, T y3) -> double {
+	return abs((x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1)) / 2.0;
+};
+endsnippet
+snippet util_geo_area_square "geo area square" b
+auto area_square = []<class T>(T x1, T y1, T x2, T y2, T x3, T y3, T x4, T y4) -> double {
+	return hypot(x1 - x3, y1 - y3) * hypot(x2 - x4, y2 - y4) / 2.0;
+};
+endsnippet
+
+# grid
+snippet util_grid_around "grid around" b
+// 周囲のマスへ訪問する
+for (int k = 0; k < ${1:4}; ++k) {
+	int y = i + dy[k], x = j + dx[k];
+	${2}
+}
+endsnippet
+snippet util_grid_go "grid go" b
+// いまの点からずーーっと進む
+int y = ${1:i}, x = ${2:j}; // 始点とする
+// for
+y += dy[${3:d}], x += dx[$3]; // マス移動する
+endsnippet
+snippet util_grid_filter "grid filter" b
+// 領域外
+if (${1:y} < 0 or ${2:x} < 0 or ${3:row} <= $1 or ${4:col} <= $2) ${5:continue};
+endsnippet
+snippet util_grid_cango "grid cango" b
+// 進めるか判定する
+auto cango = [](const char &a) -> bool {
+	string whitelist = "${1:.SG}";
+	return whitelist.find(a) != string::npos;
+};
+endsnippet
+snippet util_grid_transpose "grid transpose" b
+// $7の縦横を転置する
+swap(${1:H}, ${2:W});
+vector<vector<${3:char}>> ${4:_G}($1, vector<$3>($2));
+for (int ${5:i} = 0; $5 < $1; ++$5) {
+	for (int ${6:j} = 0; $6 < $2; ++$6) {
+		$4[$5][$6] = ${7:G}[$6][$5];
+	}
+}
+$7 = $4;
+endsnippet
+snippet util_grid_toguro "grid toguro" b
+// グリッドをとぐろ状に進む
+//   _______
+//   _____  |
+//  |   __| |
+//  |_______|
+//
+int y = 0, x = 0; // 始点
+int d = 0; // GRID_dydxのインデックスと対応
+// for
+y += dy[d], x += dx[d]; // d方向に進み続けて
+// 領域外、または進めないマスの場合
+if (y < 0 or x < 0 or ${1:row} <= y or ${2:col} <= x or !cango(${3:G}[y][x])) {
+	y -= dy[d], x -= dx[d]; // やっぱ戻って
+	++d, d %= 4; // 方向変えて
+	y += dy[d], x += dx[d]; // 進み直す
+}
+endsnippet
+snippet util_grid_bingo "grid bingo" b
+// 正方グリッドで
+// 縦横ナナメに、そろっているか判定 O(N^2)
+// x|o|x   x x x   o x x
+// x|o|x   o o o   x o x
+// x|o|x   x x x   x x o
+vector<int> cx(${1:N}); // クロス1
+iota(cx.begin(), cx.end(), 0);
+//
+vector<int> cy = cx; // クロス2
+reverse(cy.begin(), cy.end());
+//
+bool c1 = true, c2 = true;
+//
+// 確認する値
+${2:int} check_val = ${3:-1};
+for (int i = 0; i < $1; ++i) {
+	// ナナメを判定
+	// o x x
+	// x o x
+	// x x o
+	c1 &= ${4:G}[i][cx[i]] == check_val; // 左上から右下にallmatch
+	c2 &= $4[i][cy[i]] == check_val; // 右上から左下にallmatch
+	//
+	// 縦横を判定
+	bool alma = true, alma2 = true;
+	for (int j = 0; j < $1; ++j) {
+		// x x x
+		// o o o  よこ
+		alma &= $4[i][j] == check_val; // 行内でallmatch
+		// o x x
+		// o x x
+		// o x x  たて
+		alma2 &= $4[j][i] == check_val; // 列内でallmatch
+	}
+	//
+	// alma = i行目の横がビンゴ
+	// alma2= i列目の縦がビンゴ
+	if (alma or alma2) {
+		cout << "row col allmatch" << endl;
+	}
+}
+// c1 = クロス1がビンゴ
+// c2 = クロス2がビンゴ
+if (c1 or c2) {
+	cout << "cross allmatch" << endl;
 }
 endsnippet
 
