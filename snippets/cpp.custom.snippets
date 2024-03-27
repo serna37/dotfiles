@@ -108,6 +108,12 @@ snippet lcm_all "lcm all" b
 long long LCM = 1;
 for (auto &&v : ${1:A}) LCM = lcm(LCM, v);
 endsnippet
+snippet cast_itoch "tochar" i
+(char)(${1:v} + '0')
+endsnippet
+snippet cast_chtoi "toint" i
+(int)(${1:v} - '0')
+endsnippet
 snippet mod "mod" i
 ${1:ans} %= ${2:MOD}
 endsnippet
