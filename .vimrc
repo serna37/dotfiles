@@ -116,6 +116,7 @@ let g:EasyMotion_keys='sfjkdawh'
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_disable_two_key_combo = 1
 nnoremap s <Plug>(clever-f-reset)<Plug>(easymotion-s2)
+nnoremap <Leader><Leader>s <Plug>(clever-f-reset)<Plug>(easymotion-sn)
 nnoremap <Leader><Leader>w <Plug>(easymotion-overwin-w)
 nnoremap <C-j> <Plug>(edgemotion-j)<Plug>(anchor)
 nnoremap <C-k> <Plug>(edgemotion-k)<Plug>(anchor)
