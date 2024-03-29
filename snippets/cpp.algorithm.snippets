@@ -19,7 +19,6 @@
 snippet algo_brute_permutation "順列全探索" b
 // 順列全探索
 // O(N!) N < 12程度
-// 1 2 3,  1 3 2,  2 1 3,  2 3 1,  ...
 do {${2}} while (next_permutation(${1:A}.begin(), $1.end()));
 // ⭐️ ソートはしましたか？
 endsnippet
@@ -129,14 +128,13 @@ endsnippet
 # Binary Search
 # =========================================================
 snippet algo_bisearch "整数二分探索" b
-// にぶたん O(logN)
+// 整数にぶたん O(logN)
 auto ${1:test} = [&](${2:long long} x) -> bool {
 	// oになる条件を記述
 	// x x x o o o o
 	//       ↑ここを求める
 	${3:return x >= K}
 };
-// $4: ダメな左側    $5: 満たす右側
 $2 ${4:L} = 0, ${5:R} = 1, ${6:MID} = 0;
 while (!$1($5)) $5 <<= 1; // 指数探索
 while (abs($5 - $4) > 1) ($1($6 = $4 + ($5 - $4) / 2) ? $5 : $4) = $6;
@@ -144,17 +142,18 @@ cout << $5 << endl;
 endsnippet
 snippet algo_bisearch_real_numbers "実数二分探索" b
 // 実数にぶたん O(logN)
+// doubleは桁数表現11bitを除き52bit程度の精度、long long最大桁まではいけない
 auto ${1:test} = [&](${2:double} x) -> bool {
 	// oになる条件を記述
 	// x x x o o o o
 	//       ↑ここを求める
 	${3:return x >= K}
 };
-// $4: ダメな左側    $5: 満たす右側
 $2 ${4:L} = 0, ${5:R} = 1, ${6:MID} = 0;
 while (!$1($5)) $5 *= 2; // 指数探索
-while (abs($5 - $4) > EPS and abs($5 - $4) / max($5, $4) > EPS)
-	($1($6 = $4 + ($5 - $4) / 2) ? $5 : $4) = $6;
+auto ABS = [&]() { return abs($5 - $4) > EPS; };
+auto REL = [&]() { return abs($5 - $4) / max($5, $4) > EPS; };
+while (ABS() and REL()) ($1($6 = $4 + ($5 - $4) / 2) ? $5 : $4) = $6;
 cout << $5 << endl;
 endsnippet
 snippet algo_bisearch_ika_cnt_idx "以下の個数" b
@@ -242,25 +241,22 @@ for (int l = 0, r = 0, ${1:sum} = 0; l < ${2:N}; $1 -= ${3:A}[l++]) {
 }
 endsnippet
 snippet algo_range_zeta "累積和" b
-// 累積和   左からi個ぶんの和   S_i = Σ A_0〜A_i-1
-// Σ[l, r) = S[r] - S[l]
+// 累積和 左からi個ぶん S_i=Σ(0, i-1)
 vector<${1:long long}> ${2:S}(${3:N} + 1);
 for (int ${4:i} = 0; $4 < $3; ++$4) {
 	$2[$4 + 1] = $2[$4] + ${5:A}[$4];
-	// 0-1, 2-3, .... 2項差の累積和
+	// 2項差の累積和
 	// $2[$4 + 1] = $2[$4]; if ($4 & 1) $2[$4 + 1] += abs($5[$4] - $5[$4 - 1]);
-}
+} // 区間和の合成: Σ[l, r)=S[r]-S[l]、ΣK個=S[i+K]-S[i]
 endsnippet
 snippet algo_range_zeta_rev "反転累積和" b
-// 反転累積和   Aiから右全部の和   R_i = Σ A_n-i〜A_last
+// 反転累積和 Aiから右全部 R_i=Σi(N-i, last)
 vector<${1:long long}> ${2:R}(${3:N} + 1);
 for (int ${4:i} = $3 - 1; $4 >= 0; --$4) {
 	$2[$4] = $2[$4 + 1] + ${5:A}[$4];
-	// 2項差の累積和(右端から) ..., N-4 - N-3, N-2 - N-1
+	// 2項差の累積和(右端から)
 	// $2[$4] = $2[$4 + 1]; if ($4 & 1) $2[$4] += abs($5[$4 + 1] - $5[$4]);
-}
-// 両端累積和の合成法: Σ 左からAi-1まで + Σ Aiから右全部 = S[i] + R[i]
-//       Ai番目を無視: Σ 左からAi-1まで + Σ Ai+1から右全部 = S[i] + R[i+1]
+} // 両端累積和の合成: Σ(0, i-1) + Σ(i, last) = S[i]+R[i]
 endsnippet
 snippet algo_range_zeta_2D "2次元累積和" b
 // 2次元ゼータ変換
