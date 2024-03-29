@@ -268,9 +268,10 @@ for (int k = 0; k < ${1:4}; ++k) {
 }
 endsnippet
 snippet util_grid_go "grid go" b
+// for d で方向を固定
 // いまの点からずーーっと進む
 int y = ${1:i}, x = ${2:j}; // 始点とする
-// for
+// for 回数分
 y += dy[${3:d}], x += dx[$3]; // マス移動する
 endsnippet
 snippet util_grid_filter "grid filter" b

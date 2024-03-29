@@ -228,6 +228,15 @@ ADTAtCoder() {
     done
     vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
 }
+solve() {
+    cd $SAND_DIR
+    echo -n > z/main.cpp
+    cd z
+    rm -rf test
+    oj d $(pbpaste)
+    cd ../
+    v z/main.cpp
+}
 ww() {
     cd $SAND_DIR
     echo -n > z/main.cpp
