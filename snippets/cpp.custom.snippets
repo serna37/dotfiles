@@ -138,14 +138,6 @@ endsnippet
 snippet even "even" i
 ${1:i} % 2 == 0
 endsnippet
-snippet pattern_4 "4パターン" b
-for (int ${1:k} = 0; $1 < 4; ++$1) {
-	if ($1 & 1) { // x o x o
-	}
-	if ($1 & 2) { // x x o o
-	}
-}
-endsnippet
 
 # =========================================================
 # util
@@ -158,6 +150,14 @@ int ${1:ren_max} = 0;
 for (int ren = 0, ${2:i} = ${3:0}; $2 <${4:N}; ++$2) {
 	ren = ( ${5:condition} ? ren + 1 : 0);
 	$1 = max($1, ren);
+}
+endsnippet
+snippet pattern_4 "4パターン" b
+for (int ${1:k} = 0; $1 < 4; ++$1) {
+	if ($1 & 1) { // x o x o
+	}
+	if ($1 & 2) { // x x o o
+	}
 }
 endsnippet
 
