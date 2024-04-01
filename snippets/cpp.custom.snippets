@@ -185,14 +185,14 @@ snippet util_string_isupper "string isupper" b
 auto isupp = [](char c) -> bool { return isupper(c) != 0; };
 endsnippet
 snippet util_string_lpad "string lpad" b
-auto lpad = [](const string &S, int size, char ch) -> string {
+auto lpad = [](const string &S, int size, char ch = '0') -> string {
 	int N = S.size();
 	if (N >= size) return S;
 	return string(size - N, ch) + S;
 };
 endsnippet
 snippet util_string_rpad "string rpad" b
-auto rpad = [](const string &S, const int &size, const char &ch) -> string {
+auto rpad = [](const string &S, int size, char ch = '0') -> string {
 	int N = S.size();
 	if (N >= size) return S;
 	return S + string(size - N, ch);
