@@ -387,7 +387,9 @@ vector<vector<int>> g($1); // グループ本体を管理
 for (int i = 0; i < $1; ++i) p[i] = i, g[i].push_back(i);
 endsnippet
 snippet algo_union_find_merge "union find merge" b
-if (g[${1:a}].size() > g[${2:b}].size()) swap($1, $2);
+${1:a} = p[$1], ${2:b} = p[$2];
+if ($1 == $2) continue;
+if (g[$1].size() > g[$2].size()) swap($1, $2);
 for (auto &&v : g[$1]) g[$2].push_back(v), p[v] = $2;
 g[$1].clear();
 endsnippet
