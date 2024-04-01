@@ -173,12 +173,12 @@ cpp_exe() {
     echo -e "\e[33m-----------------------------\e[m"
     ./$CC_EXE_PROBLEM/main
     res=$?
+    echo -e "\e[33m-----------------------------\e[m"
     if [ $res -eq 0 ]; then
         echo -e "[\e[34mINFO\e[m] \e[32mexit code:$res.\e[m"
     else
         echo -e "[\e[31mERROR\e[m] \e[mexeit code:$res."
     fi
-    echo -e "\e[33m-----------------------------\e[m"
 }
 export AC_DIR="$HOME/git/contest"
 export ASA_DIR="$HOME/git/asakatu"
