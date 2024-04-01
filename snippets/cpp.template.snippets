@@ -149,13 +149,13 @@ snippet lambda_rec_dfs "lambda recursive dfs" b
 auto ${1:dfs} = [${2:&}](auto &f, ${3:const int &a}) -> ${4:void} {
 	// 終了条件でreturn
 	${5}
-
+	//
 	// 行きがけ + 再帰
 	// o o             o o
 	//     o o     o o
 	//         o o ←ここまで行く
 	// f(f, )
-
+	//
 	// 帰りがけ
 };
 endsnippet
@@ -164,10 +164,11 @@ auto ${1:rec} = [${2:&}](auto &f, ${3:const int &a}) -> ${4:long long} {
 	// 終了条件でreturn
 	${5}
 	// if (a == 0) return 0;
-
+	//
+	//
 	// メモにあれば使用
 	if (mp.count()) return mp[];
-
+	//
 	// なければメモに追加
 	return mp[] = f(f, );
 };
