@@ -74,8 +74,7 @@ alias localhost_here='python -m http.server 8000'
 alias cppini='cp ~/git/dotfiles/cpp/.clang-format . && cp ~/git/dotfiles/cpp/compile_flags.txt .'
 alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
 alias clock='tty-clock -sc -C2'
-alias c='cpp main.cpp'
-alias debug='cc'
+alias debug='cpp_exe'
 
 # util
 alias q='exit'
@@ -109,13 +108,13 @@ hello() {
     echo " hello"
     echo " gif [basefile] [output-name.gif]"
     echo " google [search-text]"
-    echo " cpp [filename]"
+    #echo " cpp [filename]"
     echo " AtCoder [contest_cd]"
     #echo " AtCoderLive [contest_cd]"
     #echo " AtCoderResolve [contest_cd]"
     echo " AsakatuAtCoder"
-    echo " cc"
-    echo " ww"
+    #echo " cc"
+    #echo " ww"
     echo "================="
     echo "... And other commands: alias"
     alias | bat
@@ -143,22 +142,42 @@ google() {
   fi
   open -a Google\ Chrome http://www.google.co.jp/$opt
 }
-cpp() {
+cpp_build() {
     filename=$1
     file="${filename%.*}"
-    g++ -std=c++23 -Wall -Wextra -mtune=native -march=native -fconstexpr-depth=2147483647 -fconstexpr-loop-limit=2147483647 -fconstexpr-ops-limit=2147483647 -o $file $1 && ./$file
-    rm ./$file
+    g++ \
+        -std=c++23 \
+        -I /opt/homebrew/Cellar/gcc/13.2.0/include/c++/13/aarch64-apple-darwin22 \
+        -Wall \
+        -Wextra \
+        -mtune=native \
+        -march=native \
+        -fconstexpr-depth=2147483647 \
+        -fconstexpr-loop-limit=2147483647 \
+        -fconstexpr-ops-limit=2147483647 \
+        -ftrapv \
+        -fsanitize-undefined-trap-on-error \
+        -o $file $1
+        #-fsanitize=address,undefined \
 }
 export CC_EXE_PROBLEM="z"
-cc() {
+cpp_exe() {
     if [ $# -eq 1 ]; then
         export CC_EXE_PROBLEM=$1
     fi
-    echo -e "[\e[34mINFO\e[m] execute :\e[32m$CC_EXE_PROBLEM/main.cpp\e[m"
-    echo " == input == "
-    echo -e "\e[31m------------------------\e[m"
-    cpp ./$CC_EXE_PROBLEM/main.cpp
-    echo -e "\e[31m------------------------\e[m"
+    echo -e "==================================="
+    echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_EXE_PROBLEM/main.cpp processing...\e[m"
+    cpp_build ./$CC_EXE_PROBLEM/main.cpp
+    echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_EXE_PROBLEM/main.cpp complete.\e[m"
+    echo -e "==================================="
+    echo -e "\e[33m-----------------------------\e[m"
+    ./$CC_EXE_PROBLEM/main
+    if [ $? -eq 0 ]; then
+        echo -e "[\e[34mINFO\e[m] \e[32mexit code:$?.\e[m"
+    else
+        echo -e "[\e[31mERROR\e[m] \e[mexeit code:$?."
+    fi
+    echo -e "\e[33m-----------------------------\e[m"
 }
 export AC_DIR="$HOME/git/contest"
 export ASA_DIR="$HOME/git/asakatu"
