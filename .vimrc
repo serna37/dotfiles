@@ -251,10 +251,9 @@ inoremap <C-s> <Plug>(coc-snippets-expand)
 "let g:UltiSnipsExpandTrigger="<C-s>"
 "let g:UltiSnipsJumpForwardTrigger="<Tab>"
 "let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-" TODO 次のエラーへ移動もいれたいね
-" TODO C-sのあとのEsc効いてない
 fu! s:expandSnippet() abort
     cal feedkeys("A\<C-s>\<Esc>", 'x')
+    w
 endf
 nnoremap <silent><Leader>t :cal <SID>expandSnippet()<CR>
 fu! s:tailsemi() abort
