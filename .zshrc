@@ -172,10 +172,11 @@ cpp_exe() {
     echo -e "==================================="
     echo -e "\e[33m-----------------------------\e[m"
     ./$CC_EXE_PROBLEM/main
-    if [ $? -eq 0 ]; then
-        echo -e "[\e[34mINFO\e[m] \e[32mexit code:$?.\e[m"
+    res=$?
+    if [ $res -eq 0 ]; then
+        echo -e "[\e[34mINFO\e[m] \e[32mexit code:$res.\e[m"
     else
-        echo -e "[\e[31mERROR\e[m] \e[mexeit code:$?."
+        echo -e "[\e[31mERROR\e[m] \e[mexeit code:$res."
     fi
     echo -e "\e[33m-----------------------------\e[m"
 }
