@@ -18,7 +18,7 @@ fi
 
 # starship-default-setting + powerlevel10k
 eval "$(starship init zsh)"
-source $(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme
+source $(brew --prefix)/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # cmd syntax
 source ~/git/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
