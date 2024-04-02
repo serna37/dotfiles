@@ -37,7 +37,7 @@ sqlite
 zsh-git-prompt
 zsh-autosuggestions
 zsh-syntax-highlighting
-romkatv/powerlevel10k/powerlevel10k
+powerlevel10k
 starship
 )
 
