@@ -18,32 +18,20 @@
 snippet www "template base" b
 #include <bits/stdc++.h>
 using namespace std;
-// =====================================
-// XXX 提出前に要削除
 #include <bits/debug.hpp>
-// =====================================
-// PI
-// EPS
-// MAX
-// GRID_dydx4
-// GRID_dydx8
-// MOD_100000007
-// MOD_998244353
-// INF_LL
-// INF
+// GRID_dydx4 GRID_dydx8
+// MOD_100000007 MOD_998244353
+// INF INF_LL MAX PI EPS
 // fastio_macro
-// =====================================
 ${1}
 int main() {
 	// fastio_tie
 	// cout_fixed_setprecision
-	// =====================================
 	${2}
 }
 endsnippet
 snippet fastio_macro "fast io" b
-// インタラクティブ時は使用不可
-#define endl "\n"
+#define endl "\n" // インタラクティブ時は使用不可
 endsnippet
 snippet fastio_tie "fast io" b
 ios::sync_with_stdio(false);
