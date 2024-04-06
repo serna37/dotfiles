@@ -49,7 +49,7 @@ echo "AtCoder"
 echo "=========================================================="
 pip3 install online-judge-tools
 npm install -g atcoder-cli
-cd ~/git && git clone https://github.com/serna37/ac
+cp ~/git/dotfiles/cpp/debug.hpp /opt/homebrew/Cellar/gcc/13.2.0/include/c++/13/aarch64-apple-darwin22/bits
 
 echo "=========================================================="
 echo "vim plug install"
