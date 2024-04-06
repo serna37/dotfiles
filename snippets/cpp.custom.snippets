@@ -199,7 +199,6 @@ auto rpad = [](const string &S, int size, char ch = '0') -> string {
 };
 endsnippet
 snippet util_string_finds "string finds" b
-// T中のS出現場所を全列挙
 auto finds = [](const string &T, const string &S) -> vector<int> {
 	vector<int> pos;
 	auto p = T.find(S);
@@ -211,7 +210,7 @@ auto finds = [](const string &T, const string &S) -> vector<int> {
 };
 endsnippet
 snippet util_string_split "string split" b
-// aaaAaaa.split(A) -> aaa, aaa    BBB.split(A) -> ""
+// 区切り文字がない場合空文字
 auto split = [](const string &S, const char &sep) -> vector<string> {
 	vector<string> res = {""};
 	for (auto &&v : S) {
@@ -225,7 +224,7 @@ auto split = [](const string &S, const char &sep) -> vector<string> {
 };
 endsnippet
 snippet util_string_split_multi "string split multi" b
-// aaaABaaa.split(AB) -> aaa, aaa
+// 複数のcharで区切る 区切り文字がない場合空文字
 auto split = [](const string &S, const string &seps) -> vector<string> {
 	vector<string> res = {""};
 	for (auto &&v : S) {
@@ -242,44 +241,46 @@ endsnippet
 # geo
 snippet util_rad "rad" b
 // 度数法 → 弧度法
-auto rad = [](const double &d) -> double { return d * PI / 180; };
+auto rad = [](double d) -> double { return d * PI / 180; };
 endsnippet
 snippet util_deg "deg" b
 // 弧度法 → 度数法
-auto deg = [](const double &r) -> double { return r * 180 / PI; };
+auto deg = [](double r) -> double { return r * 180 / PI; };
 endsnippet
 snippet util_geo_area_triangle "geo area triangle" b
+// doubleは桁数表現11bitを除き、52bit程度の精度
+// 18桁使うなら2で割らずlong longで返すこと
 auto area_triangle = []<class T>(T x1, T y1, T x2, T y2, T x3, T y3) -> double {
 	return abs((x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1)) / 2.0;
-}; // doubleは桁数表現11bitを除き52bit程度の精度、long long最大桁まではいけない
+};
 endsnippet
 snippet util_geo_area_square "geo area square" b
+// doubleは桁数表現11bitを除き、52bit程度の精度
+// 18桁使うなら2で割らずlong longで返すこと
 auto area_square = []<class T>(T x1, T y1, T x2, T y2, T x3, T y3, T x4, T y4) -> double {
 	return hypot(x1 - x3, y1 - y3) * hypot(x2 - x4, y2 - y4) / 2.0;
-}; // doubleは桁数表現11bitを除き52bit程度の精度、long long最大桁まではいけない
+};
 endsnippet
 
 # grid
 snippet util_grid_around "grid around" b
-// 周囲のマスへ訪問する
+// 周囲のマスを見る
 for (int k = 0; k < ${1:4}; ++k) {
 	int y = i + dy[k], x = j + dx[k];
 	${2}
 }
 endsnippet
 snippet util_grid_go "grid go" b
-// for d で方向を固定
-// いまの点からずーーっと進む
-int y = ${1:i}, x = ${2:j}; // 始点とする
-// for 回数分
-y += dy[${3:d}], x += dx[$3]; // マス移動する
+// forループ: 進む方向を決めて
+int y = ${1:i}, x = ${2:j}; // この点から
+// for 進む回数だけループ
+y += dy[${3:d}], x += dx[$3]; // 進む
 endsnippet
 snippet util_grid_filter "grid filter" b
 // 領域外
 if (${1:y} < 0 or ${2:x} < 0 or ${3:row} <= $1 or ${4:col} <= $2) ${5:continue};
 endsnippet
 snippet util_grid_cango "grid cango" b
-// 進めるか判定する
 auto cango = [](const char &a) -> bool {
 	string whitelist = "${1:.SG}";
 	return whitelist.find(a) != string::npos;
