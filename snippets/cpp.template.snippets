@@ -19,14 +19,8 @@ snippet www "template base" b
 #include <bits/stdc++.h>
 using namespace std;
 #include <bits/debug.hpp>
-// GRID_dydx4 GRID_dydx8
-// MOD_100000007 MOD_998244353
-// INF INF_LL MAX PI EPS
-// fastio_macro
 ${1}
 int main() {
-	// fastio_tie
-	// cout_fixed_setprecision
 	${2}
 }
 endsnippet
@@ -37,14 +31,8 @@ snippet fastio_tie "fast io" b
 ios::sync_with_stdio(false);
 cin.tie(0);
 endsnippet
-snippet debug_include "debug" b
-// =====================================
-// XXX 要請: 以下のいずれかが実施済みであること
-// cp ~/git/dotfiles/cpp/debug.hpp /opt/homebrew/Cellar/gcc/13.2.0/include/c++/13/aarch64-apple-darwin22/bits
-// cp ~/git/library/others/debug.hpp /opt/homebrew/Cellar/gcc/13.2.0/include/c++/13/aarch64-apple-darwin22/bits
-// XXX 提出前に要削除
+snippet debug_include "debug include" b
 #include <bits/debug.hpp>
-// =====================================
 endsnippet
 snippet debug "debug" b
 debug(${1});
@@ -130,34 +118,29 @@ endsnippet
 snippet lambda "function lambda" b
 auto ${1:cal} = [${2:&}](${3:const int &a}) -> ${4:void} {
 	${5}
-	// 外側と変数名が被った場合、キャプチャより引数を優先
+	//
 };
 endsnippet
 snippet lambda_rec_dfs "lambda recursive dfs" b
 auto ${1:dfs} = [${2:&}](auto &f, ${3:const int &a}) -> ${4:void} {
-	// 終了条件でreturn
+	// ベースケース
 	${5}
-	//
 	// 行きがけ + 再帰
 	// o o             o o
 	//     o o     o o
-	//         o o ←ここまで行く
+	//         o o ←base
 	// f(f, )
-	//
 	// 帰りがけ
 };
 endsnippet
 snippet lambda_rec_memo "lambda recursive memo" b
 auto ${1:rec} = [${2:&}](auto &f, ${3:const int &a}) -> ${4:long long} {
-	// 終了条件でreturn
+	// ベースケース
 	${5}
 	// if (a == 0) return 0;
-	//
-	//
 	// メモにあれば使用
 	if (mp.count()) return mp[];
-	//
-	// なければメモに追加
+	// なければ再帰しつつメモに追加
 	return mp[] = f(f, );
 };
 endsnippet
@@ -277,7 +260,6 @@ snippet all_rev "iterator reverse" i
 ${1:A}.rbegin(), $1.rend()
 endsnippet
 snippet unique "unique" b
-// sort重複削除
 sort(${1:A}.begin(), $1.end());
 $1.erase(unique($1.begin(), $1.end()), $1.end());
 endsnippet
