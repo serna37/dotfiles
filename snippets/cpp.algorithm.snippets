@@ -279,6 +279,12 @@ if ($1.size() > $2.size()) swap($1, $2);
 for (auto &&v : $1) $2.${3:insert}(v);
 $1.clear();
 endsnippet
+snippet algo_seq_merge_map "merge map" b
+// ${1:mp[a]}を${2:mp[b]}にマージテク
+if ($1.size() > $2.size()) swap($1, $2);
+for (auto &&[k, v] : $1) $2[k] += (v);
+$1.clear();
+endsnippet
 snippet algo_seq_zip "座標圧縮" b
 vector<${1:long long}> ${2:cvt} = ${3:target};
 sort($2.begin(), $2.end());
@@ -308,61 +314,70 @@ endsnippet
 # =========================================================
 # FenwickTree
 # =========================================================
-snippet algo_fwk "Fenwick Tree" b
-// 1-indexed
-vector<${1:int}> ${2:fwk}(${3:sz+1});
+snippet algo_fenwick_tree "Fenwick Tree" b
+int sz = ${1:N}; // 葉のサイズ
+vector<${2:int}> ${3:fwk}(sz + 1); // 1-indexed
+$2 tot = 0; // 合計
 endsnippet
-snippet algo_fwk_build "fwk build" b
+snippet algo_fenwick_tree_build "fwk build" b
 for (int i = 1, f = i + (i & -i); i <= ${1:N}; ++i, f = i + (i & -i)) {
-	${2:fwk}[i] ${3:+}= ${4:A}[i - 1];
+	${2:fwk}[i] ${3:+}= ${4:A}[i - 1], tot $3= $4[i - 1];
 	if (f <= $1) $2[f] $3= $2[i];
 }
 endsnippet
-snippet algo_fwk_act "fwk act" b
-for (int ${1:f} = ${2:1-idx}; $1 <= ${3:fwk-size}; $1 += $1 & -$1) ${4:fwk}[$1] ${5:+}= ${6:act_value};
+snippet algo_fenwick_tree_act "fwk act" b
+for (int ${1:f} = ${2:1-idx}; $1 <= sz; $1 += $1 & -$1) ${3:fwk}[$1] ${4:+}= ${5:act_value}, tot $4= $5;
 endsnippet
-snippet algo_fwk_get "fwk get" b
+snippet algo_fenwick_tree_prod "fwk prod" b
 for (int ${1:f} = ${2:1-idx}; $1; $1 -= $1 & -$1) ${3:ans} ${4:+}= ${5:fwk}[$1];
 endsnippet
 
 # =========================================================
 # SegmentTree
 # =========================================================
-snippet algo_seg "Segment Tree" b
-${1:int} e = ${2:INF}; // 単位元
-auto op = []($1 x, $1 y) { return max(x, y); }; // 二項演算
-vector<$1> ${3:seg}(${4:sz} << 1, e);
+snippet algo_segment_tree "Segment Tree" b
+int sz = ${1:N}; // 葉のサイズ
+using Mono = ${2:int}; // モノイド型
+Mono e = ${3:INF}; // 単位元
+auto op = [](Mono x, Mono y) { return ${4:min}(x, y); }; // 二項演算
+vector<Mono> ${5:seg}(sz << 1, e);
 endsnippet
-snippet algo_seg_build "seg build" b
-for (int i = 0; i < ${1:N}; ++i) ${2:seg}[i + $1] = ${4:A}[i];
+snippet algo_segment_tree_build "seg build" b
+for (int i = 0; i < ${1:N}; ++i) ${2:seg}[i + sz] = ${3:A}[i];
 for (int i = $1 - 1; i >= 0; --i) $2[i] = op($2[i << 1], $2[i << 1 | 1]);
 endsnippet
-snippet algo_seg_set "seg set" b
-int ${1:p} = ${2:i}; ${3:seg}[$1 += ${4:sz}] = ${5:x};
-while ($1 >>= 1) $3[$1] = op($3[$1 << 1], $3[$1 << 1 | 1]);
+snippet algo_segment_tree_act "seg act" b
+auto act = [&](int p, const Mono &x) {
+	${1:seg}[p += sz] = x; // 代入の場合
+	// p += sz, $1[p] = op($1[p], x); // 作用の場合
+	while (p >>= 1) $1[p] = op($1[p << 1], $1[p << 1 | 1]);
+};
 endsnippet
-snippet algo_seg_get "seg get" b
-${5:int} P = e; int L = ${1:l}, R = ${2:r+1};
-for (L += ${3:sz}, R += $3; L < R; L >>= 1, R >>= 1) {
-	if (L & 1) P = op(P, ${4:seg}[L++]);
-	if (R & 1) P = op(P, $4[--R]);
-}
+snippet algo_segment_tree_prod "seg prod" b
+auto prod = [&](int l, int r) {
+	Mono L = e, R = e;
+	for (l += sz, r += sz; l < r; l >>= 1, r >>= 1) {
+		if (l & 1) L = op(L, ${1:seg}[l++]);
+		if (r & 1) R = op(${1:seg}[--r], R);
+	}
+	return op(L, R);
+};
 endsnippet
 
 # =========================================================
 # UnionFInd
 # =========================================================
 snippet algo_union_find "union find" b
-vector<int> uf(${1:N}); // uf[x]でx所属グループの代表値
-vector<vector<int>> g($1); // グループ本体
-for (int i = 0; i < $1; ++i) uf[i] = i, g[i].push_back(i);
+vector<int> ${1:p}(${2:N}); // $1[x]でx所属グループの代表値
+vector<vector<int>> ${3:g}($2); // グループ本体
+for (int i = 0; i < $2; ++i) $1[i] = i, $3[i].push_back(i);
 endsnippet
 snippet algo_union_find_merge "union find merge" b
-int ${1:X} = uf[${3:a}], ${2:Y} = uf[${4:b}]; // 代表値に変換
-if ($1 == $2) continue; // すでに同じ集合なら無視
-if (g[$1].size() > g[$2].size()) swap($1, $2); // マージテク
-for (auto &&v : g[$1]) g[$2].push_back(v), uf[v] = $2;
-g[$1].clear();
+int ${4:X} = ${3:p}[${1:a}], ${5:Y} = $3[${2:b}]; // 代表値に変換
+if ($4 == $5) continue;
+if (${6:g}[$4].size() > $6[$5].size()) swap($4, $5); // マージテク
+for (auto &&v : $6[$4]) $6[$5].push_back(v), $3[v] = $5;
+$6[$4].clear();
 endsnippet
 
 # =========================================================
