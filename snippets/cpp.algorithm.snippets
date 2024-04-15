@@ -282,7 +282,7 @@ endsnippet
 snippet algo_seq_merge_map "merge map" b
 // ${1:mp[a]}を${2:mp[b]}にマージテク
 if ($1.size() > $2.size()) swap($1, $2);
-for (auto &&[k, v] : $1) $2[k] += (v);
+for (auto &&[k, v] : $1) $2[k] += v;
 $1.clear();
 endsnippet
 snippet algo_seq_zip "座標圧縮" b
