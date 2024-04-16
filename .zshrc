@@ -160,6 +160,23 @@ cpp_build() {
         -o $file $1
         #-fsanitize=address,undefined \
 }
+cpp_test() {
+    echo -e "==================================="
+    echo -e "[\e[34mINFO\e[m] \e[32mmain.cppのある階層で実行してね\e[m"
+    echo -e "[\e[34mINFO\e[m] \e[32m問題URLを入力\e[m"
+    read OJ_D_URL
+    echo -e "==================================="
+    echo -e "[\e[34mINFO\e[m] \e[32mtestフォルダを空に\e[m"
+    rm -rf ./test && mkdir test
+    echo -e "[\e[34mINFO\e[m] \e[32mテストケースDL\e[m"
+    oj d $OJ_D_URL
+    echo -e "[\e[34mINFO\e[m] \e[32mビルド\e[m"
+    cpp_build main.cpp
+    echo -e "[\e[34mINFO\e[m] \e[32mテスト実行\e[m"
+    echo -e "==================================="
+    echo -e "==================================="
+    oj t -c "./main"
+}
 export CC_EXE_PROBLEM="z"
 cpp_exe() {
     if [ $# -eq 1 ]; then
