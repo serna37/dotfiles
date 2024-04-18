@@ -142,6 +142,9 @@ google() {
   fi
   open -a Google\ Chrome http://www.google.co.jp/$opt
 }
+gh_issue49_close() {
+    cd ~/git/task && gh issue view 49 && gh issue close 49
+}
 cpp_build() {
     filename=$1
     file="${filename%.*}"
