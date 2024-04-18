@@ -104,6 +104,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/vim-edgemotion'
 Plug 'serna37/edgemotion-vertical'
 Plug 'rhysd/clever-f.vim'
+Plug 'unblevable/quick-scope'
 Plug 'serna37/vim-fscope-around'
 Plug 't9md/vim-quickhl'
 Plug 'haya14busa/vim-asterisk'
@@ -127,9 +128,16 @@ aug cleaver_f
     au!
     au ColorScheme * hi CleverFDefaultLabel cterm=BOLD,underline ctermfg=40 ctermbg=0
 aug END
+aug cleaver_f
+    au!
+    au ColorScheme * hi QuickScopePrimary ctermfg=204 cterm=BOLD
+    au ColorScheme * hi QuickScopeSecondary ctermfg=81 cterm=BOLD
+aug END
 let fscope_around_row = 1
 let g:fscope_highlight_priority = 0
-nnoremap <leader>w <Plug>(fscope-around-toggle)<Plug>(clever-f-reset)
+let g:fscope_init_active = 0
+" <Plug>(fscope-around-toggle)
+nnoremap <leader>w <Plug>(clever-f-reset):QuickScopeToggle<CR>
 nnoremap # <Plug>(asterisk-z*)<Plug>(quickhl-manual-this)
 nnoremap <silent><Leader>q <Plug>(quickhl-manual-reset)<Plug>(clever-f-reset):noh<CR>
 let g:comfortable_motion_no_default_key_mappings = 1
