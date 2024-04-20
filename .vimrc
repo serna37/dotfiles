@@ -324,6 +324,11 @@ let g:ac_vim_bell_times_interval = []
 let g:ac_vim_bell_times_redzone = 30
 let g:ac_vim_bell_times_limit = 31
 
+" ### AI Copilot
+Plug 'Exafunction/codeium.vim'
+inoremap <silent><C-n> <Cmd>call codeium#CycleCompletions(1)<CR>
+inoremap <silent><C-p> <Cmd>call codeium#CycleCompletions(-1)<CR>
+
 call plug#end()
 
 
