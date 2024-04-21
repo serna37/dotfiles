@@ -58,8 +58,10 @@ fu! Fmt4Submisstion() abort
     " 4. //から右を全て削除
     try | %s/\/\/.*/ /g | catch
     endtry
-    " 5. 保存時点でフォーマッタが走る、全コピ
-    w | %y
+    " 5. フォーマッタ、保存、全コピ
+    cal CocAction('format')
+    w
+    %y
     " end. 一番上にいく
     cal cursor(1, 1)
     cal popup_notification(['⭐️ 圧縮&コピー完了⭐️'], #{line: &lines/2, col: &columns/3})
@@ -272,7 +274,9 @@ endf
 " 右端に行きたい
 inoremap {{ <Esc>A{}<Left>
 " 一番下行から書く時に、画面真ん中に
-nnoremap O zzO
+nnoremap O zz:cal CocAction('format')<CR>O
+" SNIPモードを強制終了
+inoremap <C-k> <Esc>:w<CR>:e!<CR>zzi
 noremap <silent><Plug>(tailsemi) :<C-u>cal <SID>tailsemi()<CR>
 inoremap ;; <Esc><Plug>(tailsemi)<Esc>:w<CR>
 inoremap ;<CR> <Esc><Plug>(tailsemi)<Esc>:w<CR>o
@@ -305,10 +309,10 @@ nnoremap <Leader>, <plug>(coc-diagnostic-next)
 nnoremap <Leader>. <plug>(coc-diagnostic-prev)
 nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : comfortable_motion#flick(100)
 nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : comfortable_motion#flick(-100)
-aug fmt_cpp
-    au!
-    au BufWrite *.cpp :try | cal CocAction('format') | catch | endtry
-aug END
+"aug fmt_cpp
+    "au!
+    "au BufWrite *.cpp :try | cal CocAction('format') | catch | endtry
+"aug END
 
 " ### util
 Plug 'serna37/vim-tutorial'
