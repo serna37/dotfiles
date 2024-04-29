@@ -99,6 +99,14 @@ com! SandboxNextCpp cal SandboxNextCpp()
 " ############################################################
 call plug#begin()
 
+" ### AI Copilot
+Plug 'Exafunction/codeium.vim'
+let g:codeium_disable_bindings = 1
+inoremap <silent><C-n> <Cmd>call codeium#CycleCompletions(1)<CR>
+inoremap <silent><C-p> <Cmd>call codeium#CycleCompletions(-1)<CR>
+inoremap <script><silent><nowait><expr><C-i><C-i> codeium#Accept()
+inoremap <silent><C-d> <Cmd>call codeium#Clear()<CR>
+
 " ### Enhanced vim motion
 Plug 'serna37/vim-modern-basic'
 Plug 'serna37/vim-anchor5'
@@ -274,9 +282,12 @@ endf
 " 右端に行きたい
 inoremap {{ <Esc>A{}<Left>
 " 一番下行から書く時に、画面真ん中に
-nnoremap O zz:cal CocAction('format')<CR>O
+fu! Format() abort
+    try | cal CocAction('format') | catch | endtry
+endf
+nnoremap O zz:cal Format()<CR>O
 " SNIPモードを強制終了
-inoremap <C-k> <Esc>:w<CR>:e!<CR>zzi
+inoremap <C-k> <Esc>:w<CR>:e!<CR>zza
 noremap <silent><Plug>(tailsemi) :<C-u>cal <SID>tailsemi()<CR>
 inoremap ;; <Esc><Plug>(tailsemi)<Esc>:w<CR>
 inoremap ;<CR> <Esc><Plug>(tailsemi)<Esc>:w<CR>o
@@ -327,11 +338,6 @@ let g:ac_vim_bell_times_at = [5, 15, 30]
 let g:ac_vim_bell_times_interval = []
 let g:ac_vim_bell_times_redzone = 30
 let g:ac_vim_bell_times_limit = 31
-
-" ### AI Copilot
-Plug 'Exafunction/codeium.vim'
-inoremap <silent><C-n> <Cmd>call codeium#CycleCompletions(1)<CR>
-inoremap <silent><C-p> <Cmd>call codeium#CycleCompletions(-1)<CR>
 
 call plug#end()
 

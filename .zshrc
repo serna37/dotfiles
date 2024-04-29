@@ -84,6 +84,11 @@ alias ss='gtimeout 5 '
 alias w='date&&cal&&unfog&&gtimeout 3 cmatrix;genact -s 10 --exit-after-modules 1 -m botnet && genact -s 10 --exit-after-modules 1 -m bruteforce && '
 alias wv='w zv'
 
+# GitHub
+alias issue_create='cd ~/git/task && gh issue create'
+alias issue_list='cd ~/git/task && gh issue list'
+alias issue_49_close='cd ~/git/task && gh issue view 49 && gh issue close 49'
+
 # tutorial command
 enhanced_commands=(
 "df" "ps" "top" "gping -n 0.5 google.com"
@@ -141,9 +146,6 @@ google() {
     opt="${opt}&q=${str}"
   fi
   open -a Google\ Chrome http://www.google.co.jp/$opt
-}
-gh_issue49_close() {
-    cd ~/git/task && gh issue view 49 && gh issue close 49
 }
 cpp_build() {
     filename=$1
