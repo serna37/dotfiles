@@ -88,6 +88,9 @@ alias wv='w zv'
 alias issue_create='cd ~/git/task && gh issue create'
 alias issue_list='cd ~/git/task && gh issue list'
 alias issue_49_close='cd ~/git/task && gh issue view 49 && gh issue close 49'
+alias pr_develop_feature='gh pr create --base develop --head $(git branch --contains | cut -d " " -f 2) --title "modify" --body ""'
+alias pr_release_develop='gh pr create --base release --head develop --title "Publish" --body ""'
+alias pr_master_release='gh pr create --base release --head develop --title "Publish" --body ""'
 
 # tutorial command
 enhanced_commands=(
