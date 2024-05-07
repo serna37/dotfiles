@@ -34,6 +34,7 @@ java11
 postgresql@14
 sqlite
 # zsh
+peco
 zsh-git-prompt
 zsh-autosuggestions
 zsh-syntax-highlighting
