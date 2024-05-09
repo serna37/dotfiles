@@ -77,11 +77,14 @@ cd library
 zsh snippets.sh
 
 echo "=========================================================="
+echo "powerlevel10k"
+echo "=========================================================="
+brew reinstall powerlevel10k
+
+echo "=========================================================="
 echo "vim plug install"
 echo "!! This is the last step."
 echo "=========================================================="
 vi -c "PlugInstall" -c "qa"
 
-# zsh prompt
-brew reinstall powerlevel10k
 
