@@ -1,12 +1,16 @@
-<img src="https://img.shields.io/badge/-Vim-019733.svg?logo=vim&style=flat">
-
-## zshrc/vimrc
-my zsh/vim custom with many plugins.
-
+# dotfiles
 ## installation
 ```sh
 curl -sSL https://raw.githubusercontent.com/serna37/dotfiles/master/install.sh | sh
+exec $SHELL -l
+p10k configure
 ```
 
-## monolithic vimrc
-https://github.com/serna37/vim
+> [!Note]
+> コードの署名[参考](https://blog.symdon.info/posts/1610113408/)
+
+> [!Note]
+> Finderのキル
+> ```
+> defaults write com.apple.Finder QuitMenuItem -boolean true
+> ```

@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-// copy for
-// /opt/homebrew/Cellar/gcc/13.2.0/include/c++/13/aarch64-apple-darwin22/bits
+// copy for bits
 // ==========================================================================
 // ==========================================================================
 // --- debug_start
