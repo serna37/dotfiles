@@ -56,8 +56,6 @@ go
 java11
 postgresql@14
 sqlite
-# zsh prompt
-powerlevel10k
 )
 
 echo "===========================START==========================="
@@ -146,4 +144,7 @@ echo "vim plug install"
 echo "!! This is the last step."
 echo "=========================================================="
 vi -c "PlugInstall" -c "qa"
+
+# zsh prompt
+brew install powerlevel10k
 

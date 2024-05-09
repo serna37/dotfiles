@@ -3,7 +3,6 @@
 ```sh
 curl -sSL https://raw.githubusercontent.com/serna37/dotfiles/master/install.sh | sh
 exec $SHELL -l
-p10k configure
 ```
 
 > [!Note]
