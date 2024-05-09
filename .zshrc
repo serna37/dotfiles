@@ -251,9 +251,6 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # zsh-git-prompt
 source /opt/homebrew/opt/zsh-git-prompt/zshrc.sh
 
-# github cli
-eval "$(gh completion -s zsh)"
-
 # powerlevel10k
 source $(brew --prefix)/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
