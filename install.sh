@@ -1,3 +1,9 @@
+echo "npm yarn install"
+npm install -g npm
+npm install -g yarn
+brew cleanup
+brew list
+
 echo "=========================================================="
 echo "dotfiles"
 echo "=========================================================="
@@ -70,5 +76,5 @@ echo "=========================================================="
 vi -c "PlugInstall" -c "qa"
 
 # zsh prompt
-brew install powerlevel10k
+brew reinstall powerlevel10k
 

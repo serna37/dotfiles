@@ -69,9 +69,4 @@ for v in ${repos[@]}; do
     echo "=========================================================="
     brew reinstall ${v}
 done
-echo "npm yarn install"
-npm install -g npm
-npm install -g yarn
-brew cleanup
-brew list
 
