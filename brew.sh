@@ -56,6 +56,8 @@ go
 java11
 postgresql@14
 sqlite
+# zsh prompt
+powerlevel10k
 )
 
 # 時間がかかるとfor文の次のコマンド実行しちゃうので、このshellではfor文だけ。
