@@ -58,9 +58,6 @@ alias rezsh='exec $SHELL -l'
 # tools
 alias g='lazygit'
 alias d='lazydocker'
-alias debug='cpp_exe'
-alias algo='cpp_test'
-alias cpp_ini='cp ~/git/dotfiles/conf/cpp/.clang-format . && cp ~/git/dotfiles/conf/cpp/compile_flags.txt .'
 alias localhost_here='python -m http.server 8000'
 alias clock='tty-clock -sc -C2'
 alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
@@ -86,162 +83,8 @@ gif() {
     fi
 }
 
-# C++ビルド
-cpp_build() {
-    filename=$1
-    file="${filename%.*}"
-    g++ \
-        -std=c++20 \
-        -I /opt/homebrew/Cellar/gcc@13/13.2.0/include/c++/13/aarch64-apple-darwin23/ \
-        -Wall \
-        -Wextra \
-        -mtune=native \
-        -march=native \
-        -fconstexpr-depth=2147483647 \
-        -ftrapv \
-        -fsanitize-undefined-trap-on-error \
-        -o $file $1
-        #-fconstexpr-loop-limit=2147483647 \
-        #-fconstexpr-ops-limit=2147483647 \
-        #-fsanitize=address,undefined \
-}
-
-# フォルダ名を指定してC++実行
-export CC_EXE_PROBLEM="z"
-cpp_exe() {
-    if [ $# -eq 1 ]; then
-        export CC_EXE_PROBLEM=$1
-    fi
-    echo -e "==================================="
-    echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_EXE_PROBLEM/main.cpp processing...\e[m"
-    cpp_build ./$CC_EXE_PROBLEM/main.cpp
-    echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_EXE_PROBLEM/main.cpp complete.\e[m"
-    echo -e "==================================="
-    echo -e "\e[33m-----------------------------\e[m"
-    ./$CC_EXE_PROBLEM/main
-    res=$?
-    echo -e "\e[33m-----------------------------\e[m"
-    if [ $res -eq 0 ]; then
-        echo -e "[\e[34mINFO\e[m] \e[32mexit code:$res.\e[m"
-    else
-        echo -e "[\e[31mERROR\e[m] \e[mexeit code:$res."
-    fi
-}
-
-# URLからojでC++テスト(vim atcoder menuに同機能あり)
-cpp_test_url() {
-    echo -e "==================================="
-    echo -e "[\e[34mINFO\e[m] \e[32mmain.cppのあるフォルダ名を入力\e[m"
-    read A
-    cd $A
-    echo -e "[\e[34mINFO\e[m] \e[32m問題URLを入力\e[m"
-    read OJ_D_URL
-    echo -e "==================================="
-    echo -e "[\e[34mINFO\e[m] \e[32mtestフォルダを空に\e[m"
-    rm -rf ./test && mkdir test
-    echo -e "[\e[34mINFO\e[m] \e[32mテストケースDL\e[m"
-    oj d $OJ_D_URL
-    echo -e "[\e[34mINFO\e[m] \e[32mビルド\e[m"
-    cpp_build main.cpp
-    echo -e "[\e[34mINFO\e[m] \e[32mテスト実行\e[m"
-    echo -e "==================================="
-    echo -e "==================================="
-    oj t -c "./main"
-    cd ..
-}
-
-# フォルダ名を指定して、ダウンロード済みからoj t
-export CC_TEST_PROBLEM="z"
-cpp_test() {
-    if [ $# -eq 1 ]; then
-        export CC_TEST_PROBLEM=$1
-    fi
-    cd $CC_TEST_PROBLEM
-    echo -e "==================================="
-    echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_TEST_PROBLEM/main.cpp processing...\e[m"
-    cpp_build main.cpp
-    echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_TEST_PROBLEM/main.cpp complete.\e[m"
-    echo -e "==================================="
-    echo -e "\e[33m-----------------------------\e[m"
-    oj t -c "./main"
-    cd ..
-}
-
-# AtCoderコンテスト、朝活、ADT、単一練習用
-export AC_DIR="$HOME/git/contest"
-export ASA_DIR="$HOME/git/asakatu"
-export ADT_DIR="$HOME/git/adt"
-export SAND_DIR="$HOME/git/sandbox"
-AtCoder() {
-    cd $AC_DIR
-    contest_cd=$1
-    file_name="main.cpp"
-    acc check-oj
-    oj login https://atcoder.jp
-    acc login
-    acc config default-task-choice all
-    acc config default-test-dirname-format test
-    valid=`acc contest $contest_cd`
-    if [[ $valid == ''  ]]; then
-        echo -e "[\e[31mERROR\e[m] create faild."
-        return
-    fi
-    acc new $contest_cd
-    cd $contest_cd
-    dirs=(`\fd -d 1 -t d`)
-    for v in ${dirs[@]}; do
-        echo -e "[\e[34mINFO\e[m] touch file :\e[32m${v}${file_name}\e[m"
-        touch "${v}${file_name}"
-    done
-    vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
-}
-AtCoderResolve() {
-    cd $AC_DIR && rm -rf $1 && AtCoder $1
-}
-AsakatuAtCoder() {
-    cd $ASA_DIR
-    file_name="main.cpp"
-    dirname=`date '+%Y%m%d'`
-    mkdir $dirname
-    cd $dirname
-    mkdir a b c d e f
-    dirs=(`\fd -d 1 -t d`)
-    for v in ${dirs[@]}; do
-        echo -e "[\e[34mINFO\e[m] touch file :\e[32m${v}${file_name}\e[m"
-        touch "${v}${file_name}"
-    done
-    if [[ -n $ASA_SAMPLE_DL ]]; then
-        for v in ${dirs[@]}; do
-            rm -rf "${v}test"
-        done
-        eval $ASA_SAMPLE_DL
-        cd ../
-    fi
-    vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
-}
-ADTAtCoder() {
-    cd $ADT_DIR
-    file_name="main.cpp"
-    dirname=`date '+%Y%m%d'`
-    mkdir $dirname
-    cd $dirname
-    mkdir c d e f g
-    dirs=(`\fd -d 1 -t d`)
-    for v in ${dirs[@]}; do
-        echo -e "[\e[34mINFO\e[m] touch file :\e[32m${v}${file_name}\e[m"
-        touch "${v}${file_name}"
-    done
-    vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
-}
-solve() {
-    cd $SAND_DIR
-    echo -n > z/main.cpp
-    cd z
-    rm -rf test
-    oj d $(pbpaste)
-    cd ..
-    v z/main.cpp
-}
+# C++用設定
+source ~/git/dotfiles/conf/cpp/.zshrc.cpp
 
 # ======================================================
 # ENHANCED COMMAND SETTINGS
@@ -274,9 +117,6 @@ source /opt/homebrew/opt/zsh-git-prompt/zshrc.sh
 
 # powerlevel10k
 source $(brew --prefix)/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # ======================================================
