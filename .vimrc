@@ -338,6 +338,7 @@ let g:ac_vim_bell_times_at = [5, 15, 30]
 let g:ac_vim_bell_times_interval = []
 let g:ac_vim_bell_times_redzone = 30
 let g:ac_vim_bell_times_limit = 31
+let g:ac_vim_test_cmd = "cpp_build main.cpp && mv main a.out && oj t"
 
 call plug#end()
 

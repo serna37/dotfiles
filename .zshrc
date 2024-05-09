@@ -59,6 +59,7 @@ alias rezsh='exec $SHELL -l'
 alias g='lazygit'
 alias d='lazydocker'
 alias debug='cpp_exe'
+alias algo='cpp_test'
 alias cpp_ini='cp ~/git/dotfiles/conf/cpp/.clang-format . && cp ~/git/dotfiles/conf/cpp/compile_flags.txt .'
 alias localhost_here='python -m http.server 8000'
 alias clock='tty-clock -sc -C2'
@@ -90,18 +91,18 @@ cpp_build() {
     filename=$1
     file="${filename%.*}"
     g++ \
-        -std=c++23 \
-        -I /opt/homebrew/Cellar/gcc/13.2.0/include/c++/13/aarch64-apple-darwin22 \
+        -std=c++20 \
+        -I /opt/homebrew/Cellar/gcc@13/13.2.0/include/c++/13/aarch64-apple-darwin23/ \
         -Wall \
         -Wextra \
         -mtune=native \
         -march=native \
         -fconstexpr-depth=2147483647 \
-        -fconstexpr-loop-limit=2147483647 \
-        -fconstexpr-ops-limit=2147483647 \
         -ftrapv \
         -fsanitize-undefined-trap-on-error \
         -o $file $1
+        #-fconstexpr-loop-limit=2147483647 \
+        #-fconstexpr-ops-limit=2147483647 \
         #-fsanitize=address,undefined \
 }
 
@@ -128,9 +129,11 @@ cpp_exe() {
 }
 
 # URLからojでC++テスト(vim atcoder menuに同機能あり)
-cpp_test() {
+cpp_test_url() {
     echo -e "==================================="
-    echo -e "[\e[34mINFO\e[m] \e[32mmain.cppのある階層で実行してね\e[m"
+    echo -e "[\e[34mINFO\e[m] \e[32mmain.cppのあるフォルダ名を入力\e[m"
+    read A
+    cd $A
     echo -e "[\e[34mINFO\e[m] \e[32m問題URLを入力\e[m"
     read OJ_D_URL
     echo -e "==================================="
@@ -144,6 +147,24 @@ cpp_test() {
     echo -e "==================================="
     echo -e "==================================="
     oj t -c "./main"
+    cd ..
+}
+
+# フォルダ名を指定して、ダウンロード済みからoj t
+export CC_TEST_PROBLEM="z"
+cpp_test() {
+    if [ $# -eq 1 ]; then
+        export CC_TEST_PROBLEM=$1
+    fi
+    cd $CC_TEST_PROBLEM
+    echo -e "==================================="
+    echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_TEST_PROBLEM/main.cpp processing...\e[m"
+    cpp_build main.cpp
+    echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_TEST_PROBLEM/main.cpp complete.\e[m"
+    echo -e "==================================="
+    echo -e "\e[33m-----------------------------\e[m"
+    oj t -c "./main"
+    cd ..
 }
 
 # AtCoderコンテスト、朝活、ADT、単一練習用
@@ -218,7 +239,7 @@ solve() {
     cd z
     rm -rf test
     oj d $(pbpaste)
-    cd ../
+    cd ..
     v z/main.cpp
 }
 
