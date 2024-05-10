@@ -1,6 +1,17 @@
 alias debug='cpp_exe'
 alias algo='cpp_test'
-alias cpp_ini='cp ~/git/dotfiles/conf/cpp/.clang-format . && cp ~/git/dotfiles/conf/cpp/compile_flags.txt .'
+
+# C++ 初期化
+cpp_ini() {
+    cp ~/git/dotfiles/conf/cpp/cpp_gitignore .
+    cp ~/git/dotfiles/conf/cpp/.clang-format .
+    cp ~/git/dotfiles/conf/cpp/compile_flags.txt .
+    # ojコマンドのためにPython仮想環境を作成
+    python -m venv .
+    . bin/activate
+    pip install --upgrade setuptools
+    sudo pip3 install online-judge-tools
+}
 
 # C++ビルド
 cpp_build() {

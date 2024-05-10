@@ -6,7 +6,7 @@ brew list
 sleep 2
 
 echo "=========================================================="
-echo "dotfiles"
+echo "[dotfiles] clone & setup .zshrc .vimrc"
 echo "=========================================================="
 # dotfilesレポをクローン
 mkdir -p ~/git
@@ -17,32 +17,26 @@ ln -nfs ~/git/dotfiles/.zshrc ~/.zshrc
 ln -nfs ~/git/dotfiles/.vimrc ~/.vimrc
 
 echo "=========================================================="
-echo "vim"
+echo "[vim] setup common-settings.vim"
 echo "=========================================================="
 # コメント行から改行した際、次の行をコメントにしない設定
 mkdir -p ~/.vim/after/plugin
 cp ~/git/dotfiles/conf/vim/common-settings.vim ~/.vim/after/plugin/
 
 echo "=========================================================="
-echo "vim-plug"
+echo "[vim] install vim-plug"
 echo "=========================================================="
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 echo "=========================================================="
-echo "coc settings"
+echo "[vim] setup coc-settings.json"
 echo "=========================================================="
 # coc用設定をシンボリックリンク
 mkdir -p ~/.vim/UltiSnips
 ln -nfs ~/git/dotfiles/conf/vim/coc-settings.json ~/.vim/coc-settings.json
 
 echo "=========================================================="
-echo "unfog"
-echo "=========================================================="
-# パスワード入力が必要
-curl -sSL https://raw.githubusercontent.com/soywod/unfog/master/install.sh | sh
-
-echo "=========================================================="
-echo "font"
+echo "[tool] install font";
 echo "=========================================================="
 cd ~/git
 git clone --depth 1 https://github.com/powerline/fonts.git
@@ -52,29 +46,34 @@ cd ..
 rm -rf fonts
 
 echo "=========================================================="
-echo "AtCoder"
+echo "[tool] atcoder-cli"
 echo "=========================================================="
-cd ~/git
 npm install -g atcoder-cli
-# TODO 仮想環境必要！
-#pip3 install --user online-judge-tools
 
 echo "=========================================================="
-echo "cpp debug snippets"
+echo "[C++] setup stdc++.h debug.hpp snippets"
 echo "=========================================================="
 BITS_PATH=/opt/homebrew/Cellar/gcc@12/12.3.0/include/c++/12/aarch64-apple-darwin23/bits
 cp ~/git/dotfiles/conf/cpp/stdc++.h $BITS_PATH
 cp ~/git/dotfiles/conf/cpp/debug.hpp $BITS_PATH
 ln -nfs ~/git/dotfiles/snippets/* ~/.vim/UltiSnips/
+
+echo "=========================================================="
+echo "[C++] install serna/37/library"
+echo "=========================================================="
 cd ~/git
 git clone https://github.com/serna37/library
 cd library
 zsh snippets.sh
 
 echo "=========================================================="
-echo "vim plug install"
-echo "!! This is the last step."
+echo "[tool] install unfog"
+echo "=========================================================="
+# パスワード入力が必要
+curl -sSL https://raw.githubusercontent.com/soywod/unfog/master/install.sh | sh
+
+echo "=========================================================="
+echo "[vim] install vim plugins"
 echo "=========================================================="
 vi -c "PlugInstall" -c "qa"
-
 

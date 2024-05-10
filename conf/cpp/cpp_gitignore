@@ -1,0 +1,16 @@
+# Mac
+.DS_Store
+
+# Python
+__pycache__/
+.pytest_chache/
+
+# Python仮想環境
+bin/
+include/
+lib/
+pyvenv.cfg
+
+# C++
+.clang-format
+compile_flags.txt
