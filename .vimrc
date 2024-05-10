@@ -85,7 +85,7 @@ Plug 'soywod/unfog.vim'
 Plug 'glidenote/memolist.vim'
 Plug 'segeljakt/vim-silicon'
 Plug 'nanotee/zoxide.vim'
-Plug 'serna37/vim-atcoder-menu'
+"Plug 'serna37/vim-atcoder-menu'
 
 call plug#end()
 
