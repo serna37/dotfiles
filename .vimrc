@@ -90,3 +90,4 @@ Plug 'nanotee/zoxide.vim'
 call plug#end()
 
 source ~/git/dotfiles/conf/vim/plugconf.vim
+source ~/git/dotfiles/conf/cpp/.vimrc.cpp
