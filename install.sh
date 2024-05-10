@@ -36,7 +36,7 @@ mkdir -p ~/.vim/UltiSnips
 ln -nfs ~/git/dotfiles/conf/vim/coc-settings.json ~/.vim/coc-settings.json
 
 echo "=========================================================="
-echo "[tool] install font";
+echo "[tool] install font"
 echo "=========================================================="
 cd ~/git
 git clone --depth 1 https://github.com/powerline/fonts.git
