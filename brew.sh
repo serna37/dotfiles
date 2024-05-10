@@ -48,7 +48,7 @@ cmatrix
 tty-clock
 genact
 # lang
-gcc@13
+gcc@12
 rust
 python3
 node

@@ -68,8 +68,9 @@ npm install -g atcoder-cli
 echo "=========================================================="
 echo "cpp debug snippets"
 echo "=========================================================="
-cp ~/git/dotfiles/conf/cpp/stdc++.h /opt/homebrew/Cellar/gcc@13/13.2.0/include/c++/13/aarch64-apple-darwin23/bits
-cp ~/git/dotfiles/conf/cpp/debug.hpp /opt/homebrew/Cellar/gcc@13/13.2.0/include/c++/13/aarch64-apple-darwin23/bits
+BITS_PATH=/opt/homebrew/Cellar/gcc@12/12.3.0/include/c++/12/aarch64-apple-darwin23/bits
+cp ~/git/dotfiles/conf/cpp/stdc++.h $BITS_PATH
+cp ~/git/dotfiles/conf/cpp/debug.hpp $BITS_PATH
 ln -nfs ~/git/dotfiles/snippets/* ~/.vim/UltiSnips/
 cd ~/git
 git clone https://github.com/serna37/library

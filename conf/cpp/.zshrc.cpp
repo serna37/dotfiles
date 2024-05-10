@@ -8,7 +8,7 @@ cpp_build() {
     file="${filename%.*}"
     g++ \
         -std=c++20 \
-        -I /opt/homebrew/Cellar/gcc@13/13.2.0/include/c++/13/aarch64-apple-darwin23/ \
+        -I /opt/homebrew/Cellar/gcc@12/12.3.0/include/c++/12/aarch64-apple-darwin23/ \
         -Wall \
         -Wextra \
         -mtune=native \
