@@ -47,7 +47,7 @@ tnoremap <silent><C-t> <C-\><C-n>:FloatermNew<CR>
 tnoremap <silent><S-Tab> <C-\><C-n>:FloatermNext<CR>
 let g:floaterm_keymap_toggle = '<F12>'
 let g:floaterm_width = 0.6
-let g:floaterm_height = 0.8
+let g:floaterm_height = 1.2
 let g:floaterm_position = 'bottomright'
 
 " ### Enhanced Visualization
@@ -179,11 +179,11 @@ nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(
 " ### util
 let g:silicon = {}
 let g:silicon['output'] = '~/Desktop/tmp.png'
-let g:ac_vim_bell_times_at = [5, 15, 30]
-let g:ac_vim_bell_times_interval = []
-let g:ac_vim_bell_times_redzone = 30
-let g:ac_vim_bell_times_limit = 31
-let g:ac_vim_test_cmd = "cpp_build main.cpp && mv main a.out && oj t"
+"let g:ac_vim_bell_times_at = [5, 15, 30]
+"let g:ac_vim_bell_times_interval = []
+"let g:ac_vim_bell_times_redzone = 30
+"let g:ac_vim_bell_times_limit = 31
+"let g:ac_vim_test_cmd = "cpp_build main.cpp && mv main a.out && oj t"
 
 " startify -------------------------------
 let s:start = #{}
