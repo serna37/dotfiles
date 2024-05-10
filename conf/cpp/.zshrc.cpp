@@ -32,6 +32,7 @@ cpp_build() {
         #-fconstexpr-ops-limit=2147483647 \
         #-fsanitize=address,undefined \
 }
+export CC_BUILD_CMD="g++ -std=c++20 -I /opt/homebrew/Cellar/gcc@12/12.3.0/include/c++/12/aarch64-apple-darwin23/ -Wall -Wextra -mtune=native -march=native -fconstexpr-depth=2147483647 -ftrapv -fsanitize-undefined-trap-on-error -o main main.cpp"
 
 # フォルダ名を指定してC++実行
 export CC_EXE_PROBLEM="z"

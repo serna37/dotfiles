@@ -79,3 +79,68 @@ fu! SandboxNextCpp() abort
 endf
 com! SandboxNextCpp cal SandboxNextCpp()
 
+" 非同期でテスト結果をポップアップに表示
+aug AC_TEST_COLOR
+    au!
+    au ColorScheme * hi AC_TEST_WIN ctermfg=39 ctermbg=237
+    au ColorScheme * hi AC_ALERT ctermfg=204
+aug END
+let s:ac_test = #{wid: -1, res: []}
+fu! s:ac_test.gettask() abort
+    let target_bufname = "nodata"
+    for wid in range(1, winnr('$'))
+        let bufname = bufname(winbufnr(wid))
+        if bufname =~ ".\/main\.cpp"
+            let target_bufname = bufname
+            break
+        endif
+    endfor
+    retu split(target_bufname, '/')[0]
+endf
+fu! s:ac_test.close() abort
+        if self.wid != -1
+        cal popup_close(self.wid)
+        let self.wid = -1
+        let self.res = []
+    endif
+endf
+fu! s:ac_test.exe() abort
+    let task = s:ac_test.gettask()
+    if task == "nodata" || len(task) != 1
+        echohl AC_ALERT
+        echom "[ERROR] AtCoder Format Program Not Found. sample: 'a/main.cpp'"
+        echohl None
+        retu
+    endif
+    cal self.close()
+    let self.wid = popup_create(self.res, #{title: ' Test - '.task.' ',
+        \ zindex: -1,
+        \ scrollbar: 0,
+        \ fixed: 1,
+        \ border: [], borderchars: ['─','│','─','│','╭','╮','╯','╰'], borderhighlight: ['AC_TEST_WIN'],
+        \ minwidth: 50, maxwidth: 50,
+        \ minheight: 30, maxheight: 30,
+        \ pos: 'topleft', 
+        \ line: 30, col: &columns - 50,
+        \ })
+    cal setbufvar(winbufnr(self.wid), '&filetype', 'log')
+    cal matchadd('AC_TEST_WIN', 'SUCCESS',  16, -1, #{window: self.wid})
+    let cmd = "cd ".task
+    let cmd = cmd.' && '.$CC_BUILD_CMD
+    let cmd = cmd.' && oj t -c "./main"'
+    cal job_start(["/bin/zsh", "-c", cmd], #{out_cb: self.async})
+endf
+fu! s:ac_test.async(ch, msg) abort
+    cal add(self.res, a:msg)
+    cal setbufline(winbufnr(self.wid), 1, self.res)
+endf
+fu! s:ac_test_call() abort
+    cal s:ac_test.exe()
+endf
+fu! s:ac_test_off() abort
+    cal s:ac_test.close()
+endf
+noremap <silent><Plug>(atcoder-oj-test) :<C-u>cal <SID>ac_test_call()<CR>
+noremap <silent><Plug>(atcoder-oj-test-off) :<C-u>cal <SID>ac_test_off()<CR>
+nnoremap <silent><Leader>a <Plug>(atcoder-oj-test)
+nnoremap <silent><Leader><Leader>a <Plug>(atcoder-oj-test-off)
