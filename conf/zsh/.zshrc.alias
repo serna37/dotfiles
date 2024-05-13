@@ -1,0 +1,50 @@
+# ======================================================
+# ALIAS
+# ======================================================
+# vim
+alias v='vi -c "CocCommand explorer --no-focus --width 30"'
+alias zv='zi && v'
+
+# ls
+alias ll='ls -AFGlihrt --color=auto'
+alias l='eza -abghHliS --icons --git'
+alias tree='eza -bghHliST --icons --git'
+alias zoxide_ls='zoxide query -ls'
+alias zoxide_rm='(){zoxide remove $1}'
+
+# find
+alias find='fd -H -E .git -E .DS_Store -t f'
+alias fzf="fzf --preview 'bat -n --color=always {}'"
+alias fv='tmp="$(fd | fzf)" && bat $tmp && v $tmp'
+alias explorer='export EDITOR="vi" && br -h -c :open_preview'
+
+# df ps top
+alias df='dust'
+alias ps='procs -t'
+alias top='btm --battery --enable_cache_memory'
+
+# cd
+alias ..='cd ..'
+
+# util
+alias q='exit'
+alias rezsh='exec $SHELL -l'
+alias x86brew='arch -x86_64 /usr/local/bin/brew'
+
+# dev tool
+alias g='lazygit'
+alias d='lazydocker'
+alias zg='zi && g'
+alias localhost_here='python -m http.server 8000'
+alias finder='open .'
+alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
+alias clock='tty-clock -sc -C2'
+
+# GitHub
+alias issue_create='cd ~/git/task && gh issue create'
+alias issue_list='cd ~/git/task && gh issue list'
+alias issue_49_close='cd ~/git/task && gh issue view 49 && gh issue close 49'
+alias pr_develop_feature='gh pr create --base develop --head $(git branch --contains | cut -d " " -f 2) --title "modify" --body ""'
+alias pr_release_develop='gh pr create --base release --head develop --title "Publish" --body ""'
+alias pr_master_release='gh pr create --base master --head release --title "Publish" --body ""'
+
