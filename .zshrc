@@ -58,6 +58,7 @@ alias rezsh='exec $SHELL -l'
 # tools
 alias g='lazygit'
 alias d='lazydocker'
+alias zg='zi && g'
 alias localhost_here='python -m http.server 8000'
 alias clock='tty-clock -sc -C2'
 alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
