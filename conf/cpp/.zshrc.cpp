@@ -14,25 +14,11 @@ cpp_ini() {
 }
 
 # C++ビルド
-cpp_build() {
-    filename=$1
-    file="${filename%.*}"
-    g++ \
-        -std=c++20 \
-        -I /opt/homebrew/Cellar/gcc@12/12.3.0/include/c++/12/aarch64-apple-darwin23/ \
-        -Wall \
-        -Wextra \
-        -mtune=native \
-        -march=native \
-        -fconstexpr-depth=2147483647 \
-        -ftrapv \
-        -fsanitize-undefined-trap-on-error \
-        -o $file $1
-        #-fconstexpr-loop-limit=2147483647 \
-        #-fconstexpr-ops-limit=2147483647 \
-        #-fsanitize=address,undefined \
-}
-export CC_BUILD_CMD="g++ -std=c++20 -I /opt/homebrew/Cellar/gcc@12/12.3.0/include/c++/12/aarch64-apple-darwin23/ -Wall -Wextra -mtune=native -march=native -fconstexpr-depth=2147483647 -ftrapv -fsanitize-undefined-trap-on-error -o main main.cpp"
+CC_INCLUDE_PATH="/opt/homebrew/Cellar/gcc@12/12.3.0/include/c++/12/aarch64-apple-darwin23/"
+export CC_BUILD_CMD="g++ -std=c++20 -I $CC_INCLUDE_PATH -Wall -Wextra -mtune=native -march=native -fconstexpr-depth=2147483647 -ftrapv -fsanitize-undefined-trap-on-error -o "
+#-fconstexpr-loop-limit=2147483647 \
+#-fconstexpr-ops-limit=2147483647 \
+#-fsanitize=address,undefined \
 
 # フォルダ名を指定してC++実行
 export CC_EXE_PROBLEM="z"
@@ -42,7 +28,7 @@ cpp_exe() {
     fi
     echo -e "==================================="
     echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_EXE_PROBLEM/main.cpp processing...\e[m"
-    cpp_build ./$CC_EXE_PROBLEM/main.cpp
+    $CC_BUILD_CMD main ./$CC_EXE_PROBLEM/main.cpp
     echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_EXE_PROBLEM/main.cpp complete.\e[m"
     echo -e "==================================="
     echo -e "\e[33m-----------------------------\e[m"
@@ -65,7 +51,7 @@ cpp_test() {
     cd $CC_TEST_PROBLEM
     echo -e "==================================="
     echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_TEST_PROBLEM/main.cpp processing...\e[m"
-    cpp_build main.cpp
+    $CC_BUILD_CMD main main.cpp
     echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_TEST_PROBLEM/main.cpp complete.\e[m"
     echo -e "==================================="
     echo -e "\e[33m-----------------------------\e[m"
@@ -87,7 +73,7 @@ cpp_test_url() {
     echo -e "[\e[34mINFO\e[m] \e[32mテストケースDL\e[m"
     oj d $OJ_D_URL
     echo -e "[\e[34mINFO\e[m] \e[32mビルド\e[m"
-    cpp_build main.cpp
+    $CC_BUILD_CMD main main.cpp
     echo -e "[\e[34mINFO\e[m] \e[32mテスト実行\e[m"
     echo -e "==================================="
     echo -e "==================================="

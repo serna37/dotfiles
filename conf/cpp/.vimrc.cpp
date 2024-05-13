@@ -1,9 +1,6 @@
 " 提出用圧縮コピペ
 fu! s:fmt4Submisstion() abort
-    " 0. clangdが停止しているとフォーマッタ機能しないので再読み込み
     w | e!
-    " (debugライブラリ直書き時用)
-    " 1. debug定義を削除
     " // --- debug_start
     " から
     " // --- debug_end
@@ -22,7 +19,7 @@ fu! s:fmt4Submisstion() abort
             cal setline(row, '')
         endif
     endfor
-    " 2. debugのincludeを削除
+    " debugのincludeを削除
     let row = 0
     for v in getline(0, '$')
         let row += 1
@@ -31,17 +28,16 @@ fu! s:fmt4Submisstion() abort
             break
         endif
     endfor
-    " 3. debug出力も削除
+    " debug出力も削除
     try | %s/debug(.*/ /g | catch
     endtry
-    " 4. //から右を全て削除
+    " //から右を全て削除
     try | %s/\/\/.*/ /g | catch
     endtry
-    " 5. フォーマッタ、保存、全コピ
+
     cal CocAction('format')
     w
     %y
-    " end. 一番上にいく
     cal cursor(1, 1)
     cal popup_notification(['⭐️ 圧縮&コピー完了⭐️'], #{line: &lines/2, col: &columns/3})
 endf
@@ -95,7 +91,7 @@ fu! s:ac_test.exe() abort
     cal setbufvar(winbufnr(self.wid), '&filetype', 'log')
     cal matchadd('AC_TEST_WIN', 'SUCCESS',  16, -1, #{window: self.wid})
     let cmd = "cd ".task
-    let cmd = cmd.' && '.$CC_BUILD_CMD
+    let cmd = cmd.' && '.$CC_BUILD_CMD.' main main.cpp'
     let cmd = cmd.' && oj t -c "./main"'
     cal job_start(["/bin/zsh", "-c", cmd], #{out_cb: self.async})
 endf
