@@ -3,6 +3,7 @@ repos=(
 # base
 vim
 git
+
 # enhanced command
 # cd ls find
 zoxide
@@ -10,49 +11,67 @@ eza
 fzf
 fd
 fselect
+
 # cat sed grep
 bat
 sd
 ripgrep
 ripgrep-all
-# diff summary
-git-delta
+
+# summary
 tokei
-# explorer
-broot
-# df ps top ping
-dust
-procs
-bottom
-gping
+
 # utils
 coreutils
 watch
 ffmpeg
-# TUI
+
+# TUI tools
+# diff
+git-delta
+# df
+dust
+# ps
+procs
+# top
+bottom
+# ping
+gping
+# DB viewer
 tako8ki/tap/gobang
+# explorer #broot(not reccomend)
 yazi
+# Docker
 lazydocker
+# Git
 lazygit
+# Network Monitor
 trippy
+# SSH
 sshs
+# SCP
 veeso/termscp/termscp
+
 # GitHub CLI
 gh
+
 # Code Tool
 silicon
 code-minimap
+
 # zsh suggestion
 navi
 peco
 zsh-git-prompt
 zsh-autosuggestions
 zsh-syntax-highlighting
-# happy
+
+# make me happy
 sl
 cmatrix
 tty-clock
 genact
+
 # lang
 gcc@12
 node
@@ -62,6 +81,7 @@ postgresql@14
 rust
 go
 java11
+
 # zsh prompt
 powerlevel10k
 )
