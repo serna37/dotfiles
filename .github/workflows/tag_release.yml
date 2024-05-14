@@ -36,9 +36,9 @@ jobs:
           new_major=0
           new_minor=0
           new_patch=0
-          if [ "$COMMIT_CNT" -gt 30 ]; then
+          if [ "$COMMIT_CNT" -gt 10 ]; then
             new_major=$((major + 1))
-          elif [ "$COMMIT_CNT" -gt 10 ]; then
+          elif [ "$COMMIT_CNT" -gt 5 ]; then
             new_major=$major
             new_minor=$((minor + 1))
           else
