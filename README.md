@@ -41,11 +41,15 @@
 .
 ├── conf/
 │   ├── cpp/      : C++用設定ファイル デバッグ、フォーマット設定等
+│   ├── gobang/   : gobang用設定ファイル
+│   ├── sshs/     : sshs用設定ファイル
 │   ├── vim/      : vimrcに付随した設定ファイル群
+│   ├── yazi/     : yazi用設定ファイル
 │   └── zsh/      : zshrcに付随した設定ファイル群
 ├── snippets/     : C++用スニペット
 │
 ├── .vimrc        : vim設定
+├── .wezterm.lua  : wezterm設定
 ├── .zshrc        : zsh設定
 │
 ├── brew.sh       : brew installするもの
