@@ -72,6 +72,12 @@ echo "=========================================================="
 sudo chown root $(which trip) && sudo chmod +s $(which trip)
 
 echo "=========================================================="
+echo "[setup] yazi toml"
+echo "=========================================================="
+mkdir -p ~/.config/yazi/
+ln -nfs ~/git/dotfiles/conf/yazi/yazi.toml ~/.config/yazi/yazi.toml
+
+echo "=========================================================="
 echo "[tool] install unfog"
 echo "=========================================================="
 # パスワード入力が必要
