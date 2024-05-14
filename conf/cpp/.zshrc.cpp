@@ -38,7 +38,7 @@ cpp_exe() {
     if [ $res -eq 0 ]; then
         echo -e "[\e[34mINFO\e[m] \e[32mexit code:$res.\e[m"
     else
-        echo -e "[\e[31mERROR\e[m] \e[mexeit code:$res."
+        echo -e "[\e[31mERROR\e[m] \e[mexit code:$res."
     fi
 }
 
