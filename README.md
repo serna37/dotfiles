@@ -5,9 +5,9 @@
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 
-- このレポジトリを設定する
-  - 本レポのclone
-  - 関連するものも設定される
+- このレポジトリでの設定を適用する
+  - `brew`, `brew cask`でのツールinstall
+  - install.sh : 本レポ、関連レポをcloneし、各種設定を適用する
 ```sh
 INSTALL_FILES=(
 brew.sh
