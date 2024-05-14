@@ -267,3 +267,5 @@ for v in ${enhanced_commands[@]}; do
 done
 clear
 curl cheat.sh
+exec $SHELL -l
+
