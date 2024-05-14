@@ -6,5 +6,6 @@
     "clangd.arguments": [
         "--header-insertion=never"
     ],
-    "python.formatting.provider": "yapf"
+    "python.formatting.provider": "yapf",
+    "snippets.ultisnips.pythonPrompt": false
 }
