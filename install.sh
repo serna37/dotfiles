@@ -228,3 +228,4 @@ vi -c "PlugInstall" -c "qa"
 
 # チュートリアル
 cd ~/git/dotfiles
+IFS=$'\n'
