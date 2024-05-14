@@ -67,12 +67,6 @@ cd library
 zsh snippets.sh
 
 echo "=========================================================="
-echo "[setup] trip sudo"
-echo "=========================================================="
-# パスワード入力が必要
-sudo chown root $(which trip) && sudo chmod +s $(which trip)
-
-echo "=========================================================="
 echo "[setup] yazi toml"
 echo "=========================================================="
 mkdir -p ~/.config/yazi/
@@ -89,6 +83,12 @@ echo "[setup] sshs"
 echo "=========================================================="
 mkdir -p ~/.ssh
 ln -nfs ~/git/dotfiles/conf/sshs/config ~/.ssh/config
+
+echo "=========================================================="
+echo "[setup] trip sudo"
+echo "=========================================================="
+# パスワード入力が必要
+sudo chown root $(which trip) && sudo chmod +s $(which trip)
 
 echo "=========================================================="
 echo "[tool] install unfog"
