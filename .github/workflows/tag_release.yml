@@ -1,0 +1,67 @@
+name: tag_release
+
+on:
+  push:
+    branches:
+      - 'master'
+
+permissions:
+  contents: write
+
+jobs:
+  tag_release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+      - name: Modify Tag Badge
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "===================="
+          echo "[INFO] To get describe, fech all depth and tags"
+          git fetch --prune --unshallow
+          git pull --tags
+          LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1` || echo "v0.0.0")
+          COMMIT_CNT=0
+          if [ "$LATEST_TAG" != "v0.0.0" ]; then
+            COMMIT_CNT=$(git rev-list --count $LATEST_TAG..HEAD)
+          fi
+          VERSION=$(echo "$LATEST_TAG" | sed 's/^v//')
+          echo "===================="
+          echo "[INFO] latest: $LATEST_TAG"
+          echo "[INFO] commit cnt: $COMMIT_CNT"
+          IFS='.' read -r major minor patch <<< "$VERSION"
+          new_major=0
+          new_minor=0
+          new_patch=0
+          if [ "$COMMIT_CNT" -gt 30 ]; then
+            new_major=$((major + 1))
+          elif [ "$COMMIT_CNT" -gt 10 ]; then
+            new_major=$major
+            new_minor=$((minor + 1))
+          else
+            new_major=$major
+            new_minor=$minor
+            new_patch=$((patch + 1))
+          fi
+          NEW_TAG="v${new_major}.${new_minor}.${new_patch}"
+          echo "===================="
+          echo "[INFO] new tag: $NEW_TAG"
+          echo "===================="
+          echo "[INFO] update README.md tag badge..."
+          sed -i "s/v${major}.${minor}.${patch}/v${new_major}.${new_minor}.${new_patch}/g" README.md
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          git commit -m "update tag badge $NEW_TAG"
+          git push origin master
+          echo "[INFO] done."
+          echo "===================="
+          echo "[INFO] create a new tag"
+          git tag $NEW_TAG
+          git push --tags
+          echo "[INFO] create a new release"
+          gh release create $NEW_TAG -n "release ${NEW_TAG}" -t $NEW_TAG
+          echo "[INFO] complete all."
