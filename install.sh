@@ -1,7 +1,121 @@
-curl -fsSL https://raw.githubusercontent.com/serna37/dotfiles/master/brew.sh | sh
-wait $!
-curl -fsSL https://raw.githubusercontent.com/serna37/dotfiles/master/brew-cask.sh | sh
-wait $!
+# brew install
+repos=(
+# base
+vim
+git
+
+# enhanced command
+# cd ls find
+zoxide
+eza
+fzf
+fd
+fselect
+
+# cat sed grep
+bat
+sd
+ripgrep
+ripgrep-all
+
+# summary
+tokei
+
+# utils
+coreutils
+watch
+ffmpeg
+
+# TUI tools
+# diff
+git-delta
+# df
+dust
+# ps
+procs
+# top
+bottom
+# ping
+gping
+# DB viewer
+tako8ki/tap/gobang
+# explorer #broot(not reccomend)
+yazi
+# Docker
+lazydocker
+# Git
+lazygit
+# Network Monitor
+trippy
+# SSH
+sshs
+# SCP
+veeso/termscp/termscp
+
+# GitHub CLI
+gh
+
+# Code Tool
+silicon
+code-minimap
+
+# zsh suggestion
+navi
+peco
+zsh-git-prompt
+zsh-autosuggestions
+zsh-syntax-highlighting
+
+# make me happy
+sl
+cmatrix
+tty-clock
+genact
+
+# lang
+gcc@12
+node
+python3
+sqlite
+postgresql@14
+rust
+go
+java11
+
+# zsh prompt
+powerlevel10k
+)
+
+echo "===========================START==========================="
+echo "brew install"
+echo "=========================================================="
+brew list
+brew cleanup
+for v in ${repos[@]}; do
+    echo "=========================================================="
+    echo "${v}"
+    echo "=========================================================="
+    brew reinstall ${v}
+    wait $!
+done
+
+# brew cask install
+cask_repos=(
+wezterm
+maccy
+keycastr
+)
+
+echo "=========================================================="
+echo "brew cask install"
+echo "=========================================================="
+for v in ${cask_repos[@]}; do
+    echo "=========================================================="
+    echo "${v}"
+    echo "=========================================================="
+    brew reinstall --cask ${v}
+    wait $!
+done
 
 echo "=========================================================="
 echo "brew clean list"
