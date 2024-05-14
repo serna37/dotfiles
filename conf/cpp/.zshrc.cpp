@@ -28,7 +28,7 @@ cpp_exe() {
     fi
     echo -e "==================================="
     echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_EXE_PROBLEM/main.cpp processing...\e[m"
-    $CC_BUILD_CMD main ./$CC_EXE_PROBLEM/main.cpp
+    eval "$CC_BUILD_CMD ./$CC_EXE_PROBLEM/main ./$CC_EXE_PROBLEM/main.cpp"
     echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_EXE_PROBLEM/main.cpp complete.\e[m"
     echo -e "==================================="
     echo -e "\e[33m-----------------------------\e[m"
@@ -51,7 +51,7 @@ cpp_test() {
     cd $CC_TEST_PROBLEM
     echo -e "==================================="
     echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_TEST_PROBLEM/main.cpp processing...\e[m"
-    $CC_BUILD_CMD main main.cpp
+    eval "$CC_BUILD_CMD main main.cpp"
     echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_TEST_PROBLEM/main.cpp complete.\e[m"
     echo -e "==================================="
     echo -e "\e[33m-----------------------------\e[m"
@@ -73,7 +73,7 @@ cpp_test_url() {
     echo -e "[\e[34mINFO\e[m] \e[32mテストケースDL\e[m"
     oj d $OJ_D_URL
     echo -e "[\e[34mINFO\e[m] \e[32mビルド\e[m"
-    $CC_BUILD_CMD main main.cpp
+    eval "$CC_BUILD_CMD main main.cpp"
     echo -e "[\e[34mINFO\e[m] \e[32mテスト実行\e[m"
     echo -e "==================================="
     echo -e "==================================="
