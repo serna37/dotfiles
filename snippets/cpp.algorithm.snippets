@@ -369,7 +369,30 @@ auto prod = [&](int l, int r) {
 	return op(L, R);
 };
 endsnippet
-# TODO segment all
+snippet algo_segment_tree_ALL "seg ALL" b
+int sz = ${1:N}; // 葉のサイズ
+using Mono = ${2:int}; // モノイド型
+Mono e = ${3:INF}; // 単位元
+auto op = [](Mono x, Mono y) { return ${4:min}(x, y); }; // 二項演算
+vector<Mono> ${5:seg}(sz << 1, e);
+auto build = [&]() {
+	for (int i = 0; i < $1; ++i) $5[i + sz] = ${6:A}[i];
+	for (int i = $1 - 1; i >= 0; --i) $5[i] = op($5[i << 1], $5[i << 1 | 1]);
+};
+auto act = [&](int p, const Mono &x) {
+	${1:seg}[p += sz] = x; // 代入の場合
+	// p += sz, $1[p] = op($1[p], x); // 作用の場合
+	while (p >>= 1) $1[p] = op($1[p << 1], $1[p << 1 | 1]);
+};
+auto prod = [&](int l, int r) {
+	Mono L = e, R = e;
+	for (l += sz, r += sz; l < r; l >>= 1, r >>= 1) {
+		if (l & 1) L = op(L, ${1:seg}[l++]);
+		if (r & 1) R = op(${1:seg}[--r], R);
+	}
+	return op(L, R);
+};
+endsnippet
 
 # =========================================================
 # UnionFind
