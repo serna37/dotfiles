@@ -79,6 +79,12 @@ mkdir -p ~/.config/yazi/
 ln -nfs ~/git/dotfiles/conf/yazi/yazi.toml ~/.config/yazi/yazi.toml
 
 echo "=========================================================="
+echo "[setup] gobang toml"
+echo "=========================================================="
+mkdir -p ~/.config/gobang/
+ln -nfs ~/git/dotfiles/conf/gobang/config.toml ~/.config/gobang/config.toml
+
+echo "=========================================================="
 echo "[setup] sshs"
 echo "=========================================================="
 mkdir -p ~/.ssh
