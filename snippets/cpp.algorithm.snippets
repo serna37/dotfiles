@@ -375,12 +375,13 @@ using Mono = ${2:int}; // モノイド型
 Mono e = ${3:INF}; // 単位元
 auto op = [](Mono x, Mono y) { return ${4:min}(x, y); }; // 二項演算
 vector<Mono> ${5:seg}(sz << 1, e);
+// =====================================
 // セグ木をビルドする
 auto build = [&]() {
 	for (int i = 0; i < $1; ++i) $5[i + sz] = ${6:A}[i];
 	for (int i = $1 - 1; i >= 0; --i) $5[i] = op($5[i << 1], $5[i << 1 | 1]);
 };
-build();
+build(); // ビルド実行
 // セグ木 1点更新
 auto act = [&](int p, const Mono &x) {
 	$5[p += sz] = x; // 代入の場合
