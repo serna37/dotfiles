@@ -3,10 +3,10 @@
 " =====================================================================
 " Exafunction/codeium.vim
 let g:codeium_disable_bindings = 1
-inoremap <silent><C-n> <Cmd>call codeium#CycleCompletions(1)<CR>
-inoremap <silent><C-p> <Cmd>call codeium#CycleCompletions(-1)<CR>
-inoremap <script><silent><nowait><expr><C-i><C-i> codeium#Accept()
-inoremap <silent><C-d> <Cmd>call codeium#Clear()<CR>
+imap <silent><C-n> <Cmd>call codeium#CycleCompletions(1)<CR>
+imap <silent><C-p> <Cmd>call codeium#CycleCompletions(-1)<CR>
+imap <script><silent><nowait><expr><C-i><C-i> codeium#Accept()
+"imap <silent><C-d> <Cmd>call codeium#Clear()<CR>
 
 " =====================================================================
 " Enhanced vim motion
@@ -130,11 +130,12 @@ nnoremap <silent><Leader>s :CocCommand fzf-preview.Lines<CR>
 nnoremap <silent><Leader>m :CocCommand fzf-preview.Bookmarks<CR>
 nnoremap <silent><Leader>nn :CocCommand fzf-preview.MemoList<CR>
 nnoremap <silent><Leader>ng :CocCommand fzf-preview.MemoListGrep .<CR>
-fu s:grep() abort
+fu! s:grep() abort
     let w = input('[word]>>', expand('<cword>'))
     execute('CocCommand fzf-preview.ProjectGrep '.w)
 endf
-nnoremap <silent><Leader>g :cal <SID>grep()<CR>
+noremap <silent><Plug>(fzf-grep) :<C-u>cal <SID>grep()<CR>
+nnoremap <Leader>g <Plug>(fzf-grep)
 au DirChanged * cal execute('CocCommand explorer --no-focus --width 30')
 
 " =====================================================================
@@ -197,12 +198,12 @@ inoremap <C-s> <Plug>(coc-snippets-expand)
 au CursorHold * sil cal CocActionAsync('highlight')
 
 inoremap <expr><CR> pumvisible() ? '<C-y>' : '<CR>'
-inoremap <expr><Tab> pumvisible() ? '<C-n>' : '<C-t>'
-inoremap <expr><S-Tab> pumvisible() ? '<C-p>' : '<S-Tab>'
+"inoremap <expr><Tab> pumvisible() ? '<C-n>' : '<C-t>'
+"inoremap <expr><S-Tab> pumvisible() ? '<C-p>' : '<S-Tab>'
 
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
-inoremap <silent><expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
-inoremap <silent><expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
+inoremap <silent><expr><CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+"inoremap <silent><expr><Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+"inoremap <silent><expr><S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
 
 nnoremap <Leader>d <Plug>(coc-definition)
 nnoremap <silent><Leader>r :CocCommand fzf-preview.CocReferences<CR>
