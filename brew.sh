@@ -30,12 +30,13 @@ coreutils
 watch
 ffmpeg
 # TUI
-lazygit
-lazydocker
-trippy
+tako8ki/tap/gobang
 yazi
-veeso/termscp/termscp
+lazydocker
+lazygit
+trippy
 sshs
+veeso/termscp/termscp
 # GitHub CLI
 gh
 # Code Tool
