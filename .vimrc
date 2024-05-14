@@ -71,6 +71,7 @@ Plug 'nanotee/zoxide.vim'
 Plug 'soywod/unfog.vim'
 Plug 'serna37/vim-tutorial'
 "Plug 'serna37/vim-atcoder-menu'
+"[Note] Migrate for .vimrc.cpp
 
 call plug#end()
 
