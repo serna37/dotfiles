@@ -52,8 +52,6 @@
 ├── .wezterm.lua  : wezterm設定
 ├── .zshrc        : zsh設定
 │
-├── brew.sh       : brew installするもの
-├── brew-cask.sh  : brew install --caskするもの
 └── install.sh    : brewを導入後、本レポジトリcloneや各設定を導入
 ```
 
