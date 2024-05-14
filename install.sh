@@ -78,6 +78,12 @@ mkdir -p ~/.config/yazi/
 ln -nfs ~/git/dotfiles/conf/yazi/yazi.toml ~/.config/yazi/yazi.toml
 
 echo "=========================================================="
+echo "[setup] sshs"
+echo "=========================================================="
+mkdir -p ~/.ssh
+ln -nfs ~/git/dotfiles/conf/sshs/config ~/.ssh/config
+
+echo "=========================================================="
 echo "[tool] install unfog"
 echo "=========================================================="
 # パスワード入力が必要
