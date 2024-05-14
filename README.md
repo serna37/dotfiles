@@ -10,6 +10,8 @@
     <img src="http://img.shields.io/badge/vim-9.0-019733.svg?logo=vim&logoColor=019733&labelColor=dedede&style=popout-square">
 </a>
 
+- [Author Profile](https://github.com/serna37)
+
 ## Installation
 - `Homebrew`を入れる
 ```shell
