@@ -266,10 +266,6 @@ if !glob('~/.vim/plugged/onedark.vim')->empty()
         au!
         au ColorScheme * hi Comment term=bold ctermfg=245 guifg=#5C6370
         au ColorScheme * hi Normal ctermbg=none
-        au ColorScheme * hi NonText ctermbg=none
-        au ColorScheme * hi LineNr ctermbg=none
-        au ColorScheme * hi Folded ctermbg=none
-        au ColorScheme * hi EndOfBuffer ctermbg=none
         au ColorScheme * hi LineNr ctermfg=245
         au ColorScheme * hi CursorLineNr ctermfg=245
         au ColorScheme * hi CursorLine ctermbg=236
