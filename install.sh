@@ -265,3 +265,5 @@ for v in ${enhanced_commands[@]}; do
     wait $!
     sleep 1
 done
+clear
+curl cheat.sh
