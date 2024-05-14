@@ -6,9 +6,11 @@ alias v='vi -c "CocCommand explorer --no-focus --width 30"'
 alias zv='zi && v'
 
 # TUI
-alias g='lazygit'
 alias d='lazydocker'
+alias g='lazygit'
 alias zg='zi && g'
+alias e='yazi'
+alias s='termscp'
 
 # ls
 alias ll='ls -AFGlihrt --color=auto'
