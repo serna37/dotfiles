@@ -3,7 +3,8 @@ repos=(
 # base
 vim
 git
-# enhanced cd ls find
+# enhanced command
+# cd ls find
 zoxide
 eza
 fzf
@@ -49,13 +50,13 @@ tty-clock
 genact
 # lang
 gcc@12
-rust
-python3
 node
+python3
+sqlite
+postgresql@14
+rust
 go
 java11
-postgresql@14
-sqlite
 # zsh prompt
 powerlevel10k
 )
