@@ -1,4 +1,4 @@
-[![tag](https://img.shields.io/badge/tag-v0.0.1-green)](https://github.com/serna37/dotfiles/releases/tag/v0.0.1)
+[![tag](https://img.shields.io/badge/tag-v1.0.0-green)](https://github.com/serna37/dotfiles/releases/tag/v1.0.0)
 [![tag_release](https://github.com/serna37/dotfiles/actions/workflows/tag_release.yml/badge.svg?branch=master)](https://github.com/serna37/dotfiles/actions/workflows/tag_release.yml)
 # dotfiles
 <a href="https://github.com/serna37/dotfiles/blob/master/brew.sh">
