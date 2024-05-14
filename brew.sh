@@ -32,6 +32,8 @@ ffmpeg
 # TUI
 lazygit
 lazydocker
+jwt-rs/jwt-ui/jwt-ui
+trippy
 # GitHub CLI
 gh
 # Code Tool
