@@ -6,7 +6,7 @@ brew list
 sleep 2
 
 echo "=========================================================="
-echo "[dotfiles] clone & setup .zshrc .vimrc"
+echo "[dotfiles] clone & setup .zshrc .vimrc .wezterm.lua"
 echo "=========================================================="
 # dotfilesレポをクローン
 mkdir -p ~/git
@@ -15,6 +15,7 @@ git clone https://github.com/serna37/dotfiles
 # dotfilesをシンボックスリンク
 ln -nfs ~/git/dotfiles/.zshrc ~/.zshrc
 ln -nfs ~/git/dotfiles/.vimrc ~/.vimrc
+ln -nfs ~/git/dotfiles/.wezterm.lua ~/.wezterm.lua
 
 echo "=========================================================="
 echo "[vim] setup common-settings.vim"
