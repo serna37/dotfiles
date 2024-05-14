@@ -1,5 +1,8 @@
 
 # dotfiles
+<span><img src="http://img.shields.io/badge/zsh-5.9_x86_64-82f07a.svg?logo=zsh&logoColor=0000cd&labelColor=a3a3a3&style=popout"></span>
+<span><img src="http://img.shields.io/badge/vim-9.0-019733.svg?logo=vim&logoColor=019733&labelColor=dedede&style=flat"></span>
+
 ## Installation
 - `Homebrew`を入れる
 ```shell
@@ -19,6 +22,11 @@ done && exec $SHELL -l
 (`install.sh`からcloneし設定されます)
 
 ## dotfiles構成
+<!-- file tree -->
+<a href="https://tree.nathanfriend.io/">
+  <img src="https://img.shields.io/badge/file-tree-lightgray.svg?logo=files&style=flat">
+</a>
+
 ```
 .
 ├── conf/
