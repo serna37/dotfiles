@@ -1,7 +1,11 @@
 
 # dotfiles
-<span><img src="http://img.shields.io/badge/zsh-5.9_x86_64-82f07a.svg?logo=zsh&logoColor=0000cd&labelColor=a3a3a3&style=popout"></span>
-<span><img src="http://img.shields.io/badge/vim-9.0-019733.svg?logo=vim&logoColor=019733&labelColor=dedede&style=flat"></span>
+<a href="https://github.com/serna37/dotfiles/blob/master/.zshrc">
+    <img src="http://img.shields.io/badge/zsh-5.9_x86_64-82f07a.svg?logo=zsh&logoColor=0000cd&labelColor=a3a3a3&style=popout">
+</a>
+<a href="https://github.com/serna37/dotfiles/blob/master/.vimrc">
+    <img src="http://img.shields.io/badge/vim-9.0-019733.svg?logo=vim&logoColor=019733&labelColor=dedede&style=flat">
+</a>
 
 ## Installation
 - `Homebrew`を入れる
