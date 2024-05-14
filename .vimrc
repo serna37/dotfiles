@@ -1,5 +1,7 @@
 let mapleader = "\<Space>"
 
+" Plugin管理
+" =====================================================================
 call plug#begin()
 
 " AI Copilot
@@ -74,6 +76,7 @@ Plug 'serna37/vim-tutorial'
 "[Note] Migrate for .vimrc.cpp
 
 call plug#end()
+" =====================================================================
 
 " Pluginの追加設定
 source ~/git/dotfiles/conf/vim/plugconf.vim
