@@ -22,10 +22,7 @@
 
 - このレポジトリでの設定を適用する
 ```shell
-INSTALL_FILES=( brew.sh brew-cask.sh install.sh )
-for v in ${INSTALL_FILES[@]}; do
-    curl -fsSL https://raw.githubusercontent.com/serna37/dotfiles/master/${v} | sh
-done && exec $SHELL -l
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/serna37/dotfiles/master/install.sh)"
 ```
 
 ## 関連
@@ -53,7 +50,7 @@ done && exec $SHELL -l
 │
 ├── brew.sh       : brew installするもの
 ├── brew-cask.sh  : brew install --caskするもの
-└── install.sh    : 本レポジトリcloneや各設定の導入
+└── install.sh    : brewを導入後、本レポジトリcloneや各設定を導入
 ```
 
 ---

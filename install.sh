@@ -1,3 +1,8 @@
+curl -fsSL https://raw.githubusercontent.com/serna37/dotfiles/master/brew.sh | sh
+wait $!
+curl -fsSL https://raw.githubusercontent.com/serna37/dotfiles/master/brew-cask.sh | sh
+wait $!
+
 echo "=========================================================="
 echo "brew clean list"
 echo "=========================================================="
