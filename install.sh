@@ -229,3 +229,26 @@ vi -c "PlugInstall" -c "qa"
 # チュートリアル
 cd ~/git/dotfiles
 IFS=$'\n'
+enhanced_commands=(
+"tokei"
+"delta README.md .zshrc"
+"lazygit"
+"lazydocker"
+"dust"
+"procs -t"
+"btm --battery --enable_cache_memory"
+"gping -n 0.5 google.com"
+"trip google.com"
+"sshs"
+"termscp"
+"eza -abghHliS --icons --git"
+"fd -H -E .git -E .DS_Store -t f"
+"fzf --preview 'bat -n --color=always {}'"
+"yazi"
+"gobang"
+"date && cal && unfog"
+"tty-clock -sc -C2"
+"sl -aFc"
+"genact -s 5 --exit-after-modules 1 -m botnet && genact -s 3 --exit-after-modules 1 -m bruteforce"
+"cmatrix"
+)
