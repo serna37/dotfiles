@@ -265,6 +265,11 @@ if !glob('~/.vim/plugged/onedark.vim')->empty()
     aug onedark_comment
         au!
         au ColorScheme * hi Comment term=bold ctermfg=245 guifg=#5C6370
+        au ColorScheme * hi Normal ctermbg=none
+        au ColorScheme * hi NonText ctermbg=none
+        au ColorScheme * hi LineNr ctermbg=none
+        au ColorScheme * hi Folded ctermbg=none
+        au ColorScheme * hi EndOfBuffer ctermbg=none
     aug END
     colorscheme onedark
 endif
