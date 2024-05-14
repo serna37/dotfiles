@@ -252,3 +252,16 @@ enhanced_commands=(
 "genact -s 5 --exit-after-modules 1 -m botnet && genact -s 3 --exit-after-modules 1 -m bruteforce"
 "cmatrix"
 )
+for v in ${enhanced_commands[@]}; do
+    clear
+    echo "Tutorial"
+    echo "And alse see 【curl cheat.sh】"
+    echo "Cancel: q or Esc"
+    echo
+    pwd
+    echo "Command: ${v}"
+    sleep 1
+    eval "${v}"
+    wait $!
+    sleep 1
+done
