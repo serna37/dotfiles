@@ -272,6 +272,9 @@ if !glob('~/.vim/plugged/onedark.vim')->empty()
         au ColorScheme * hi EndOfBuffer ctermbg=none
         au ColorScheme * hi LineNr ctermfg=245
         au ColorScheme * hi CursorLineNr ctermfg=245
+        au ColorScheme * hi CursorLine ctermbg=236
+        au ColorScheme * hi CursorColumn ctermbg=236
+        au ColorScheme * hi Visual ctermbg=240
     aug END
     colorscheme onedark
 endif
