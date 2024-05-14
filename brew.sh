@@ -32,7 +32,6 @@ ffmpeg
 # TUI
 lazygit
 lazydocker
-jwt-rs/jwt-ui/jwt-ui
 trippy
 yazi
 veeso/termscp/termscp
