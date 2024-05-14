@@ -1,5 +1,6 @@
 # brew cask install
 repos=(
+wezterm
 maccy
 keycastr
 )
