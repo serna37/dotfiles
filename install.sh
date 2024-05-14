@@ -226,3 +226,5 @@ echo "[vim] install vim plugins"
 echo "=========================================================="
 vi -c "PlugInstall" -c "qa"
 
+# チュートリアル
+cd ~/git/dotfiles
