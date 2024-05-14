@@ -264,10 +264,14 @@ let g:startify_custom_header = s:start.btr_logo
 if !glob('~/.vim/plugged/onedark.vim')->empty()
     aug onedark_comment
         au!
+        " コメント色
         au ColorScheme * hi Comment term=bold ctermfg=245 guifg=#5C6370
+        " 背景なし
         au ColorScheme * hi Normal ctermbg=none
+        " 行番号
         au ColorScheme * hi LineNr ctermfg=245
         au ColorScheme * hi CursorLineNr ctermfg=245
+        " カーソル
         au ColorScheme * hi CursorLine ctermbg=236
         au ColorScheme * hi CursorColumn ctermbg=236
         au ColorScheme * hi Visual ctermbg=240
