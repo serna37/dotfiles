@@ -28,9 +28,11 @@ for v in ${INSTALL_FILES[@]}; do
 done && exec $SHELL -l
 ```
 
-## 関連レポジトリ
+## 関連
 - [serna37/library](https://github.com/serna37/library)
 (`install.sh`からcloneし設定されます)
+
+- 主に[Terminal Trove](https://terminaltrove.com/)からコマンドを選んでいます
 
 ## dotfiles構成
 <!-- file tree -->
