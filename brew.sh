@@ -35,6 +35,7 @@ lazydocker
 trippy
 yazi
 veeso/termscp/termscp
+sshs
 # GitHub CLI
 gh
 # Code Tool
