@@ -5,6 +5,11 @@
 alias v='vi -c "CocCommand explorer --no-focus --width 30"'
 alias zv='zi && v'
 
+# TUI
+alias g='lazygit'
+alias d='lazydocker'
+alias zg='zi && g'
+
 # ls
 alias ll='ls -AFGlihrt --color=auto'
 alias l='eza -abghHliS --icons --git'
@@ -32,18 +37,17 @@ alias rezsh='exec $SHELL -l'
 alias x86brew='arch -x86_64 /usr/local/bin/brew'
 
 # dev tool
-alias g='lazygit'
-alias d='lazydocker'
-alias zg='zi && g'
 alias localhost_here='python -m http.server 8000'
 alias finder='open .'
 alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
 alias clock='tty-clock -sc -C2'
 
-# GitHub
+# GitHub CLI
+# issue
+alias issue_49_close='cd ~/git/task && gh issue view 49 && gh issue close 49'
 alias issue_create='cd ~/git/task && gh issue create'
 alias issue_list='cd ~/git/task && gh issue list'
-alias issue_49_close='cd ~/git/task && gh issue view 49 && gh issue close 49'
+# PR
 alias pr_develop_feature='gh pr create --base develop --head $(git branch --contains | cut -d " " -f 2) --title "modify" --body ""'
 alias pr_release_develop='gh pr create --base release --head develop --title "Publish" --body ""'
 alias pr_master_release='gh pr create --base master --head release --title "Publish" --body ""'
