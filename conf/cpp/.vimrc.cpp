@@ -84,9 +84,9 @@ fu! s:ac_test.exe() abort
         \ fixed: 1,
         \ border: [], borderchars: ['─','│','─','│','╭','╮','╯','╰'], borderhighlight: ['AC_TEST_WIN'],
         \ minwidth: 50, maxwidth: 50,
-        \ minheight: 30, maxheight: 30,
+        \ minheight: 35, maxheight: 35,
         \ pos: 'topleft',
-        \ line: 30, col: &columns - 50,
+        \ line: 35, col: &columns - 50,
         \ })
     cal setbufvar(winbufnr(self.wid), '&filetype', 'log')
     cal matchadd('AC_TEST_WIN', 'SUCCESS',  16, -1, #{window: self.wid})
