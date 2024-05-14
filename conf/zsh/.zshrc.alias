@@ -24,7 +24,7 @@ alias zoxide_rm='(){zoxide remove $1}'
 alias find='fd -H -E .git -E .DS_Store -t f'
 alias fzf="fzf --preview 'bat -n --color=always {}'"
 alias fv='tmp="$(fd | fzf)" && bat $tmp && v $tmp'
-alias explorer='export EDITOR="vi" && br -h -c :open_preview'
+#alias explorer='export EDITOR="vi" && br -h -c :open_preview'
 
 # df ps top
 alias df='dust'
