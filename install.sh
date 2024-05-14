@@ -67,7 +67,7 @@ cd library
 zsh snippets.sh
 
 echo "=========================================================="
-echo "[setup] commands wheel"
+echo "[setup] trip sudo"
 echo "=========================================================="
 sudo chown root $(which trip) && sudo chmod +s $(which trip)
 
