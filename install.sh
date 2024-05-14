@@ -255,7 +255,7 @@ enhanced_commands=(
 for v in ${enhanced_commands[@]}; do
     clear
     echo "Tutorial"
-    echo "And alse see 【curl cheat.sh】"
+    echo "And alse see [curl cheat.sh]"
     echo "Cancel: q or Esc"
     echo
     pwd
@@ -266,6 +266,7 @@ for v in ${enhanced_commands[@]}; do
     sleep 1
 done
 clear
+echo "curl cheat.sh"
 curl cheat.sh
 exec $SHELL -l
 
