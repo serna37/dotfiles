@@ -1,7 +1,7 @@
 [![tag](https://img.shields.io/badge/tag-v3.1.2-green)](https://github.com/serna37/dotfiles/releases/tag/v3.1.2)
 [![tag_release](https://github.com/serna37/dotfiles/actions/workflows/tag_release.yml/badge.svg?branch=master)](https://github.com/serna37/dotfiles/actions/workflows/tag_release.yml)
 # dotfiles
-<a href="https://github.com/serna37/dotfiles/blob/master/brew.sh">
+<a href="https://github.com/serna37/dotfiles/blob/master/install.sh">
     <img src="http://img.shields.io/badge/homebrew-4.2.21-FBB040.svg?logo=homebrew&logoColor=FBB040&labelColor=fafffe&style=for-the-badge">
 </a>
 <br />
