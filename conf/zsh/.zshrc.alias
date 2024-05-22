@@ -48,6 +48,7 @@ alias clock='tty-clock -sc -C2'
 # GitHub CLI
 # issue
 alias issue_49_close='cd ~/git/task && gh issue view 49 && gh issue close 49'
+alias issue_172_close='cd ~/git/task && gh issue view 172 && gh issue close 172'
 alias issue_create='cd ~/git/task && gh issue create'
 alias issue_list='cd ~/git/task && gh issue list'
 # PR
