@@ -110,3 +110,21 @@ noremap <silent><Plug>(atcoder-oj-test-off) :<C-u>cal <SID>ac_test_off()<CR>
 nnoremap <silent><Leader>a <Plug>(atcoder-oj-test)
 nnoremap <silent><Leader><Leader>a <Plug>(atcoder-oj-test-off)
 
+
+fu! s:atcoderSetTestUrl() abort
+    let task = s:ac_test.gettask()
+    if task == "nodata" || len(task) != 1
+        echohl AC_ALERT
+        echom "[ERROR] AtCoder Format Program Not Found. sample: 'a/main.cpp'"
+        echohl None
+        retu
+    endif
+    let contest_url = input('input URL>')
+    if !glob('./'.task.'/test')->empty()
+        cal system('cd '.task.'/ && rm -rf test')
+    endif
+    cal system('cd '.task.'/ && oj d '.contest_url)
+    cal popup_notification(['DL Test Data By', contest_url], #{line: &lines})
+endf
+com! AtCoderSetTestUrl cal <SID>atcoderSetTestUrl()
+
