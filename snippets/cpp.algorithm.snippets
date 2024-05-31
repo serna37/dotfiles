@@ -510,6 +510,41 @@ endsnippet
 # =========================================================
 # Graph
 # =========================================================
+snippet algo_graph_dijkstra "dijkstra" b
+// 逆向きpriority_queue コスト型: $1
+using ${8:P} = pair<${1:long long}, int>;
+priority_queue<$8, vector<$8>, greater<$8>> ${3:q};
+// コスト、始点: $2をセット
+$3.emplace(0, ${2:0});
+
+// 始点への距離をセット
+vector<$1> ${4:dis}(${5:N}, INF); // dis[v] := 始点からvへの最短コスト
+$4[$2] = 0;
+
+// dijkstra
+vector<int> ${6:route}($5, -1); // 復元用の経路保持
+while (!$3.empty()) {
+	auto [dv, v] = $3.top();
+	$3.pop();
+	if (dv > $4[v]) continue;
+	for (auto &&[to, cost] : ${7:G}[v]) {
+		$1 c = dv + cost;
+		if ($4[to] > c) {
+			$4[to] = c;
+			$3.emplace($4[to], to);
+			$6[to] = v;
+		}
+	}
+}
+
+// pth[v] := vからゴールまで辿る頂点
+vector<int> pth = {$5 - 1}; // ゴールをセット
+while ($6[pth.back()] != -1) pth.emplace_back($6[pth.back()]);
+reverse(pth.begin(), pth.end());
+
+cout << $4[$5 - 1] << endl;
+endsnippet
+
 # =========================================================
 # DP
 # =========================================================
