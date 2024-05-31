@@ -342,6 +342,7 @@ endsnippet
 # =========================================================
 # SegmentTree
 # =========================================================
+# FIXME セグ木結局ALLだけでいいかも？
 snippet algo_segment_tree "Segment Tree" b
 int sz = ${1:N}; // 葉のサイズ
 using Mono = ${2:int}; // モノイド型
@@ -408,6 +409,8 @@ vector<int> ${1:p}(${2:N}); // $1[x]でx所属グループの代表値
 vector<vector<int>> ${3:g}($2); // グループ本体
 for (int i = 0; i < $2; ++i) $1[i] = i, $3[i].push_back(i);
 endsnippet
+
+# FIXME UnionFind mergeを関数にした方がいいかな？
 snippet algo_union_find_merge "union find merge" b
 int ${4:X} = ${3:p}[${1:a}], ${5:Y} = $3[${2:b}]; // 代表値に変換
 if ($4 == $5) continue;
