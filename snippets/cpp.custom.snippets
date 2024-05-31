@@ -501,6 +501,9 @@ snippet graph_def "graph def" b
 using Graph = vector<vector<tuple<int, long long>>>;
 Graph ${1:G}(${2:N});
 endsnippet
+snippet graph_add "graph add" b
+${1:G}[${2:i}].push_back({${3:vertex}, ${4:cost}});
+endsnippet
 # =========================================================
 # output
 # =========================================================
