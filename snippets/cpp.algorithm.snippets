@@ -420,16 +420,18 @@ endsnippet
 # BFS
 # =========================================================
 snippet algo_bfs "bfs" b
+// 複数始点BFS
 queue<int> q;
-vector<int> dis(${1:N}, -1);
+vector<int> dis(${1:N}, -1); // dis[v] := 始点からvまでの距離
 for (int i = 0; i < 1; ++i) {
-	q.push(${2:0});
+	q.push(${2:0}); // 始点を複数セット
 	dis[$2] = 0;
 }
 while (!q.empty()) {
 	int v = q.front();
 	q.pop();
 	for (auto &&nv : ${3:G}[v]) {
+		// 隣接点へ
 		if (dis[nv] == -1) {
 			dis[nv] = dis[v] + 1;
 			q.push(nv);
