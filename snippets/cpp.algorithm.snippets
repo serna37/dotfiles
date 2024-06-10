@@ -347,7 +347,7 @@ snippet algo_segment_tree "Segment Tree" b
 int sz = ${1:N}; // 葉のサイズ
 using Mono = ${2:int}; // モノイド型
 Mono e = ${3:INF}; // 単位元
-auto op = [](Mono x, Mono y) { return ${4:min}(x, y); }; // 二項演算
+auto op = [](Mono x, Mono y) -> Mono { return ${4:min}(x, y); }; // 二項演算
 vector<Mono> ${5:seg}(sz << 1, e);
 endsnippet
 snippet algo_segment_tree_build "seg build" b
@@ -375,7 +375,7 @@ snippet algo_segment_tree_ALL "seg ALL" b
 int sz = ${1:N}; // 葉のサイズ
 using Mono = ${2:int}; // モノイド型
 Mono e = ${3:INF}; // 単位元
-auto op = [](Mono x, Mono y) { return ${4:min}(x, y); }; // 二項演算
+auto op = [](Mono x, Mono y) -> Mono { return ${4:min}(x, y); }; // 二項演算
 vector<Mono> ${5:seg}(sz << 1, e);
 // =====================================
 // セグ木をビルドする
@@ -517,8 +517,8 @@ endsnippet
 # =========================================================
 snippet algo_graph_dijkstra "dijkstra" b
 // 逆向きpriority_queue コスト型: $1
-using ${8:P} = pair<${1:long long}, int>;
-priority_queue<$8, vector<$8>, greater<$8>> ${3:q};
+using ${8:PQrv} = pair<${1:long long}, int>;
+priority_queue<$8, vector<$8>, greater<$8>> ${3:dijkq};
 // コスト、始点: $2をセット
 $3.emplace(0, ${2:0});
 

@@ -104,7 +104,8 @@ AtCoder() {
         echo -e "[\e[34mINFO\e[m] touch file :\e[32m${v}${file_name}\e[m"
         touch "${v}${file_name}"
     done
-    vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
+    #vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
+    vi -c "CocCommand explorer --no-focus --width 30"
 }
 AtCoderResolve() {
     cd $AC_DIR && rm -rf $1 && AtCoder $1
