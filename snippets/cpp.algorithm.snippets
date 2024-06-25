@@ -466,7 +466,7 @@ endsnippet
 # =========================================================
 # DFS
 # =========================================================
-snippet algo_dfs "dfs" b
+snippet algo_dfs_graph "dfs graph" b
 // DFS O(N+M)
 //         o
 //       ↙︎↗︎  ↘︎
@@ -509,6 +509,31 @@ auto dfs = [&](auto &f, int v, int p, int d) -> void {
 	// 帰りがけ
 };
 dfs(dfs, ${2:root}, -1, 0); // 親なし
+endsnippet
+# TODO ここから
+snippet algo_dfs_lambda "lambda recursive dfs" b
+auto ${1:dfs} = [${2:&}](auto &f, ${3:const int &a}) -> ${4:void} {
+	// ベースケース
+	${5}
+	// 行きがけ + 再帰
+	// o o             o o
+	//     o o     o o
+	//         o o ←base
+	// f(f, )
+	// 帰りがけ
+};
+endsnippet
+snippet algo_dfs_memo_rec "lambda recursive memo" b
+map<long long , long long >mp;
+auto ${1:rec} = [${2:&}](auto &f, ${3:const int &a}) -> ${4:long long} {
+	// ベースケース
+	${5}
+	// if (a == 0) return 0;
+	// メモにあれば使用
+	if (mp.count(a)) return mp[a];
+	// なければ再帰しつつメモに追加
+	return mp[a] = f(f, );
+};
 endsnippet
 
 # XXX 試験的に追加
