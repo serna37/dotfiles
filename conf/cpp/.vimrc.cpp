@@ -110,6 +110,8 @@ noremap <silent><Plug>(atcoder-oj-test-off) :<C-u>cal <SID>ac_test_off()<CR>
 nnoremap <silent><Leader>a <Plug>(atcoder-oj-test)
 nnoremap <silent><Leader><Leader>a <Plug>(atcoder-oj-test-off)
 
+" main関数の上に移動しlibやconstなど書くための移動
+nnoremap <silent><Leader>H 0<Plug>(edgemotion-k)O
 
 fu! s:atcoderSetTestUrl() abort
     let task = s:ac_test.gettask()

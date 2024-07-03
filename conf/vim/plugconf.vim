@@ -23,7 +23,6 @@ nnoremap <Leader><Leader>w <Plug>(easymotion-overwin-w)
 " haya14busa/vim-edgemotion
 nnoremap <C-j> <Plug>(edgemotion-j)<Plug>(anchor)
 nnoremap <C-k> <Plug>(edgemotion-k)<Plug>(anchor)
-nnoremap <silent><Leader>H 0<Plug>(edgemotion-k)O
 
 " rhysd/clever-f.vim
 let g:clever_f_smart_case = 1
