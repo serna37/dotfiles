@@ -113,6 +113,7 @@ nnoremap <silent><Leader><Leader>a <Plug>(atcoder-oj-test-off)
 " main関数の上に移動しlibやconstなど書くための移動
 nnoremap <silent><Leader>H 0<Plug>(edgemotion-k)O
 
+" URLからテストケースをダウンロード
 fu! s:atcoderSetTestUrl() abort
     let task = s:ac_test.gettask()
     if task == "nodata" || len(task) != 1
