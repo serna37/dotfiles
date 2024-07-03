@@ -153,9 +153,12 @@ ADTAtCoder() {
 }
 
 # 単一で解く
-export SAND_DIR="$HOME/git/sandbox"
+export SAND_DIR="$HOME/work/sandbox"
 solve() {
+    cd && mkdir -p $SAND_DIR
     cd $SAND_DIR
+    cpp_ini
+    mkdir z
     echo -n > z/main.cpp
     cd z
     rm -rf test
