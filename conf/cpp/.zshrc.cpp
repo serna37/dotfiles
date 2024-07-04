@@ -1,5 +1,4 @@
 alias debug='cpp_exe'
-alias algo='cpp_test'
 
 # C++ 初期化
 cpp_ini() {
