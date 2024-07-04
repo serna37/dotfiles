@@ -184,7 +184,7 @@ cp ~/git/dotfiles/conf/cpp/debug.hpp $BITS_PATH
 ln -nfs ~/git/dotfiles/snippets/* ~/.vim/UltiSnips/
 
 echo "=========================================================="
-echo "[C++] install serna/37/library"
+echo "[C++] install serna37/library"
 echo "=========================================================="
 cd ~/git
 git clone https://github.com/serna37/library
