@@ -46,6 +46,11 @@ function peco-select-history() {
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 
+# チートシート呼び出し
+cheat() {
+    curl cheat.sh/$1
+}
+
 # Gifへ変換
 gif() {
     if [ $# != 2 ]; then
