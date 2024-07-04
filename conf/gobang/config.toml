@@ -1,3 +1,9 @@
+# https://github.com/TaKO8Ki/gobang
+
 [[conn]]
 type = "sqlite"
 path = "/Users/serna37/git/mk7-store/mk7.db"
+
+[[conn]]
+type = "sqlite"
+path = "/Users/serna37/Desktop/bookmarks.db"
