@@ -76,3 +76,11 @@ google() {
   fi
   open -a Google\ Chrome http://www.google.co.jp/$opt
 }
+
+# util
+echo "-[Func]--------"
+echo "cheat COMMAND  | show Linux cmd cheat sheet"
+echo "gif            | convert mov to gif"
+echo "google WORD    | Google Search"
+echo "---------------"
+

@@ -1,5 +1,6 @@
 
 echo -e "[\e[34mINFO\e[m] \e[32mload zshrc\e[m"
+echo "===[Utility Summary]==="
 
 # ======================================================
 # PROMPT SETTINGS

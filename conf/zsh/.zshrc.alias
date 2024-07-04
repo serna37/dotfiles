@@ -58,3 +58,10 @@ alias pr_develop_feature='gh pr create --base develop --head $(git branch --cont
 alias pr_release_develop='gh pr create --base release --head develop --title "Publish" --body ""'
 alias pr_master_release='gh pr create --base master --head release --title "Publish" --body ""'
 
+# util
+echo "-[Alias]-------"
+echo "Ctrl + R       | back i search"
+echo "v zv zg g e l  | vim zoxide fzf eza bat lazygit yazi"
+echo "localhost_here | start server with localhost:8000"
+echo "db_con         | edit db connection setting tomml"
+echo "---------------"

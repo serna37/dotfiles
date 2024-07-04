@@ -166,3 +166,13 @@ solve() {
     v z/main.cpp
 }
 
+# util
+echo "-[C++]---------"
+echo "cpp_ini        | setup C++ project"
+echo "AtCoder abcXXX | create DIR & DL test cases"
+echo "ADTAtCoder     | only create DIR"
+echo "debug [z]      | test z/main.cpp and stdin"
+echo "cpp_test [z]   | test z/main.cpp with downloaded test cases"
+echo "cpp_test_url   | DL test cases by URL & test some/main.cpp "
+echo "---------------"
+
