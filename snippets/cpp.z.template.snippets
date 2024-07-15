@@ -1,0 +1,23 @@
+# =========================================================
+# template
+# =========================================================
+snippet fastio "fast io template" b
+#include <bits/stdc++.h>
+using namespace std;
+#include <bits/debug.hpp>
+${1}
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+	${2}
+}
+endsnippet
+
+snippet debug_include "debug include" b
+#include <bits/debug.hpp>
+endsnippet
+
+snippet debug "debug" b
+debug(${1});
+endsnippet
+
