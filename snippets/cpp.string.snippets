@@ -1,0 +1,69 @@
+# =========================================================
+# string
+# =========================================================
+snippet string_transform "transform case" b
+// 大文字小文字を変換
+std::transform(${1:str}.begin(), $1.end(), $1.begin(), ::${2:tolower});
+endsnippet
+snippet string_islower "string islower" b
+// bool値を返すようwrap
+auto islow = [](char c) -> bool { return islower(c) != 0; };
+endsnippet
+snippet string_isupper "string isupper" b
+// bool値を返すようwrap
+auto isupp = [](char c) -> bool { return isupper(c) != 0; };
+endsnippet
+snippet string_lpad "string lpad" b
+auto lpad = [](const string &S, int size, char ch = '0') -> string {
+	int N = S.size();
+	if (N >= size) return S;
+	return string(size - N, ch) + S;
+};
+endsnippet
+snippet string_rpad "string rpad" b
+auto rpad = [](const string &S, int size, char ch = '0') -> string {
+	int N = S.size();
+	if (N >= size) return S;
+	return S + string(size - N, ch);
+};
+endsnippet
+snippet string_finds "string finds" b
+auto finds = [](const string &T, const string &S) -> vector<int> {
+	vector<int> pos;
+	auto p = T.find(S);
+	while (p != string::npos) {
+		pos.emplace_back(p);
+		p = T.find(S, p + 1);
+	}
+	return pos;
+};
+endsnippet
+snippet string_split "string split" b
+// 区切り文字がない場合空文字
+auto split = [](const string &S, const char &sep) -> vector<string> {
+	vector<string> res = {""};
+	for (auto &&v : S) {
+		if (v == sep) {
+			res.emplace_back("");
+		} else {
+			res.back() += v;
+		}
+	}
+	return res;
+};
+endsnippet
+snippet string_split_multi "string split multi" b
+// 複数のcharで区切る 区切り文字がない場合空文字
+auto split = [](const string &S, const string &seps) -> vector<string> {
+	vector<string> res = {""};
+	for (auto &&v : S) {
+		if (count(seps.begin(), seps.end(), v)) {
+			res.emplace_back("");
+		} else {
+			res.back() += v;
+		}
+	}
+	return res;
+};
+endsnippet
+
