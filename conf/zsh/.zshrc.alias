@@ -37,10 +37,12 @@ alias ..='cd ..'
 # util
 alias q='exit'
 alias rezsh='exec $SHELL -l'
+alias re='cd&&clear&&rezsh'
 alias x86brew='arch -x86_64 /usr/local/bin/brew'
 
 # dev tool
 alias localhost_here='python -m http.server 8000'
+alias python_venv='python -m venv . && . bin/activate'
 alias db_con='cd ~/git/dotfiles && vim conf/gobang/config.toml'
 alias finder='open .'
 alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
@@ -51,6 +53,7 @@ alias clock='tty-clock -sc -C2'
 alias issue_49_close='cd ~/git/task && gh issue view 49 && gh issue close 49'
 alias issue_172_close='cd ~/git/task && gh issue view 172 && gh issue close 172'
 alias issue_177_close='cd ~/git/task && gh issue view 177 && gh issue close 177'
+alias issue_close='cd ~/git/task && gh issue close'
 alias issue_create='cd ~/git/task && gh issue create'
 alias issue_list='cd ~/git/task && gh issue list'
 # PR
