@@ -26,7 +26,7 @@ while (!$2.empty()) {
 }
 
 // 経路復元
-auto restore_route = [&](int goal) {
+auto restore_route = [&](int goal) -> vector<int> {
 	// pth[v] := vからゴールまで辿る頂点
 	vector<int> pth = {goal}; // ゴールをセット
 	while ($6[pth.back()] != -1) pth.emplace_back($6[pth.back()]);
