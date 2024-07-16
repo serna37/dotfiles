@@ -70,6 +70,7 @@ fu! s:ac_test.close() abort
     endif
 endf
 fu! s:ac_test.exe() abort
+    cal timer_stop(self.tid)
     let task = s:ac_test.gettask()
     if task == "nodata" || len(task) != 1
         echohl AC_ALERT
