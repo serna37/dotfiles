@@ -3,6 +3,7 @@
 # - Dijkstra
 # - Warshall-Froyd
 # - Kruskal
+# - Topological Sort
 # =========================================================
 snippet algo_graph_dijkstra "dijkstra" b
 using ${1:QT} = pair<long long, int>;
@@ -87,5 +88,20 @@ for (auto &&[cost, from, to] : $1) {
 	total += cost;
 }
 if ((int)$4[$2[0]].size() < $3) total = INF; // 全域に達しない場合
+endsnippet
+snippet algo_graph_topological_sort "topological sort" b
+vector<int> seen(${1:N}), sorted;
+auto dfs = [&](auto &f, int v) -> void {
+	seen[v] = 1;
+	//for (auto &&[to, cost] : ${2:G}[v]) {
+	for (auto &&to : $2[v]) {
+		if (!seen[to]) f(f, to);
+	}
+	sorted.push_back(v);
+};
+for (int i = 0; i < $1; ++i) {
+	if (!seen[i]) dfs(dfs, i);
+}
+reverse(sorted.begin(), sorted.end());
 endsnippet
 
