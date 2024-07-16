@@ -94,6 +94,7 @@ fu! s:ac_test.exe() abort
     let cmd = cmd.' && '.$CC_BUILD_CMD.' main main.cpp'
     let cmd = cmd.' && oj t -c "./main"'
     cal job_start(["/bin/zsh", "-c", cmd], #{out_cb: self.async})
+    let self.tid = timer_start(10000, { -> self.close()})
 endf
 fu! s:ac_test.async(ch, msg) abort
     cal add(self.res, a:msg)
