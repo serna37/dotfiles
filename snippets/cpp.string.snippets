@@ -1,5 +1,11 @@
 # =========================================================
 # string
+# - 大文字小文字変換
+# - 大文字小文字判定(wrapper)
+# - 左右詰め
+# - 文字列検索(複数)
+# - split
+# - ランレングス圧縮
 # =========================================================
 snippet string_transform "transform case" b
 // 大文字小文字を変換
@@ -62,6 +68,18 @@ auto split = [](const string &S, const string &seps) -> vector<string> {
 		} else {
 			res.back() += v;
 		}
+	}
+	return res;
+};
+endsnippet
+snippet string_run_length "string run length" b
+auto run_length = [](const string &S) -> vector<pair<char, int>> {
+	vector<pair<char, int>> res;
+	for (auto &&x : S) {
+		if (res.empty() or res.back().first != x) {
+			res.emplace_back(x, 0);
+		}
+		++res.back().second;
 	}
 	return res;
 };
