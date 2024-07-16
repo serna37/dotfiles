@@ -1,0 +1,37 @@
+# =========================================================
+# Graph (Inline)
+# - Dijkstra
+# =========================================================
+snippet algo_graph_dijkstra "dijkstra" b
+using ${1:QT} = pair<long long, int>;
+priority_queue<$1, vector<$1>, greater<$1>> ${2:DQ};
+$2.emplace(0, ${3:0}); // 始点
+vector<long long> ${4:DC}(${5:N}, INF); // dis[v] := 始点からvの最短コスト
+$4[$3] = 0;
+vector<int> ${6:route}($5, -1); // 復元用の経路
+while (!$2.empty()) {
+	auto [dv, v] = $2.top();
+	$2.pop();
+	if (dv > $4[v]) continue;
+	for (auto &&[to, cost] : ${7:G}[v]) {
+		long long c = dv + cost;
+		if ($4[to] > c) {
+			$4[to] = c;
+			$2.emplace($4[to], to);
+			$6[to] = v;
+		}
+	}
+}
+
+// 経路復元
+auto restore_route = [&](int goal) {
+	// pth[v] := vからゴールまで辿る頂点
+	vector<int> pth = {goal}; // ゴールをセット
+	while ($6[pth.back()] != -1) pth.emplace_back($6[pth.back()]);
+	reverse(pth.begin(), pth.end());
+	return pth;
+};
+
+cout << $4[$5 - 1] << endl;
+endsnippet
+

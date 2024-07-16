@@ -1,0 +1,86 @@
+# =========================================================
+# Binary Search
+# - 二分探索
+# =========================================================
+
+# 整数・実数
+snippet algo_bisearch "整数二分探索" b
+// 整数にぶたん O(logN)
+auto ${1:test} = [&](${2:long long} x) -> bool {
+	// oになる条件を記述
+	// x x x o o o o
+	//       ↑ここを求める
+	${3:return x >= K}
+};
+$2 ${4:L} = 0, ${5:R} = 1, ${6:MID} = 0;
+while (!$1($5)) $5 <<= 1; // 指数探索
+while (abs($5 - $4) > 1) {
+	$6 = $4 + ($5 - $4) / 2;
+	($1($6) ? $5 : $4) = $6;
+}
+cout << $5 << endl;
+endsnippet
+snippet algo_bisearch_real_numbers "実数二分探索" b
+// 実数にぶたん O(logN)
+// doubleは桁数表現11bitを除き、52bit程度の精度
+auto ${1:test} = [&](${2:double} x) -> bool {
+	// oになる条件を記述
+	// x x x o o o o
+	//       ↑ここを求める
+	${3:return x >= K}
+};
+$2 ${4:L} = 0, ${5:R} = 1, ${6:MID} = 0;
+while (!$1($5)) $5 *= 2; // 指数探索
+auto ABS = [&]() { return abs($5 - $4) > EPS; };
+auto REL = [&]() { return abs($5 - $4) / max($5, $4) > EPS; };
+while (ABS() and REL()) {
+	$6 = $4 + ($5 - $4) / 2;
+	($1($6) ? $5 : $4) = $6;
+}
+cout << $5 << endl;
+endsnippet
+
+# vector
+snippet algo_bisearch_vec_ika_upper "以下の個数" b
+// $3のうち、$4以下の個数  =  $4より大きい最左のidx
+${1:int} ${2:cnt} = upper_bound(${3:A}.begin(), $3.end(), ${4:x}) - $3.begin();
+endsnippet
+snippet algo_bisearch_vec_sita_lower "より下の個数" b
+// $3のうち、$4より下の個数  =  $4以上最左のidx
+${1:int} ${2:cnt} = lower_bound(${3:A}.begin(), $3.end(), ${4:x}) - $3.begin();
+endsnippet
+snippet algo_bisearch_vec_izyou "以上の個数" b
+// $3のうち、$4以上の個数
+${1:int} ${2:cnt} = ${3:A}.end() - lower_bound($3.begin(), $3.end(), ${4:x});
+endsnippet
+snippet algo_bisearch_vec_ue "より上の個数" b
+// $3のうち、$4より大きい個数
+${1:int} ${2:cnt} = ${3:A}.end() - upper_bound($3.begin(), $3.end(), ${4:x});
+endsnippet
+
+# set
+snippet algo_bisearch_set_ika "0, lim]" b
+// $2以下の最右
+auto itr = ${1:st}.upper_bound(${2:A});
+if (itr == $1.begin()) continue;
+int val = *--itr;
+endsnippet
+snippet algo_bisearch_set_sita "0, lim)" b
+// $2より下の最右
+auto itr = ${1:st}.lower_bound(${2:A});
+if (itr == $1.begin()) continue;
+int val = *--itr;
+endsnippet
+snippet algo_bisearch_set_izyou "[lim, N" b
+// $2以上の最左
+auto itr = ${1:st}.lower_bound(${2:A});
+if (itr == $1.end()) continue;
+int val = *itr;
+endsnippet
+snippet algo_bisearch_set_ue "(lim, N" b
+// $2より大きい最左
+auto itr = ${1:st}.upper_bound(${2:A});
+if (itr == $1.end()) continue;
+int val = *itr;
+endsnippet
+

@@ -1,0 +1,100 @@
+# =========================================================
+# Range
+# - (微妙) 尺取法
+# - 累積和
+# - imos法
+# =========================================================
+
+snippet algo_range_syakutori "尺取法" b
+// 尺取法 O(N)
+// 連続の和が$4以下である、最大長を求める
+// 1. lを固定し、できるだけrを増やす
+// 2. 区間をひとつ右に。和の区間から左端が抜ける
+// 3. 区間の個数はr-l個
+for (int l = 0, r = 0, ${1:sum} = 0; l < ${2:N}; $1 -= ${3:A}[l++]) {
+	// 2, 3, 1, 4, 5, 8, 6, 7
+	//    l     r  和が7までrをずらす
+	//    <----->  長さ3
+	while (r < $2 and $1 + $3[r] <= ${4:K}) {
+		$1 += $3[r++];
+	}
+	${5:ans} += r - l;
+}
+endsnippet
+
+# zeta
+snippet algo_range_zeta "累積和" b
+vector<${1:long long}> ${2:S}(${3:N} + 1); // Σ(0, i-1)
+for (int ${4:i} = 0; $4 < $3; ++$4) {
+	$2[$4 + 1] = $2[$4] + ${5:A}[$4];
+}
+// Σ[l, r) = S[r] - S[l]
+endsnippet
+snippet algo_range_zeta_diff2 "二項差の累積和" b
+vector<${1:long long}> ${2:S}(${3:N} + 1); // Σ(0, i-1)
+for (int ${4:i} = 0; $4 < $3; ++$4) {
+	$2[$4 + 1] = $2[$4];
+	if ($4 & 1) $2[$4 + 1] += abs(${5:A}[$4] - $5[$4 - 1]);
+}
+// Σ[l, r) = S[r] - S[l]
+endsnippet
+
+# zeta rev
+snippet algo_range_zeta_rev "反転累積和" b
+vector<${1:long long}> ${2:R}(${3:N} + 1); // Aiから右全部
+for (int ${4:i} = $3 - 1; $4 >= 0; --$4) {
+	$2[$4] = $2[$4 + 1] + ${5:A}[$4];
+}
+// Σ(0, i-1) + Σ(i, last) = S[i] + R[i]
+endsnippet
+snippet algo_range_zeta_rev_diff2 "二項差の反転累積和" b
+vector<${1:long long}> ${2:R}(${3:N} + 1); // Aiから右全部
+for (int ${4:i} = $3 - 1; $4 >= 0; --$4) {
+	$2[$4] = $2[$4 + 1];
+	if ($4 & 1) $2[$4] += abs(${5:A}[$4 + 1] - $5[$4]);
+}
+// Σ(0, i-1) + Σ(i, last) = S[i] + R[i]
+endsnippet
+
+# 2D
+snippet algo_range_zeta_2D "2次元累積和" b
+vector<vector<${1:long long}>> ${2:S}(${3:H} + 1, vector<$1>(${4:W} + 1));
+// 横向き
+for (int i = 0; i < $3; ++i) {
+	for (int j = 0; j < $4; ++j) {
+		$2[i + 1][j + 1] = $2[i + 1][j] + ${5:A}[i][j];
+	}
+}
+// 縦向き
+for (int i = 0; i < $3; ++i) {
+	for (int j = 0; j < $4; ++j) {
+		$2[i + 1][j + 1] += $2[i][j + 1];
+	}
+}
+// 包除
+// from(s, t) to(x, y) S[y][x] - S[y][s] - S[t][x] + S[t][s]
+endsnippet
+
+snippet algo_range_moebius "メビウス変換" b
+vector<${1:int}> ${2:D}(${3:N-1});
+for (int i = 0; i < $3; ++i) {
+	$2[i] = ${4:A}[i + 1] - $4[i];
+}
+endsnippet
+
+# imos
+snippet algo_range_imos "imos" b
+// 末端が配列外なら、操作不要
+// 加算[l, r) = 加算A[l], 逆算A[r]
+${3:++}${1:A}[${2:l}];
+if ($4 < ${6:N}) ${5:--}$1[${4:r+1}];
+endsnippet
+snippet algo_range_imos_2D "2d imos" b
+// 2次元imos
+// A+1  A | -1  末端が配列外なら、操作不要
+// A    A |
+// -1￣￣ +1    包除
+// from(s, t) to(x, y)面への加算
+// add G[t][s], rev G[t][x + 1], rev G[y + 1][s], add G[y + 1][x + 1]
+endsnippet
+
