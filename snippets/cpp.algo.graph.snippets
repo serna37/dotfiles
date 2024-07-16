@@ -1,8 +1,8 @@
 # =========================================================
 # Graph (Inline)
 # - Dijkstra
-# - TODO ワーシャルフロイド
 # - TODO クラスカル
+# - Warshall-Froyd
 # =========================================================
 snippet algo_graph_dijkstra "dijkstra" b
 using ${1:QT} = pair<long long, int>;
@@ -35,5 +35,33 @@ auto restore_route = [&](int goal) -> vector<int> {
 };
 
 cout << $4[$5 - 1] << endl;
+endsnippet
+snippet algo_graph_warshall_froyd "warshall froyd" b
+vector<vector<long long>> ${1:dis}(${2:N}, vector<long long>($2, INF));
+// まずは当たり前のminコスト
+for (int i = 0; i < $2; ++i) {
+	$1[i][i] = 0;
+	for (auto &&[to, cost] : ${3:G}[i]) {
+		$1[i][to] = min($1[i][to], cost);
+	}
+}
+// DP部分 ik + kj と ij の比較
+for (int k = 0; k < $2; ++k) {
+	for (int i = 0; i < $2; ++i) {
+		if ($1[i][k] == INF) continue;
+		for (int j = 0; j < $2; ++j) {
+			if ($1[k][j] == INF) continue;
+			$1[i][j] = min($1[i][j], $1[i][k] + $1[k][j]);
+		}
+	}
+}
+// 負の閉路検出
+bool negativeCycle = false;
+for (int i = 0; i < $2; ++i) {
+	if ($1[i][i] < 0) {
+		negativeCycle = true;
+		break;
+	}
+}
 endsnippet
 
