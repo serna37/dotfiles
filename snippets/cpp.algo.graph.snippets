@@ -1,8 +1,8 @@
 # =========================================================
 # Graph (Inline)
 # - Dijkstra
-# - TODO クラスカル
 # - Warshall-Froyd
+# - Kruskal
 # =========================================================
 snippet algo_graph_dijkstra "dijkstra" b
 using ${1:QT} = pair<long long, int>;
@@ -63,5 +63,29 @@ for (int i = 0; i < $2; ++i) {
 		break;
 	}
 }
+endsnippet
+snippet algo_graph_kruskal "kruskal" b
+// cost, from, toの配列、無向グラフでも重複せず、1つずつ持つ
+// vector<tuple<long long, int, int>>
+sort(${1:E}.begin(), $1.end());
+// UnionFind
+vector<int> ${2:p}(${3:N}); // $2[x]でx所属グループの代表値
+vector<vector<int>> ${4:g}($3); // グループ本体
+for (int i = 0; i < $3; ++i) $2[i] = i, $4[i].push_back(i);
+// MST
+long long total = 0ll;
+vector<tuple<long long, int, int>> es; // MST
+for (auto &&[cost, from, to] : $1) {
+	// マージ
+	int ${5:X} = $2[from], ${6:Y} = $2[to]; // 代表値に変換
+	if ($5 == $6) continue;
+	if ($4[$5].size() > $4[$6].size()) swap($5, $6); // マージテク
+	for (auto &&v : $4[$5]) $4[$6].push_back(v), $2[v] = $6;
+	$4[$5].clear();
+	// マージ成功 -> MSTに追加
+	es.push_back({cost, from, to});
+	total += cost;
+}
+if ((int)$4[$2[0]].size() < $3) total = INF; // 全域に達しない場合
 endsnippet
 
