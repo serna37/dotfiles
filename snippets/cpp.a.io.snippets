@@ -145,9 +145,19 @@ for (int i = 0; i < ${4:M}; ++i) {
 }
 endsnippet
 
-# TODO refactor
-# for MST (kruskal)
-snippet edges_cin "edges in" b
+# edges for mst
+snippet edges_in "edges in" b
+vector<tuple<long long, int, int>> ${1:E};
+for (int i = 0; i < ${2:M}; ++i) {
+	int from, to;
+	cin >> from >> to;
+	--from, --to;
+	long long cost;
+	cin >> cost;
+	$1.push_back({cost, from, to});
+}
+endsnippet
+snippet edges_lib_in "edges in for library" b
 Graph<${1:long long}> ${2:G}(${3:N});
 vector<Edge<$1>> ${4:E};
 for (int i = 0; i < ${5:M}; ++i) {
