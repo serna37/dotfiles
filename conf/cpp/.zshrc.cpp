@@ -9,7 +9,7 @@ cpp_ini() {
     python -m venv .
     . bin/activate
     pip install --upgrade setuptools
-    sudo pip3 install online-judge-tools
+    pip3 install online-judge-tools
 }
 
 # C++ビルド
