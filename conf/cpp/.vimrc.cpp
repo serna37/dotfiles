@@ -50,7 +50,7 @@ aug AC_TEST_COLOR
     au ColorScheme * hi AC_TEST_WIN ctermfg=39 ctermbg=237
     au ColorScheme * hi AC_ALERT ctermfg=204
 aug END
-let s:ac_test = #{wid: -1, res: []}
+let s:ac_test = #{wid: -1, res: [], tid: -1}
 fu! s:ac_test.gettask() abort
     let target_bufname = "nodata"
     for wid in range(1, winnr('$'))
