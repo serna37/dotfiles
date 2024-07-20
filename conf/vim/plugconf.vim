@@ -3,9 +3,9 @@
 " =====================================================================
 " Exafunction/codeium.vim
 let g:codeium_disable_bindings = 1
-imap <silent><C-n> <Cmd>call codeium#CycleCompletions(1)<CR>
-imap <silent><C-p> <Cmd>call codeium#CycleCompletions(-1)<CR>
-imap <script><silent><nowait><expr><C-i><C-i> codeium#Accept()
+inoremap <silent><C-n> <Cmd>call codeium#CycleCompletions(1)<CR>
+inoremap <silent><C-p> <Cmd>call codeium#CycleCompletions(-1)<CR>
+inoremap <script><silent><nowait><expr><C-i> codeium#Accept()
 "imap <silent><C-d> <Cmd>call codeium#Clear()<CR>
 
 " =====================================================================
