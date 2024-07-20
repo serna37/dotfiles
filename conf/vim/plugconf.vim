@@ -196,14 +196,17 @@ let g:coc_snippet_prev = '<S-Tab>'
 inoremap <C-s> <Plug>(coc-snippets-expand)
 au CursorHold * sil cal CocActionAsync('highlight')
 
+" 補完の選択
 inoremap <expr><CR> pumvisible() ? '<C-y>' : '<CR>'
 "inoremap <expr><Tab> pumvisible() ? '<C-n>' : '<C-t>'
 "inoremap <expr><S-Tab> pumvisible() ? '<C-p>' : '<S-Tab>'
 
+" cocからの補完の選択
 inoremap <silent><expr><CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
-"inoremap <silent><expr><Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
-"inoremap <silent><expr><S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
+inoremap <silent><expr><Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+inoremap <silent><expr><S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
 
+" IDE系 定義元 呼び出し エラー等
 nnoremap <Leader>d <Plug>(coc-definition)
 nnoremap <silent><Leader>r :CocCommand fzf-preview.CocReferences<CR>
 nnoremap <silent><Leader>o :CocCommand fzf-preview.CocOutline<CR>
@@ -211,9 +214,11 @@ nnoremap <silent><Leader>? :cal CocAction('doHover')<CR>
 nnoremap <Leader>, <plug>(coc-diagnostic-next)
 nnoremap <Leader>. <plug>(coc-diagnostic-prev)
 
+" ホバードキュメントスクロールを有効に
 nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : comfortable_motion#flick(100)
 nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : comfortable_motion#flick(-100)
 
+" 保存時の自動フォーマット
 "aug fmt_cpp
     "au!
     "au BufWrite *.cpp :try | cal CocAction('format') | catch | endtry
