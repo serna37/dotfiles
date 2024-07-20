@@ -46,6 +46,16 @@ function peco-select-history() {
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 
+# historyのfzf
+incremental_search_history() {
+  selected=`history -E 0 | fzf --tac --height 75% --reverse --margin=0,1 | cut -b 25-`
+  BUFFER=`[ ${#selected} -gt 0 ] && echo $selected || echo $BUFFER`
+  CURSOR=${#BUFFER}
+  zle redisplay
+}
+zle -N incremental_search_history
+bindkey "^h" incremental_search_history
+
 # チートシート呼び出し
 cheat() {
     curl cheat.sh/$1
