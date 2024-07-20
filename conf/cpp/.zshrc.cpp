@@ -13,7 +13,7 @@ cpp_ini() {
 }
 
 # C++ビルド
-CC_INCLUDE_PATH="/opt/homebrew/Cellar/gcc@12/12.3.0/include/c++/12/aarch64-apple-darwin23/"
+CC_INCLUDE_PATH="/opt/homebrew/Cellar/gcc@12/12.4.0/include/c++/12/aarch64-apple-darwin23/"
 export CC_BUILD_CMD="g++ -std=c++20 -I $CC_INCLUDE_PATH -Wall -Wextra -mtune=native -march=native -fconstexpr-depth=2147483647 -ftrapv -fsanitize-undefined-trap-on-error -o "
 #-fconstexpr-loop-limit=2147483647 \
 #-fconstexpr-ops-limit=2147483647 \
