@@ -20,6 +20,7 @@ Plug 't9md/vim-quickhl'
 Plug 'haya14busa/vim-asterisk'
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'simeji/winresizer'
+Plug 'terryma/vim-expand-region'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'voldikss/vim-floaterm'
 
