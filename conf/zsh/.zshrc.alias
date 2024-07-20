@@ -54,10 +54,13 @@ alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
 alias clock='tty-clock -sc -C2'
 
 # GitHub CLI
+# done my daily task
+alias done_algo_v1='cd ~/git/task && genbb && gh issue view 49 && gh issue close 49'
+alias done_algo_v2='cd ~/git/task && genbb&& gh issue view 172 && gh issue close 172'
+alias done_algo_v3='cd ~/git/task && genbb&& gh issue view 177 && gh issue close 177'
+alias done_algo_power='cd ~/git/task && genbb&& gh issue view 198 && gh issue close 198'
+alias done_hack='cd ~/git/task && genbb&& gh issue view 57 && gh issue close 57'
 # issue
-alias issue_49_close='cd ~/git/task && gh issue view 49 && gh issue close 49'
-alias issue_172_close='cd ~/git/task && gh issue view 172 && gh issue close 172'
-alias issue_177_close='cd ~/git/task && gh issue view 177 && gh issue close 177'
 alias issue_close='cd ~/git/task && gh issue close'
 alias issue_create='cd ~/git/task && gh issue create'
 alias issue_list='cd ~/git/task && gh issue list'
