@@ -40,6 +40,11 @@ alias rezsh='exec $SHELL -l'
 alias re='cd&&clear&&rezsh'
 alias x86brew='arch -x86_64 /usr/local/bin/brew'
 
+# make me happy
+alias gen_bot='genact -s 10 --exit-after-modules 1 -m botnet'
+alias gen_brute='genact -s 10 --exit-after-modules 1 -m bruteforce'
+alias genbb='gen_bot && gen_brute'
+
 # dev tool
 alias localhost_here='python -m http.server 8000'
 alias python_venv='python -m venv . && . bin/activate'
