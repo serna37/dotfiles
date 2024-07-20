@@ -55,6 +55,7 @@ Plug 'wfxr/minimap.vim'
 " Writing
 Plug 'markonm/traces.vim'
 Plug 'scrooloose/nerdcommenter'
+Plug 'bronson/vim-trailing-whitespace'
 Plug 'matze/vim-move'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
