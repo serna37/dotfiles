@@ -58,6 +58,7 @@ Plug 'matze/vim-move'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'thinca/vim-partedit'
 
 " LSP IDE
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
