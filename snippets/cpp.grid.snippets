@@ -1,6 +1,16 @@
 # =========================================================
 # grid
 # =========================================================
+snippet grid "description" b
+- cango     進めるマスの定義
+- around    周囲のマスを探索
+- go        一方向にまっすぐ進む
+- filter    領域外&行けないマス
+- transpose グリッドを転置
+- toguro    ぐるぐる
+- bingo     ビンゴ判定
+endsnippet
+
 # グリッド上の探索
 snippet grid_cango "grid cango" b
 string alw = "${1:.SG}";
