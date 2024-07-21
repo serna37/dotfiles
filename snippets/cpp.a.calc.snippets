@@ -95,4 +95,19 @@ for (int ${1:k} = 0; $1 < 4; ++$1) {
 	}
 }
 endsnippet
+snippet is_kaibun_int "回文かどうか判定" b
+auto isKaibun = [&](int n) -> bool {
+	string tmp = to_string(n);
+	string rev = tmp;
+	reverse(rev.begin(), rev.end());
+	return tmp == rev;
+};
+endsnippet
+snippet is_kaibun_str "回文かどうか判定" b
+auto isKaibun = [](const string &s) -> bool {
+	string rev = s;
+	reverse(rev.begin(), rev.end());
+	return s == rev;
+};
+endsnippet
 
