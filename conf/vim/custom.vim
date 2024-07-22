@@ -41,6 +41,19 @@ noremap <silent><Plug>(tailsemi) :<C-u>cal <SID>tailsemi()<CR>
 inoremap ;; <Esc><Plug>(tailsemi)
 inoremap ;<CR> <Esc><Plug>(tailsemi)o
 
+" コメント設計のための補助
+let s:cmt_design_step = 1
+fu! s:comment_design() abort
+    let txt = input('step'.s:cmt_design_step.'>')
+    cal append(line('.')-1, '// '.s:cmt_design_step.'. '.txt)
+    let s:cmt_design_step += 1
+endf
+fu! s:comment_design_reset() abort
+    let s:cmt_design_step = 1
+endf
+nnoremap <silent><C-c> :cal <SID>comment_design_reset()<CR>:echom '[INFO] comment sequence reset'<CR>
+nnoremap <silent><Leader>j :cal <SID>comment_design()<CR>
+
 " =====================================================================
 " その他
 " =====================================================================
