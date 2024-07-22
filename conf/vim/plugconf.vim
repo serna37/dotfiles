@@ -34,11 +34,11 @@ aug cleaver_f
 aug END
 
 " unblevable/quick-scope
-aug quick_scope
-    au!
-    au ColorScheme * hi QuickScopePrimary ctermfg=204 cterm=BOLD
-    au ColorScheme * hi QuickScopeSecondary ctermfg=81 cterm=BOLD
-aug END
+"aug quick_scope
+    "au!
+    "au ColorScheme * hi QuickScopePrimary ctermfg=204 cterm=BOLD
+    "au ColorScheme * hi QuickScopeSecondary ctermfg=81 cterm=BOLD
+"aug END
 nnoremap <silent><leader>w <Plug>(clever-f-reset):QuickScopeToggle<CR>
 
 " serna37/vim-fscope-around
@@ -105,6 +105,40 @@ nnoremap <C-p> <Plug>(buf-next)
 nnoremap <Leader>x <Plug>(buf-close)
 
 " junegunn/goyo.vim
+let s:zen_lsp_watch_tid = -1
+fu! s:goyo_enter()
+    colorscheme codedark
+    set number
+    if &filetype =~ 'cpp'
+        " LSPサーバが停止したときに自動で再起動
+        let s:zen_lsp_watch_tid = timer_start(2000, { -> s:chkLSP() })
+    endif
+endf
+
+fu! s:goyo_leave()
+    cal s:colorscheme_onedark()
+    if &filetype =~ 'cpp'
+        cal timer_stop(s:zen_lsp_watch_tid)
+    endif
+endf
+
+" LSPサーバが停止したときに自動で再起動する関数
+let s:should_reboot_clangd = 0
+fu! s:chkLSP() abort
+    if g:coc_status =~ 'clangd: parsing includes, running Update'
+        if s:should_reboot_clangd == 1
+            let s:should_reboot_clangd = 0
+            "clangd: parsing includes, running Update
+            sil! exe 'CocRestart'
+            echom '[INFO] restart coc to reboot clangd.'
+        else
+            let s:should_reboot_clangd = 1
+        endif
+    endif
+endf
+
+au! User GoyoEnter nested cal <SID>goyo_enter()
+au! User GoyoLeave nested cal <SID>goyo_leave()
 nnoremap <silent><Leader>z :Goyo<CR>
 
 " machakann/vim-highlightedyank
@@ -265,21 +299,30 @@ let s:start.btr_logo = [
 let g:startify_custom_header = s:start.btr_logo
 
 " joshdick/onedark.vim
-if !glob('~/.vim/plugged/onedark.vim')->empty()
+fu! s:del_col() abort
     aug onedark_comment
         au!
-        " コメント色
-        au ColorScheme * hi Comment term=bold ctermfg=245 guifg=#5C6370
-        " 背景なし
-        au ColorScheme * hi Normal ctermbg=none
-        " 行番号
-        au ColorScheme * hi LineNr ctermfg=245
-        au ColorScheme * hi CursorLineNr ctermfg=245
-        " カーソル
-        au ColorScheme * hi CursorLine ctermbg=236
-        au ColorScheme * hi CursorColumn ctermbg=236
-        au ColorScheme * hi Visual ctermbg=240
     aug END
-    colorscheme onedark
-endif
+endf
+fu! s:colorscheme_onedark() abort
+    if !glob('~/.vim/plugged/onedark.vim')->empty()
+        aug onedark_comment
+            au!
+            " コメント色
+            au ColorScheme * hi Comment term=bold ctermfg=245 guifg=#5C6370
+            " 背景なし
+            au ColorScheme * hi Normal ctermbg=none
+            " 行番号
+            au ColorScheme * hi LineNr ctermfg=245
+            au ColorScheme * hi CursorLineNr ctermfg=245
+            " カーソル
+            au ColorScheme * hi CursorLine ctermbg=236
+            au ColorScheme * hi CursorColumn ctermbg=236
+            au ColorScheme * hi Visual ctermbg=240
+        aug END
+        colorscheme onedark
+        cal timer_start(2000, { -> s:del_col() })
+    endif
+endf
+cal s:colorscheme_onedark()
 

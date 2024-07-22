@@ -35,6 +35,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
 Plug 'joshdick/onedark.vim'
 Plug 'rafi/awesome-vim-colorschemes'
+Plug 'tomasiser/vim-code-dark'
 
 " Filer
 Plug 'junegunn/fzf', {'do': { -> fzf#install() }}

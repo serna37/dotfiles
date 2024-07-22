@@ -3,6 +3,7 @@
 " =====================================================================
 " LSP再起動のため、バッファ再読み込み
 nnoremap <silent><Leader>l :<C-u>w<CR>:e!<CR>zz:<C-u>echo 'Reload Buffer'<CR>
+"nnoremap <silent><Leader>l :silent! exe 'CocRestart'<CR>:echom '[INFO] restart coc to reboot clangd.'<CR>
 
 " SNIPモードを強制終了 (バッファ再読み込み)
 inoremap <silent><C-k> <Esc>:<C-u>w<CR>:e!<CR>zza
