@@ -5,8 +5,8 @@ echo "===[Utility Summary]==="
 # ======================================================
 # PROMPT SETTINGS
 # ======================================================
-HISTSIZE=100000
-SAVEHIST=100000
+HISTSIZE=1000
+SAVEHIST=1000
 setopt no_beep
 
 # alias
