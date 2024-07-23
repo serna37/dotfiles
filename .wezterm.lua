@@ -24,5 +24,14 @@ config.font_size = 12
 config.initial_cols = 200
 config.initial_rows = 55
 
+-- バックスラッシュ
+config.keys = {
+    -- ¥ではなく、バックスラッシュを入力する。おそらくMac固有
+    {
+        key = "¥",
+        action = wezterm.action.SendKey { key = '\\' }
+    },
+}
+
 return config
 

@@ -63,3 +63,7 @@
 > ```
 > defaults write com.apple.Finder QuitMenuItem -boolean true
 > ```
+> - Finderが`.DS_sotre`を作らないようにするコマンド
+> ```
+> defaults write com.apple.desktopservices DSDontWriteNetworkStores True
+> ```

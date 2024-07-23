@@ -3,6 +3,13 @@
 # Comment this line if you don't want it to be added again.
 Include ~/.orbstack/ssh/config
 
+# SSH接続を10倍速くする
+# https://qiita.com/suin/items/1708dc78fc412297f885
+Host *
+  ControlMaster auto
+  ControlPath ~/.ssh/mux-%r@%h:%p
+  ControlPersist 4h
+
 Host *
   AddKeysToAgent yes
   UseKeychain yes
