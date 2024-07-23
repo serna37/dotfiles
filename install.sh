@@ -102,6 +102,7 @@ done
 # brew cask install
 cask_repos=(
 wezterm
+orbstack
 maccy
 keycastr
 )
