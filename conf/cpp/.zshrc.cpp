@@ -114,54 +114,54 @@ AtCoder() {
     #vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
     v
 }
-AtCoderResolve() {
-    cd $AC_DIR && rm -rf $1 && AtCoder $1
-}
+#AtCoderResolve() {
+    #cd $AC_DIR && rm -rf $1 && AtCoder $1
+#}
 
-# 朝活
-export ASA_DIR="$HOME/git/asakatu"
-AsakatuAtCoder() {
-    logo_atcoder
-    cd $ASA_DIR
-    file_name="main.cpp"
-    dirname=`date '+%Y%m%d'`
-    mkdir $dirname
-    cd $dirname
-    mkdir a b c d e f
-    dirs=(`\fd -d 1 -t d`)
-    for v in ${dirs[@]}; do
-        echo -e "[\e[34mINFO\e[m] touch file :\e[32m${v}${file_name}\e[m"
-        touch "${v}${file_name}"
-    done
-    if [[ -n $ASA_SAMPLE_DL ]]; then
-        for v in ${dirs[@]}; do
-            rm -rf "${v}test"
-        done
-        eval $ASA_SAMPLE_DL
-        cd ../
-    fi
-    #vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
-    v
-}
+## 朝活
+#export ASA_DIR="$HOME/git/asakatu"
+#AsakatuAtCoder() {
+    #logo_atcoder
+    #cd $ASA_DIR
+    #file_name="main.cpp"
+    #dirname=`date '+%Y%m%d'`
+    #mkdir $dirname
+    #cd $dirname
+    #mkdir a b c d e f
+    #dirs=(`\fd -d 1 -t d`)
+    #for v in ${dirs[@]}; do
+        #echo -e "[\e[34mINFO\e[m] touch file :\e[32m${v}${file_name}\e[m"
+        #touch "${v}${file_name}"
+    #done
+    #if [[ -n $ASA_SAMPLE_DL ]]; then
+        #for v in ${dirs[@]}; do
+            #rm -rf "${v}test"
+        #done
+        #eval $ASA_SAMPLE_DL
+        #cd ../
+    #fi
+    ##vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
+    #v
+#}
 
-# ADT
-export ADT_DIR="$HOME/git/adt"
-ADTAtCoder() {
-    logo_atcoder
-    cd $ADT_DIR
-    file_name="main.cpp"
-    dirname=`date '+%Y%m%d'`
-    mkdir $dirname
-    cd $dirname
-    mkdir c d e f g
-    dirs=(`\fd -d 1 -t d`)
-    for v in ${dirs[@]}; do
-        echo -e "[\e[34mINFO\e[m] touch file :\e[32m${v}${file_name}\e[m"
-        touch "${v}${file_name}"
-    done
-    #vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
-    v
-}
+## ADT
+#export ADT_DIR="$HOME/git/adt"
+#ADTAtCoder() {
+    #logo_atcoder
+    #cd $ADT_DIR
+    #file_name="main.cpp"
+    #dirname=`date '+%Y%m%d'`
+    #mkdir $dirname
+    #cd $dirname
+    #mkdir c d e f g
+    #dirs=(`\fd -d 1 -t d`)
+    #for v in ${dirs[@]}; do
+        #echo -e "[\e[34mINFO\e[m] touch file :\e[32m${v}${file_name}\e[m"
+        #touch "${v}${file_name}"
+    #done
+    ##vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
+    #v
+#}
 
 # 単一で解く
 export SAND_DIR="$HOME/work/sandbox"
@@ -181,7 +181,8 @@ solve() {
 echo "-[C++]---------"
 echo "cpp_ini        | setup C++ project"
 echo "AtCoder abcXXX | create DIR & DL test cases"
-echo "ADTAtCoder     | only create DIR"
+echo "solve          | DL tests by clipboard & solve"
+#echo "ADTAtCoder     | only create DIR"
 echo "debug [z]      | test z/main.cpp and stdin"
 echo "cpp_test [z]   | test z/main.cpp with downloaded test cases"
 echo "cpp_test_url   | DL test cases by URL & test some/main.cpp "
