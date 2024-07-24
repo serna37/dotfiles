@@ -259,6 +259,7 @@ nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(
 "aug END
 
 " puremourning/vimspector
+let g:vimspector_base_dir=$HOME.'/.vim/plugged/vimspector'
 let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
 let g:vimspector_sign_priority = {
     \'vimspectorBP':          99,

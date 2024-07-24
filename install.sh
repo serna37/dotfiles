@@ -76,6 +76,7 @@ genact
 gcc@12
 node
 python3
+python-setuptools
 sqlite
 postgresql@14
 rust
