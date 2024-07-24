@@ -4,7 +4,7 @@
 snippet grid "description" b
 - cango     進めるマスの定義
 - around    周囲のマスを探索
-- go        一方向にまっすぐ進む
+- go        進む
 - filter    領域外&行けないマス
 - transpose グリッドを転置
 - toguro    ぐるぐる
@@ -24,7 +24,7 @@ for (int k = 0; k < ${1:4}; ++k) {
 }
 endsnippet
 snippet grid_go "grid go" b
-// 一方向にまっすぐ進む
+// 方向dにループ回数だけ進む
 int y = ${1:i}, x = ${2:j}; // この点から
 // for 進む回数だけループ
 y += dy[${3:d}], x += dx[$3]; // 進む
