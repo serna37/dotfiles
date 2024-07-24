@@ -6,10 +6,12 @@ cpp_ini() {
     cp ~/git/dotfiles/conf/cpp/.clang-format .
     cp ~/git/dotfiles/conf/cpp/compile_flags.txt .
     # ojコマンドのためにPython仮想環境を作成
-    python -m venv venv
-    . venv/bin/activate
+    python_venv
+    pip install --upgrade pip
     pip install --upgrade setuptools
-    pip3 install online-judge-tools
+    pip install online-judge-tools
+    # vimspector debug設定を追加
+    cp -f ~/.vim/plugged/vim-IDE-menu/.vimspector.json .vimspector.json
 }
 
 # C++ビルド
@@ -84,6 +86,7 @@ cpp_test_url() {
 export AC_DIR="$HOME/git/contest"
 AtCoder() {
     cd $AC_DIR
+    cpp_ini
     contest_cd=$1
     file_name="main.cpp"
     acc check-oj
