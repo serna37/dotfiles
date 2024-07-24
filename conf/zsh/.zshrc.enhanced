@@ -87,3 +87,127 @@ google() {
   open -a Google\ Chrome http://www.google.co.jp/$opt
 }
 
+# python ロゴ
+logo_py() {
+    echo "                     ..+QWgmgmgg@@HmaJ,                       "
+    echo "                   -qqqHHmmgggg@@@@@@@@N,                     "
+    echo "                  .kqP   ?gggg@@@@@@@HHHH[                    "
+    echo "                  -qqL   .g@@@@@@@@HH@HHH#                    "
+    echo "                  -mmmmgg@@@@@@@@H@H@HHHH#                    "
+    echo "                  (YYYYYYYYYYYM@H@HHHHHHH#                    "
+    echo "          ...J++++++++++++++++H@HHHHHHH###  ......            "
+    echo "        .dkqqqmggggggg@@@@@@@H@HHHHHHH####  ~~~~~~~_          "
+    echo "       .qqkqqmmgggg@@@@@@@@HHHHHHHHH######  ~~~~~~~~_         "
+    echo "      .kqqqqmmgggg@@@@@@@HH@HHHHHHH######F .~~~~~~~~~_        "
+    echo "      (qqqmmggggg@@@@@@@H@HHHHHHHH######M' ~~~~~~~:~:~        "
+    echo "      Xqqmmgggg@@@@@@@HHHHHHHHHH#######' .~~~~~~~:~:::'       "
+    echo "      mmmgggg@@@@@@@Y=''        ''''  ..~~~~~:~::~:~::.       "
+    echo "      Wggggg@@@@@@Y  _~~~~~~~~~~~~~~~~~~~:~::~::::::::'       "
+    echo "      (ggg@@@@@@@F -~~.~~.~~~~~.~~~~~~~~:~:~::~::::::<        "
+    echo "      .H@@@@@@@HH' ~.~~.~~.~~.~~~~~~~:~:~:~::::::::::!        "
+    echo "      '?@@@@@@H@H  ~~.~~~~~~~~~~~~~~:~::::::::::::::!         "
+    echo "        (M@@HH@HH  ~~~~~~~~~~~~~:~::~::~:::::::::;:!          "
+    echo "          .7'''''  ~~~~~~~~~~:_'~~~~~~~~~~~~~~~~~''           "
+    echo "                   ~~~~~~~~::~____________                    "
+    echo "                   ~~~~~:~:~::::::::<<:::<                    "
+    echo "                   ~~~:~::~:::::::_'   ::<'                   "
+    echo "                   ~::~:::::::::::<.  .;;!                    "
+    echo "                    _~::::::::::;:::;;:!'                     "
+    echo "                       '~~<::::;:<<!~' '                      "
+}
+
+# python localhost ロゴ
+logo_py_localhost() {
+    logo_py
+    echo "  _                       _  _                             _____    ______   ______   ______ ";
+    echo " | |                     | || |                  _        / ___ \  / __   | / __   | / __   | ";
+    echo " | |  ___    ____   ____ | || | _    ___    ___ | |_   _ ( (   ) )| | //| || | //| || | //| | ";
+    echo " | | / _ \  / ___) / _  || || || \  / _ \  /___)|  _) (_) > > < < | |// | || |// | || |// | | ";
+    echo " | || |_| |( (___ ( ( | || || | | || |_| ||___ || |__  _ ( (___) )|  /__| ||  /__| ||  /__| | ";
+    echo " |_| \___/  \____) \_||_||_||_| |_| \___/ (___/  \___)(_) \_____/  \_____/  \_____/  \_____/ ";
+}
+
+# python 仮想環境 ロゴ
+logo_py_venv() {
+    logo_py
+    echo "    ____    ____  _______ .__   __. ____    ____ ";
+    echo "    \   \  /   / |   ____||  \ |  | \   \  /   / ";
+    echo "     \   \/   /  |  |__   |   \|  |  \   \/   / ";
+    echo "      \      /   |   __|  |  .    |   \      / ";
+    echo "       \    /    |  |____ |  |\   |    \    / ";
+    echo "        \__/     |_______||__| \__|     \__/ ";
+    sleep 0.5
+}
+
+# C++ ロゴ
+logo_cpp() {
+    echo "                     .(XyyS&,                    "
+    echo "                  .JyZZZZyZyyyn..                "
+    echo "              ..dyyZZyyyZZyZZyZyyk-.             "
+    echo "            .yyyZyZ0=!      _7XZZyyyW,           "
+    echo "            dZZZyZ=            ?yQgMH#           "
+    echo "            dyZyZ'    .dyyk.  .&HHHHH#           "
+    echo "            dZyyr    dyZyyXQMHH@4HHYM#           "
+    echo "            dZZy[   .yyQNMMHHHh,..&..K           "
+    echo "            dyZZn    ?MNNNNMDTMHHHHHH#           "
+    echo '            dyyZQa     ?""^     WMHHH#           '
+    echo "            zQNNNMN,          .MNMNMM#           "
+    echo '             THNMNNNMN&....(MNNNNMM#"            '
+    echo "                ?YMNNNNMNNNNNNMMY=               "
+    echo '                   .TMNNNMNMM"                   '
+    echo '                       7"""`                     '
+}
+
+# C++ セットアップ ロゴ
+logo_cpp_setup() {
+    logo_cpp
+    echo "                      _ ";
+    echo "          ___   ____ | |_   _   _  ____ ";
+    echo "         /___) / _  )|  _) | | | ||  _ \ ";
+    echo "        |___ |( (/ / | |__ | |_| || | | | ";
+    echo "        (___/  \____) \___) \____|| ||_/ ";
+    echo "                                  |_| ";
+    sleep 0.5
+}
+
+# AtCoder ロゴ
+logo_atcoder() {
+    echo '                                               .'
+    echo '                                             .dN.'
+    echo '                                          ..d@M#J#(,'
+    echo '                                       vRMPMJNd#dbMG#(F'
+    echo '                             (O.  U6..  WJNdPMJFMdFdb#`  .JU` .Zo'
+    echo '                          .. +NM=(TB5.-^.BMDNdJbEddMd ,n.?T@3?MNm  ..'
+    echo '                         .mg@_J~/?`.a-XNxvMMW9""TWMMF.NHa._ ?_,S.Tmg|'
+    echo '                      .Js ,3,`..-XNHMT"= ...d"5Y"X+.. ?"8MNHHa.. (,b uZ..'
+    echo '                     J"17"((dNMMB"^ ..JTYGJ7"^  ?"T&JT9QJ..?"TMNNHa,?727N'
+    echo '                     .7    T"^..JT"GJv"=`             ?"4JJT9a.,?T"`  .7!'
+    echo '                             M~JY"!     ....<.Zj+,(...     .7Ta_M'
+    echo '                 .JWkkWa,    d-F     .+;.ge.ga&.aa,ua+.g,     ,}#    .(Wkkkn,'
+    echo '                .W9AaeVY=-.. J;b   .XH3dHHtdHHDJHHH(HHH(WH,   J(F  ..?T4agdTH-'
+    echo '                 6XkkkH=!    ,]d  .HHtdHHH.HHHbJHHH[WHHH(HHL  k.]    _7HkkkHJ:'
+    echo '                 JqkP?H_      N(; TYY?YYY9(YYYD?YYYt7YYY\YY9 .Fd!     .WPjqqh'
+    echo '                 .mmmH,``      d/b WHHJHH@NJHHH@dHHHFdHHHtHH#`.1#       `(dqqq]'
+    echo '                ,gmmgghJQQVb  ,bq.,YY%7YYY(YYY$?YYY^TYYY(YY^ K.]  JUQmAJmmmmg%'
+    echo '                 ggggggggh,R   H,]  T#mTNNbWNN#dNN#(NN@(N@! .t#   d(Jgggggggg:'
+    echo '                .@@@@@#"_JK4,  ,bX.   ?i,1g,jge.g2+g2i,?`   K.t  .ZW&,7W@@@@@h.'
+    echo '            `..H@@@@@P   7 .H`  W/b        .^."?^(!        -1#   W, ?   T@@@@@Ma,`'
+    echo '            dH@HHHM"       U\   .N,L        ..            .$d    .B`     ."MHHH@HN.'
+    echo '       ....JMHHHHH@              ,N(p      .dH.d"77h.    .$J\              dHHHHHMU....'
+    echo '      ` WHH#,7MHHM{               ,N,h     d^.W,        .^J^               .MHHM"_d#HN.'
+    echo '       ,jH#Mo .MMW:                .W,4,  J\   Ta.-Y` .J(#                 .HMM- .M#MF!'
+    echo '         .MN/ d@?M+                  7e(h.           .3.F                  .MDd# (MML`'
+    echo '         .M4%  ?H, 7a,                .S,7a.       .Y.#^                .,"`.d=  ,PWe'
+    echo '        .! ?     dN .N,                 (N,7a.   .Y(d=                 .d! d@     4 .!'
+    echo '                 .W` .!                   ?H,?GJ".d"                    ^  B'
+    echo '                                            (SJ.#='
+    echo '                           J             ....            .M:'
+    echo '                          JUb     .   .#    (\            M~'
+    echo '                         .\.M;  .W@"` M}       .y7"m. .J"7M~ .v74e ,M7B'
+    echo '                        .F  ,N.  J]   M]       M)  JF M_  M~ d-     M`'
+    echo '                       .W,  .db, Jh.   Th...J\ /N..Y` ?N-.Ma.-M&.> .M-'
+    echo ""
+    echo ""
+    sleep 0.5
+}
+
