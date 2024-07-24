@@ -41,6 +41,9 @@ noremap <silent><Plug>(tailsemi) :<C-u>cal <SID>tailsemi()<CR>
 inoremap ;; <Esc><Plug>(tailsemi)
 inoremap ;<CR> <Esc><Plug>(tailsemi)o
 
+" main関数の上に移動しlibやconstなど書くための移動
+nnoremap <silent><Leader>H 0<Plug>(edgemotion-k)O
+
 " コメント設計のための補助
 let s:cmt_design_step = 1
 fu! s:comment_design() abort
