@@ -112,7 +112,7 @@ AtCoder() {
         touch "${v}${file_name}"
     done
     #vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
-    vi -c "CocCommand explorer --no-focus --width 30"
+    v
 }
 AtCoderResolve() {
     cd $AC_DIR && rm -rf $1 && AtCoder $1
@@ -140,7 +140,8 @@ AsakatuAtCoder() {
         eval $ASA_SAMPLE_DL
         cd ../
     fi
-    vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
+    #vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
+    v
 }
 
 # ADT
@@ -158,7 +159,8 @@ ADTAtCoder() {
         echo -e "[\e[34mINFO\e[m] touch file :\e[32m${v}${file_name}\e[m"
         touch "${v}${file_name}"
     done
-    vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
+    #vi -c "CocCommand explorer --no-focus --width 30" -c "AtCoderStartify"
+    v
 }
 
 # 単一で解く
@@ -168,10 +170,13 @@ solve() {
     cd && mkdir -p $SAND_DIR
     cd $SAND_DIR
     cpp_ini
+    mkdir a
     mkdir z
-    echo -n > z/main.cpp
-    cd z
-    rm -rf test
+    #echo -n > z/main.cpp
+    touch a/main.cpp
+    touch z/main.cpp
+    cd a && rm -rf test
+    cd z && rm -rf test
     oj d $(pbpaste)
     cd ..
     v z/main.cpp
