@@ -260,6 +260,15 @@ nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(
 
 " puremourning/vimspector
 let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
+let g:vimspector_sign_priority = {
+    \'vimspectorBP':          99,
+    \'vimspectorBPCond':      99,
+    \'vimspectorBPLog':       99,
+    \'vimspectorBPDisabled':  99,
+    \'vimspectorNonActivePC': 99,
+    \'vimspectorPC':          999,
+    \'vimspectorPCBP':        999,
+    \ }
 
 " =====================================================================
 " Util
