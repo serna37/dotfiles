@@ -167,19 +167,14 @@ ADTAtCoder() {
 export SAND_DIR="$HOME/work/sandbox"
 solve() {
     logo_atcoder
-    cd && mkdir -p $SAND_DIR
-    cd $SAND_DIR
+    mkdir -p $SAND_DIR && cd $SAND_DIR
     cpp_ini
-    mkdir a
-    mkdir z
+    mkdir a && touch a/main.cpp
+    mkdir z && touch z/main.cpp
     #echo -n > z/main.cpp
-    touch a/main.cpp
-    touch z/main.cpp
-    cd a && rm -rf test
-    cd z && rm -rf test
-    oj d $(pbpaste)
-    cd ..
-    v z/main.cpp
+    rm -rf a/test z/test
+    cd z && oj d $(pbpaste)
+    cd $SAND_DIR && v z/main.cpp
 }
 
 # util
