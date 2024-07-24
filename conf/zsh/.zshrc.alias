@@ -46,8 +46,8 @@ alias gen_brute='genact -s 10 --exit-after-modules 1 -m bruteforce'
 alias genbb='gen_bot && gen_brute'
 
 # dev tool
-alias localhost_here='python -m http.server 8000'
-alias python_venv='python -m venv venv && . venv/bin/activate'
+alias localhost_here='logo_py_localhost && python -m http.server 8000'
+alias python_venv='logo_py_venv &&python -m venv venv && . venv/bin/activate'
 alias db_con='cd ~/git/dotfiles && vim conf/gobang/config.toml'
 alias finder='open .'
 alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'

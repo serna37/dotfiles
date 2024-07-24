@@ -2,14 +2,18 @@ alias debug='cpp_exe'
 
 # C++ 初期化
 cpp_ini() {
-    cp ~/git/dotfiles/conf/cpp/cpp_gitignore ./.gitignore
-    cp ~/git/dotfiles/conf/cpp/.clang-format .
-    cp ~/git/dotfiles/conf/cpp/compile_flags.txt .
     # ojコマンドのためにPython仮想環境を作成
     python_venv
     pip install --upgrade pip
     pip install --upgrade setuptools
     pip install online-judge-tools
+    # AA
+    logo_cpp_setup
+    # gitignore
+    cp ~/git/dotfiles/conf/cpp/cpp_gitignore ./.gitignore
+    # LSP server用設定
+    cp ~/git/dotfiles/conf/cpp/.clang-format .
+    cp ~/git/dotfiles/conf/cpp/compile_flags.txt .
     # vimspector debug設定を追加
     cp -f ~/.vim/plugged/vim-IDE-menu/.vimspector.json .vimspector.json
 }
@@ -85,6 +89,7 @@ cpp_test_url() {
 # AtCoderコンテスト
 export AC_DIR="$HOME/git/contest"
 AtCoder() {
+    logo_atcoder
     cd $AC_DIR
     cpp_ini
     contest_cd=$1
@@ -116,6 +121,7 @@ AtCoderResolve() {
 # 朝活
 export ASA_DIR="$HOME/git/asakatu"
 AsakatuAtCoder() {
+    logo_atcoder
     cd $ASA_DIR
     file_name="main.cpp"
     dirname=`date '+%Y%m%d'`
@@ -140,6 +146,7 @@ AsakatuAtCoder() {
 # ADT
 export ADT_DIR="$HOME/git/adt"
 ADTAtCoder() {
+    logo_atcoder
     cd $ADT_DIR
     file_name="main.cpp"
     dirname=`date '+%Y%m%d'`
@@ -157,6 +164,7 @@ ADTAtCoder() {
 # 単一で解く
 export SAND_DIR="$HOME/work/sandbox"
 solve() {
+    logo_atcoder
     cd && mkdir -p $SAND_DIR
     cd $SAND_DIR
     cpp_ini
