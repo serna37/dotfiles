@@ -258,6 +258,9 @@ nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(
     "au BufWrite *.cpp :try | cal CocAction('format') | catch | endtry
 "aug END
 
+" puremourning/vimspector
+let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
+
 " =====================================================================
 " Util
 " =====================================================================
