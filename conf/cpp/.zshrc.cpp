@@ -6,8 +6,8 @@ cpp_ini() {
     cp ~/git/dotfiles/conf/cpp/.clang-format .
     cp ~/git/dotfiles/conf/cpp/compile_flags.txt .
     # ojコマンドのためにPython仮想環境を作成
-    python -m venv .
-    . bin/activate
+    python -m venv venv
+    . venv/bin/activate
     pip install --upgrade setuptools
     pip3 install online-judge-tools
 }
