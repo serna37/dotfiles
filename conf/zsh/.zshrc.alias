@@ -60,7 +60,7 @@ alias done_algo_v2='cd ~/git/task && genbb&& gh issue view 172 && gh issue close
 alias done_algo_v3='cd ~/git/task && genbb&& gh issue view 177 && gh issue close 177'
 alias done_algo_power='cd ~/git/task && genbb&& gh issue view 198 && gh issue close 198'
 alias done_hack='cd ~/git/task && genbb&& gh issue view 57 && gh issue close 57'
-alias done_contest_review='cd ~/git/task && genbb&& gh issue view 202 && gh issue close 202'
+#alias done_contest_review='cd ~/git/task && genbb&& gh issue view 202 && gh issue close 202'
 # issue
 alias issue_close='cd ~/git/task && gh issue close'
 alias issue_create='cd ~/git/task && gh issue create'
@@ -74,6 +74,7 @@ alias pr_master_release='gh pr create --base master --head release --title "Publ
 echo "-[Tips]--------"
 echo "Ctrl + R       | back i search"
 echo "Ctrl + H       | hisory fuzzy search"
+echo "---------------"
 echo "localhost_here | start server with localhost:8000"
 echo "python_venv    | create python virtual environment"
 echo "db_con         | edit db connection setting tomml"
