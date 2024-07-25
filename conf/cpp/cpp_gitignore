@@ -14,3 +14,7 @@ pyvenv.cfg
 # C++
 .clang-format
 compile_flags.txt
+
+# debugger
+.vimspector.json
+
