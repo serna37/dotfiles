@@ -11,6 +11,12 @@ inoremap <silent><C-k> <Esc>:<C-u>w<CR>:e!<CR>zza
 " =====================================================================
 " 高速編集のための設定
 " =====================================================================
+" format
+nnoremap <silent><Leader><S-F> :<C-u>cal CocActionAsync('format')<CR>
+
+" rename
+nnoremap <silent><Leader><S-R> <Plug>(coc-rename)
+
 " 依存スニペット展開用。トリガ文言を展開する
 fu! s:expandSnippet() abort
     cal feedkeys("A\<C-s>\<Esc>", 'x')
