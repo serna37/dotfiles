@@ -1,4 +1,4 @@
-alias debug='cpp_exe'
+alias debug='cpp_exe_atcoder'
 
 # C++ 初期化
 cpp_ini() {
@@ -25,9 +25,31 @@ export CC_BUILD_CMD="g++ -std=c++20 -I $CC_INCLUDE_PATH -Wall -Wextra -mtune=nat
 #-fconstexpr-ops-limit=2147483647 \
 #-fsanitize=address,undefined \
 
+# たんにC++実行
+cpp_exe() {
+    A="./tools/CaesarCipher.cpp"
+    if [ $# -eq 1 ]; then
+        A=$1
+    fi
+    echo -e "==================================="
+    echo -e "[\e[34mINFO\e[m] \e[32mbuild :$A processing...\e[m"
+    eval "$CC_BUILD_CMD _cpp_tmp $A 2>&1"
+    echo -e "[\e[34mINFO\e[m] \e[32mbuild :$A complete.\e[m"
+    echo -e "==================================="
+    echo -e "\e[33m-----------------------------\e[m"
+    ./_cpp_tmp
+    res=$?
+    echo -e "\e[33m-----------------------------\e[m"
+    if [ $res -eq 0 ]; then
+        echo -e "[\e[34mINFO\e[m] \e[32mexit code:$res.\e[m"
+    else
+        echo -e "[\e[31mERROR\e[m] \e[mexit code:$res."
+    fi
+}
+
 # フォルダ名を指定してC++実行
 export CC_EXE_PROBLEM="z"
-cpp_exe() {
+cpp_exe_atcoder() {
     if [ $# -eq 1 ]; then
         export CC_EXE_PROBLEM=$1
     fi
@@ -180,8 +202,10 @@ solve() {
 # util
 echo "-[C++]---------"
 echo "cpp_ini        | setup C++ project"
+echo "cpp_exe [file] | execute C++ program"
 echo "AtCoder abcXXX | create DIR & DL test cases"
 echo "solve          | DL tests by clipboard & solve"
+echo "---------------"
 #echo "ADTAtCoder     | only create DIR"
 echo "debug [z]      | test z/main.cpp and stdin"
 echo "cpp_test [z]   | test z/main.cpp with downloaded test cases"
