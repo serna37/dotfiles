@@ -87,6 +87,25 @@ auto digit_sum = [](int a, int N = 10) -> int {
 	return res;
 };
 endsnippet
+snippet algo_math_base_convert "進数変換" b
+// 進数変換 fromとtoは10を超えないこと
+auto base_cvt = [](string a, int from, int to) -> string {
+	// 10進数に直す
+	long long cvt = 0ll;
+	for (auto &&v : a) {
+		cvt = cvt * from + (int)(v - '0');
+	}
+	if (cvt == 0) return "0";
+	// to進数に直す
+	string res = "";
+	while (cvt) {
+		// 10進数で表せる範囲の文字しか扱っていない
+		res = (char)(cvt % to + '0') + res;
+		cvt /= to;
+	}
+	return res;
+};
+endsnippet
 snippet algo_math_combination "コンビネーション" b
 auto combination = [](int n, int k) -> long long {
 	if (k < 0 || n < k) return 0ll;
