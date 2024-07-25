@@ -52,6 +52,8 @@ alias db_con='cd ~/git/dotfiles && vim conf/gobang/config.toml'
 alias finder='open .'
 alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
 alias clock='tty-clock -sc -C2'
+alias dev='cd ~/git/CTF/docker && docker-compose up -d && docker-compose exec -w /work sandbox bash'
+alias down='docker-compose down'
 
 # GitHub CLI
 # done my daily task
@@ -78,4 +80,6 @@ echo "---------------"
 echo "localhost_here | start server with localhost:8000"
 echo "python_venv    | create python virtual environment"
 echo "db_con         | edit db connection setting tomml"
+echo "dev            | up container"
+echo "down           | down container"
 echo "---------------"
