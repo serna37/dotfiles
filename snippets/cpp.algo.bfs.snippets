@@ -8,14 +8,14 @@ snippet algo_bfs "bfs" b
 // 複数始点BFS
 queue<int> q;
 vector<int> dis(${1:N}, -1); // dis[v] := 始点からvまでの距離
-for (int i = 0; i < 1; ++i) {
-	q.push(${2:0}); // 始点を複数セット
-	dis[$2] = 0;
+for (int i = 0; i < ${2:1}; ++i) {
+	q.push(${3:0}); // 始点を複数セット
+	dis[$3] = 0;
 }
 while (!q.empty()) {
 	int v = q.front();
 	q.pop();
-	for (auto &&nv : ${3:G}[v]) {
+	for (auto &&nv : ${4:G}[v]) {
 		// 隣接点へ
 		if (dis[nv] == -1) {
 			dis[nv] = dis[v] + 1;
