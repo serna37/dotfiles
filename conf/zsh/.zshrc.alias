@@ -52,7 +52,8 @@ alias db_con='cd ~/git/dotfiles && vim conf/gobang/config.toml'
 alias finder='open .'
 alias app='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
 alias clock='tty-clock -sc -C2'
-alias dev='cd ~/git/CTF/docker && docker-compose up -d && docker-compose exec -w /work sandbox bash'
+alias dev='logo_docker&&logo_dev_sandbox && cd ~/git/CTF/docker && docker-compose up -d && docker-compose exec -w /work sandbox bash'
+alias redev='logo_docker&&logo_dev_sandbox && cd ~/git/CTF/docker && docker-compose build --no-cache sandbox && dev'
 alias down='docker-compose down'
 
 # GitHub CLI

@@ -87,6 +87,40 @@ google() {
   open -a Google\ Chrome http://www.google.co.jp/$opt
 }
 
+# docker ロゴ
+logo_docker() {
+    echo ""
+    echo "                       .."
+    echo "                      (NNNN!"
+    echo "                      (NMNM_"
+    echo "           (J..J-..JJ,.JJ..."
+    echo "           -NNMM<MNNMF(NNNN_        .gx-"
+    echo "           (MMMM!MMMM5(MMMM!        dNNNx         "
+    echo "      MMNM@-MNNM<MNMNF(MNNN_NNNMF  .MNNNN&(-. . "
+    echo "      MNNN@(NMNN:MNNNF(NNMN<MNNNF  .NNMNNNNNNNN;  "
+    echo "    .-???<!.?<<? <<??:(??<< ??<<!.-.(NNMNNNNNM9."
+    echo "  .NNMNNMNMNNMNNNNNNMNNNNNNNNNMNNNNMNNMNMMH =_    "
+    echo "  ,NMNMNNMNMNNMNMNMNNNNMNNMNNNNNMNNMNNN@  .     "
+    echo "  ,NNNNMNNNNNMNNNMNNMNNMNMNNMMNNMNNMNN@ .         "
+    echo "   qMNMNMNMNNMNMNNMNNMNNNNNNMNNMNNMNMD.           "
+    echo "    WNNMNNMNNNMNNNMNNNMNMMNNNNMNNMN#!"
+    echo "     TNNMNNMNMNNMNNMNNNMNNMNMNNNM@!"
+    echo "      .TNMNNMNNMNNMNMNNNNNNMNMY="
+    echo "         ? MMNMNNMNNNMMMMW = "
+    echo "                 ~~  "
+    echo ""
+}
+
+# docker dev用コンテナ起動ロゴ
+logo_dev_sandbox() {
+    echo "      _                                                    _ ";
+    echo "     | |                                      _           (_) ";
+    echo "   _ | |  ____  _   _     ____   ___   ____  | |_    ____  _  ____    ____   ____ ";
+    echo "  / || | / _  )| | | |   / ___) / _ \ |  _ \ |  _)  / _  || ||  _ \  / _  ) / ___) ";
+    echo " ( (_| |( (/ /  \ V /   ( (___ | |_| || | | || |__ ( ( | || || | | |( (/ / | | ";
+    echo "  \____| \____)  \_/     \____) \___/ |_| |_| \___) \_||_||_||_| |_| \____)|_| ";
+}
+
 # python ロゴ
 logo_py() {
     echo "                     ..+QWgmgmgg@@HmaJ,                       "
