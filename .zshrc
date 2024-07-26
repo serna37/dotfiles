@@ -55,6 +55,10 @@ alias g='lazygit'
 alias zg='zi && g'
 
 # ls
+# dev tool
+alias ToolBox='tool-box'
+alias dev='devbox'
+
 alias ll='ls -AFGlihrt --color=auto'
 alias l='eza -abghHliS --icons --git'
 alias tree='eza -bghHliST --icons --git'
@@ -64,6 +68,8 @@ alias ..='cd ..'
 
 # terminal ctrl
 alias q='exit'
+alias rm='rm -i'
+alias rmf='rm -rfi'
 alias rezsh='exec $SHELL -l'
 alias re='cd ~/git/dotfiles && clear && rezsh'
 
