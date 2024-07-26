@@ -55,6 +55,7 @@ alias g='lazygit'
 
 # dev tool
 alias ToolBox='tool-box'
+alias t='tool-box'
 alias dev='devbox'
 
 # terminal ctrl

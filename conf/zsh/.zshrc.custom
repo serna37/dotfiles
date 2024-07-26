@@ -48,9 +48,11 @@ google() {
 
 # ツール系のカスタムしたコマンドをリストで選択し実行
 tool-box() {
+    logo_toolbox
     LIST=(
         "[ GitHub] gh-ctrl"
         "[ devbox] start devbox"
+        "[  DL] DL to devbox/vol"
         "[ app] open application"
         "[ finder] open ."
         "[ venv]"
@@ -79,6 +81,9 @@ tool-box() {
             ;;
         "[ devbox] start devbox")
             CMD="devbox"
+            ;;
+        "[  DL] DL to devbox/vol")
+            CMD='echo_info "Choose DL file" && ls ~/Downloads | gum choose --no-limit | xargs -I {} cp ~/Downloads/{} .devbox-**/vol'
             ;;
         "[ app] open application")
             CMD='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
