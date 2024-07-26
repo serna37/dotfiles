@@ -51,9 +51,7 @@ tool-box() {
     logo_toolbox
     LIST=(
         "[ GitHub] gh-ctrl"
-        "[ devbox] start devbox"
-        "[ devbox] clear devbox"
-        "[ devbox] DL to devbox/vol"
+        "[ devbox] devbox-ctrl"
         "[ app] open application"
         "[ finder] open ."
         "[ venv]"
@@ -78,29 +76,12 @@ tool-box() {
     TARGET=$(gum choose --height $LEN $LIST)
     case $TARGET in
         "[ GitHub] gh-ctrl")
-            CMD="gh-ctrl"
+            gh-ctrl
+            return
             ;;
-        "[ devbox] start devbox")
-            CMD="devbox"
-            ;;
-        "[ devbox] clear devbox")
-            STOP='docker stop $(docker ps -aq -f name=^devbox)'
-            RM='docker rm $(docker ps -aq -f name=^devbox)'
-            DELNET='docker network rm $(docker network ls --format '\''{{.Name}}'\'' | grep devbox)'
-            RMI='docker rmi $(docker images --format '\''{{.Repository}}'\'')'
-            CMD="gum spin --title 'stop all devbox containers...' -- $STOP"
-            CMD="$CMD && echo_info 'stop all devbox'"
-            CMD="$CMD && gum spin --title 'delete all devbox containers...' -- $RM"
-            CMD="$CMD && echo_info 'delete all devbox'"
-            CMD="$CMD && gum spin --title 'delete docker networks...' -- $DELNET"
-            CMD="$CMD && echo_info 'delete all devbox networks'"
-            CMD="$CMD && gum spin --title 'delete images...' -- $RMI"
-            CMD="$CMD && echo_info 'delete all devbox images'"
-            ;;
-        "[ devbox] DL to devbox/vol")
-            CMD='echo_info "Choose DL file"'
-            CMD="$CMD && ls ~/Downloads | gum choose --no-limit"
-            CMD="$CMD | xargs -I {} cp ~/Downloads/{} .devbox-**/vol"
+        "[ devbox] devbox-ctrl")
+            devbox-ctrl
+            return
             ;;
         "[ app] open application")
             CMD='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
@@ -155,6 +136,60 @@ tool-box() {
             ;;
         "[ x86 brew]")
             CMD='arch -x86_64 /usr/local/bin/brew'
+            ;;
+        *)
+            echo_info "Skipped"
+            return
+            ;;
+    esac
+    confirm $CMD "Skipped"
+}
+
+# devbox関連の操作コマンド一覧
+devbox-ctrl() {
+    LIST=(
+        "[ ] devbox start"
+        "[ file](on devbox) cp file into devbox/vol"
+        "[ file](on devbox) cp DL file into devbox/vol"
+        "[ crush](on devbox) current devbox"
+        "[ crush] all devbox"
+        "[cancel]"
+    )
+    echo_info "Choose devbox Ctrl"
+    LEN=$(expr ${#LIST[@]} + 3)
+    TARGET=$(gum choose --height $LEN $LIST)
+    case $TARGET in
+        "[ ] devbox start")
+            CMD="devbox"
+            ;;
+        "[ file] cp file into devbox/vol")
+            # TODO 現在のフォルダに.devbox-があるかどうかチェック
+            # TODO どこのフォルダから持ち込むかを選択させる
+            ;;
+        "[ file] cp DL file into devbox/vol")
+            # TODO 現在のフォルダに.devbox-があるかどうかチェック
+            CMD='echo_info "Choose DL file"'
+            CMD="$CMD && ls -AF ~/Downloads | grep -v / | gum choose --no-limit"
+            CMD="$CMD | xargs -I {} cp ~/Downloads/{} .devbox-**/vol"
+            CMD="$CMD && echo_info 'cp DL files to devbox/vol'"
+            ;;
+        "[ crush] current devbox")
+            # TODO 現在のフォルダに.devbox-があるかどうかチェック
+            # TODO 現在の場所でのみdevboxを壊す
+            ;;
+        "[ crush] all devbox")
+            STOP='docker stop $(docker ps -aq -f name=^devbox)'
+            RM='docker rm $(docker ps -aq -f name=^devbox)'
+            DELNET='docker network rm $(docker network ls --format '\''{{.Name}}'\'' | grep devbox)'
+            RMI='docker rmi $(docker images --format '\''{{.Repository}}'\'')'
+            CMD="gum spin --title 'stop all devbox containers...' -- $STOP"
+            CMD="$CMD && echo_info 'stop all devbox'"
+            CMD="$CMD && gum spin --title 'delete all devbox containers...' -- $RM"
+            CMD="$CMD && echo_info 'delete all devbox'"
+            CMD="$CMD && gum spin --title 'delete docker networks...' -- $DELNET"
+            CMD="$CMD && echo_info 'delete all devbox networks'"
+            CMD="$CMD && gum spin --title 'delete images...' -- $RMI"
+            CMD="$CMD && echo_info 'delete all devbox images'"
             ;;
         *)
             echo_info "Skipped"

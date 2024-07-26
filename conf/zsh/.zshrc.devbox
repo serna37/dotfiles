@@ -34,7 +34,7 @@ devbox() {
         # 手動でけさなきゃいい！
         echo_info "[INITIATION] CREATE DIR \e[32m.devbox-XXX"
         echo_info "[INITIATION] Please \e[31mDO NOT DELETE \e[34mdocker image startsWith \e[32mdevbox-"
-        loading 2 "Initiating..."
+        loading 0.5 "Initiating..."
 
         # 現在の位置に.devbox-XXXを作成
         # docker-composeは自動で「フォルダ名-サービス名」でコンテナ命名する
@@ -47,7 +47,7 @@ devbox() {
         done
         echo_info "[INITIATION] create: \e[32m$S"
         mkdir $S
-        loading 1 "creating $S ..."
+        loading 0.5 "creating $S ..."
 
         # コンテナ設定を取得
         echo_info " >> install Dockerfile docker-compose.yml from dotfiles"
@@ -64,7 +64,7 @@ devbox() {
         echo_info " >> create work volume"
         mkdir -p $S/vol
 
-        loading 3 "setup profiles..."
+        loading 1 "setup profiles..."
         echo_info "[INITIATION] initiation completed"
         echo
     fi
