@@ -95,7 +95,7 @@ devbox() {
     echo $VIMRC_MD5
     echo $CURRENT_VIMRC_MD5
 
-    loading 1 "checking files..."
+    loading 0.5 "checking files..."
 
     # 新規作成でない場合で、元ファイルに更新があった場合に反映するため再ビルド
     if [ $DOCKERFILE_MD5 != $CURRENT_DOCKERFILE_MD5 ] || [ $DOCKER_COMPOSE_MD5 != $CURRENT_DOCKER_COMPOSE_MD5 ]; then
@@ -119,8 +119,8 @@ devbox() {
 
         # コンテナ設定を更新
         echo_info "Re install .bashrc .vimrc from dotfiles"
-        cp $BASHRC .
-        cp $VIMRC .
+        cp $BASHRC profile/
+        cp $VIMRC profile/
         loading 1 "apply dotfiles profile..."
     fi
 
@@ -129,7 +129,7 @@ devbox() {
     docker-compose up -d
     # TODO zshにしたい、Dockerfileの修正とともに変更
     echo_info "And Login"
-    loading 1 "ready to login..."
+    loading 0.5 "ready to login..."
     docker-compose exec -it -w /work sandbox bash
 
     # 抜けたときに元のフォルダに戻っておく
