@@ -68,7 +68,7 @@ tool-box() {
         "[ x86 brew]"
         "[cancel]"
     )
-    echo_info "Choose launch command"
+    echo_info "Choose tool"
     LEN=$(expr ${#LIST[@]} + 3)
     TARGET=$(gum choose --height $LEN $LIST)
     case $TARGET in
@@ -149,7 +149,7 @@ gh-ctrl() {
         "PR master  <- release"
         "[cancel]"
     )
-    echo_info "Choose launch command"
+    echo_info "Choose GitHub Ctrl"
     LEN=$(expr ${#LIST[@]} + 3)
     TARGET=$(gum choose --height $LEN $LIST)
     case $TARGET in
