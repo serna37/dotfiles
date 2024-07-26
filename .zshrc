@@ -65,7 +65,7 @@ alias ..='cd ..'
 # terminal ctrl
 alias q='exit'
 alias rezsh='exec $SHELL -l'
-alias re='cd && clear && rezsh'
+alias re='cd ~/git/dotfiles && clear && rezsh'
 
 # ======================================================
 # PATH
