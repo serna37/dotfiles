@@ -27,6 +27,8 @@ watch
 ffmpeg
 
 # TUI tools
+# TUI
+gum
 # diff
 git-delta
 # df

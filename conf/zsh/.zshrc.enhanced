@@ -89,6 +89,7 @@ google() {
 
 # docker ロゴ
 logo_docker() {
+    echo -e "\e[36m"
     echo ""
     echo "                       .."
     echo "                      (NNNN!"
@@ -109,20 +110,34 @@ logo_docker() {
     echo "         ? MMNMNNMNNNMMMMW = "
     echo "                 ~~  "
     echo ""
+    echo -e "\e[m"
 }
 
 # docker dev用コンテナ起動ロゴ
-logo_dev_sandbox() {
+logo_dev_container() {
+    echo -e "\e[32m"
     echo "      _                                                    _ ";
     echo "     | |                                      _           (_) ";
     echo "   _ | |  ____  _   _     ____   ___   ____  | |_    ____  _  ____    ____   ____ ";
     echo "  / || | / _  )| | | |   / ___) / _ \ |  _ \ |  _)  / _  || ||  _ \  / _  ) / ___) ";
     echo " ( (_| |( (/ /  \ V /   ( (___ | |_| || | | || |__ ( ( | || || | | |( (/ / | | ";
     echo "  \____| \____)  \_/     \____) \___/ |_| |_| \___) \_||_||_||_| |_| \____)|_| ";
+    echo -e "\e[m"
+}
+logo_for_sandbox() {
+    echo -e "\e[32m"
+    echo "   ___                                          _  _ ";
+    echo "  / __)                                        | || | ";
+    echo " | |__   ___    ____     ___   ____  ____    _ | || | _    ___   _   _ ";
+    echo " |  __) / _ \  / ___)   /___) / _  ||  _ \  / || || || \  / _ \ ( \ / ) ";
+    echo " | |   | |_| || |      |___ |( ( | || | | |( (_| || |_) )| |_| | ) X ( ";
+    echo " |_|    \___/ |_|      (___/  \_||_||_| |_| \____||____/  \___/ (_/ \_) ";
+    echo -e "\e[m"
 }
 
 # python ロゴ
 logo_py() {
+    echo -e "\e[33m"
     echo "                     ..+QWgmgmgg@@HmaJ,                       "
     echo "                   -qqqHHmmgggg@@@@@@@@N,                     "
     echo "                  .kqP   ?gggg@@@@@@@HHHH[                    "
@@ -148,33 +163,39 @@ logo_py() {
     echo "                   ~::~:::::::::::<.  .;;!                    "
     echo "                    _~::::::::::;:::;;:!'                     "
     echo "                       '~~<::::;:<<!~' '                      "
+    echo -e "\e[m"
 }
 
 # python localhost ロゴ
 logo_py_localhost() {
     logo_py
+    echo -e "\e[32m"
     echo "  _                       _  _                             _____    ______   ______   ______ ";
     echo " | |                     | || |                  _        / ___ \  / __   | / __   | / __   | ";
     echo " | |  ___    ____   ____ | || | _    ___    ___ | |_   _ ( (   ) )| | //| || | //| || | //| | ";
     echo " | | / _ \  / ___) / _  || || || \  / _ \  /___)|  _) (_) > > < < | |// | || |// | || |// | | ";
     echo " | || |_| |( (___ ( ( | || || | | || |_| ||___ || |__  _ ( (___) )|  /__| ||  /__| ||  /__| | ";
     echo " |_| \___/  \____) \_||_||_||_| |_| \___/ (___/  \___)(_) \_____/  \_____/  \_____/  \_____/ ";
+    echo -e "\e[m"
 }
 
 # python 仮想環境 ロゴ
 logo_py_venv() {
     logo_py
+    echo -e "\e[32m"
     echo "    ____    ____  _______ .__   __. ____    ____ ";
     echo "    \   \  /   / |   ____||  \ |  | \   \  /   / ";
     echo "     \   \/   /  |  |__   |   \|  |  \   \/   / ";
     echo "      \      /   |   __|  |  .    |   \      / ";
     echo "       \    /    |  |____ |  |\   |    \    / ";
     echo "        \__/     |_______||__| \__|     \__/ ";
+    echo -e "\e[m"
     sleep 0.5
 }
 
 # C++ ロゴ
 logo_cpp() {
+    echo -e "\e[34m"
     echo "                     .(XyyS&,                    "
     echo "                  .JyZZZZyZyyyn..                "
     echo "              ..dyyZZyyyZZyZZyZyyk-.             "
@@ -190,17 +211,20 @@ logo_cpp() {
     echo "                ?YMNNNNMNNNNNNMMY=               "
     echo '                   .TMNNNMNMM"                   '
     echo '                       7"""`                     '
+    echo -e "\e[m"
 }
 
 # C++ セットアップ ロゴ
 logo_cpp_setup() {
     logo_cpp
+    echo -e "\e[32m"
     echo "                      _ ";
     echo "          ___   ____ | |_   _   _  ____ ";
     echo "         /___) / _  )|  _) | | | ||  _ \ ";
     echo "        |___ |( (/ / | |__ | |_| || | | | ";
     echo "        (___/  \____) \___) \____|| ||_/ ";
     echo "                                  |_| ";
+    echo -e "\e[m"
     sleep 0.5
 }
 
@@ -243,5 +267,163 @@ logo_atcoder() {
     echo ""
     echo ""
     sleep 0.5
+}
+
+# ========================================================
+# ========================================================
+# ||          Dev Container for SandBox                 ||
+# ========================================================
+# ========================================================
+# 開発用のsandboxコンテナを起動する
+# 現在フォルダで、なければdevbox-XXXフォルダを作成し
+# dotfile/conf/devboxの設定の最新を反映して、コンテナ起動する
+devbox() {
+    logo_docker
+    logo_dev_container
+    logo_for_sandbox
+
+    # エンジンが動いてないなら起動
+    APP_LIST=$(osascript -e 'tell application "System Events" to get name of (processes where background only is false)')
+    if [[ ! $APP_LIST =~ "OrbStack" ]]; then
+        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34mSTART OrbStack\e[m"
+        open -g /Applications/OrbStack.app
+        sleep 0.5
+        if command -v genact > /dev/null 2>&1; then
+            genact -s 10 --exit-after-modules 1 -m botnet
+            genact -s 10 --exit-after-modules 1 -m bruteforce
+        fi
+    fi
+
+    DOCKERFILE=~/git/dotfiles/conf/devbox/Dockerfile
+    COMPOSE_FILE=~/git/dotfiles/conf/devbox/docker-compose.yml
+    BASHRC=~/git/dotfiles/conf/devbox/profile/.bashrc
+    VIMRC=~/git/dotfiles/conf/devbox/profile/.vimrc
+
+    # .devbox-XXXがない場合は作成し、設定をDL
+    if ! ls -d .devbox*/ > /dev/null 2>&1; then
+        # 手動でイメージを削除すると、ここでの重複回避の対象に引けないため
+        # 再度ビルドしたときなどに重複する恐れがある
+        # 重複した場合はあとガチで、前の同名コンテナは停止するだけ。
+        # 手動でけさなきゃいい！
+        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m[INITIATION] CREATE DIR \e[32m.devbox-XXX\e[m"
+        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m[INITIATION] Please \e[31mDO NOT DELETE \e[34mdocker image startsWith \e[32mdevbox-\e[m"
+        if command -v gum > /dev/null 2>&1; then
+            gum spin -- sleep 2
+        fi
+
+        # 現在の位置に.devbox-XXXを作成
+        # docker-composeは自動で「フォルダ名-サービス名」でコンテナ命名する
+        # .devbox-XXX/docker-compose.ymlならdevbox-XXX-sandbox
+        CONTAINERS=$(docker images --format='{{.Repository}}')
+        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m[INITIATION] CONTAINERS: \e[37m$CONTAINERS\e[m"
+        S=".devbox-$RANDOM"
+        while [[ $CONTAINERS =~ $S ]]; do
+            S=".devbox-$RANDOM"
+        done
+        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m[INITIATION] create: \e[32m$S\e[m"
+        mkdir $S
+        if command -v gum > /dev/null 2>&1; then
+            gum spin -- sleep 1
+        fi
+
+        # コンテナ設定を取得
+        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m >> install Dockerfile docker-compose.yml from dotfiles\e[m"
+        cp $DOCKERFILE $S
+        cp $COMPOSE_FILE $S
+
+        # プロファイルを取得
+        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m >> install profiles from dotfiles\e[m"
+        mkdir -p $S/profile
+        cp $BASHRC $S/profile
+        cp $VIMRC $S/profile
+
+        # 作業用volumeを作成
+        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m >> create work volume\e[m"
+        mkdir -p $S/vol
+
+        if command -v gum > /dev/null 2>&1; then
+            gum spin -- sleep 3
+        fi
+        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m[INITIATION] initiation completed.\e[m"
+        echo
+    fi
+
+    # コンテナ設定のチェックサムを取得
+    echo -e "\e[32m[\e[34mINFO\e[32m] \e[34mchecking checksum from dotfiles\e[m"
+    DOCKERFILE_MD5=$(md5 $DOCKERFILE | cut -d "=" -f 2)
+    DOCKER_COMPOSE_MD5=$(md5 $COMPOSE_FILE | cut -d "=" -f 2)
+    BASHRC_MD5=$(md5 $BASHRC | cut -d "=" -f 2)
+    VIMRC_MD5=$(md5 $VIMRC | cut -d "=" -f 2)
+
+    # コンテナ設定を確認
+    S=$(ls -d .devbox*/)
+    cd $S
+
+    # 現在のコンテナ設定のチェックサムを取得
+    CURRENT_DOCKERFILE_MD5=$(md5 Dockerfile | cut -d "=" -f 2)
+    CURRENT_DOCKER_COMPOSE_MD5=$(md5 docker-compose.yml | cut -d "=" -f 2)
+    CURRENT_BASHRC_MD5=$(md5 profile/.bashrc | cut -d "=" -f 2)
+    CURRENT_VIMRC_MD5=$(md5 profile/.vimrc | cut -d "=" -f 2)
+
+    echo $DOCKERFILE_MD5
+    echo $CURRENT_DOCKERFILE_MD5
+    echo $DOCKER_COMPOSE_MD5
+    echo $CURRENT_DOCKER_COMPOSE_MD5
+    echo $BASHRC_MD5
+    echo $CURRENT_BASHRC_MD5
+    echo $VIMRC_MD5
+    echo $CURRENT_VIMRC_MD5
+
+    if command -v gum > /dev/null 2>&1; then
+        gum spin -- sleep 1
+    fi
+
+    # 新規作成でない場合で、元ファイルに更新があった場合に反映するため再ビルド
+    if [ $DOCKERFILE_MD5 != $CURRENT_DOCKERFILE_MD5 ] || [ $DOCKER_COMPOSE_MD5 != $CURRENT_DOCKER_COMPOSE_MD5 ]; then
+        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m[!!] Update was detected\e[m"
+        if command -v gum > /dev/null 2>&1; then
+            gum spin -- sleep 1
+        fi
+
+        # コンテナ設定を更新
+        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34mRe install Dockerfile docker-compose.yml from dotfiles\e[m"
+        cp $DOCKERFILE .
+        cp $COMPOSE_FILE .
+        if command -v gum > /dev/null 2>&1; then
+            gum spin -- sleep 1
+        fi
+
+        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34mBuild Docker image\e[m"
+        docker-compose build
+    fi
+
+    # コンテナプロファイルに更新があった場合に反映
+    if [ $BASHRC_MD5 != $CURRENT_BASHRC_MD5 ] || [ $VIMRC_MD5 != $CURRENT_VIMRC_MD5 ]; then
+        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m[!!] Update was detected\e[m"
+        if command -v gum > /dev/null 2>&1; then
+            gum spin -- sleep 1
+        fi
+        # コンテナ設定を更新
+        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34mRe install .bashrc .vimrc from dotfiles\e[m"
+        cp $BASHRC .
+        cp $VIMRC .
+        if command -v gum > /dev/null 2>&1; then
+            gum spin -- sleep 1
+        fi
+    fi
+
+    # 起動してログイン
+    echo -e "\e[32m[\e[34mINFO\e[32m] \e[34mStart Dev Container for Sandbox\e[m"
+    docker-compose up -d
+    # TODO zshにしたい、Dockerfileの修正とともに変更
+    echo -e "\e[32m[\e[34mINFO\e[32m] \e[34mAnd login\e[m"
+    if command -v gum > /dev/null 2>&1; then
+        gum spin -- sleep 1
+    fi
+    docker-compose exec -it -w /work sandbox bash
+
+    # 抜けたときに元のフォルダに戻っておく
+    cd ..
+    echo -e "\e[32m[\e[34mINFO\e[32m] Welcome back to HOST PC\e[34m\e[m"
 }
 
