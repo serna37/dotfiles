@@ -1,5 +1,3 @@
-alias debug='cpp_exe_atcoder'
-
 # C++ 初期化
 cpp_ini() {
     # ojコマンドのためにPython仮想環境を作成
@@ -47,7 +45,8 @@ cpp_exe() {
     fi
 }
 
-# フォルダ名を指定してC++実行
+# フォルダ名を指定してC++実行、AtCoderフォルダ構成であること
+alias debug='cpp_exe_atcoder'
 export CC_EXE_PROBLEM="z"
 cpp_exe_atcoder() {
     if [ $# -eq 1 ]; then
@@ -70,43 +69,43 @@ cpp_exe_atcoder() {
 }
 
 # フォルダ名を指定して、ダウンロード済みからoj t
-export CC_TEST_PROBLEM="z"
-cpp_test() {
-    if [ $# -eq 1 ]; then
-        export CC_TEST_PROBLEM=$1
-    fi
-    cd $CC_TEST_PROBLEM
-    echo -e "==================================="
-    echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_TEST_PROBLEM/main.cpp processing...\e[m"
-    eval "$CC_BUILD_CMD main main.cpp"
-    echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_TEST_PROBLEM/main.cpp complete.\e[m"
-    echo -e "==================================="
-    echo -e "\e[33m-----------------------------\e[m"
-    oj t -c "./main"
-    cd ..
-}
+#export CC_TEST_PROBLEM="z"
+#cpp_test() {
+    #if [ $# -eq 1 ]; then
+        #export CC_TEST_PROBLEM=$1
+    #fi
+    #cd $CC_TEST_PROBLEM
+    #echo -e "==================================="
+    #echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_TEST_PROBLEM/main.cpp processing...\e[m"
+    #eval "$CC_BUILD_CMD main main.cpp"
+    #echo -e "[\e[34mINFO\e[m] \e[32mbuild :$CC_TEST_PROBLEM/main.cpp complete.\e[m"
+    #echo -e "==================================="
+    #echo -e "\e[33m-----------------------------\e[m"
+    #oj t -c "./main"
+    #cd ..
+#}
 
 # URLからojでC++テスト(vim atcoder menuに同機能あり)
-cpp_test_url() {
-    echo -e "==================================="
-    echo -e "[\e[34mINFO\e[m] \e[32mmain.cppのあるフォルダ名を入力\e[m"
-    read A
-    cd $A
-    echo -e "[\e[34mINFO\e[m] \e[32m問題URLを入力\e[m"
-    read OJ_D_URL
-    echo -e "==================================="
-    echo -e "[\e[34mINFO\e[m] \e[32mtestフォルダを空に\e[m"
-    rm -rf ./test && mkdir test
-    echo -e "[\e[34mINFO\e[m] \e[32mテストケースDL\e[m"
-    oj d $OJ_D_URL
-    echo -e "[\e[34mINFO\e[m] \e[32mビルド\e[m"
-    eval "$CC_BUILD_CMD main main.cpp"
-    echo -e "[\e[34mINFO\e[m] \e[32mテスト実行\e[m"
-    echo -e "==================================="
-    echo -e "==================================="
-    oj t -c "./main"
-    cd ..
-}
+#cpp_test_url() {
+    #echo -e "==================================="
+    #echo -e "[\e[34mINFO\e[m] \e[32mmain.cppのあるフォルダ名を入力\e[m"
+    #read A
+    #cd $A
+    #echo -e "[\e[34mINFO\e[m] \e[32m問題URLを入力\e[m"
+    #read OJ_D_URL
+    #echo -e "==================================="
+    #echo -e "[\e[34mINFO\e[m] \e[32mtestフォルダを空に\e[m"
+    #rm -rf ./test && mkdir test
+    #echo -e "[\e[34mINFO\e[m] \e[32mテストケースDL\e[m"
+    #oj d $OJ_D_URL
+    #echo -e "[\e[34mINFO\e[m] \e[32mビルド\e[m"
+    #eval "$CC_BUILD_CMD main main.cpp"
+    #echo -e "[\e[34mINFO\e[m] \e[32mテスト実行\e[m"
+    #echo -e "==================================="
+    #echo -e "==================================="
+    #oj t -c "./main"
+    #cd ..
+#}
 
 # AtCoderコンテスト
 export AC_DIR="$HOME/git/contest"
@@ -185,7 +184,7 @@ AtCoder() {
     #v
 #}
 
-# 単一で解く
+# 単一で解く AtCoderフォルダ構成
 export SAND_DIR="$HOME/work/sandbox"
 solve() {
     logo_atcoder
@@ -200,15 +199,12 @@ solve() {
 }
 
 # util
+# TODO 色
 echo "-[C++]---------"
 echo "cpp_ini        | setup C++ project"
 echo "cpp_exe [file] | execute C++ program"
-echo "AtCoder abcXXX | create DIR & DL test cases"
 echo "solve          | DL tests by clipboard & solve"
-echo "---------------"
-#echo "ADTAtCoder     | only create DIR"
 echo "debug [z]      | test z/main.cpp and stdin"
-echo "cpp_test [z]   | test z/main.cpp with downloaded test cases"
-echo "cpp_test_url   | DL test cases by URL & test some/main.cpp "
+echo "AtCoder abcXXX | create DIR & DL test cases"
 echo "---------------"
 
