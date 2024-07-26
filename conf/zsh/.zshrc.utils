@@ -1,14 +1,21 @@
 # ======================================================
 # Utility
 # ======================================================
+# 情報ログ形式でecho
+# echo_info "Hello World!"
+# echo_info "test \e[33m yellw"  途中から色を変えることも可能
 echo_info() {
     echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m$1\e[m"
 }
 
+# 確認ダイアログ
+# confirm "echo Hello World!" "cancelled"
 confirm() {
     gum confirm && eval $1 || echo_info $2
 }
 
+# 指定秒数待機アニメーション
+# loading 2 "Loading..."
 loading() {
     if command -v gum > /dev/null 2>&1; then
         gum spin --title $2 -- sleep $1
@@ -17,6 +24,7 @@ loading() {
     fi
 }
 
+# 長めのハッキングアニメーションを表示
 loading_long() {
     if command -v genact > /dev/null 2>&1; then
         genact -s 10 --exit-after-modules 1 -m botnet
