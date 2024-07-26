@@ -1,7 +1,7 @@
 # C++ 初期化
 cpp_ini() {
     # ojコマンドのためにPython仮想環境を作成
-    python_venv
+    logo_py_venv && python -m venv venv && . venv/bin/activate
     pip install --upgrade pip
     pip install --upgrade setuptools
     pip install online-judge-tools
@@ -199,7 +199,6 @@ solve() {
 }
 
 # util
-# TODO 色
 echo "-[C++]---------"
 echo "cpp_ini        | setup C++ project"
 echo "cpp_exe [file] | execute C++ program"
