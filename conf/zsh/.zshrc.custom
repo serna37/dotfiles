@@ -49,6 +49,7 @@ google() {
 tool-box() {
     LIST=(
         "[ GitHub] gh-ctrl"
+        "[ devbox] start devbox"
         "[ app] open application"
         "[ finder] open ."
         "[ venv]"
@@ -74,6 +75,9 @@ tool-box() {
     case $TARGET in
         "[ GitHub] gh-ctrl")
             CMD="gh-ctrl"
+            ;;
+        "[ devbox] start devbox")
+            CMD="devbox"
             ;;
         "[ app] open application")
             CMD='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
