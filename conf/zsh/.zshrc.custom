@@ -2,7 +2,7 @@
 # Custom Commands
 # ======================================================
 # pecoのバックiサーチ
-function peco-select-history() {
+peco-select-history() {
     local tac
     if which tac > /dev/null; then
         tac="tac"
@@ -46,6 +46,7 @@ google() {
   open -a Google\ Chrome http://www.google.co.jp/$opt
 }
 
+# ツール系のカスタムしたコマンドをリストで選択し実行
 tool-box() {
     LIST=(
         "[ GitHub] gh-ctrl"
@@ -141,6 +142,7 @@ tool-box() {
     confirm $CMD "Skipped"
 }
 
+# GitHub CLIでのカスタムしたコマンドを一覧で選択
 gh-ctrl() {
     LIST=(
         "Daily Algo v1"
