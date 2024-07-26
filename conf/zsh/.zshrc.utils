@@ -1,92 +1,34 @@
 # ======================================================
-# ENHANCED COMMAND SETTINGS
+# Utility
 # ======================================================
-# zoxide
-eval "$(zoxide init zsh)"
-export _ZO_FZF_OPTS='
-    --no-sort --height 75% --reverse --margin=0,1 --exit-0 --select-1
-    --bind ctrl-f:page-down,ctrl-b:page-up
-    --bind pgdn:preview-page-down,pgup:preview-page-up
-    --prompt="❯ "
-    --color bg+:#262626,fg+:#dadada,hl:#f09479,hl+:#f09479
-    --color border:#303030,info:#cfcfb0,header:#80a0ff,spinner:#36c692
-    --color prompt:#87afff,pointer:#ff5189,marker:#f09479
-    --preview "([[ -e '{2..}/README.md' ]] && bat --color=always --style=numbers --line-range=:50 '{2..}/README.md') || eza --color=always --group-directories-first --oneline {2..}"
-'
-# broot
-source /Users/serna37/Library/Application\ Support/org.dystroy.broot/launcher/bash/br
+echo_info() {
+    echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m$1\e[m"
+}
 
-# zsh-syntax-highlighting
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+confirm() {
+    gum confirm && eval $1 || echo_info $2
+}
 
-# zsh-autosuggestions
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# zsh-git-prompt
-source /opt/homebrew/opt/zsh-git-prompt/zshrc.sh
-
-# powerlevel10k
-source $(brew --prefix)/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# pecoのバックiサーチ
-function peco-select-history() {
-    local tac
-    if which tac > /dev/null; then
-        tac="tac"
+loading() {
+    if command -v gum > /dev/null 2>&1; then
+        gum spin --title $2 -- sleep $1
     else
-        tac="tail -r"
-    fi
-    BUFFER=$(\history -n 1 | \
-        eval $tac | \
-        peco --query "$LBUFFER")
-    CURSOR=$#BUFFER
-    zle clear-screen
-}
-zle -N peco-select-history
-bindkey '^r' peco-select-history
-
-# historyのfzf
-incremental_search_history() {
-  selected=`history -E 0 | fzf --tac --height 75% --reverse --margin=0,1 | cut -b 25-`
-  BUFFER=`[ ${#selected} -gt 0 ] && echo $selected || echo $BUFFER`
-  CURSOR=${#BUFFER}
-  zle redisplay
-}
-zle -N incremental_search_history
-bindkey "^h" incremental_search_history
-
-# チートシート呼び出し
-cheat() {
-    curl cheat.sh/$1
-}
-
-# Gifへ変換
-gif() {
-    if [ $# != 2 ]; then
-        echo "Usage:"
-        echo "  gif [basefile] [output-name.gif]"
-        echo "Alias Of:"
-        echo "  ffmpeg -i [basefile] -r 10 [output-name.gif]"
-    else
-        ffmpeg -i $1 -r 10 $2
-        l
+        sleep $1
     fi
 }
 
-# Google検索
-google() {
-  local str opt
-  if [ $# != 0 ]; then
-    for i in $*; do
-      str="$str${str:++}$i"
-    done
-    opt='search?num=100'
-    opt="${opt}&q=${str}"
-  fi
-  open -a Google\ Chrome http://www.google.co.jp/$opt
+loading_long() {
+    if command -v genact > /dev/null 2>&1; then
+        genact -s 10 --exit-after-modules 1 -m botnet
+        genact -s 10 --exit-after-modules 1 -m bruteforce
+    else
+        sleep 3
+    fi
 }
 
+# ======================================================
+# Logo
+# ======================================================
 # docker ロゴ
 logo_docker() {
     echo -e "\e[36m"
@@ -267,163 +209,5 @@ logo_atcoder() {
     echo ""
     echo ""
     sleep 0.5
-}
-
-# ========================================================
-# ========================================================
-# ||          Dev Container for SandBox                 ||
-# ========================================================
-# ========================================================
-# 開発用のsandboxコンテナを起動する
-# 現在フォルダで、なければdevbox-XXXフォルダを作成し
-# dotfile/conf/devboxの設定の最新を反映して、コンテナ起動する
-devbox() {
-    logo_docker
-    logo_dev_container
-    logo_for_sandbox
-
-    # エンジンが動いてないなら起動
-    APP_LIST=$(osascript -e 'tell application "System Events" to get name of (processes where background only is false)')
-    if [[ ! $APP_LIST =~ "OrbStack" ]]; then
-        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34mSTART OrbStack\e[m"
-        open -g /Applications/OrbStack.app
-        sleep 0.5
-        if command -v genact > /dev/null 2>&1; then
-            genact -s 10 --exit-after-modules 1 -m botnet
-            genact -s 10 --exit-after-modules 1 -m bruteforce
-        fi
-    fi
-
-    DOCKERFILE=~/git/dotfiles/conf/devbox/Dockerfile
-    COMPOSE_FILE=~/git/dotfiles/conf/devbox/docker-compose.yml
-    BASHRC=~/git/dotfiles/conf/devbox/profile/.bashrc
-    VIMRC=~/git/dotfiles/conf/devbox/profile/.vimrc
-
-    # .devbox-XXXがない場合は作成し、設定をDL
-    if ! ls -d .devbox*/ > /dev/null 2>&1; then
-        # 手動でイメージを削除すると、ここでの重複回避の対象に引けないため
-        # 再度ビルドしたときなどに重複する恐れがある
-        # 重複した場合はあとガチで、前の同名コンテナは停止するだけ。
-        # 手動でけさなきゃいい！
-        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m[INITIATION] CREATE DIR \e[32m.devbox-XXX\e[m"
-        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m[INITIATION] Please \e[31mDO NOT DELETE \e[34mdocker image startsWith \e[32mdevbox-\e[m"
-        if command -v gum > /dev/null 2>&1; then
-            gum spin -- sleep 2
-        fi
-
-        # 現在の位置に.devbox-XXXを作成
-        # docker-composeは自動で「フォルダ名-サービス名」でコンテナ命名する
-        # .devbox-XXX/docker-compose.ymlならdevbox-XXX-sandbox
-        CONTAINERS=$(docker images --format='{{.Repository}}')
-        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m[INITIATION] CONTAINERS: \e[37m$CONTAINERS\e[m"
-        S=".devbox-$RANDOM"
-        while [[ $CONTAINERS =~ $S ]]; do
-            S=".devbox-$RANDOM"
-        done
-        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m[INITIATION] create: \e[32m$S\e[m"
-        mkdir $S
-        if command -v gum > /dev/null 2>&1; then
-            gum spin -- sleep 1
-        fi
-
-        # コンテナ設定を取得
-        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m >> install Dockerfile docker-compose.yml from dotfiles\e[m"
-        cp $DOCKERFILE $S
-        cp $COMPOSE_FILE $S
-
-        # プロファイルを取得
-        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m >> install profiles from dotfiles\e[m"
-        mkdir -p $S/profile
-        cp $BASHRC $S/profile
-        cp $VIMRC $S/profile
-
-        # 作業用volumeを作成
-        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m >> create work volume\e[m"
-        mkdir -p $S/vol
-
-        if command -v gum > /dev/null 2>&1; then
-            gum spin -- sleep 3
-        fi
-        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m[INITIATION] initiation completed.\e[m"
-        echo
-    fi
-
-    # コンテナ設定のチェックサムを取得
-    echo -e "\e[32m[\e[34mINFO\e[32m] \e[34mchecking checksum from dotfiles\e[m"
-    DOCKERFILE_MD5=$(md5 $DOCKERFILE | cut -d "=" -f 2)
-    DOCKER_COMPOSE_MD5=$(md5 $COMPOSE_FILE | cut -d "=" -f 2)
-    BASHRC_MD5=$(md5 $BASHRC | cut -d "=" -f 2)
-    VIMRC_MD5=$(md5 $VIMRC | cut -d "=" -f 2)
-
-    # コンテナ設定を確認
-    S=$(ls -d .devbox*/)
-    cd $S
-
-    # 現在のコンテナ設定のチェックサムを取得
-    CURRENT_DOCKERFILE_MD5=$(md5 Dockerfile | cut -d "=" -f 2)
-    CURRENT_DOCKER_COMPOSE_MD5=$(md5 docker-compose.yml | cut -d "=" -f 2)
-    CURRENT_BASHRC_MD5=$(md5 profile/.bashrc | cut -d "=" -f 2)
-    CURRENT_VIMRC_MD5=$(md5 profile/.vimrc | cut -d "=" -f 2)
-
-    echo $DOCKERFILE_MD5
-    echo $CURRENT_DOCKERFILE_MD5
-    echo $DOCKER_COMPOSE_MD5
-    echo $CURRENT_DOCKER_COMPOSE_MD5
-    echo $BASHRC_MD5
-    echo $CURRENT_BASHRC_MD5
-    echo $VIMRC_MD5
-    echo $CURRENT_VIMRC_MD5
-
-    if command -v gum > /dev/null 2>&1; then
-        gum spin -- sleep 1
-    fi
-
-    # 新規作成でない場合で、元ファイルに更新があった場合に反映するため再ビルド
-    if [ $DOCKERFILE_MD5 != $CURRENT_DOCKERFILE_MD5 ] || [ $DOCKER_COMPOSE_MD5 != $CURRENT_DOCKER_COMPOSE_MD5 ]; then
-        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m[!!] Update was detected\e[m"
-        if command -v gum > /dev/null 2>&1; then
-            gum spin -- sleep 1
-        fi
-
-        # コンテナ設定を更新
-        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34mRe install Dockerfile docker-compose.yml from dotfiles\e[m"
-        cp $DOCKERFILE .
-        cp $COMPOSE_FILE .
-        if command -v gum > /dev/null 2>&1; then
-            gum spin -- sleep 1
-        fi
-
-        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34mBuild Docker image\e[m"
-        docker-compose build
-    fi
-
-    # コンテナプロファイルに更新があった場合に反映
-    if [ $BASHRC_MD5 != $CURRENT_BASHRC_MD5 ] || [ $VIMRC_MD5 != $CURRENT_VIMRC_MD5 ]; then
-        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m[!!] Update was detected\e[m"
-        if command -v gum > /dev/null 2>&1; then
-            gum spin -- sleep 1
-        fi
-        # コンテナ設定を更新
-        echo -e "\e[32m[\e[34mINFO\e[32m] \e[34mRe install .bashrc .vimrc from dotfiles\e[m"
-        cp $BASHRC .
-        cp $VIMRC .
-        if command -v gum > /dev/null 2>&1; then
-            gum spin -- sleep 1
-        fi
-    fi
-
-    # 起動してログイン
-    echo -e "\e[32m[\e[34mINFO\e[32m] \e[34mStart Dev Container for Sandbox\e[m"
-    docker-compose up -d
-    # TODO zshにしたい、Dockerfileの修正とともに変更
-    echo -e "\e[32m[\e[34mINFO\e[32m] \e[34mAnd login\e[m"
-    if command -v gum > /dev/null 2>&1; then
-        gum spin -- sleep 1
-    fi
-    docker-compose exec -it -w /work sandbox bash
-
-    # 抜けたときに元のフォルダに戻っておく
-    cd ..
-    echo -e "\e[32m[\e[34mINFO\e[32m] Welcome back to HOST PC\e[34m\e[m"
 }
 
