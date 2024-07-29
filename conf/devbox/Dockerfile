@@ -18,11 +18,10 @@ RUN apk add vim git eza fzf fd bat ripgrep gum
 RUN apk add nodejs npm python3
 RUN apk add --repository http://dl-cdn.alpinelinux.org/alpine/v3.18/main g++~=12
 
-# TODO gobangいれたい
 # TODO vim中のfzfが動かない
 # TODO vim中でclangdがないと言われる
 # TODO vim中のヤンクがクリップボードにこない
-# TODO install.shが悪い？スニペットがUltiSnips内にコピーできてない
+# TODO gobangいれたい
 
 # for zsh
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
