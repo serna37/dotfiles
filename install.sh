@@ -1,21 +1,16 @@
 # brew install
 repos=(
 # base
-vim
-git
+vim git
 
 # enhanced command
 # cd ls find
-zoxide
-eza
-fzf
-fd
+zoxide eza fzf fd
 fselect
 
 # cat sed grep
-bat
+bat ripgrep
 sd
-ripgrep
 ripgrep-all
 
 # summary
@@ -137,8 +132,7 @@ echo "=========================================================="
 echo "[dotfiles] clone & setup .zshrc .vimrc .wezterm.lua"
 echo "=========================================================="
 # dotfilesレポをクローン
-mkdir -p ~/git
-cd ~/git
+mkdir -p ~/git && cd ~/git
 git clone https://github.com/serna37/dotfiles
 # dotfilesをシンボックスリンク
 ln -nfs ~/git/dotfiles/.zshrc ~/.zshrc
