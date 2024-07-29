@@ -1,0 +1,124 @@
+# =========================================================
+# grid
+# =========================================================
+snippet grid "description" b
+- cango     進めるマスの定義
+- around    周囲のマスを探索
+- go        進む
+- filter    領域外&行けないマス
+- transpose グリッドを転置
+- toguro    ぐるぐる
+- bingo     ビンゴ判定
+endsnippet
+
+# グリッド上の探索
+snippet grid_cango "grid cango" b
+string alw = "${1:.SG}";
+auto cango = [&](char a) { return alw.find(a) != string::npos; };
+endsnippet
+snippet grid_around "grid around" b
+// 周囲のマスを見る
+for (int k = 0; k < ${1:4}; ++k) {
+	int y = i + dy[k], x = j + dx[k];
+	${2}
+}
+endsnippet
+snippet grid_go "grid go" b
+// 方向dにループ回数だけ進む
+int y = ${1:i}, x = ${2:j}; // この点から
+// for 進む回数だけループ
+y += dy[${3:d}], x += dx[$3]; // 進む
+endsnippet
+snippet grid_filter "grid filter" b
+// 領域外
+if (${1:y} < 0 or ${2:x} < 0 or ${3:row} <= $1 or ${4:col} <= $2) {
+	${5:continue};
+}
+// 行けないマス
+if (!cango(${6:G}[$1][$2])) {
+	${7:continue};
+}
+endsnippet
+
+# 操作
+snippet grid_transpose "grid transpose" b
+// $7の縦横を転置する
+swap(${1:H}, ${2:W});
+vector<vector<${3:char}>> ${4:_G}($1, vector<$3>($2));
+for (int ${5:i} = 0; $5 < $1; ++$5) {
+	for (int ${6:j} = 0; $6 < $2; ++$6) {
+		$4[$5][$6] = ${7:G}[$6][$5];
+	}
+}
+swap($7, $4);
+endsnippet
+
+# テンプレート
+snippet grid_toguro "grid toguro" b
+// グリッドをとぐろ状に進む
+//   _______
+//   _____  |
+//  |   __| |
+//  |_______|
+//
+int y = 0, x = 0; // 始点
+int d = 0; // GRID_dydxのインデックスと対応
+// for
+y += dy[d], x += dx[d]; // d方向に進み続けて
+// 領域外、または進めないマスの場合
+if (y < 0 or x < 0 or ${1:row} <= y or ${2:col} <= x or !cango(${3:G}[y][x])) {
+	y -= dy[d], x -= dx[d]; // やっぱ戻って
+	++d, d %= 4; // 方向変えて
+	y += dy[d], x += dx[d]; // 進み直す
+}
+endsnippet
+
+snippet grid_bingo "grid bingo" b
+// 正方グリッドで
+// 縦横ナナメに、そろっているか判定 O(N^2)
+// x|o|x   x x x   o x x
+// x|o|x   o o o   x o x
+// x|o|x   x x x   x x o
+vector<int> cx(${1:N}); // クロス1
+iota(cx.begin(), cx.end(), 0);
+//
+vector<int> cy = cx; // クロス2
+reverse(cy.begin(), cy.end());
+//
+bool c1 = true, c2 = true;
+//
+// 確認する値
+${2:int} check_val = ${3:-1};
+for (int i = 0; i < $1; ++i) {
+	// ナナメを判定
+	// o x x
+	// x o x
+	// x x o
+	c1 &= ${4:G}[i][cx[i]] == check_val; // 左上から右下にallmatch
+	c2 &= $4[i][cy[i]] == check_val; // 右上から左下にallmatch
+	//
+	// 縦横を判定
+	bool alma = true, alma2 = true;
+	for (int j = 0; j < $1; ++j) {
+		// x x x
+		// o o o  よこ
+		alma &= $4[i][j] == check_val; // 行内でallmatch
+		// o x x
+		// o x x
+		// o x x  たて
+		alma2 &= $4[j][i] == check_val; // 列内でallmatch
+	}
+	//
+	// alma = i行目の横がビンゴ
+	// alma2= i列目の縦がビンゴ
+	if (alma or alma2) {
+		cout << "row col allmatch" << endl;
+	}
+}
+// c1 = クロス1がビンゴ
+// c2 = クロス2がビンゴ
+if (c1 or c2) {
+	cout << "cross allmatch" << endl;
+}
+endsnippet
+

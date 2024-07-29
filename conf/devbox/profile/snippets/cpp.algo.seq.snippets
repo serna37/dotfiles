@@ -1,0 +1,50 @@
+# =========================================================
+# Sequence
+# - マージテク
+# - 座標圧縮
+# - 転頭数
+# =========================================================
+
+# マージテク
+snippet algo_seq_merge "merge" b
+// ${1:A}を${2:B}にマージテク
+if ($1.size() > $2.size()) swap($1, $2);
+for (auto &&v : $1) $2.${3:insert}(v);
+$1.clear();
+endsnippet
+snippet algo_seq_merge_map "merge map" b
+// ${1:mp[a]}を${2:mp[b]}にマージテク
+if ($1.size() > $2.size()) swap($1, $2);
+for (auto &&[k, v] : $1) $2[k] += v;
+$1.clear();
+endsnippet
+
+# 圧縮
+snippet algo_seq_zip "座標圧縮" b
+vector<${1:long long}> ${2:cvt} = ${3:target};
+sort($2.begin(), $2.end());
+$2.erase(unique($2.begin(), $2.end()), $2.end());
+for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
+// 重複削除後の種類数
+int ${4:sz} = $2.size();
+endsnippet
+
+# 転頭数
+snippet algo_seq_inv "転倒数" b
+// 右に倒れるA_i > A_j (i < j)の回数
+vector<${1:long long}> ${2:cvt} = ${3:A};
+sort($2.begin(), $2.end());
+$2.erase(unique($2.begin(), $2.end()), $2.end());
+for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
+// 圧縮後の種類数
+int ${5:sz} = $2.size();
+vector<int> ${6:fwk}($5 + 1); // 追加しながらFenwickの右側和
+${7:long long} ${8:inv} = 0; // 転倒数
+int ${9:R} = $5 - 1; // 座標圧縮したため最大要素 = サイズ-1
+for (int i = 0; i < ${10:N}; ++i) {
+	for (int f = $9 + 1; f; f -= f & -f) $8 += $6[f];
+	for (int f = $3[i] + 1; f; f -= f & -f) $8 -= $6[f];
+	for (int f = $3[i] + 1; f <= $5; f += f & -f) ++$6[f];
+}
+endsnippet
+

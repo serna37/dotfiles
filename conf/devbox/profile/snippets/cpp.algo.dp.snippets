@@ -1,0 +1,184 @@
+# =========================================================
+# DP
+# - base
+# TODO swapで3次元とかに対応できる？
+# - Knapsack
+# - XXX LCS
+# - XXX LIS
+# - XXX 桁DP
+# - XXX 区間DP
+# - XXX bitDP
+# - XXX 木DP
+# - XXX 全方位木DP
+# - XXX ダブリング
+# =========================================================
+
+# TODO dpのテンプレートを修正
+
+# base
+snippet algo_dp "dp" b
+${2:vector<int>} ${3:def}(${1:M}+1, ${4:INF});
+auto dp = $3, nx = dp;
+algo_dp_ini
+endsnippet
+snippet algo_dp_ini "dp ini" b
+// =========================
+dp[${1:0}] = ${2:0};
+algo_dp_for
+endsnippet
+snippet algo_dp_for "dp for" b
+// =========================
+for (int i = 0; i < ${1:N}; ++i, swap(dp, nx)) {
+	// - 選ばない: dp    緩和、通り数
+	// - 必ず選ぶ: def   初期化する
+	nx = ${2:dp def};
+	// 漸化式
+	${3}
+}
+// 最終行はdp
+endsnippet
+
+# [遷移式] 通り数系
+snippet algo_dp_add "dp add" b
+// =========================
+// dp_j  dp_j+1
+//     ↘︎  ↓    加算
+// nx_j  nx_j+1
+nx[${1:j + 1}] += dp[${2:j}];
+endsnippet
+
+# [遷移式] 緩和
+snippet algo_dp_chdp "chdp knapsack" b
+// =========================
+// dp_from    dp_to (nx=dpで緩和済み)
+//   + cost ↘︎  ↓
+//           nx_to
+nx[${3:to}] = ${1:min}(nx[$3], dp[${2:from}] + ${4:cost});
+endsnippet
+
+
+
+
+
+# TODO 遷移式メインに修正中
+
+snippet algo_dp_knapsack_alt "dp knapsack alt" b
+// TODO これ理解したら汎用化したいね
+int ${1:V} = ${2:1e5};
+vector<vector<${3:int}>> dp(${4:N} + 1, vector<$3>($1 + 1, inf<$3>));
+dp[0][0] = 0;
+for (int i = 0; i < $4; ++i) {
+	for (int j = 0; j <= $1; ++j) {
+		dp[i + 1][j] = min(dp[i + 1][j], dp[i][j]);
+		if (v[i] <= j) {
+			dp[i + 1][j] = min(dp[i + 1][j], dp[i][j - ${5:v}[i]] + ${6:w}[i]);
+		}
+	}
+}
+$3 ans = 0;
+for (int i = 0; i <= $1; ++i) {
+	if (dp[$4][i] <= ${7:W}) {
+		ans = max(ans, i);
+	}
+}
+cout << ans << endl;
+endsnippet
+
+snippet algo_dp_lcs "dp lcs" b
+// WIP これは長さだけ。本体を求めるものもある
+// LCS
+int ${3:s} = ${1:S}.size(), ${4:t} = ${2:T}.size();
+vector<vector<int>> dp($3 + 1, vector<int>($4 + 1, 0));
+for (int i = 0; i < $3; ++i) {
+	for (int j = 0; j < $4; ++j) {
+		dp[i + 1][j + 1] = max(
+			{dp[i][j + 1], dp[i + 1][j], dp[i][j] + ($1[i] == $2[j])});
+	}
+}
+cout << dp[$3][$4] << endl;
+endsnippet
+snippet algo_dp_lis "dp lis" b
+// WIP
+// LIS
+endsnippet
+snippet algo_dp_order "dp order" b
+// WIP
+// 桁DP
+endsnippet
+snippet algo_dp_range "dp range" b
+// WIP
+// 区間DP
+endsnippet
+snippet algo_dp_bit "dp bit" b
+// WIP
+// bit集合DP
+endsnippet
+snippet algo_dp_tree "dp tree" b
+// TODO
+// 頂点vの部分木を対象とした木DP
+vector<${1:long long}> dp(${2:N}, ${3:0});
+auto dfs = [&](auto &f, int v, int par = -1) -> void {
+	if (${4:tree}[v].size() == 1) {
+		dp[v] = 0;
+		return;
+	}
+	$1 tmp = 0;
+	for (auto &&[from, to, cost, id] : $4[v]) {
+		if (to == par) continue;
+		f(f, to, from);
+		tmp = ${5:max}(tmp, dp[to] + cost);
+	}
+	dp[v] = tmp;
+};
+dfs(dfs, N);
+cout << dp[N - 1] << endl;
+endsnippet
+snippet algo_dp_rerooting "dp rerooting" b
+// WIP
+// 全方位木DP
+endsnippet
+snippet algo_dp_doubling "doubling" b
+// ダブリング
+long long log = 1;
+while ((1ll << log) <= K) log++;
+// =========================
+// dp[i][j] := 2^i 回で行くところ、j種類
+vector<vector<long long>> dp(log, vector<long long>(${1:N}));
+for (int i = 0; i < N; ++i) {
+	dp[0][i] = ${2:A}[i];
+}
+// =========================
+// 前計算 ~2回次への遷移~
+//   j dp0  dp1  dp2  ...  dp_last
+// i
+// 0             dp[i][j] 1個次があるので
+// 1       dp[i][j] ↲  ここに行きたい
+// ...
+// ◽️1回次(普通のDP)の遷移は
+//       次行[j] = 今行[j]
+//    dp[i + 1][j] = dp[i][j]
+// dp[i][j] は2^iで行った時の何種類目か、なので
+// ◽️2回次は
+//     2回次[j] = 今行[ 1回次のj ]
+//   dp[i + 1][j] = dp[i][ dp[i][j] ]
+// =========================
+for (int i = 0; i < log - 1; ++i) {
+	for (int j = 0; j < N; j++) {
+		// 漸化式
+		// choose
+		dp[i + 1][j] = dp[i][dp[i][j]];
+		// dp[i + 1][j] = dp[i][j] + dp[i][(j + dp[i][j]) % N];
+	}
+}
+// =========================
+// クエリ
+long long ans = 0;
+for (int i = 0; K > 0; ++i) {
+	// choose
+	if (K & 1) ans = dp[i][ans];
+	// if (K & 1) ans += dp[i][ans % N];
+	K >>= 1;
+}
+cout << ans << endl;
+endsnippet
+

@@ -1,0 +1,73 @@
+# =========================================================
+# STL
+# =========================================================
+snippet chmax "change max" b
+${1:ans} = max($1, ${2:tmp});
+endsnippet
+snippet chmin "change min" b
+${1:ans} = min($1, ${2:tmp});
+endsnippet
+snippet all "iterator all" i
+${1:A}.begin(), $1.end()
+endsnippet
+snippet all_rev "iterator reverse" i
+${1:A}.rbegin(), $1.rend()
+endsnippet
+snippet unique "unique" b
+sort(${1:A}.begin(), $1.end());
+$1.erase(unique($1.begin(), $1.end()), $1.end());
+endsnippet
+snippet max_e "max element" i
+*max_element(${1});
+endsnippet
+snippet min_e "min element" i
+*min_element(${1});
+endsnippet
+
+# prepare for completion priority
+snippet sort "sort" b
+sort(${1});
+endsnippet
+snippet reverse "reverse" b
+reverse(${1});
+endsnippet
+snippet iota "iota fill sequence" b
+iota(${1});
+endsnippet
+snippet swap "swap" b
+swap(${1} , ${2});
+endsnippet
+snippet swap_left "swap left" b
+// $1 < $2を保証する
+if (${1:A} > ${2:B}) swap($1, $2);
+endsnippet
+snippet clamp "clamp" i
+clamp(${1:val}, ${2:low}, ${3:hight})
+endsnippet
+snippet atan2 "atan2" i
+atan2(${1:y}, ${2:x})
+endsnippet
+snippet npos "npos" i
+string::npos
+endsnippet
+snippet __builtin_ctz "__builtin_ctz" i
+__builtin_ctz(${1})
+endsnippet
+snippet __builtin_popcount "__builtin_popcount" i
+__builtin_popcount(${1})
+endsnippet
+snippet __builtin_popcountll "__builtin_popcountll" i
+__builtin_popcountll(${1})
+endsnippet
+
+# do not use rand
+snippet random "Mersenne Twister" b
+// [a, b)で乱数生成 メルセンヌツイスタ
+mt19937 ${1:mt}(chrono::steady_clock::now().time_since_epoch().count());
+auto ${2:gen} = [&](int a, int b) -> int {
+	uniform_int_distribution<int> dist(a, b - 1);
+	return dist($1);
+};
+int ${3:randome_number} = $2(${4:1}, ${5:1e3 + 1});
+endsnippet
+

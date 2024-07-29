@@ -1,0 +1,107 @@
+# =========================================================
+# Graph (Inline)
+# - Dijkstra
+# - Warshall-Froyd
+# - Kruskal
+# - Topological Sort
+# =========================================================
+snippet algo_graph_dijkstra "dijkstra" b
+using ${1:QT} = pair<long long, int>;
+priority_queue<$1, vector<$1>, greater<$1>> ${2:DQ};
+$2.emplace(0ll, ${3:0}); // 始点
+vector<long long> ${4:DC}(${5:N}, INF); // dis[v] := 始点からvの最短コスト
+$4[$3] = 0;
+vector<int> ${6:route}($5, -1); // 復元用の経路
+while (!$2.empty()) {
+	auto [dv, v] = $2.top();
+	$2.pop();
+	if (dv > $4[v]) continue;
+	for (auto &&[to, cost] : ${7:G}[v]) {
+		long long c = dv + cost;
+		if ($4[to] > c) {
+			$4[to] = c;
+			$2.emplace($4[to], to);
+			$6[to] = v;
+		}
+	}
+}
+
+// 経路復元
+auto restore_route = [&](int goal) -> vector<int> {
+	// pth[v] := vからゴールまで辿る頂点
+	vector<int> pth = {goal}; // ゴールをセット
+	while ($6[pth.back()] != -1) pth.emplace_back($6[pth.back()]);
+	reverse(pth.begin(), pth.end());
+	return pth;
+};
+
+cout << $4[$5 - 1] << endl;
+endsnippet
+snippet algo_graph_warshall_froyd "warshall froyd" b
+vector<vector<long long>> ${1:dis}(${2:N}, vector<long long>($2, INF));
+// まずは当たり前のminコスト
+for (int i = 0; i < $2; ++i) {
+	$1[i][i] = 0;
+	for (auto &&[to, cost] : ${3:G}[i]) {
+		$1[i][to] = min($1[i][to], cost);
+	}
+}
+// DP部分 ik + kj と ij の比較
+for (int k = 0; k < $2; ++k) {
+	for (int i = 0; i < $2; ++i) {
+		if ($1[i][k] == INF) continue;
+		for (int j = 0; j < $2; ++j) {
+			if ($1[k][j] == INF) continue;
+			$1[i][j] = min($1[i][j], $1[i][k] + $1[k][j]);
+		}
+	}
+}
+// 負の閉路検出
+bool negativeCycle = false;
+for (int i = 0; i < $2; ++i) {
+	if ($1[i][i] < 0) {
+		negativeCycle = true;
+		break;
+	}
+}
+endsnippet
+snippet algo_graph_kruskal "kruskal" b
+// cost, from, toの配列、無向グラフでも重複せず、1つずつ持つ
+// vector<tuple<long long, int, int>>
+sort(${1:E}.begin(), $1.end());
+// UnionFind
+vector<int> ${2:p}(${3:N}); // $2[x]でx所属グループの代表値
+vector<vector<int>> ${4:g}($3); // グループ本体
+for (int i = 0; i < $3; ++i) $2[i] = i, $4[i].push_back(i);
+// MST
+long long total = 0ll;
+vector<tuple<long long, int, int>> es; // MST
+for (auto &&[cost, from, to] : $1) {
+	// マージ
+	int ${5:X} = $2[from], ${6:Y} = $2[to]; // 代表値に変換
+	if ($5 == $6) continue;
+	if ($4[$5].size() > $4[$6].size()) swap($5, $6); // マージテク
+	for (auto &&v : $4[$5]) $4[$6].push_back(v), $2[v] = $6;
+	$4[$5].clear();
+	// マージ成功 -> MSTに追加
+	es.push_back({cost, from, to});
+	total += cost;
+}
+if ((int)$4[$2[0]].size() < $3) total = INF; // 全域に達しない場合
+endsnippet
+snippet algo_graph_topological_sort "topological sort" b
+vector<int> seen(${1:N}), sorted;
+auto dfs = [&](auto &f, int v) -> void {
+	seen[v] = 1;
+	//for (auto &&[to, cost] : ${2:G}[v]) {
+	for (auto &&to : $2[v]) {
+		if (!seen[to]) f(f, to);
+	}
+	sorted.push_back(v);
+};
+for (int i = 0; i < $1; ++i) {
+	if (!seen[i]) dfs(dfs, i);
+}
+reverse(sorted.begin(), sorted.end());
+endsnippet
+

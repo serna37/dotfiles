@@ -67,3 +67,7 @@
 > ```
 > defaults write com.apple.desktopservices DSDontWriteNetworkStores True
 > ```
+> - devbox内へsnippetsをコピーする
+> ```
+> cp -f ~/git/dotfiles/snippets/* ~/git/dotfiles/conf/devbox/profile/snippets/
+> ```

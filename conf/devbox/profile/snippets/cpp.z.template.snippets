@@ -1,0 +1,60 @@
+# =========================================================
+# template
+# =========================================================
+snippet fastio "fast io template" b
+#include <bits/stdc++.h>
+using namespace std;
+${1}
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+	${2}
+}
+endsnippet
+snippet debug_include "debug include" b
+#include <bits/debug.hpp>
+endsnippet
+snippet debug "debug" b
+debug(${1});
+endsnippet
+
+# =========================================================
+# list
+# =========================================================
+snippet algo "スニペット登録済み一覧" b
+カテゴリ
+├─[brute]  順列 bit 全探索
+├─[bi]     二分探索
+├─[bfs]    BFS グリッド
+├─[dfs]    再帰 DFS 木
+├─[graph]  dijk warshall kruskal topo
+├─[math]   数学
+├─[range]  zeta imos 尺取法
+├─[seq]    マージテク 座標圧縮 転頭数
+├─[dp]     DP 遷移式
+└─[ds]     seg fenwick UF
+その他
+├─(grid)   グリッド
+├─(geo)    幾何
+└─(string) 文字列
+endsnippet
+snippet lib "ライブラリにしかないもの" b
+データ構造
+├─双対セグ木
+├─遅延セグ木
+├─星空木
+└─各種モノイド
+グラフ
+├─ベルマンフォード
+├─連結成分分解 / グリッド
+├─閉路検出
+└─SCC
+数学
+├─拡張ユークリッド
+└─エラトステネスの篩
+多項式
+├─FFT
+└─畳み込み
+日付ライブラリ
+endsnippet
+
