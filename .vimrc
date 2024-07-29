@@ -1,3 +1,4 @@
+syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase smartcase shortmess-=S
 let mapleader = "\<Space>"
 
 " Plugin管理
@@ -87,6 +88,9 @@ call plug#end()
 " AI Copilot
 " =====================================================================
 " Exafunction/codeium.vim
+" !! auth needs to see
+" https://www.codeium.com/profile?response_type=token&redirect_uri=vim-show-auth-token&state=a&scope=openid%20profile%20email&redirect_parameters_type=query
+" !! Codeium Authコマンドで出るリンクからのクリックだと、画面表示幅の問題でフルパスに飛べないことがあるので注意
 let g:codeium_disable_bindings = 1
 inoremap <silent><C-n> <Cmd>call codeium#CycleCompletions(1)<CR>
 inoremap <silent><C-p> <Cmd>call codeium#CycleCompletions(-1)<CR>

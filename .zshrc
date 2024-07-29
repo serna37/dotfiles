@@ -328,9 +328,7 @@ devbox() {
 
     DOCKERFILE=${DEVBOX_DOTFILES_PATH}/Dockerfile
     COMPOSE_FILE=${DEVBOX_DOTFILES_PATH}/docker-compose.yml
-    IGNORE_FILE=${DEVBOX_PROFILE_PATH}/devbox_gitignore.txt
-    ZSHRC=${DEVBOX_PROFILE_PATH}/.zshrc
-    VIMRC=${DEVBOX_PROFILE_PATH}/.vimrc
+    IGNORE_FILE=${DEVBOX_DOTFILES_PATH}/devbox_gitignore.txt
 
     # .devbox-XXXがない場合は作成し、設定をDL
     if ! ls -d .devbox*/ > /dev/null 2>&1; then
@@ -362,9 +360,7 @@ devbox() {
 
         # プロファイルを取得
         echo_info " >> install profiles from dotfiles"
-        mkdir -p $S/profile
-        cp $ZSHRC $S/profile
-        cp $VIMRC $S/profile
+        cp -R $DEVBOX_PROFILE_PATH $S
 
         # 作業用volumeを作成
         echo_info " >> create work volume"
@@ -383,8 +379,7 @@ devbox() {
     echo_info "checking checksum from dotfiles"
     DOCKERFILE_MD5=$(md5 $DOCKERFILE | cut -d "=" -f 2)
     DOCKER_COMPOSE_MD5=$(md5 $COMPOSE_FILE | cut -d "=" -f 2)
-    ZSHRC_MD5=$(md5 $ZSHRC | cut -d "=" -f 2)
-    VIMRC_MD5=$(md5 $VIMRC | cut -d "=" -f 2)
+    PROFILES_MD5=$(find $DEVBOX_PROFILE_PATH -type f | xargs -I {} md5 {} | cut -d "=" -f 2)
 
     # コンテナ設定を確認
     S=$(ls -d .devbox*/)
@@ -393,30 +388,29 @@ devbox() {
     # 現在のコンテナ設定のチェックサムを取得
     CURRENT_DOCKERFILE_MD5=$(md5 Dockerfile | cut -d "=" -f 2)
     CURRENT_DOCKER_COMPOSE_MD5=$(md5 docker-compose.yml | cut -d "=" -f 2)
-    CURRENT_ZSHRC_MD5=$(md5 profile/.zshrc | cut -d "=" -f 2)
-    CURRENT_VIMRC_MD5=$(md5 profile/.vimrc | cut -d "=" -f 2)
+    CURRENT_PROFILES_MD5=$(find profile -type f | xargs -I {} md5 {} | cut -d "=" -f 2)
 
+    echo "dockerfile"
     echo $DOCKERFILE_MD5
     echo $CURRENT_DOCKERFILE_MD5
+    echo "docker-compose"
     echo $DOCKER_COMPOSE_MD5
     echo $CURRENT_DOCKER_COMPOSE_MD5
-    echo $ZSHRC_MD5
-    echo $CURRENT_ZSHRC_MD5
-    echo $VIMRC_MD5
-    echo $CURRENT_VIMRC_MD5
+    echo "profiles"
+    echo "${PROFILES_MD5:0:20}..."
+    echo "${CURRENT_PROFILES_MD5:0:20}..."
 
     loading 0.5 "checking..."
 
     # 新規作成でない場合で、元ファイルに更新があった場合に反映するため再ビルド
-    if [ $DOCKERFILE_MD5 != $CURRENT_DOCKERFILE_MD5 ] || [ $DOCKER_COMPOSE_MD5 != $CURRENT_DOCKER_COMPOSE_MD5 ] || [ $ZSHRC_MD5 != $CURRENT_ZSHRC_MD5 ] || [ $VIMRC_MD5 != $CURRENT_VIMRC_MD5 ]; then
+    if [ $DOCKERFILE_MD5 != $CURRENT_DOCKERFILE_MD5 ] || [ $DOCKER_COMPOSE_MD5 != $CURRENT_DOCKER_COMPOSE_MD5 ] || [ $PROFILES_MD5 != $CURRENT_PROFILES_MD5 ]; then
         echo_info "[!!] Update was detected"
         loading 1 "Loading..."
 
         # 最新にする
         cp $DOCKERFILE .
         cp $COMPOSE_FILE .
-        cp $ZSHRC profile/
-        cp $VIMRC profile/
+        cp -R $DEVBOX_PROFILE_PATH .
         loading 1 "ready to build docker..."
 
         echo_info "Build Docker image"

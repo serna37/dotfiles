@@ -185,7 +185,7 @@ echo "=========================================================="
 echo "[C++] install serna37/library"
 echo "=========================================================="
 cd ~/git
-git clone https://github.com/serna37/library
+git clone -b develop https://github.com/serna37/library
 cd library
 zsh snippets.sh
 
