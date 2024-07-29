@@ -44,7 +44,7 @@
 │   ├── devbox/   : 自作Devコンテナ用設定ファイル
 │   ├── gobang/   : gobang用設定ファイル
 │   ├── sshs/     : sshs用設定ファイル
-│   ├── vim/      : vimrcに付随した設定ファイル群
+│   ├── vim/      : vim用追加設定ファイル
 │   └── yazi/     : yazi用設定ファイル
 ├── snippets/     : C++用スニペット
 │
