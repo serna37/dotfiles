@@ -332,12 +332,14 @@ devbox() {
         loading_long
     fi
 
-    DOCKERFILE=~/git/dotfiles/conf/devbox/Dockerfile
-    COMPOSE_FILE=~/git/dotfiles/conf/devbox/docker-compose.yml
-    BASHRC=~/git/dotfiles/conf/devbox/profile/.bashrc
-    VIMRC=~/git/dotfiles/conf/devbox/profile/.vimrc
-    # TODO かえるかも
-    INSTALLER=~/git/dotfiles/conf/devbox/profile/.zshrc
+    DEVBOX_DOTFILES_PATH=~/git/dotfiles/conf/devbox
+    DEVBOX_PROFILE_PATH=${DEVBOX_DOTFILES_PATH}/profile
+
+    DOCKERFILE=${DEVBOX_DOTFILES_PATH}/Dockerfile
+    COMPOSE_FILE=${DEVBOX_DOTFILES_PATH}/docker-compose.yml
+    IGNORE_FILE=${DEVBOX_PROFILE_PATH}/devbox_gitignore.txt
+    ZSHRC=${DEVBOX_PROFILE_PATH}/.zshrc
+    VIMRC=${DEVBOX_PROFILE_PATH}/.vimrc
 
     # .devbox-XXXがない場合は作成し、設定をDL
     if ! ls -d .devbox*/ > /dev/null 2>&1; then
@@ -370,14 +372,16 @@ devbox() {
         # プロファイルを取得
         echo_info " >> install profiles from dotfiles"
         mkdir -p $S/profile
-        cp $BASHRC $S/profile
+        cp $ZSHRC $S/profile
         cp $VIMRC $S/profile
-        # TODO これDockerfileに入れちゃう？手動とかじゃなく最初からzshでよくね
-        cp $INSTALLER $S/profile
 
         # 作業用volumeを作成
         echo_info " >> create work volume"
         mkdir -p $S/vol
+
+        # gitignoreを追記
+        echo_info " >> add .gitignore"
+        cat $IGNORE_FILE >> .gitignore
 
         loading 1 "setup profiles..."
         echo_info "[INITIATION] initiation completed"
@@ -388,9 +392,8 @@ devbox() {
     echo_info "checking checksum from dotfiles"
     DOCKERFILE_MD5=$(md5 $DOCKERFILE | cut -d "=" -f 2)
     DOCKER_COMPOSE_MD5=$(md5 $COMPOSE_FILE | cut -d "=" -f 2)
-    BASHRC_MD5=$(md5 $BASHRC | cut -d "=" -f 2)
+    ZSHRC_MD5=$(md5 $ZSHRC | cut -d "=" -f 2)
     VIMRC_MD5=$(md5 $VIMRC | cut -d "=" -f 2)
-    INSTALLER_MD5=$(md5 $INSTALLER | cut -d "=" -f 2)
 
     # コンテナ設定を確認
     S=$(ls -d .devbox*/)
@@ -399,58 +402,41 @@ devbox() {
     # 現在のコンテナ設定のチェックサムを取得
     CURRENT_DOCKERFILE_MD5=$(md5 Dockerfile | cut -d "=" -f 2)
     CURRENT_DOCKER_COMPOSE_MD5=$(md5 docker-compose.yml | cut -d "=" -f 2)
-    CURRENT_BASHRC_MD5=$(md5 profile/.bashrc | cut -d "=" -f 2)
+    CURRENT_ZSHRC_MD5=$(md5 profile/.zshrc | cut -d "=" -f 2)
     CURRENT_VIMRC_MD5=$(md5 profile/.vimrc | cut -d "=" -f 2)
-    CURRENT_INSTALLER_MD5=$(md5 profile/.zshrc | cut -d "=" -f 2)
 
     echo $DOCKERFILE_MD5
     echo $CURRENT_DOCKERFILE_MD5
     echo $DOCKER_COMPOSE_MD5
     echo $CURRENT_DOCKER_COMPOSE_MD5
-    echo $BASHRC_MD5
-    echo $CURRENT_BASHRC_MD5
+    echo $ZSHRC_MD5
+    echo $CURRENT_ZSHRC_MD5
     echo $VIMRC_MD5
     echo $CURRENT_VIMRC_MD5
-    echo $INSTALLER_MD5
-    echo $CURRENT_INSTALLER_MD5
 
-    loading 0.5 "checking files..."
+    loading 0.5 "checking..."
 
     # 新規作成でない場合で、元ファイルに更新があった場合に反映するため再ビルド
-    if [ $DOCKERFILE_MD5 != $CURRENT_DOCKERFILE_MD5 ] || [ $DOCKER_COMPOSE_MD5 != $CURRENT_DOCKER_COMPOSE_MD5 ]; then
+    if [ $DOCKERFILE_MD5 != $CURRENT_DOCKERFILE_MD5 ] || [ $DOCKER_COMPOSE_MD5 != $CURRENT_DOCKER_COMPOSE_MD5 ] || [ $ZSHRC_MD5 != $CURRENT_ZSHRC_MD5 ] || [ $VIMRC_MD5 != $CURRENT_VIMRC_MD5 ]; then
         echo_info "[!!] Update was detected"
         loading 1 "Loading..."
 
-        # コンテナ設定を更新
-        echo_info "Re install Dockerfile docker-compose.yml from dotfiles"
+        # 最新にする
         cp $DOCKERFILE .
         cp $COMPOSE_FILE .
+        cp $ZSHRC profile/
+        cp $VIMRC profile/
         loading 1 "ready to build docker..."
 
         echo_info "Build Docker image"
         docker-compose build
     fi
 
-    # コンテナプロファイルに更新があった場合に反映
-    if [ $BASHRC_MD5 != $CURRENT_BASHRC_MD5 ] || [ $VIMRC_MD5 != $CURRENT_VIMRC_MD5 ] || [ $INSTALLER_MD5 != $CURRENT_INSTALLER_MD5 ]; then
-        echo_info "[!!] Update was detected"
-        loading 1 "checking files..."
-
-        # コンテナ設定を更新
-        echo_info "Re install .bashrc .vimrc from dotfiles"
-        cp $BASHRC profile/
-        cp $VIMRC profile/
-        cp $INSTALLER profile/
-        loading 1 "apply dotfiles profile..."
-    fi
-
     # 起動してログイン
     echo_info "Start Dev Container for Sandbox"
     docker-compose up -d
-    # TODO zshにしたい、Dockerfileの修正とともに変更
-    echo_info "And Login"
+    echo_info "Login"
     loading 0.5 "ready to login..."
-    #docker-compose exec -it -w /work sandbox bash
     docker-compose exec -it -w /work sandbox zsh
 
     # 抜けたときに元のフォルダに戻っておく
