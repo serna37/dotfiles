@@ -4,7 +4,6 @@
 snippet fastio "fast io template" b
 #include <bits/stdc++.h>
 using namespace std;
-#include <bits/debug.hpp>
 ${1}
 int main() {
 	ios::sync_with_stdio(false);
@@ -12,15 +11,16 @@ int main() {
 	${2}
 }
 endsnippet
-
 snippet debug_include "debug include" b
 #include <bits/debug.hpp>
 endsnippet
-
 snippet debug "debug" b
 debug(${1});
 endsnippet
 
+# =========================================================
+# list
+# =========================================================
 snippet algo "スニペット登録済み一覧" b
 カテゴリ
 ├─[brute]  順列 bit 全探索
@@ -38,7 +38,6 @@ snippet algo "スニペット登録済み一覧" b
 ├─(geo)    幾何
 └─(string) 文字列
 endsnippet
-
 snippet lib "ライブラリにしかないもの" b
 データ構造
 ├─双対セグ木
