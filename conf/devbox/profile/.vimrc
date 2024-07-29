@@ -51,6 +51,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'thinca/vim-partedit'
 
+" TODO LSP系統全部消した
+
 call plug#end()
 " =====================================================================
 
