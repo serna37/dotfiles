@@ -5,9 +5,6 @@ services:
       - type: bind
         source: ./vol
         target: /work
-      - type: bind
-        source: ./profile
-        target: /root
     # コンテナを起動させ続ける
     # https://qiita.com/messhii222/items/01ae86ebedd576355fab
     tty: true

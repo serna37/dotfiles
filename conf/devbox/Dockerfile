@@ -3,9 +3,34 @@ FROM alpine
 RUN apk update
 RUN apk upgrade
 
-# 必要なコマンド
-RUN apk add bash file curl
-RUN apk add vim git
+# bash
+RUN apk add bash zsh
+
+# basic command
+RUN apk add curl gzip
+
+# for analyze
+RUN apk add file exiftool
+
+# for dev
+RUN apk add vim git eza fzf fd bat ripgrep gum
+
+# TODO ここからしたの入れ方を確かめてく
+#gcc@12
+#node
+#python3 python-setuptools
+
+
+# for zsh
+RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUN git clone https://github.com/zsh-users/zsh-autosuggestions /root/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting /root/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
+# setup profile
+COPY ./profile/.zshrc /root/.zshrc
+COPY ./profile/.vimrc /root/.vimrc
+
+# TODO nodeとgccは必須、pythonも必要かも
 
 # ホストがarm64でもalpineはクロスアーキ
 # x86_64でバイナリを実行させるためにglibcを入れる
