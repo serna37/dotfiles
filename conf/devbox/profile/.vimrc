@@ -555,7 +555,7 @@ fu! s:ac_test.gettask() abort
             break
         endif
     endfor
-    retu split(target_bufname, '/')[0]
+    retu split(target_bufname, '/')[-2]
 endf
 fu! s:ac_test.close() abort
         if self.wid != -1

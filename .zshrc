@@ -725,14 +725,14 @@ cpp_exe() {
 
 # AtCoder解く
 solve() {
-    # 作成済み、cpp_ini済みであること
     AC_DIR="$HOME/git/contest"
     SAND_DIR="$HOME/work/sandbox"
     logo_atcoder
 
     # 引数が無い場合、クリップボードのURLを単一で解く
     if [ -z "$1" ]; then
-        cd $SAND_DIR
+        mkdir -p $SAND_DIR && cd $SAND_DIR
+        cpp_ini
         mkdir a && touch a/main.cpp
         mkdir z && touch z/main.cpp
         #echo -n > z/main.cpp
@@ -743,7 +743,8 @@ solve() {
     fi
 
     # AtCoder コンテスト
-    cd $AC_DIR
+    mkdir -p $AC_DIR && cd $AC_DIR
+    cpp_ini
     contest_cd=$1
     file_name="main.cpp"
     acc check-oj

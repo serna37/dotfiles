@@ -15,15 +15,14 @@ RUN apk add file exiftool
 RUN apk add vim git eza fzf fd bat ripgrep gum
 
 # languages
-RUN apk add nodejs npm python3 clang
+RUN apk add nodejs npm python3
 RUN apk add --repository http://dl-cdn.alpinelinux.org/alpine/v3.18/main g++~=12
 
 # TODO gobangいれたい
 # TODO vim中のfzfが動かない
-# TODO vim中でLSPが動いてなさそう
+# TODO vim中でclangdがないと言われる
 # TODO vim中のヤンクがクリップボードにこない
 # TODO install.shが悪い？スニペットがUltiSnips内にコピーできてない
-# TODO atcoder解くフォルダを決めような
 
 # for zsh
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -32,7 +31,7 @@ RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting /root/.oh-my-
 
 # setup profile
 COPY profile/ /root/
-RUN sh /root/install.sh
+RUN zsh /root/install.sh
 
 # ホストがarm64でもalpineはクロスアーキ
 # x86_64でバイナリを実行させるためにglibcを入れる

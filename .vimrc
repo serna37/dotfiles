@@ -550,12 +550,12 @@ fu! s:ac_test.gettask() abort
     let target_bufname = "nodata"
     for wid in range(1, winnr('$'))
         let bufname = bufname(winbufnr(wid))
-        if bufname =~ ".\/main\.cpp"
+        if bufname =~ ".*\/main\.cpp"
             let target_bufname = bufname
             break
         endif
     endfor
-    retu split(target_bufname, '/')[0]
+    retu split(target_bufname, '/')[-2]
 endf
 fu! s:ac_test.close() abort
         if self.wid != -1
