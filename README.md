@@ -45,8 +45,7 @@
 │   ├── gobang/   : gobang用設定ファイル
 │   ├── sshs/     : sshs用設定ファイル
 │   ├── vim/      : vimrcに付随した設定ファイル群
-│   ├── yazi/     : yazi用設定ファイル
-│   └── zsh/      : zshrcに付随した設定ファイル群
+│   └── yazi/     : yazi用設定ファイル
 ├── snippets/     : C++用スニペット
 │
 ├── .vimrc        : vim設定
