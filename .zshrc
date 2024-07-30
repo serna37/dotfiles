@@ -525,14 +525,34 @@ devbox() {
     docker-compose up -d
 
     # クリップボード共有用
-    [ -p shared-register/clip ] || mkfifo shared-register/clip
+    \rm -rf shared-register && mkdir shared-register && cd shared-register
+    echo $(pbpaste) > clip
+    echo $(ls -l clip) > tmp
+    cd ..
+    watch_shared_clipboard() {
+        while [ 1 ]; do
+            # フォルダが消えたらループ終了
+            if [ ! -d shared-register ]; then
+                return
+            fi
+            LATEST=$(cat shared-register/tmp)
+            CURRENT=$(cd shared-register && ls -l clip)
+            if [[ "$LATEST" != "$CURRENT" ]]; then
+                pbcopy < shared-register/clip
+                echo $CURRENT > shared-register/tmp
+            fi
+            sleep 1
+        done
+    }
+    watch_shared_clipboard & # バックグラウンドで実行
 
     # ログイン
     echo_info "Login"
     loading 0.5 "ready to login..."
     docker-compose exec -it -w /work sandbox zsh
 
-    # 抜けたときに元のフォルダに戻っておく
+    # 抜けたときの処理
+    \rm -rf shared-register
     cd ..
     echo_info "Welcome back to HOST PC"
 }

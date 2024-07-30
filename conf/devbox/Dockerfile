@@ -28,6 +28,9 @@ RUN apt install -y build-essential autoconf automake cproto \
     && make && make install \
     && ln -nfs /root/.local/bin/vim /usr/bin/vim
 
+# for shared-register (clipboard)
+RUN mkdir /shared-register
+
 # dotfiles
 RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/serna37/dotfiles/master/install.sh)"
 
