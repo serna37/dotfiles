@@ -5,4 +5,3 @@ elif [[ $OS_NAME == "Linux" ]]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/serna37/dotfiles/master/test-docker.sh)"
 fi
 
-echo "done"
