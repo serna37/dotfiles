@@ -651,3 +651,8 @@ fu! s:atcoderSetTestUrl() abort
 endf
 com! AtCoderSetTestUrl cal <SID>atcoderSetTestUrl()
 
+" =====================================================================
+" Docker用クリップボード
+" =====================================================================
+if system('uname -s')->split('\n')[0] =~ 'Linux'
+endif
