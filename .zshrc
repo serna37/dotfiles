@@ -54,10 +54,15 @@ fi
 # ======================================================
 # ALIAS
 # ======================================================
-if "$IS_MAC"; then
-    # vim
-    alias v='vim -c "CocCommand explorer --no-focus --width 30"'
-    alias zv='zi && v'
+# vim
+v() {
+    if [[ ! -d ~/.vim/plugged ]]; then
+        curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        vim -c "PlugInstall" -c "qa"
+    else
+        vim -c "CocCommand explorer --no-focus --width 30"
+    fi
+}
 
     # TUI
     alias e='yazi'
