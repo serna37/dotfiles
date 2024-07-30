@@ -11,8 +11,6 @@ elif [ "$OS_NAME" = "Linux" ]; then
   IS_DOCKER=true
 fi
 
-# TODO 分岐
-
 # ======================================================
 # PROMPT SETTINGS
 # ======================================================
@@ -35,63 +33,95 @@ export _ZO_FZF_OPTS='
     --color prompt:#87afff,pointer:#ff5189,marker:#f09479
     --preview "([[ -e '{2..}/README.md' ]] && bat --color=always --style=numbers --line-range=:50 '{2..}/README.md') || eza --color=always --group-directories-first --oneline {2..}"
 '
-# zsh-syntax-highlighting
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# zsh-autosuggestions
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-# zsh-git-prompt
-source /opt/homebrew/opt/zsh-git-prompt/zshrc.sh
-# powerlevel10k
-source /opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+if "$IS_MAC"; then
+    source /opt/homebrew/opt/zsh-git-prompt/zshrc.sh
+    source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme
+    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+fi
+
+if "$IS_DOCKER"; then
+    export ZSH="$HOME/.oh-my-zsh"
+    ZSH_THEME="fino"
+    plugins=(
+      zsh-autosuggestions
+      zsh-syntax-highlighting
+    )
+    source $ZSH/oh-my-zsh.sh
+fi
 
 # ======================================================
 # ALIAS
 # ======================================================
-# vim
-alias v='vi -c "CocCommand explorer --no-focus --width 30"'
-alias zv='zi && v'
+if "$IS_MAC"; then
+    # vim
+    alias v='vi -c "CocCommand explorer --no-focus --width 30"'
+    alias zv='zi && v'
 
-# TUI
-alias e='yazi'
-alias d='lazydocker'
-alias g='lazygit'
+    # TUI
+    alias e='yazi'
+    alias d='lazydocker'
+    alias g='lazygit'
 
-# dev tool
-alias t='tool-box'
-alias dev='devbox'
+    # dev tool
+    alias t='tool-box'
+    alias dev='devbox'
 
-# terminal ctrl
-alias ll='ls -AFGlihrt --color=auto'
-alias l='eza -abghHliS --icons --git'
-alias tree='eza -bghHliST --icons --git'
-alias ..='cd ..'
-alias rm='rm -i'
-alias rmf="gum confirm && rm -rf"
-alias re='exec $SHELL -l'
-alias q='exit'
-alias c='cmatrix'
+    # terminal ctrl
+    alias ll='ls -AFGlihrt --color=auto'
+    alias l='eza -abghHliS --icons --git'
+    alias tree='eza -bghHliST --icons --git'
+    alias ..='cd ..'
+    alias rm='rm -i'
+    alias rmf="gum confirm && rm -rf"
+    alias re='exec $SHELL -l'
+    alias q='exit'
+    alias c='cmatrix'
+fi
+
+if "$IS_DOCKER"; then
+    # vim
+    alias v='vi -c "CocCommand explorer --no-focus --width 30"'
+    alias zv='zi && v'
+
+    # dev tool
+    alias t='tool-box'
+    alias dev='devbox'
+
+    # terminal ctrl
+    alias ll='ls -AFGlihrt --color=auto'
+    alias l='eza -abghHliS'
+    alias tree='eza -bghHliST'
+    alias ..='cd ..'
+    alias rm='rm -i'
+    alias rmf="gum confirm && rm -rf"
+    alias re='exec /bin/zsh -l'
+    alias q='exit'
+fi
 
 # ======================================================
 # PATH
 # ======================================================
-# brew
-export PATH="$PATH:/opt/homebrew/bin/"
+if "$IS_MAC"; then
+    # brew
+    export PATH="$PATH:/opt/homebrew/bin/"
 
-# Rust
-export PATH="$PATH:$CARGO_HOME/bin"
+    # Python
+    export PATH="$PATH:/opt/homebrew/bin/python3"
+    alias python='python3'
+    alias pip='python -m pip'
 
-# Python
-export PATH="$PATH:/opt/homebrew/bin/python3"
-alias python='python3'
-alias pip='python -m pip'
+    # Rust
+    export PATH="$PATH:$CARGO_HOME/bin"
 
-# Go
-export PATH="$PATH:$HOME/work/go/bin"
+    # Go
+    export PATH="$PATH:$HOME/work/go/bin"
 
-# Java
-PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
-export JAVA_HOME=`/usr/libexec/java_home -v 11`
+    # Java
+    PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
+    export JAVA_HOME=`/usr/libexec/java_home -v 11`
+fi
 
 # ======================================================
 # Utility
@@ -355,8 +385,6 @@ devbox() {
     fi
 
     DEVBOX_DOTFILES_PATH=~/git/dotfiles/conf/devbox
-    DEVBOX_PROFILE_PATH=${DEVBOX_DOTFILES_PATH}/profile
-
     DOCKERFILE=${DEVBOX_DOTFILES_PATH}/Dockerfile
     COMPOSE_FILE=${DEVBOX_DOTFILES_PATH}/docker-compose.yml
     IGNORE_FILE=${DEVBOX_DOTFILES_PATH}/devbox_gitignore.txt
@@ -389,10 +417,6 @@ devbox() {
         cp $DOCKERFILE $S
         cp $COMPOSE_FILE $S
 
-        # プロファイルを取得
-        echo_info " >> install profiles from dotfiles"
-        cp -R $DEVBOX_PROFILE_PATH $S
-
         # 作業用volumeを作成
         echo_info " >> create work volume"
         mkdir -p $S/vol
@@ -410,7 +434,6 @@ devbox() {
     echo_info "checking checksum from dotfiles"
     DOCKERFILE_MD5=$(md5 $DOCKERFILE | cut -d "=" -f 2)
     DOCKER_COMPOSE_MD5=$(md5 $COMPOSE_FILE | cut -d "=" -f 2)
-    PROFILES_MD5=$(find $DEVBOX_PROFILE_PATH -type f | xargs -I {} md5 {} | cut -d "=" -f 2)
 
     # コンテナ設定を確認
     S=$(ls -d .devbox*/)
@@ -419,7 +442,6 @@ devbox() {
     # 現在のコンテナ設定のチェックサムを取得
     CURRENT_DOCKERFILE_MD5=$(md5 Dockerfile | cut -d "=" -f 2)
     CURRENT_DOCKER_COMPOSE_MD5=$(md5 docker-compose.yml | cut -d "=" -f 2)
-    CURRENT_PROFILES_MD5=$(find profile -type f | xargs -I {} md5 {} | cut -d "=" -f 2)
 
     echo "dockerfile"
     echo $DOCKERFILE_MD5
@@ -427,22 +449,17 @@ devbox() {
     echo "docker-compose"
     echo $DOCKER_COMPOSE_MD5
     echo $CURRENT_DOCKER_COMPOSE_MD5
-    echo "profiles"
-    echo "${PROFILES_MD5:0:20}..."
-    echo "${CURRENT_PROFILES_MD5:0:20}..."
 
     loading 0.5 "checking..."
 
     # 新規作成でない場合で、元ファイルに更新があった場合に反映するため再ビルド
-    if [ $DOCKERFILE_MD5 != $CURRENT_DOCKERFILE_MD5 ] || [ $DOCKER_COMPOSE_MD5 != $CURRENT_DOCKER_COMPOSE_MD5 ] || [ $PROFILES_MD5 != $CURRENT_PROFILES_MD5 ]; then
-        # TODO なんか毎回走ってる、おかしいかも
+    if [ $DOCKERFILE_MD5 != $CURRENT_DOCKERFILE_MD5 ] || [ $DOCKER_COMPOSE_MD5 != $CURRENT_DOCKER_COMPOSE_MD5 ]; then
         echo_info "[!!] Update was detected"
         loading 1 "Loading..."
 
         # 最新にする
         cp $DOCKERFILE .
         cp $COMPOSE_FILE .
-        cp -R $DEVBOX_PROFILE_PATH .
         loading 1 "ready to build docker..."
 
         echo_info "Build Docker image"
@@ -728,10 +745,8 @@ cpp_ini() {
     cp -f ~/git/dotfiles/conf/vim/.vimspector.json .
 }
 
-# C++ビルド
-#CC_INCLUDE_PATH="/opt/homebrew/Cellar/gcc@12/12.4.0/include/c++/12/aarch64-apple-darwin23/"
-CC_INCLUDE_PATH="$HOME/git/dotfiles/conf/cpp"
-export CC_BUILD_CMD="g++ -std=c++20 -I $CC_INCLUDE_PATH -Wall -Wextra -mtune=native -march=native -fconstexpr-depth=2147483647 -ftrapv -fsanitize-undefined-trap-on-error -o "
+# C++ビルドコマンド
+export CC_BUILD_CMD="g++ -std=c++20 -I $HOME/git/dotfiles/conf/cpp -Wall -Wextra -mtune=native -march=native -fconstexpr-depth=2147483647 -ftrapv -fsanitize-undefined-trap-on-error -o "
 
 # C++ビルド+実行
 cpp_exe() {
@@ -764,7 +779,7 @@ solve() {
         mkdir a && touch a/main.cpp
         mkdir z && touch z/main.cpp
         rm -rf a/test z/test
-        cd z && oj d $(pbpaste)
+        cd z && oj d $1
         cd $SAND_DIR && v z/main.cpp
         return
     fi
@@ -788,8 +803,8 @@ solve() {
     cd $contest_cd
     dirs=(`find . -type d -maxdepth 1 | grep / | cut -d '/' -f 2`)
     for v in ${dirs[@]}; do
-        echo_info "touch file :\e[32m${v}/${file_name}"
-        touch "${v}/${file_name}"
+        echo_info "touch file :\e[32m$v/$file_name"
+        touch "$v/$file_name"
     done
     v
 }

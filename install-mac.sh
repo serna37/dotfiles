@@ -40,9 +40,9 @@ brew list
 brew cleanup
 for v in ${repos[@]}; do
     echo "=========================================================="
-    echo "${v}"
+    echo "$v"
     echo "=========================================================="
-    brew reinstall ${v}
+    brew reinstall $v
     wait $!
 done
 
@@ -57,9 +57,9 @@ echo "brew cask install"
 echo "=========================================================="
 for v in ${cask_repos[@]}; do
     echo "=========================================================="
-    echo "${v}"
+    echo "$v"
     echo "=========================================================="
-    brew reinstall --cask ${v}
+    brew reinstall --cask $v
     wait $!
 done
 
