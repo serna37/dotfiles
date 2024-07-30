@@ -63,7 +63,19 @@ v() {
         vim -c "CocCommand explorer --no-focus --width 30"
     fi
 }
+alias zv='zi && v'
 
+# dev tool
+alias t='tool-box'
+alias dev='devbox'
+
+# terminal ctrl
+alias ll='ls -AFGlihrt --color=auto'
+alias ..='cd ..'
+alias rm='rm -i'
+alias rmf="gum confirm && rm -rf"
+alias re='clear && exec $SHELL -l'
+alias q='exit'
     # TUI
     alias e='yazi'
     alias d='lazydocker'
