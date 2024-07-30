@@ -1,0 +1,105 @@
+{
+    "adapters": {
+        "custom-codelldb": {
+            "extends": "CodeLLDB",
+            "command": [
+                "$HOME/.vim/plugged/vimspector/gadgets/macos/CodeLLDB/adapte/codelldb",
+                "--port",
+                "${unusedLocalPort}"
+            ]
+        },
+        "CodeLLDB - StopOnEntry": {
+            "extends": "custom-codelldb",
+            "name": "CoHostingLLDB"
+        }
+    },
+    "configurations": {
+        "cpp": {
+            "adapter": "CodeLLDB",
+            "filetypes": [
+                "cpp"
+            ],
+            "default": true,
+            "variables": {
+                "BUILDME": {
+                    "shell": "g++ -g -std=c++20 -I ~/git/dotfiles/conf/cpp ${file} -o ${workspaceRoot}/test"
+                },
+                "arch": {
+                    "shell": "uname -m"
+                }
+            },
+            "configuration": {
+                "name": "C++: Current File",
+                "type": "cpp",
+                "request": "launch",
+                "program": "${workspaceRoot}/test",
+                "stopAtEntry": true,
+                "externalConsole": true,
+                "console": "integratedTerminal",
+                "MIMode": "lldb",
+                "MIDebuggerPath": "$HOME/.vim/plugged/vimspector/gadgets/macos/vscode-cpptools/debugAdapters/lldb-mi/bin/lldb-mi",
+                "logging": {
+                    "engineLogging": true
+                },
+                "targetArchitecture": "${arch}"
+            },
+            "breakpoints": {
+                "exception": {
+                    "raised": "Y",
+                    "caught": "Y",
+                    "uncaught": "Y",
+                    "cpp_throw": "Y",
+                    "cpp_catch": "Y"
+                }
+            }
+        },
+        "python": {
+            "adapter": "debugpy",
+            "filetypes": [
+                "python"
+            ],
+            "default": true,
+            "configuration": {
+                "name": "Python: Current File",
+                "type": "python",
+                "request": "launch",
+                "cwd": "${cwd}",
+                "program": "${file}",
+                "stopOnEntry": true,
+                "externalConsole": false,
+                "console": "integratedTerminal"
+            },
+            "breakpoints": {
+                "exception": {
+                    "raised": "Y",
+                    "caught": "Y",
+                    "uncaught": "Y"
+                }
+            }
+        },
+        "go": {
+            "adapter": "delve",
+            "filetypes": [
+                "go"
+            ],
+            "default": true,
+            "configuration": {
+                "name": "Go: Current File",
+                "type": "go",
+                "request": "launch",
+                "cwd": "${cwd}",
+                "program": "${file}",
+                "stopOnEntry": true,
+                "externalConsole": false,
+                "console": "integratedTerminal"
+            },
+            "breakpoints": {
+                "exception": {
+                    "raised": "Y",
+                    "caught": "Y",
+                    "uncaught": "Y"
+                }
+            }
+        }
+    }
+}

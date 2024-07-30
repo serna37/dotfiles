@@ -404,6 +404,7 @@ devbox() {
 
     # 新規作成でない場合で、元ファイルに更新があった場合に反映するため再ビルド
     if [ $DOCKERFILE_MD5 != $CURRENT_DOCKERFILE_MD5 ] || [ $DOCKER_COMPOSE_MD5 != $CURRENT_DOCKER_COMPOSE_MD5 ] || [ $PROFILES_MD5 != $CURRENT_PROFILES_MD5 ]; then
+        # TODO なんか毎回走ってる、おかしいかも
         echo_info "[!!] Update was detected"
         loading 1 "Loading..."
 
@@ -698,11 +699,12 @@ cpp_ini() {
     cp ~/git/dotfiles/conf/cpp/.clang-format .
     cp ~/git/dotfiles/conf/cpp/compile_flags.txt .
     # vimspector debug設定を追加
-    cp -f ~/.vim/plugged/vim-IDE-menu/.vimspector.json .vimspector.json
+    cp -f ~/git/dotfiles/conf/vim/.vimspector.json .
 }
 
 # C++ビルド
-CC_INCLUDE_PATH="/opt/homebrew/Cellar/gcc@12/12.4.0/include/c++/12/aarch64-apple-darwin23/"
+#CC_INCLUDE_PATH="/opt/homebrew/Cellar/gcc@12/12.4.0/include/c++/12/aarch64-apple-darwin23/"
+CC_INCLUDE_PATH="~/git/dotfiles/conf/cpp"
 export CC_BUILD_CMD="g++ -std=c++20 -I $CC_INCLUDE_PATH -Wall -Wextra -mtune=native -march=native -fconstexpr-depth=2147483647 -ftrapv -fsanitize-undefined-trap-on-error -o "
 
 # C++ビルド+実行
