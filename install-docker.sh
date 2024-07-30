@@ -38,6 +38,10 @@ sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.lis
 sudo apt update
 sudo apt install -y eza
 
+# batcat -> bat
+mkdir -p ~/.local/bin
+ln -nfs /usr/bin/batcat ~/.local/bin/bat
+
 # gum
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg

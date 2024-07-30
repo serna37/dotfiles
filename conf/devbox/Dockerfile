@@ -8,18 +8,12 @@ RUN dpkg --add-architecture amd64 \
     && apt install -y libc6:amd64
 
 RUN apt install -y \
-    wget sudo \
+    wget sudo time \
     curl zsh git \
     build-essential ca-certificates \
     gzip file exiftool
 
 # for vim9
-# だめだった
-# apt install software-properties-common
-# add-apt-repository ppa:jonathonf/vim -y
-# apt upgrade -y
-
-# ビルドするほうでもダメそう -> できたかも
 # https://uhoho.hatenablog.jp/entry/2023/05/09/033455
 RUN apt install -y build-essential autoconf automake cproto \
     gettext libtinfo-dev libacl1-dev libgpm-dev \
@@ -31,8 +25,7 @@ RUN apt install -y build-essential autoconf automake cproto \
     && git clone --depth 1 https://github.com/vim/vim.git \
     && cd vim/src \
     && ./configure --prefix=/root/.local --enable-multibyte --enable-cscope --enable-perlinterp --enable-python3interp --enable-rubyinterp --enable-luainterp --enable-fontset --enable-xim --enable-terminal --enable-fail-if-missing --with-x --enable-gui=gtk3 --enable-tclinterp \
-    && make && make install \
-    && ln -nfs ~/.local/bin/vim /usr/bin/vim
+    && make && make install
 
 # dotfiles
 RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/serna37/dotfiles/master/install.sh)"

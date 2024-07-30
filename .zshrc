@@ -123,6 +123,10 @@ if "$IS_MAC"; then
     export JAVA_HOME=`/usr/libexec/java_home -v 11`
 fi
 
+if "$IS_DOCKER"; then
+    export PATH="$PATH:$HOME/.local/bin"
+fi
+
 # ======================================================
 # Utility
 # ======================================================
