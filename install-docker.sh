@@ -3,8 +3,6 @@ zoxide
 fzf
 bat
 ripgrep
-nodejs
-npm
 python3
 pip
 sqlite3
@@ -23,6 +21,13 @@ for v in ${repos[@]}; do
     apt install -y $v
     wait $!
 done
+
+# node
+apt install -y nodejs npm
+npm install n -g
+n lts
+n latest
+apt purge -y nodejs npm
 
 # eza
 sudo apt install -y gpg

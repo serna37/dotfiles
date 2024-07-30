@@ -13,15 +13,12 @@ Plug 'serna37/vim-modern-basic'
 Plug 'serna37/vim-anchor5'
 Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/vim-edgemotion'
-Plug 'serna37/edgemotion-vertical'
 Plug 'rhysd/clever-f.vim'
 Plug 'unblevable/quick-scope'
-Plug 'serna37/vim-fscope-around'
 Plug 't9md/vim-quickhl'
 Plug 'haya14busa/vim-asterisk'
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'simeji/winresizer'
-Plug 'terryma/vim-expand-region'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'voldikss/vim-floaterm'
 
@@ -35,7 +32,6 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
 Plug 'joshdick/onedark.vim'
-Plug 'rafi/awesome-vim-colorschemes'
 Plug 'tomasiser/vim-code-dark'
 
 " Filer
@@ -51,8 +47,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'andymass/vim-matchup'
 Plug 'preservim/vim-indent-guides'
-Plug 'liuchengxu/vista.vim'
-Plug 'wfxr/minimap.vim'
+"Plug 'liuchengxu/vista.vim'
+"Plug 'wfxr/minimap.vim'
 
 " Writing
 Plug 'markonm/traces.vim'
@@ -66,17 +62,17 @@ Plug 'thinca/vim-partedit'
 
 " LSP IDE
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'thinca/vim-quickrun'
+"Plug 'thinca/vim-quickrun'
 Plug 'puremourning/vimspector'
-Plug 'serna37/vim-IDE-menu'
-Plug 'rhysd/wandbox-vim'
+"Plug 'serna37/vim-IDE-menu'
+"Plug 'rhysd/wandbox-vim'
 
 " Util
 Plug 'segeljakt/vim-silicon'
 Plug 'glidenote/memolist.vim'
-Plug 'nanotee/zoxide.vim'
-Plug 'soywod/unfog.vim'
-Plug 'serna37/vim-tutorial'
+"Plug 'nanotee/zoxide.vim'
+"Plug 'soywod/unfog.vim'
+"Plug 'serna37/vim-tutorial'
 "Plug 'serna37/vim-atcoder-menu'
 "[Note] Migrate for .vimrc.cpp
 
@@ -131,7 +127,7 @@ aug END
 nnoremap <silent><leader>w <Plug>(clever-f-reset):QuickScopeToggle<CR>
 
 " serna37/vim-fscope-around
-let g:fscope_init_active = 0
+"let g:fscope_init_active = 0
 
 " t9md/vim-quickhl
 " haya14busa/vim-asterisk
@@ -279,10 +275,10 @@ aug indent_guide
 aug END
 
 " liuchengxu/vista.vim
-let g:vista_sidebar_width = 15
+"let g:vista_sidebar_width = 15
 
 " wfxr/minimap.vim
-let g:minimap_git_colors = 1
+"let g:minimap_git_colors = 1
 
 " =====================================================================
 " Writing
@@ -438,7 +434,7 @@ endf
 cal s:colorscheme_onedark()
 
 " =====================================================================
-" LSPのための追加設定
+" 高速編集のための追加設定
 " =====================================================================
 
 " 依存スニペット展開用。トリガ文言を展開する
