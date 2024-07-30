@@ -519,7 +519,7 @@ devbox() {
         fi
     fi
 
-    # 起動してログイン
+    # 起動
     echo_info "Start Dev Container for Sandbox"
     docker-compose up -d
     echo_info "Login"
