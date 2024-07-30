@@ -46,13 +46,15 @@
 │   ├── sshs/     : sshs用設定ファイル
 │   ├── vim/      : vim用追加設定ファイル
 │   └── yazi/     : yazi用設定ファイル
-├── snippets/     : C++用スニペット
 │
+├── .p10k.zsh     : powerlevel10k設定
 ├── .vimrc        : vim設定
 ├── .wezterm.lua  : wezterm設定
 ├── .zshrc        : zsh設定
 │
-└── install.sh    : brewを導入後、本レポジトリcloneや各設定を導入
+├── install-docker.sh  : devコンテナ用インストーラ
+├── install-mac.sh     : Mac用インストーラ
+└── install.sh         : OSで分岐するインストーラ
 ```
 
 ---
@@ -67,7 +69,4 @@
 > ```
 > defaults write com.apple.desktopservices DSDontWriteNetworkStores True
 > ```
-> - devbox内へsnippetsをコピーする
-> ```
-> cp -f ~/git/dotfiles/snippets/* ~/git/dotfiles/conf/devbox/profile/snippets/
-> ```
+

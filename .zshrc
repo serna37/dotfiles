@@ -1,4 +1,19 @@
 # ======================================================
+# OS HANDLING
+# ======================================================
+OS_NAME="Darwin"
+IS_MAC=false
+IS_DOCKER=false
+
+if [ "$OS_NAME" = "Darwin" ]; then
+  IS_MAC=true
+elif [ "$OS_NAME" = "Linux" ]; then
+  IS_DOCKER=true
+fi
+
+# TODO 分岐
+
+# ======================================================
 # PROMPT SETTINGS
 # ======================================================
 HISTSIZE=1000
@@ -55,6 +70,7 @@ alias rm='rm -i'
 alias rmf="gum confirm && rm -rf"
 alias re='exec $SHELL -l'
 alias q='exit'
+alias c='cmatrix'
 
 # ======================================================
 # PATH
@@ -460,11 +476,7 @@ tool-box() {
         "[ SCP] termscp"
         "[ clock] show clock"
         "[ gif] convert mov -> gif"
-        "[ find] fd"
         "[ fzf] fzf"
-        "[ df] dust"
-        "[ ps] procs"
-        "[ top] btm"
         "[ zoxide] ls"
         "[ zoxide] rm filename"
         "[ x86 brew]"
@@ -518,20 +530,8 @@ tool-box() {
             TO=$(gum input --prompt "e.g.) test.gif: ")
             CMD="ffmpeg -i $FROM -r 10 $TO"
             ;;
-        "[ find] fd")
-            CMD='fd -H -E .git -E .DS_Store -t f'
-            ;;
         "[ fzf] fzf")
             CMD="fzf --preview 'bat -n --color=always {}'"
-            ;;
-        "[ df] dust")
-            CMD='dust'
-            ;;
-        "[ ps] procs")
-            CMD='procs -t'
-            ;;
-        "[ top] btm")
-            CMD='btm --battery --enable_cache_memory'
             ;;
         "[ zoxide] ls")
             CMD='zoxide query -ls'
@@ -634,6 +634,9 @@ devbox-ctrl() {
 
 # GitHub CLIでのカスタムしたコマンドを一覧で選択
 gh-ctrl() {
+    if [ ! -d ~/git/task ]; then
+        cd ~/git && git clone https://github.com/serna37/task
+    fi
     LIST=(
         "Daily Algo v1"
         "Daily Algo v2"
@@ -731,13 +734,12 @@ solve() {
     SAND_DIR="$HOME/work/sandbox"
     logo_atcoder
 
-    # 引数が無い場合、クリップボードのURLを単一で解く
-    if [ -z "$1" ]; then
+    # 引数が問題URLの場合、単一で解く
+    if [[ $1 == https://* ]]; then
         mkdir -p $SAND_DIR && cd $SAND_DIR
         cpp_ini
         mkdir a && touch a/main.cpp
         mkdir z && touch z/main.cpp
-        #echo -n > z/main.cpp
         rm -rf a/test z/test
         cd z && oj d $(pbpaste)
         cd $SAND_DIR && v z/main.cpp
@@ -761,10 +763,10 @@ solve() {
     fi
     acc new $contest_cd
     cd $contest_cd
-    dirs=(`\fd -d 1 -t d`)
+    dirs=(`find . -type d -maxdepth 1 | grep / | cut -d '/' -f 2`)
     for v in ${dirs[@]}; do
-        echo_info "touch file :\e[32m${v}${file_name}"
-        touch "${v}${file_name}"
+        echo_info "touch file :\e[32m${v}/${file_name}"
+        touch "${v}/${file_name}"
     done
     v
 }

@@ -4,7 +4,6 @@ vim
 zoxide
 eza
 fzf
-fd
 bat
 ripgrep
 lazygit
