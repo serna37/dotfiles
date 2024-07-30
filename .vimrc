@@ -77,6 +77,7 @@ Plug 'glidenote/memolist.vim'
 "[Note] Migrate for .vimrc.cpp
 
 call plug#end()
+
 " =====================================================================
 
 " Pluginの追加設定
@@ -254,13 +255,17 @@ fu! s:grep() abort
 endf
 noremap <silent><Plug>(fzf-grep) :<C-u>cal <SID>grep()<CR>
 nnoremap <Leader>g <Plug>(fzf-grep)
-au DirChanged * cal execute('CocCommand explorer --no-focus --width 30')
+if exists(':Coc')
+    au DirChanged * cal execute('CocCommand explorer --no-focus --width 30')
+endif
 
 " =====================================================================
 " Reading
 " =====================================================================
 " junegunn/rainbow_parentheses.vim
-au VimEnter * RainbowParentheses
+if exists(':Rainbow')
+    au VimEnter * RainbowParentheses
+endif
 
 " preservim/vim-indent-guides
 let g:indent_guides_enable_on_vim_startup = 1
@@ -313,7 +318,9 @@ let g:coc_global_extensions = [
 let g:coc_snippet_next = '<Tab>'
 let g:coc_snippet_prev = '<S-Tab>'
 inoremap <C-s> <Plug>(coc-snippets-expand)
-au CursorHold * sil cal CocActionAsync('highlight')
+if exists(':Coc')
+    au CursorHold * sil cal CocActionAsync('highlight')
+endif
 
 " 補完の選択
 inoremap <expr><CR> pumvisible() ? '<C-y>' : '<CR>'
