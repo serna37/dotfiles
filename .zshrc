@@ -463,7 +463,7 @@ devbox() {
         loading 1 "ready to build docker..."
 
         echo_info "Build Docker image"
-        docker-compose build
+        docker-compose build --no-cache
     fi
 
     # 起動してログイン
