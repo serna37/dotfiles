@@ -42,7 +42,7 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # zsh-git-prompt
 source /opt/homebrew/opt/zsh-git-prompt/zshrc.sh
 # powerlevel10k
-source $(brew --prefix)/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme
+source /opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # ======================================================
@@ -106,7 +106,18 @@ echo_info() {
 # 確認ダイアログ
 # confirm "echo Hello World!" "cancelled"
 confirm() {
-    gum confirm && eval $1 || echo_info $2
+    if command -v gum > /dev/null 2>&1; then
+        gum confirm && eval $1 || echo_info $2
+    else
+        read -p "Are you sure? (y/n):" input
+        if [ "$input" == "y" ]; then
+            eval $1
+        elif [ "$input" == "n" ]; then
+            echo_info $2
+        else
+            echo_info $2
+        fi
+    fi
 }
 
 # 指定秒数待機アニメーション
@@ -326,6 +337,10 @@ logo_atcoder() {
 # 現在フォルダで、なければdevbox-XXXフォルダを作成し
 # dotfile/conf/devboxの設定の最新を反映して、コンテナ起動する
 devbox() {
+    if "$IS_DOCKER"; then
+        ecoh_info "Already in Dev Container Box"
+        return
+    fi
     logo_docker
     logo_dev_container
     logo_for_sandbox
@@ -553,6 +568,10 @@ tool-box() {
 
 # devbox関連の操作コマンド一覧
 devbox-ctrl() {
+    if "$IS_DOCKER"; then
+        ecoh_info "Already in Dev Container Box"
+        return
+    fi
     LIST=(
         "[ ] devbox start"
         "[ file](on devbox) cp file into devbox/vol"
@@ -634,6 +653,10 @@ devbox-ctrl() {
 
 # GitHub CLIでのカスタムしたコマンドを一覧で選択
 gh-ctrl() {
+    if "$IS_DOCKER"; then
+        ecoh_info "Don't allow to use GitHub CLI in Dev Container Box"
+        return
+    fi
     if [ ! -d ~/git/task ]; then
         cd ~/git && git clone https://github.com/serna37/task
     fi

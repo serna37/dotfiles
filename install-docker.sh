@@ -42,8 +42,8 @@ for v in ${repos[@]}; do
     echo "=========================================================="
     echo "${v}"
     echo "=========================================================="
-    brew reinstall ${v}
-    wait $!
+    #brew reinstall ${v}
+    #wait $!
 done
 
 cask_repos=(
@@ -59,15 +59,15 @@ for v in ${cask_repos[@]}; do
     echo "=========================================================="
     echo "${v}"
     echo "=========================================================="
-    brew reinstall --cask ${v}
-    wait $!
+    #brew reinstall --cask ${v}
+    #wait $!
 done
 
 echo "=========================================================="
 echo "brew clean list"
 echo "=========================================================="
-brew cleanup
-brew list
+#brew cleanup
+#brew list
 sleep 2
 
 # dotfilesの適用
