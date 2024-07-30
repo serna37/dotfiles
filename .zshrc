@@ -522,6 +522,7 @@ devbox() {
     # 起動
     echo_info "Start Dev Container for Sandbox"
     docker-compose up -d
+    # ログイン
     echo_info "Login"
     loading 0.5 "ready to login..."
     docker-compose exec -it -w /work sandbox zsh
