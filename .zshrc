@@ -453,7 +453,7 @@ devbox() {
     loading 0.5 "checking..."
 
     # 新規作成でない場合で、元ファイルに更新があった場合に反映するため再ビルド
-    if [ $DOCKERFILE_MD5 != $CURRENT_DOCKERFILE_MD5 ] || [ $DOCKER_COMPOSE_MD5 != $CURRENT_DOCKER_COMPOSE_MD5 ]; then
+    if [ "$1" = "re"  ] || [ $DOCKERFILE_MD5 != $CURRENT_DOCKERFILE_MD5 ] || [ $DOCKER_COMPOSE_MD5 != $CURRENT_DOCKER_COMPOSE_MD5 ]; then
         echo_info "[!!] Update was detected"
         loading 1 "Loading..."
 
