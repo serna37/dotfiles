@@ -56,7 +56,7 @@ fi
 # ======================================================
 if "$IS_MAC"; then
     # vim
-    alias v='vi -c "CocCommand explorer --no-focus --width 30"'
+    alias v='vim -c "CocCommand explorer --no-focus --width 30"'
     alias zv='zi && v'
 
     # TUI
@@ -82,7 +82,7 @@ fi
 
 if "$IS_DOCKER"; then
     # vim
-    alias v='vi -c "CocCommand explorer --no-focus --width 30"'
+    alias v='vim -c "CocCommand explorer --no-focus --width 30"'
     alias zv='zi && v'
 
     # dev tool
@@ -368,7 +368,7 @@ logo_atcoder() {
 # dotfile/conf/devboxの設定の最新を反映して、コンテナ起動する
 devbox() {
     if "$IS_DOCKER"; then
-        ecoh_info "Already in Dev Container Box"
+        echo_info "Already in Dev Container Box"
         return
     fi
     logo_docker
@@ -461,9 +461,14 @@ devbox() {
         cp $DOCKERFILE .
         cp $COMPOSE_FILE .
         loading 1 "ready to build docker..."
-
         echo_info "Build Docker image"
-        docker-compose build --no-cache
+
+        # オプション指定の場合はキャッシュを見ない
+        if [ "$1" = "re"  ]; then
+            docker-compose build --no-cache
+        else
+            docker-compose build
+        fi
     fi
 
     # 起動してログイン
@@ -586,7 +591,7 @@ tool-box() {
 # devbox関連の操作コマンド一覧
 devbox-ctrl() {
     if "$IS_DOCKER"; then
-        ecoh_info "Already in Dev Container Box"
+        echo_info "Already in Dev Container Box"
         return
     fi
     LIST=(
@@ -671,7 +676,7 @@ devbox-ctrl() {
 # GitHub CLIでのカスタムしたコマンドを一覧で選択
 gh-ctrl() {
     if "$IS_DOCKER"; then
-        ecoh_info "Don't allow to use GitHub CLI in Dev Container Box"
+        echo_info "Don't allow to use GitHub CLI in Dev Container Box"
         return
     fi
     if [ ! -d ~/git/task ]; then
