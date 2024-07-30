@@ -255,7 +255,7 @@ fu! s:grep() abort
 endf
 noremap <silent><Plug>(fzf-grep) :<C-u>cal <SID>grep()<CR>
 nnoremap <Leader>g <Plug>(fzf-grep)
-if exists(':Coc')
+if !glob('~/.vim/plugged/coc.nvim')->empty()
     au DirChanged * cal execute('CocCommand explorer --no-focus --width 30')
 endif
 
@@ -264,6 +264,7 @@ endif
 " =====================================================================
 " junegunn/rainbow_parentheses.vim
 if exists(':Rainbow')
+if !glob('~/.vim/plugged/rainbow_parentheses.vim')->empty()
     au VimEnter * RainbowParentheses
 endif
 
@@ -318,7 +319,7 @@ let g:coc_global_extensions = [
 let g:coc_snippet_next = '<Tab>'
 let g:coc_snippet_prev = '<S-Tab>'
 inoremap <C-s> <Plug>(coc-snippets-expand)
-if exists(':Coc')
+if !glob('~/.vim/plugged/coc.nvim')->empty()
     au CursorHold * sil cal CocActionAsync('highlight')
 endif
 
