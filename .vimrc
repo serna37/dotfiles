@@ -354,7 +354,6 @@ inoremap <silent><C-k> <Esc>:<C-u>w<CR>:e!<CR>zza
 
 " puremourning/vimspector
 let g:vimspector_base_dir=$HOME.'/.vim/plugged/vimspector'
-let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
 let g:vimspector_sign_priority = {
     \'vimspectorBP':          99,
     \'vimspectorBPCond':      99,
