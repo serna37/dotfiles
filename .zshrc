@@ -555,6 +555,7 @@ devbox() {
     \rm -rf shared-register
     cd ..
     echo_info "Welcome back to HOST PC"
+    exec $SHELL -l
 }
 
 # ======================================================
