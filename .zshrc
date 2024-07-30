@@ -177,18 +177,28 @@ loading_long() {
 # ======================================================
 # Logo
 # ======================================================
-# zsh ロゴ
-logo_zsh() {
+# macOSロゴ
+logo_darwin() {
     echo -e "\e[34m"
-    echo "               _ ";
-    echo "              | | ";
-    echo "  _____   ___ | | _ ";
-    echo " (___  ) /___)| || \ ";
-    echo "  / __/ |___ || | | | ";
-    echo " (_____)(___/ |_| |_| ";
+    echo "                ..J.               "
+    echo "               dMMF                "
+    echo "          ....,M#:...              "
+    echo "        .MMMMMMMMNN#MN             "
+    echo "       .MMMMMMMMMNNM@              "
+    echo "       JMMMMMMMMNNNM[              "
+    echo "       (MMMMMMMMNNN#N,             "
+    echo "        MMMMMMNNNNN##M]            "
+    echo "         WMMMMMNMNNN##             "
+    echo "          (YMMY'WMMY=              "
+    echo "  _____                         _ ";
+    echo " (____ \                       (_) ";
+    echo "  _   \ \   ____   ____  _ _ _  _  ____ ";
+    echo " | |   | | / _  | / ___)| | | || ||  _ \ ";
+    echo " | |__/ / ( ( | || |    | | | || || | | | ";
+    echo " |_____/   \_||_||_|     \____||_||_| |_| ";
     echo -e "\e[m"
 }
-# tool-box用ロゴ
+
 logo_toolbox() {
     echo -e "\e[32m"
     echo "                      _  _ ";
