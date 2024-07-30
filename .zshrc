@@ -75,7 +75,7 @@ if "$IS_MAC"; then
     alias ..='cd ..'
     alias rm='rm -i'
     alias rmf="gum confirm && rm -rf"
-    alias re='exec $SHELL -l'
+    alias re='clear && exec $SHELL -l'
     alias q='exit'
     alias c='cmatrix'
 fi
@@ -96,7 +96,7 @@ if "$IS_DOCKER"; then
     alias ..='cd ..'
     alias rm='rm -i'
     alias rmf="gum confirm && rm -rf"
-    alias re='exec /bin/zsh -l'
+    alias re='clear && exec /bin/zsh -l'
     alias q='exit'
 fi
 
@@ -177,6 +177,17 @@ loading_long() {
 # ======================================================
 # Logo
 # ======================================================
+# zsh ロゴ
+logo_zsh() {
+    echo -e "\e[34m"
+    echo "               _ ";
+    echo "              | | ";
+    echo "  _____   ___ | | _ ";
+    echo " (___  ) /___)| || \ ";
+    echo "  / __/ |___ || | | | ";
+    echo " (_____)(___/ |_| |_| ";
+    echo -e "\e[m"
+}
 # tool-box用ロゴ
 logo_toolbox() {
     echo -e "\e[32m"
@@ -822,4 +833,4 @@ solve() {
 # END
 # ======================================================
 echo_info "Load ~/.zshrc"
-
+logo_zsh
