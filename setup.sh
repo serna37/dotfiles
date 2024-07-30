@@ -1,5 +1,5 @@
 # 依存
-# curl git zsh vim
+# git zsh
 
 # =====================================================================================
 # dotfilesの設定
@@ -54,12 +54,6 @@ cd fonts
 ./install.sh
 cd ..
 \rm -rf fonts
-
-echo "=========================================================="
-echo "[vim] install vim plugins"
-echo "=========================================================="
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-vim -c "PlugInstall" -c "qa"
 
 # end
 exec /bin/zsh -l
