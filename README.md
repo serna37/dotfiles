@@ -54,7 +54,8 @@
 │
 ├── install-docker.sh  : devコンテナ用インストーラ
 ├── install-mac.sh     : Mac用インストーラ
-└── install.sh         : OSで分岐するインストーラ
+├── install.sh         : OSで分岐するインストーラ
+└── setup.sh           : dotfilesの適用, install.shから呼ばれる
 ```
 
 ---
