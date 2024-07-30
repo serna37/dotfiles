@@ -3,6 +3,9 @@ services:
     build: .
     volumes:
       - type: bind
+        source: ./shared-register
+        target: /shared-register
+      - type: bind
         source: ./vol
         target: /work
     # コンテナを起動させ続ける
