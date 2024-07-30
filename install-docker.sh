@@ -4,6 +4,7 @@ fzf
 bat
 ripgrep
 python3
+python3-venv
 pip
 clangd
 sqlite3

@@ -808,11 +808,6 @@ gh-ctrl() {
 # ======================================================
 # C++ 初期化
 cpp_ini() {
-    # ojコマンドのためにPython仮想環境を作成
-    logo_py_venv && python -m venv venv && . venv/bin/activate
-    pip install --upgrade pip
-    pip install --upgrade setuptools
-    pip install online-judge-tools
     # AA
     logo_cpp_setup
     # gitignore
@@ -821,7 +816,13 @@ cpp_ini() {
     cp ~/git/dotfiles/conf/cpp/.clang-format .
     cp ~/git/dotfiles/conf/cpp/compile_flags.txt .
     # vimspector debug設定を追加
-    cp -f ~/git/dotfiles/conf/vim/.vimspector.json .
+    cp ~/git/dotfiles/conf/vim/.vimspector.json .
+
+    # ojコマンドのためにPython仮想環境を作成
+    logo_py_venv && python -m venv venv && . venv/bin/activate
+    pip install --upgrade pip
+    pip install --upgrade setuptools
+    pip install online-judge-tools
 }
 
 # C++ビルドコマンド
@@ -855,6 +856,7 @@ solve() {
     if [[ $1 == https://* ]]; then
         if [ ! -d $SAND_DIR ]; then
             mkdir -p $SAND_DIR
+            cd $SAND_DIR
             cpp_ini
         fi
         cd $SAND_DIR
@@ -869,6 +871,7 @@ solve() {
     # AtCoder コンテスト
     if [ ! -d $AC_DIR ]; then
         mkdir -p $AC_DIR
+        cd $AC_DIR
         cpp_ini
     fi
     cd $AC_DIR
