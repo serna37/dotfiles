@@ -60,7 +60,7 @@ v() {
         curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         vim -c "PlugInstall"
     else
-        vim -c "CocCommand explorer --no-focus --width 30"
+        vim -c "CocCommand explorer --no-focus --width 30" $@
     fi
 }
 alias zv='zi && v'
