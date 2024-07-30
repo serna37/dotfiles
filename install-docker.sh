@@ -5,6 +5,7 @@ bat
 ripgrep
 python3
 pip
+clangd
 sqlite3
 #postgresql@14
 #rust

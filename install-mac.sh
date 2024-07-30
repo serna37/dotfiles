@@ -24,6 +24,7 @@ tty-clock
 cmatrix
 silicon
 code-minimap
+llvm
 gcc@12
 node
 python3
