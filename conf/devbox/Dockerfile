@@ -25,7 +25,8 @@ RUN apt install -y build-essential autoconf automake cproto \
     && git clone --depth 1 https://github.com/vim/vim.git \
     && cd vim/src \
     && ./configure --prefix=/root/.local --enable-multibyte --enable-cscope --enable-perlinterp --enable-python3interp --enable-rubyinterp --enable-luainterp --enable-fontset --enable-xim --enable-terminal --enable-fail-if-missing --with-x --enable-gui=gtk3 --enable-tclinterp \
-    && make && make install
+    && make && make install \
+    && ln -nfs /root/.local/bin/vim /usr/bin/vim
 
 # dotfiles
 RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/serna37/dotfiles/master/install.sh)"
