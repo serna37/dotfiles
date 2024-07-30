@@ -62,5 +62,5 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 vim -c "PlugInstall" -c "qa"
 
 # end
-exec $SHELL -l
+exec /bin/zsh -l
 
