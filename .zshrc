@@ -520,10 +520,6 @@ devbox() {
         fi
     fi
 
-    # 起動
-    echo_info "Start Dev Container for Sandbox"
-    docker-compose up -d
-
     # クリップボード共有用
     \rm -rf shared-register && mkdir shared-register && cd shared-register
     echo $(pbpaste) > clip
@@ -545,6 +541,10 @@ devbox() {
         done
     }
     watch_shared_clipboard & # バックグラウンドで実行
+
+    # 起動
+    echo_info "Start Dev Container for Sandbox"
+    docker-compose up -d
 
     # ログイン
     echo_info "Login"
