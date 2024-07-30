@@ -199,6 +199,31 @@ logo_darwin() {
     echo -e "\e[m"
 }
 
+# debianロゴ
+logo_debian() {
+    echo -e "\e[34m"
+    echo "                  ..gMNgga             "
+    echo "           .(MMMM9''''MMMN,            "
+    echo "          .MM#^          TMMN,         "
+    echo "         JMD              ,M#5         "
+    echo "       .JM$      .Y=  ?!   JM[         "
+    echo "        MF      .%      .  .MF         "
+    echo "        M%      d,     ..  .#_         "
+    echo "        M[      ,N.  ~'   .@'          "
+    echo "        Mb      .?dN....J@^            "
+    echo "        .NN,        ?!                 "
+    echo "         (NN                           "
+    echo "          ,HN.                         "
+    echo "            ?Hm.                       "
+    echo "               79a.                    "
+    echo "  _____           _      _ ";
+    echo " (____ \         | |    (_) ";
+    echo "  _   \ \   ____ | | _   _   ____  ____ ";
+    echo " | |   | | / _  )| || \ | | / _  ||  _ \ ";
+    echo " | |__/ / ( (/ / | |_) )| |( ( | || | | | ";
+    echo " |_____/   \____)|____/ |_| \_||_||_| |_| ";
+    echo -e "\e[m"
+}
 logo_toolbox() {
     echo -e "\e[32m"
     echo "                      _  _ ";
