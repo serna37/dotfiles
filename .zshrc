@@ -522,6 +522,10 @@ devbox() {
     # 起動
     echo_info "Start Dev Container for Sandbox"
     docker-compose up -d
+
+    # クリップボード共有用
+    [ -p shared-register/clip ] || mkfifo shared-register/clip
+
     # ログイン
     echo_info "Login"
     loading 0.5 "ready to login..."
