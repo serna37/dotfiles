@@ -121,6 +121,7 @@ fi
 if "$IS_DOCKER"; then
     export SHELL=/bin/zsh
     export PATH="$PATH:$HOME/.local/bin"
+    alias python='python3'
 fi
 
 # ======================================================
