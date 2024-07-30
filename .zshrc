@@ -76,45 +76,23 @@ alias rm='rm -i'
 alias rmf="gum confirm && rm -rf"
 alias re='clear && exec $SHELL -l'
 alias q='exit'
+
+if "$IS_MAC"; then
     # TUI
     alias e='yazi'
     alias d='lazydocker'
     alias g='lazygit'
-
-    # dev tool
-    alias t='tool-box'
-    alias dev='devbox'
+    alias c='cmatrix'
 
     # terminal ctrl
-    alias ll='ls -AFGlihrt --color=auto'
     alias l='eza -abghHliS --icons --git'
     alias tree='eza -bghHliST --icons --git'
-    alias ..='cd ..'
-    alias rm='rm -i'
-    alias rmf="gum confirm && rm -rf"
-    alias re='clear && exec $SHELL -l'
-    alias q='exit'
-    alias c='cmatrix'
 fi
 
 if "$IS_DOCKER"; then
-    # vim
-    alias v='vim -c "CocCommand explorer --no-focus --width 30"'
-    alias zv='zi && v'
-
-    # dev tool
-    alias t='tool-box'
-    alias dev='devbox'
-
     # terminal ctrl
-    alias ll='ls -AFGlihrt --color=auto'
     alias l='eza -abghHliS'
     alias tree='eza -bghHliST'
-    alias ..='cd ..'
-    alias rm='rm -i'
-    alias rmf="gum confirm && rm -rf"
-    alias re='clear && exec /bin/zsh -l'
-    alias q='exit'
 fi
 
 # ======================================================
