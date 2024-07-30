@@ -794,19 +794,25 @@ solve() {
 
     # 引数が問題URLの場合、単一で解く
     if [[ $1 == https://* ]]; then
-        mkdir -p $SAND_DIR && cd $SAND_DIR
-        cpp_ini
+        if [ ! -d $SAND_DIR ]; then
+            mkdir -p $SAND_DIR
+            cpp_ini
+        fi
+        cd $SAND_DIR
         mkdir a && touch a/main.cpp
         mkdir z && touch z/main.cpp
-        rm -rf a/test z/test
+        \rm -rf a/test z/test
         cd z && oj d $1
         cd $SAND_DIR && v z/main.cpp
         return
     fi
 
     # AtCoder コンテスト
-    mkdir -p $AC_DIR && cd $AC_DIR
-    cpp_ini
+    if [ ! -d $AC_DIR ]; then
+        mkdir -p $AC_DIR
+        cpp_ini
+    fi
+    cd $AC_DIR
     contest_cd=$1
     file_name="main.cpp"
     acc check-oj
