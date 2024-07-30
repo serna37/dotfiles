@@ -224,6 +224,8 @@ logo_debian() {
     echo " |_____/   \____)|____/ |_| \_||_||_| |_| ";
     echo -e "\e[m"
 }
+
+# tool-boxロゴ
 logo_toolbox() {
     echo -e "\e[32m"
     echo "                      _  _ ";
@@ -235,7 +237,7 @@ logo_toolbox() {
     echo -e "\e[m"
 }
 
-# docker ロゴ
+# dockerロゴ
 logo_docker() {
     echo -e "\e[36m"
     echo ""
@@ -283,7 +285,7 @@ logo_for_sandbox() {
     echo -e "\e[m"
 }
 
-# python ロゴ
+# pythonロゴ
 logo_py() {
     echo -e "\e[33m"
     echo "               ........            "
@@ -331,7 +333,7 @@ logo_py_venv() {
     sleep 0.5
 }
 
-# C++ ロゴ
+# C++ロゴ
 logo_cpp() {
     echo -e "\e[34m"
     echo "                     .(XyyS&,                    "
@@ -874,4 +876,3 @@ solve() {
 # END
 # ======================================================
 echo_info "Load ~/.zshrc"
-logo_zsh
