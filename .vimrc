@@ -1,6 +1,8 @@
 syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase smartcase shortmess-=S
 let mapleader = "\<Space>"
 
+" 使ってたが不要なものをコメントアウトで残してる、そのうち消したい
+
 " Plugin管理
 " =====================================================================
 call plug#begin()
@@ -348,7 +350,6 @@ nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(
 
 " LSP再起動のため、バッファ再読み込み
 nnoremap <silent><Leader>l :<C-u>w<CR>:e!<CR>zz:<C-u>echo 'Reload Buffer'<CR>
-"nnoremap <silent><Leader>l :silent! exe 'CocRestart'<CR>:echom '[INFO] restart coc to reboot clangd.'<CR>
 
 " SNIPモードを強制終了 (バッファ再読み込み)
 inoremap <silent><C-k> <Esc>:<C-u>w<CR>:e!<CR>zza
