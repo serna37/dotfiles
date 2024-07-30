@@ -124,6 +124,7 @@ if "$IS_MAC"; then
 fi
 
 if "$IS_DOCKER"; then
+    export SHELL=/bin/zsh
     export PATH="$PATH:$HOME/.local/bin"
 fi
 
