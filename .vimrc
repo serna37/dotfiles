@@ -263,7 +263,6 @@ endif
 " Reading
 " =====================================================================
 " junegunn/rainbow_parentheses.vim
-if exists(':Rainbow')
 if !glob('~/.vim/plugged/rainbow_parentheses.vim')->empty()
     au VimEnter * RainbowParentheses
 endif
