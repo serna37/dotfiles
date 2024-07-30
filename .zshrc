@@ -876,3 +876,9 @@ solve() {
 # END
 # ======================================================
 echo_info "Load ~/.zshrc"
+if "$IS_MAC"; then
+    logo_darwin
+fi
+if "$IS_DOCKER"; then
+    logo_debian
+fi
