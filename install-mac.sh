@@ -1,6 +1,6 @@
 repos=(
-vim
 git
+vim
 zoxide
 eza
 fzf

@@ -22,7 +22,7 @@
             "default": true,
             "variables": {
                 "BUILDME": {
-                    "shell": "g++ -g -std=c++20 -I ~/git/dotfiles/conf/cpp ${file} -o ${workspaceRoot}/test"
+                    "shell": "g++ -g -std=c++20 -I $HOME/git/dotfiles/conf/cpp ${file} -o ${workspaceRoot}/test"
                 },
                 "arch": {
                     "shell": "uname -m"

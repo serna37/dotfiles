@@ -18,8 +18,6 @@ if command -v genact > /dev/null 2>&1; then
     genact -s 10 --exit-after-modules 1 -m botnet
 fi
 echo "===================================================="
-echo " START"
-echo "===================================================="
 
 sleep 0.5
 echo " >> STEP1. DELETE old snippets ( without whitelist )"
@@ -79,8 +77,6 @@ for v in $generated; do
     echo "extends ${v:r}" >> $root_sni
 done
 
-echo "===================================================="
-echo " DONE"
 echo "===================================================="
 if command -v genact > /dev/null 2>&1; then
     genact -s 10 --exit-after-modules 1 -m bruteforce
