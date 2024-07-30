@@ -56,5 +56,5 @@ cd ..
 \rm -rf fonts
 
 # end
-exec /bin/zsh -l
+exec $SHELL -l
 
