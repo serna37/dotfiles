@@ -857,10 +857,9 @@ solve() {
     if [[ $1 == https://* ]]; then
         if [ ! -d $SAND_DIR ]; then
             mkdir -p $SAND_DIR
-            cd $SAND_DIR
-            cpp_ini
         fi
         cd $SAND_DIR
+        cpp_ini
         mkdir a && touch a/main.cpp
         mkdir z && touch z/main.cpp
         \rm -rf a/test z/test
@@ -872,10 +871,9 @@ solve() {
     # AtCoder コンテスト
     if [ ! -d $AC_DIR ]; then
         mkdir -p $AC_DIR
-        cd $AC_DIR
-        cpp_ini
     fi
     cd $AC_DIR
+    cpp_ini
     contest_cd=$1
     file_name="main.cpp"
     acc check-oj
