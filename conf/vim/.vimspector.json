@@ -22,7 +22,7 @@
             "default": true,
             "variables": {
                 "BUILDME": {
-                    "shell": "g++ -g -std=c++20 -I $HOME/git/dotfiles/conf/cpp ${file} -o ${workspaceRoot}/test"
+                    "shell": "g++ -g -std=c++20 -I $HOME/git/dotfiles/conf/cpp -Wall -Wextra -mtune=native -march=native -fconstexpr-depth=2147483647 -ftrapv -fsanitize-undefined-trap-on-error -fsanitize=address -o ${workspaceRoot}/debug_build ${file}"
                 },
                 "arch": {
                     "shell": "uname -m"
@@ -32,7 +32,7 @@
                 "name": "C++: Current File",
                 "type": "cpp",
                 "request": "launch",
-                "program": "${workspaceRoot}/test",
+                "program": "${workspaceRoot}/debug_build",
                 "stopAtEntry": true,
                 "externalConsole": true,
                 "console": "integratedTerminal",

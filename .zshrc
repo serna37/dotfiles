@@ -827,7 +827,27 @@ cpp_ini() {
 }
 
 # C++ビルドコマンド
-export CC_BUILD_CMD="g++ -std=c++20 -I $HOME/git/dotfiles/conf/cpp -Wall -Wextra -mtune=native -march=native -fconstexpr-depth=2147483647 -ftrapv -fsanitize-undefined-trap-on-error -o "
+# -std=c++20 バージョン指定
+# -I includeパス
+# -Wall 警告オプションまとめ
+# -Wextra その他の警告オプションまとめ
+# -mtune=native マシン最適化
+# -march=native マシン最適化
+# -fconstexpr-depth=2147483647 コンパイル時の再帰回数
+# -ftrapv 符号あり整数計算でover under flow
+# -fsanitize-undefined-trap-on-error 未定義サニタイザ
+# -fsanitize=address アドレスサニタイザ
+export CC_BUILD_CMD="g++ -std=c++20 \
+-I $HOME/git/dotfiles/conf/cpp \
+-Wall \
+-Wextra \
+-mtune=native \
+-march=native \
+-fconstexpr-depth=2147483647 \
+-ftrapv \
+-fsanitize-undefined-trap-on-error \
+-fsanitize=address \
+-o "
 
 # C++ビルド+実行
 cpp_exe() {
