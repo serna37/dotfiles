@@ -68,6 +68,7 @@ alias zv='zi && v'
 # dev tool
 alias t='tool-box'
 alias dev='devbox'
+alias dotre='cd ~/git/dotfiles && git pull'
 
 # terminal ctrl
 alias ll='ls -AFGlihrt --color=auto'

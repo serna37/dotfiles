@@ -66,12 +66,13 @@ snippet algo_dfs_memo_rec "lambda recursive memo" b
 map<long long , long long >mp;
 auto ${1:rec} = [${2:&}](auto &f, ${3:const long long &a}) -> ${4:long long} {
 	// ベースケース
-	${5}
-	// if (a == 0) return 0;
+	if (a == 0) return 0;
+
 	// メモにあれば使用
 	if (mp.count(a)) return mp[a];
+
 	// なければ再帰しつつメモに追加
-	return mp[a] = f(f, );
+	return mp[a] = f(f, a);
 };
 endsnippet
 

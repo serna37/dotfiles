@@ -13,27 +13,59 @@
 # - XXX ダブリング
 # =========================================================
 
-# TODO dpのテンプレートを修正
-
-# base
-snippet algo_dp "dp" b
-${2:vector<int>} ${3:def}(${1:M}+1, ${4:INF});
-auto dp = $3, nx = dp;
-algo_dp_ini
+snippet algo_dp_def_1 "dp def 1" b
+// =====================================
+// Frog DP 1次元DPテーブルを配る/貰う
+//   -----------
+//  /     ↘︎     ↘︎
+// | |   | |   | | ...
+// from   to    to
+vector<${1:int}> dp(${2:N}, ${3:INF});
+dp[${4:0}] = ${5:0};
+algo_dp_for
 endsnippet
-snippet algo_dp_ini "dp ini" b
-// =========================
-dp[${1:0}] = ${2:0};
+snippet algo_dp_def_swap "dp def swap" b
+// =====================================
+// ナップサック 2次元DP 前行と次行で遷移
+// dp | |         | |
+//        ↘︎+cost   ↓
+// nx | |         | |
+vector<${1:int}> def(${2:M} + 1, ${3:INF});
+auto dp = def, nx = dp;
+dp[${4:0}] = ${5:0};
+algo_dp_for_swap
+endsnippet
+snippet algo_dp_def_2 "dp def 2" b
+// =====================================
+// 2次元DP表
+// | |         | |
+//     ↘︎+cost   ↓
+// | |         | |
+vector<vector<${1:int}>> ${2:dp}(${3:N}, vector<$1>(${4:M}, ${5:0}));
+dp[${6:0}][${7:0}] = ${8:0};
 algo_dp_for
 endsnippet
 snippet algo_dp_for "dp for" b
+// =========================
+for (int ${1:i} = ${2:0}; $1 <${3:N}; ++$1) {
+	// 区間の最小/最大を貰う -> セグ木DPで1次元の遷移
+	// 区間の和を使う -> 累積和
+
+	// 2次元用の漸化式
+	algo_dp_add
+	algo_dp_chdp
+
+}
+endsnippet
+snippet algo_dp_for_swap "dp for swap" b
 // =========================
 for (int i = 0; i < ${1:N}; ++i, swap(dp, nx)) {
 	// - 選ばない: dp    緩和、通り数
 	// - 必ず選ぶ: def   初期化する
 	nx = ${2:dp def};
 	// 漸化式
-	${3}
+	algo_dp_add_swap
+	algo_dp_chdp_swap
 }
 // 最終行はdp
 endsnippet
@@ -41,23 +73,38 @@ endsnippet
 # [遷移式] 通り数系
 snippet algo_dp_add "dp add" b
 // =========================
+// dp_i_j  dp_i_j+1
+//        ↘︎  ↓       加算
+//        dp_i+1_j+1
+dp[i+1][j+1] = dp[i][j] + dp[i][j+1];
+endsnippet
+
+# [遷移式] 緩和
+snippet algo_dp_chdp "chdp knapsack" b
+// =========================
+// dp_i_j    dp_i+1_j+1
+//   + cost ↘︎  ↓
+//           dp_i_j+1
+dp[i+1][${3:j+1}] = ${1:min}(dp[i+1][$3], dp[i][${2:j}] + ${4:cost});
+endsnippet
+
+# [遷移式] 通り数系 swap用
+snippet algo_dp_add_swap "dp add" b
+// =========================
 // dp_j  dp_j+1
 //     ↘︎  ↓    加算
 // nx_j  nx_j+1
 nx[${1:j + 1}] += dp[${2:j}];
 endsnippet
 
-# [遷移式] 緩和
-snippet algo_dp_chdp "chdp knapsack" b
+# [遷移式] 緩和 swap用
+snippet algo_dp_chdp_swap "chdp knapsack" b
 // =========================
 // dp_from    dp_to (nx=dpで緩和済み)
 //   + cost ↘︎  ↓
 //           nx_to
 nx[${3:to}] = ${1:min}(nx[$3], dp[${2:from}] + ${4:cost});
 endsnippet
-
-
-
 
 
 # TODO 遷移式メインに修正中
