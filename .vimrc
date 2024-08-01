@@ -348,8 +348,8 @@ nnoremap <silent><Leader><S-R> <Plug>(coc-rename)
 nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : comfortable_motion#flick(100)
 nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : comfortable_motion#flick(-100)
 
-" LSP再起動のため、バッファ再読み込み
-nnoremap <silent><Leader>l :<C-u>w<CR>:e!<CR>zz:<C-u>echo 'Reload Buffer'<CR>
+" LSP再起動のため、バッファ再読み込み + coc再起動
+nnoremap <silent><Leader>l :<C-u>w<CR>:e!<CR>zz:CocRestart<CR>:echo 'Reload Buffer'<CR>
 
 " SNIPモードを強制終了 (バッファ再読み込み)
 inoremap <silent><C-k> <Esc>:<C-u>w<CR>:e!<CR>zza

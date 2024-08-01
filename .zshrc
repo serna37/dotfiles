@@ -74,7 +74,7 @@ alias ll='ls -AFGlihrt --color=auto'
 alias ..='cd ..'
 alias rm='rm -i'
 alias rmf="gum confirm && rm -rf"
-alias re='clear && exec $SHELL -l'
+alias re='exec $SHELL -l'
 alias q='exit'
 
 if "$IS_MAC"; then
