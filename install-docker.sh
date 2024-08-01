@@ -3,6 +3,7 @@ zoxide
 fzf
 bat
 ripgrep
+screenfetch
 python3
 python3-venv
 pip

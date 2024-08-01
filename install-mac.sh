@@ -24,6 +24,7 @@ tty-clock
 cmatrix
 silicon
 code-minimap
+fastfetch
 llvm
 gcc@12
 node

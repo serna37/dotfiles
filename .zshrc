@@ -175,52 +175,52 @@ loading_long() {
 # Logo
 # ======================================================
 # macOSロゴ
-logo_darwin() {
-    echo -e "\e[34m"
-    echo "                ..J.               "
-    echo "               dMMF                "
-    echo "          ....,M#:...              "
-    echo "        .MMMMMMMMNN#MN             "
-    echo "       .MMMMMMMMMNNM@              "
-    echo "       JMMMMMMMMNNNM[              "
-    echo "       (MMMMMMMMNNN#N,             "
-    echo "        MMMMMMNNNNN##M]            "
-    echo "         WMMMMMNMNNN##             "
-    echo "          (YMMY'WMMY=              "
-    echo "  _____                         _ ";
-    echo " (____ \                       (_) ";
-    echo "  _   \ \   ____   ____  _ _ _  _  ____ ";
-    echo " | |   | | / _  | / ___)| | | || ||  _ \ ";
-    echo " | |__/ / ( ( | || |    | | | || || | | | ";
-    echo " |_____/   \_||_||_|     \____||_||_| |_| ";
-    echo -e "\e[m"
-}
+#logo_darwin() {
+#    echo -e "\e[34m"
+#    echo "                ..J.               "
+#    echo "               dMMF                "
+#    echo "          ....,M#:...              "
+#    echo "        .MMMMMMMMNN#MN             "
+#    echo "       .MMMMMMMMMNNM@              "
+#    echo "       JMMMMMMMMNNNM[              "
+#    echo "       (MMMMMMMMNNN#N,             "
+#    echo "        MMMMMMNNNNN##M]            "
+#    echo "         WMMMMMNMNNN##             "
+#    echo "          (YMMY'WMMY=              "
+#    echo "  _____                         _ ";
+#    echo " (____ \                       (_) ";
+#    echo "  _   \ \   ____   ____  _ _ _  _  ____ ";
+#    echo " | |   | | / _  | / ___)| | | || ||  _ \ ";
+#    echo " | |__/ / ( ( | || |    | | | || || | | | ";
+#    echo " |_____/   \_||_||_|     \____||_||_| |_| ";
+#    echo -e "\e[m"
+#}
 
 # debianロゴ
-logo_debian() {
-    echo -e "\e[34m"
-    echo "                  ..gMNgga             "
-    echo "           .(MMMM9''''MMMN,            "
-    echo "          .MM#^          TMMN,         "
-    echo "         JMD              ,M#5         "
-    echo "       .JM$      .Y=  ?!   JM[         "
-    echo "        MF      .%      .  .MF         "
-    echo "        M%      d,     ..  .#_         "
-    echo "        M[      ,N.  ~'   .@'          "
-    echo "        Mb      .?dN....J@^            "
-    echo "        .NN,        ?!                 "
-    echo "         (NN                           "
-    echo "          ,HN.                         "
-    echo "            ?Hm.                       "
-    echo "               79a.                    "
-    echo "  _____           _      _ ";
-    echo " (____ \         | |    (_) ";
-    echo "  _   \ \   ____ | | _   _   ____  ____ ";
-    echo " | |   | | / _  )| || \ | | / _  ||  _ \ ";
-    echo " | |__/ / ( (/ / | |_) )| |( ( | || | | | ";
-    echo " |_____/   \____)|____/ |_| \_||_||_| |_| ";
-    echo -e "\e[m"
-}
+#logo_debian() {
+#    echo -e "\e[34m"
+#    echo "                  ..gMNgga             "
+#    echo "           .(MMMM9''''MMMN,            "
+#    echo "          .MM#^          TMMN,         "
+#    echo "         JMD              ,M#5         "
+#    echo "       .JM$      .Y=  ?!   JM[         "
+#    echo "        MF      .%      .  .MF         "
+#    echo "        M%      d,     ..  .#_         "
+#    echo "        M[      ,N.  ~'   .@'          "
+#    echo "        Mb      .?dN....J@^            "
+#    echo "        .NN,        ?!                 "
+#    echo "         (NN                           "
+#    echo "          ,HN.                         "
+#    echo "            ?Hm.                       "
+#    echo "               79a.                    "
+#    echo "  _____           _      _ ";
+#    echo " (____ \         | |    (_) ";
+#    echo "  _   \ \   ____ | | _   _   ____  ____ ";
+#    echo " | |   | | / _  )| || \ | | / _  ||  _ \ ";
+#    echo " | |__/ / ( (/ / | |_) )| |( ( | || | | | ";
+#    echo " |_____/   \____)|____/ |_| \_||_||_| |_| ";
+#    echo -e "\e[m"
+#}
 
 # tool-boxロゴ
 logo_toolbox() {
@@ -919,10 +919,13 @@ solve() {
 # ======================================================
 # END
 # ======================================================
+clear
 echo_info "Load ~/.zshrc"
 if "$IS_MAC"; then
-    logo_darwin
+    fastfetch
+    #logo_darwin
 fi
 if "$IS_DOCKER"; then
-    logo_debian
+    screenfetch
+    #logo_debian
 fi
