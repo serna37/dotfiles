@@ -471,9 +471,9 @@ devbox() {
         echo_info " >> create work volume"
         mkdir -p $S/vol
 
-        # gitignoreを追記
+        # gitignoreを追加、devbox配下に配置しvol以外を無視する
         echo_info " >> add .gitignore"
-        cat $IGNORE_FILE >> .gitignore
+        cp $IGNORE_FILE $S/.gitignore
 
         loading 1 "setup profiles..."
         echo_info "[INITIATION] initiation completed"
