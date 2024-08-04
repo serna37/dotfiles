@@ -813,12 +813,12 @@ cpp_ini() {
     # AA
     logo_cpp_setup
     # gitignore
-    cat ~/git/dotfiles/conf/cpp/cpp_gitignore >> ./.gitignore
+    cp -f ~/git/dotfiles/conf/cpp/cpp_gitignore .gitignore
     # LSP server用設定
-    cp ~/git/dotfiles/conf/cpp/.clang-format .
-    cp ~/git/dotfiles/conf/cpp/compile_flags.txt .
+    cp -f ~/git/dotfiles/conf/cpp/.clang-format .
+    cp -f ~/git/dotfiles/conf/cpp/compile_flags.txt .
     # vimspector debug設定を追加
-    cp ~/git/dotfiles/conf/vim/.vimspector.json .
+    cp -f ~/git/dotfiles/conf/vim/.vimspector.json .
 
     # ojコマンドのためにPython仮想環境を作成
     logo_py_venv && python -m venv venv && . venv/bin/activate
