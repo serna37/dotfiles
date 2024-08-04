@@ -1,3 +1,2 @@
-.devbox-*/Dockerfile
-.devbox-*/docker-compose.yml
-.devbox-*/shared-register
+/*
+!vol/
