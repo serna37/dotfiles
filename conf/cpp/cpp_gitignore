@@ -1,20 +1,16 @@
 # Mac
 .DS_Store
 
-# Python
-__pycache__/
-.pytest_chache/
-
 # Python仮想環境
-bin/
-include/
-lib/
-pyvenv.cfg
+venv/
 
 # C++
 .clang-format
 compile_flags.txt
+_cpp_tmp
 
 # debugger
 .vimspector.json
+debug_build.dSYM/
+debug_build
 
