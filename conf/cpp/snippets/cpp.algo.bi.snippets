@@ -7,10 +7,12 @@
 snippet algo_bisearch "整数二分探索" b
 // 整数にぶたん O(logN)
 auto ${1:test} = [&](${2:long long} x) -> bool {
+	// 最小化のバアイ
 	// oになる条件を記述
 	// x x x o o o o
 	//       ↑ここを求める
 	${3:return x >= K}
+	// 最大のときは逆条件にする
 };
 $2 ${4:L} = 0, ${5:R} = 1, ${6:MID} = 0;
 while (!$1($5)) $5 <<= 1; // 指数探索
@@ -18,16 +20,19 @@ while (abs($5 - $4) > 1) {
 	$6 = $4 + ($5 - $4) / 2;
 	($1($6) ? $5 : $4) = $6;
 }
-cout << $5 << endl;
+cout << $5 << endl; // 最小化
+//cout << $4 << endl; // 最大のとき
 endsnippet
 snippet algo_bisearch_real_numbers "実数二分探索" b
 // 実数にぶたん O(logN)
 // doubleは桁数表現11bitを除き、52bit程度の精度
 auto ${1:test} = [&](${2:double} x) -> bool {
+	// 最小化のバアイ
 	// oになる条件を記述
 	// x x x o o o o
 	//       ↑ここを求める
 	${3:return x >= K}
+	// 最大のときは逆条件にする
 };
 $2 ${4:L} = 0, ${5:R} = 1, ${6:MID} = 0;
 while (!$1($5)) $5 *= 2; // 指数探索
@@ -37,7 +42,8 @@ while (ABS() and REL()) {
 	$6 = $4 + ($5 - $4) / 2;
 	($1($6) ? $5 : $4) = $6;
 }
-cout << $5 << endl;
+cout << $5 << endl; // 最小化
+//cout << $4 << endl; // 最大のとき
 endsnippet
 
 # vector
