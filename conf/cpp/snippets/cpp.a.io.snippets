@@ -96,10 +96,13 @@ endsnippet
 
 # grid
 snippet grid_in "grid in" b
+//int sy = 0, sx = 0, gy = 0, gx = 0;
 vector<vector<${1:char}>> ${2:G}(${3:H}, vector<$1>(${4:W}));
 for (int i = 0; i < $3; ++i) {
 	for (int j = 0; j < $4; ++j) {
 		cin >> $2[i][j];
+		//if ($2[i][j] == 'S') sy = i, sx = j;
+		//if ($2[i][j] == 'G') gy = i, gx = j;
 	}
 }
 endsnippet
@@ -123,7 +126,7 @@ for (int i = 0; i < ${3:M}; ++i) {
 	cin >> $4 >> $5;
 	--$4, --$5;
 	long long ${6:cost};
-	cin >> $6;   
+	cin >> $6;
 	$1[$4].push_back({$5, $6});
 	$1[$5].push_back({$4, $6});
 }
