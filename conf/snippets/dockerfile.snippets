@@ -1,13 +1,28 @@
 snippet python "python" b
 FROM python:3.11.4-slim-bullseye
+RUN apt update \
+	&& apt upgrade -y \
+	&& apt install -y cron \
+	&& export TZ=Asia/Tokyo \
+	&& echo $TZ > /etc/timezone
 
-WORKDIR /asset
-COPY ./src src
-COPY ./db db
+# /直下に配布
+COPY src src
+COPY db db
+
 RUN cd src \
 	&& python -m pip install -U pip \
 	&& python -m pip install -r requirements.txt
-CMD ["python", "src/app.py"]
+
+# crontabファイルをコピー
+COPY src/crontab /var/spool/crontab/root
+# crontabを適用
+RUN crontab /var/spool/crontab/root
+
+CMD ["sh", "/src/init.sh"]
+# cron startで開始
+# cron start後にpython /src/app.py
+# python /src/app.py後は終了しないため。
 endsnippet
 
 snippet devbox "devbox" b
