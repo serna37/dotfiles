@@ -18,7 +18,7 @@ fi
 docker build -t $CONTAINER_NAME:latest .
 
 # デタッチ起動
-docker run --name $CONTAINER_NAME -d -p 8310:8310 -v "$(pwd)/db:/asset/db" $CONTAINER_NAME:latest
+docker run --name $CONTAINER_NAME -d -p 8310:8310 -v "$(pwd)/db:/db" $CONTAINER_NAME:latest
 endsnippet
 
 snippet deploy_front "deploy front" b
