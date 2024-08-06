@@ -1,0 +1,40 @@
+snippet deploy_docker "deploy docker" b
+#!/bin/bash
+
+CONTAINER_NAME=mk8
+
+# 起動中コンテナ停止
+docker stop $(docker ps -aq -f name=$CONTAINER_NAME)
+
+# nameが競合するので削除
+docker rm $(docker ps -aq -f name=$CONTAINER_NAME)
+
+cd ~/git/Mk-8/back
+if [ ! -e db/db.json ]; then
+	cp db/init.db.json db/db.json
+fi
+
+# ビルド
+docker build -t $CONTAINER_NAME:latest .
+
+# デタッチ起動
+docker run --name $CONTAINER_NAME -d -p 8310:8310 -v "$(pwd)/db:/asset/db" $CONTAINER_NAME:latest
+endsnippet
+
+snippet deploy_front "deploy front" b
+#!/bin/bash
+
+TARGET=/var/www/html/Mk-8/
+
+cd ~/git/Mk-8/front
+cp -f index.html $TARGET
+cp -f manifest.json $TARGET
+cp -f icon.jpeg $TARGET
+cp -fR images $TARGET
+cp -f core.js $TARGET
+cp -f notice.js $TARGET
+cp -f index.js $TARGET
+
+cp -f ../firebase-messaging-sw.js /var/www/html/
+
+endsnippet

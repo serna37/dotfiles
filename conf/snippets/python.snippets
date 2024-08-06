@@ -1,0 +1,76 @@
+snippet fastapi "fastapi" b
+# TODO create pip installer
+#cat - << "EOF" >> requirements.txt
+#fastapi
+#uvicorn
+#EOF
+
+import json
+import uvicorn
+from fastapi import FastAPI, Request, HTTPException
+from starlette.middleware.cors import CORSMiddleware
+app = FastAPI()
+app.add_middleware(
+	CORSMiddleware,
+	allow_origins=["http://localhost:8000", "https://neras-sta.com"],
+	allow_credentials=True,
+	allow_methods=["*"],
+	allow_headers=["*"])
+
+def auth(req):
+	# TODO トークンの期待値を入れる
+	if dict(req.headers).get("x-auth-token") != "test":
+		raise HTTPException(status_code=401, detail="unauthorized")
+
+# bind mount (exec python src/app.py ここからの相対パスじゃない)
+DB_PATH = "db/db.json"
+
+@app.patch("/path")
+async def patchDoneList(req: Request):
+	auth(req)
+	r = json.loads(await req.body())
+	doneId = r["doneId"]  # type:ignore
+	with open(DB_PATH, "r") as f:
+		data = json.load(f)
+		data["doneList"].append(doneId)
+		res = data["doneList"]
+	with open(DB_PATH, "w") as f:
+		json.dump(data, f, indent=4)
+	return res
+
+if __name__ == "__main__":
+	# ファイル名:app
+	uvicorn.run("app:app", host="0.0.0.0", port=8080, reload=True)
+endsnippet
+
+snippet pandas "pandas" b
+import sqlite3
+import pandas as pd
+
+def _get_db():
+	return sqlite3.connect("app/store/mk7.db")
+
+def select(query, data_json):
+	con = _get_db()
+	cur = con.cursor()
+	q = cur.execute(query, data_json)
+	res = pd.DataFrame.from_records(data=q.fetchall(), columns=[col[0] for col in q.description])
+	cur.close()
+	con.close()
+	return res
+
+def get(query, cols):
+	con = _get_db()
+	cur = con.cursor()
+	q = cur.execute(query)
+	res = pd.DataFrame.from_records(data=q.fetchall(), columns=cols)
+	cur.close()
+	con.close()
+	return res
+
+def exe(sql, json):
+	con = _get_db()
+	con.execute(sql, json)
+	con.commit()
+	con.close()
+endsnippet

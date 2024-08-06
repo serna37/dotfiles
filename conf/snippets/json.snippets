@@ -1,0 +1,19 @@
+snippet manifest "manifest" b
+{
+	"manifest_version": 2,
+	"version": "1",
+	"short_name": "${1:name}",
+	"name": "${2:name}",
+	"display": "standalone",
+	"start_url": "index.html",
+	"background_color": "#000000",
+	"icons": [
+		{
+			"src": "icon.jpeg",
+			"sizes": "512x512",
+			"type": "image/jpg"
+		}
+	]
+}
+endsnippet
+

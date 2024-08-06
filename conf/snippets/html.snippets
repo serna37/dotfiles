@@ -1,0 +1,48 @@
+snippet init "init" b
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="manifest" href="manifest.json">
+	<link rel="icon" href="icon.jpeg">
+	<title>${1:title}</title>
+	<!--react-->
+	<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+	<!--tailwind-->
+	<!-- https://nerdcave.com/tailwind-cheat-sheet -->
+	<script src="https://cdn.tailwindcss.com"></script>
+	<!--font nicomoji-->
+	<link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet">
+	<!--google icon-->
+	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+		rel="stylesheet" />
+	<style>
+		html,
+		body {
+			height: 100%;
+			overflow: hidden;
+			background-color: black;
+			font-family: "Nico Moji";
+		}
+	</style>
+	<!--
+	<script>
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.register('${2:sw.js}')
+				.then((registration) => registration.update())
+				.catch((error) => console.error(error));
+		}
+	</script>
+	-->
+</head>
+<body>
+	<div id="root" class="h-full"></div>
+</body>
+<script type="module" src="core.js"></script>
+<!-- <script type="module" src="notice.js"></script> -->
+<script type="text/babel" src="index.jsx"></script>
+</html>
+endsnippet

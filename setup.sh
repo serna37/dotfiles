@@ -39,6 +39,8 @@ mkdir -p ~/.vim/UltiSnips
 ln -nfs ~/git/dotfiles/conf/cpp/snippets/* ~/.vim/UltiSnips/
 # C++ library
 zsh ~/git/dotfiles/conf/cpp/library.zsh
+# other snippets
+ln -nfs ~/git/dotfiles/conf/snippets/* ~/.vim/UltiSnips/
 
 echo "=========================================================="
 echo "[tool] atcoder-cli"
