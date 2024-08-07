@@ -25,6 +25,12 @@
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/serna37/dotfiles/master/install.sh)"
 ```
 
+ちょっとサーバで作業したいときの最低限コマンド
+```vim
+syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase smartcase shortmess-=S
+```
+また、依存なしを重視した[軽量版vimrc](https://github.com/serna37/dotfiles/blob/master/conf/vim/.vimrc.light)を用意している。
+
 ## 関連
 - [serna37/library](https://github.com/serna37/library)
 (`install.sh`からcloneし設定されます)
