@@ -564,7 +564,7 @@ devbox() {
 # ======================================================
 # historyのfzf
 incremental_search_history() {
-  selected=`history -E 0 | fzf --tac --height 75% --reverse --margin=0,1 | cut -b 25-`
+  selected=`history -E 0 | fzf --tac --height 75% --reverse --margin=0,1 | cut -b 24-`
   BUFFER=`[ ${#selected} -gt 0 ] && echo $selected || echo $BUFFER`
   CURSOR=${#BUFFER}
   zle redisplay
