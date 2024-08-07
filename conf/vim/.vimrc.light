@@ -1,3 +1,24 @@
+" 軽量版vimrc
+" IDE系サポートを除き、ピュアvimscriptのみに依存を絞った
+
+" bashrcなどに以下の関数やエイリアスを登録するとよい
+
+"v() {
+"    if [[ ! -d ~/.vim/plugged ]]; then
+"        curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"        vim -c "PlugInstall"
+"    else
+"        vim $@
+"    fi
+"}
+"alias l='ls -AFGlihrt --color=auto'
+"alias ..='cd ..'
+"alias rm='rm -i'
+"alias rmf="gum confirm && rm -rf"
+"alias re='exec $SHELL -l'
+"alias q='exit'
+
+
 syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase smartcase shortmess-=S
 let mapleader = "\<Space>"
 
