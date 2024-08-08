@@ -77,7 +77,7 @@ alias dotre='cd ~/git/dotfiles && git pull'
 alias ll='ls -AFGlihrt --color=auto'
 alias ..='cd ..'
 alias rm='rm -i'
-alias rmf="gum confirm && rm -rf"
+alias rmf='confirm rm -rf'
 alias re='exec $SHELL -l'
 alias q='exit'
 
@@ -144,11 +144,12 @@ echo_error() {
     echo -e "\e[32m[\e[31mERROR\e[32m] \e[34m$1\e[m"
 }
 
-# 確認ダイアログ $1=実行コマンド文字列 $2=失敗時メッセージ
-# confirm "echo Hello World!" "cancelled"
+# 確認ダイアログ
+# confirm echo Hello World!
 confirm() {
+    CMD=$(echo $@)
     if command -v gum > /dev/null 2>&1; then
-        gum confirm && eval $1 || echo_info $2
+        gum confirm && eval $CMD || echo_info "cancel"
     else
         if [ -n "$ZSH_VERSION" ]; then
             read "input?Are you sure? (y/n):"
@@ -156,9 +157,9 @@ confirm() {
             read -p "Are you sure? (y/n):" input
         fi
         if [ "$input" = "y" ]; then
-            eval $1
+            eval $CMD
         else
-            echo_info $2
+            echo_info "cancel"
         fi
     fi
 }
@@ -672,7 +673,7 @@ tool-box() {
             return
             ;;
     esac
-    confirm $CMD "Skipped"
+    confirm $CMD
 }
 
 # devbox関連の操作コマンド一覧
@@ -757,7 +758,7 @@ devbox-ctrl() {
             return
             ;;
     esac
-    confirm $CMD "Skipped"
+    confirm $CMD
 }
 
 # GitHub CLIでのカスタムしたコマンドを一覧で選択
@@ -813,7 +814,7 @@ gh-ctrl() {
             return
             ;;
     esac
-    confirm $CMD "Skipped"
+    confirm $CMD
 }
 
 # ======================================================
