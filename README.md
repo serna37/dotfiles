@@ -36,6 +36,7 @@ syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase 
 (`install.sh`からcloneし設定されます)
 
 - 主に[Terminal Trove](https://terminaltrove.com/)からコマンドを選んでいます
+- 開発関連のツール等を[obsidian-forge](https://github.com/serna37/obsidian-forge)にまとめています
 
 ## dotfiles構成
 <!-- file tree -->
