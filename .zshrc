@@ -147,17 +147,19 @@ echo_error() {
     echo -e "\e[32m[\e[31mERROR\e[32m] \e[34m$1\e[m"
 }
 
-# 確認ダイアログ
+# 確認ダイアログ $1=実行コマンド文字列 $2=失敗時メッセージ
 # confirm "echo Hello World!" "cancelled"
 confirm() {
     if command -v gum > /dev/null 2>&1; then
         gum confirm && eval $1 || echo_info $2
     else
-        read -p "Are you sure? (y/n):" input
-        if [ "$input" == "y" ]; then
+        if [ -n "$ZSH_VERSION" ]; then
+            read "input?Are you sure? (y/n):"
+        else
+            read -p "Are you sure? (y/n):" input
+        fi
+        if [ "$input" = "y" ]; then
             eval $1
-        elif [ "$input" == "n" ]; then
-            echo_info $2
         else
             echo_info $2
         fi
