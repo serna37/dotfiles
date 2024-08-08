@@ -140,6 +140,12 @@ fi
 echo_info() {
     echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m$1\e[m"
 }
+echo_warn() {
+    echo -e "\e[32m[\e[33mWARN\e[32m] \e[34m$1\e[m"
+}
+echo_error() {
+    echo -e "\e[32m[\e[31mERROR\e[32m] \e[34m$1\e[m"
+}
 
 # 確認ダイアログ
 # confirm "echo Hello World!" "cancelled"
