@@ -91,9 +91,6 @@ if "$IS_MAC"; then
     # terminal ctrl
     alias l='eza -abghHliS --icons --git'
     alias tree='eza -bghHliST --icons --git'
-
-    # GitHub
-    alias forge='sh forge.sh'
 fi
 
 if "$IS_DOCKER"; then
