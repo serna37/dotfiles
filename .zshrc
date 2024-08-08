@@ -39,6 +39,9 @@ if "$IS_MAC"; then
     source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     source /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme
     [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+    autoload -Uz compinit
+    compinit
+    eval "$(gh completion -s zsh)"
 fi
 
 if "$IS_DOCKER"; then
