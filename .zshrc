@@ -432,7 +432,7 @@ logo_atcoder() {
 # dotfile/conf/devboxの設定の最新を反映して、コンテナ起動する
 devbox() {
     if "$IS_DOCKER"; then
-        echo_info "Already in Dev Container Box"
+        echo_warn "Already in Dev Container Box"
         return
     fi
     logo_docker
@@ -681,7 +681,7 @@ tool-box() {
 # devbox関連の操作コマンド一覧
 devbox-ctrl() {
     if "$IS_DOCKER"; then
-        echo_info "Already in Dev Container Box"
+        echo_warn "Already in Dev Container Box"
         return
     fi
     LIST=(
@@ -701,7 +701,7 @@ devbox-ctrl() {
             ;;
         "[ file](on devbox) cp file into devbox/vol")
             if ! ls -d .devbox*/ > /dev/null 2>&1; then
-                echo_info "No devbox"
+                echo_error "No devbox"
                 return
             fi
             CMD='echo_info "Choose Current file / dir"'
@@ -711,7 +711,7 @@ devbox-ctrl() {
             ;;
         "[ file](on devbox) cp DL file into devbox/vol")
             if ! ls -d .devbox*/ > /dev/null 2>&1; then
-                echo_info "No devbox"
+                echo_error "No devbox"
                 return
             fi
             CMD='echo_info "Choose DL file"'
@@ -721,7 +721,7 @@ devbox-ctrl() {
             ;;
         "[ crush](on devbox) current devbox")
             if ! ls -d .devbox*/ > /dev/null 2>&1; then
-                echo_info "No devbox"
+                echo_error "No devbox"
                 return
             fi
             S=$(ls -d .devbox*/ | sed 's/^\.//; s/\/$//')
@@ -766,7 +766,7 @@ devbox-ctrl() {
 # GitHub CLIでのカスタムしたコマンドを一覧で選択
 gh-ctrl() {
     if "$IS_DOCKER"; then
-        echo_info "Don't allow to use GitHub CLI in Dev Container Box"
+        echo_warn "Don't allow to use GitHub CLI in Dev Container Box"
         return
     fi
     if [ ! -d ~/git/task ]; then
@@ -878,7 +878,7 @@ cpp_exe() {
     if [ $res -eq 0 ]; then
         echo_info "exit code:$res"
     else
-        echo -e "[\e[31mERROR\e[m] \e[mexit code:$res."
+        echo_error "exit code:$res."
     fi
 }
 
@@ -918,7 +918,7 @@ solve() {
     acc config default-test-dirname-format test
     valid=`acc contest $contest_cd`
     if [[ $valid == ''  ]]; then
-        echo -e "[\e[31mERROR\e[m] create faild."
+        echo_error "create faild."
         return
     fi
     acc new $contest_cd
