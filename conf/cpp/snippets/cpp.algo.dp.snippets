@@ -13,98 +13,90 @@
 # - XXX ダブリング
 # =========================================================
 
-snippet algo_dp_def_1 "dp def 1" b
-// =====================================
-// Frog DP 1次元DPテーブルを配る/貰う
-//   -----------
-//  /     ↘︎     ↘︎
-// | |   | |   | | ...
-// from   to    to
-vector<${1:int}> dp(${2:N}, ${3:INF});
-dp[${4:0}] = ${5:0};
-algo_dp_for
+snippet algo_dp_cheat "dpのヒント" b
+// - その数を作れるか: 部分和
+//   (def) dp_ij := i個目までで、jを作れる場合true
+//   (trn) nx = dp, if (dp[j]) nx[j + X] = true;
+// - 連続で選ばない: Vacation
+// - 区間クエリを貰うDP: zeta, seg
 endsnippet
-snippet algo_dp_def_swap "dp def swap" b
+
+snippet algo_dp "dp" b
+// 値の型: ${1:long long}
+// 遷移数: ${2:N}
+// DP表の初期値: ${3:INF}
+// 2次元表の場合、横の長さ: ${4:M} = 番兵+1 sizeも+1
+// 最初の値: ${5:0 1} = 通り数なら1, 最小化なら0
+
 // =====================================
-// ナップサック 2次元DP 前行と次行で遷移
-// dp | |         | |
-//        ↘︎+cost   ↓
-// nx | |         | |
-vector<${1:int}> def(${2:M} + 1, ${3:INF});
+// 1次元DP
+//         ↱    ↴    ↴
+// ...  dp_i  dp_i+1  dp_i+2  ...
+//vector<$1> dp($2, $3);
+//dp[0] = $5;
+//for (int i = 0; i < $2; ++i) {
+//	for (int j = 1; j <= K; ++j) {
+//		if (i + j) {
+//			dp[i + j] = min(dp[i + j], dp[i] + cost);
+//		}
+//	}
+//}
+
+// =====================================
+vector<$1> def($4, $3); // 2次元DP swap
 auto dp = def, nx = dp;
-dp[${4:0}] = ${5:0};
-algo_dp_for_swap
-endsnippet
-snippet algo_dp_def_2 "dp def 2" b
-// =====================================
-// 2次元DP表
-// | |         | |
-//     ↘︎+cost   ↓
-// | |         | |
-vector<vector<${1:int}>> ${2:dp}(${3:N}, vector<$1>(${4:M}, ${5:0}));
-dp[${6:0}][${7:0}] = ${8:0};
-algo_dp_for
-endsnippet
-snippet algo_dp_for "dp for" b
-// =========================
-for (int ${1:i} = ${2:0}; $1 <${3:N}; ++$1) {
-	// 区間の最小/最大を貰う -> セグ木DPで1次元の遷移
-	// 区間の和を使う -> 累積和
-
-	// 2次元用の漸化式
-	algo_dp_add
-	algo_dp_chdp
-
-}
-endsnippet
-snippet algo_dp_for_swap "dp for swap" b
-// =========================
-for (int i = 0; i < ${1:N}; ++i, swap(dp, nx)) {
+dp[0] = $5;
+for (int i = 0; i < $2; ++i, swap(dp, nx)) {
 	// - 選ばない: dp    緩和、通り数
 	// - 必ず選ぶ: def   初期化する
-	nx = ${2:dp def};
-	// 漸化式
-	algo_dp_add_swap
-	algo_dp_chdp_swap
+	nx = dp;
+	//nx = def;
+
+	// ...  dp_j                  ...
+	//            ↘
+	// ...  nx_j  nx_j+X  nx_i+2  ...
+	// 横向きループ
+	for (int j = 0; j < $4; ++j) {
+		nx[j + X] = min(nx[j + X], dp[j] + cost);
+		//nx[i + X] += dp[i];
+	}
+
+	// ... dp_j  dp_j+1  dp_j+2  ...
+	//        ↘       ↘       ↘
+	//                          nx_j
+	// S := zeta dp
+	//for (int j = AA; j <= BB; ++j) {
+	//	nx[j] += S[j + 1];
+	//}
 }
-// 最終行はdp
+//cout << (dp[$5 - 1] == INF ? -1 : dp[$5 - 1]) << endl;
+//cout << *max_element(dp.begin(), dp.end()) << endl;
+//cout << *min_element(dp.begin(), dp.end()) << endl;
+// mod sum
+//long long ans = 0;
+//for (auto &&v : dp) ans += v, ans %= MOD;
+//cout << ans << endl;
 endsnippet
 
-# [遷移式] 通り数系
-snippet algo_dp_add "dp add" b
-// =========================
-// dp_i_j  dp_i_j+1
-//        ↘︎  ↓       加算
-//        dp_i+1_j+1
-dp[i+1][j+1] = dp[i][j] + dp[i][j+1];
+snippet algo_dp_seg "DP on segment tree" b
+// 値の型: ${1:long long}
+// 遷移数: ${2:N}
+// DP表の初期値: ${3:INF}
+// DP表の横の長さ: ${4:L+1} = 番兵+1
+// 最初の値: ${5:0 1} = 通り数なら1, 最小化なら0
+
+// セグ木DP
+algo_ds_segment_tree_ALL
+act(0, $6);
+for (int i = 0; i < $2; ++i) {
+	$1 tmp = prod(l, r + 1);
+	act(X, tmp); // 更新か緩和
+}
+//cout << seg[L + sz] << endl;
+//cout << seg[1] << endl;
 endsnippet
 
-# [遷移式] 緩和
-snippet algo_dp_chdp "chdp knapsack" b
-// =========================
-// dp_i_j    dp_i+1_j+1
-//   + cost ↘︎  ↓
-//           dp_i_j+1
-dp[i+1][${3:j+1}] = ${1:min}(dp[i+1][$3], dp[i][${2:j}] + ${4:cost});
-endsnippet
 
-# [遷移式] 通り数系 swap用
-snippet algo_dp_add_swap "dp add" b
-// =========================
-// dp_j  dp_j+1
-//     ↘︎  ↓    加算
-// nx_j  nx_j+1
-nx[${1:j + 1}] += dp[${2:j}];
-endsnippet
-
-# [遷移式] 緩和 swap用
-snippet algo_dp_chdp_swap "chdp knapsack" b
-// =========================
-// dp_from    dp_to (nx=dpで緩和済み)
-//   + cost ↘︎  ↓
-//           nx_to
-nx[${3:to}] = ${1:min}(nx[$3], dp[${2:from}] + ${4:cost});
-endsnippet
 
 
 # TODO 遷移式メインに修正中
