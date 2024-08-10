@@ -886,6 +886,19 @@ solve() {
     SAND_DIR="$HOME/work/sandbox"
     logo_atcoder
 
+    if [ $# -eq 0 ]; then
+        if [ ! -d $SAND_DIR ]; then
+            mkdir -p $SAND_DIR
+        fi
+        cd $SAND_DIR
+        cpp_ini
+        mkdir a && touch a/main.cpp
+        mkdir z && touch z/main.cpp
+        \rm -rf a/test z/test
+        cd $SAND_DIR && v z/main.cpp
+        return
+    fi
+
     # 引数が問題URLの場合、単一で解く
     if [[ $1 == https://* ]]; then
         if [ ! -d $SAND_DIR ]; then
