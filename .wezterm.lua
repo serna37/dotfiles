@@ -6,7 +6,7 @@ end
 
 -- 色
 config.color_scheme = 'Obsidian'
-config.window_background_opacity = 0.9
+config.window_background_opacity = 0.85
 config.colors = {
     foreground = 'silver',
     background = 'rgb(40, 40, 50)',
