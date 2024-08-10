@@ -75,6 +75,29 @@ for (int i = 0; i < $3; ++i) {
 // from(s, t) to(x, y) S[y][x] - S[y][s] - S[t][x] + S[t][s]
 endsnippet
 
+# 3D
+snippet algo_range_zeta_3D "3次元累積和" b
+using sum = int;
+vector<vector<vector<sum>>> S;
+int szx = ${1:A}.size(), szy = $1[0].size(), szz = $1[0][0].size();
+S.resize(szx + 1, vector<vector<sum>>(szy + 1, vector<sum>(szz + 1, 0)));
+for (int x = 1; x <= szx; ++x) {
+	for (int y = 1; y <= szy; ++y) {
+		for (int z = 1; z <= szz; ++z) {
+			S[x][y][z] = $1[x - 1][y - 1][z - 1] + S[x - 1][y][z] +
+						 S[x][y - 1][z] + S[x][y][z - 1] -
+						 S[x - 1][y - 1][z] - S[x - 1][y][z - 1] -
+						 S[x][y - 1][z - 1] + S[x - 1][y - 1][z - 1];
+		}
+	}
+}
+// Lx Ly Lzは0-indexed Rx Ry Rzは1-indexed
+// S[Rxyz] - S[Lxyz]
+//long long ans = S[Rx][Ry][Rz] - S[Lx][Ry][Rz] - S[Rx][Ly][Rz] -
+//				S[Rx][Ry][Lz] + S[Lx][Ly][Rz] + S[Lx][Ry][Lz] +
+//				S[Rx][Ly][Lz] - S[Lx][Ly][Lz];
+endsnippet
+
 snippet algo_range_moebius "メビウス変換" b
 vector<${1:int}> ${2:D}(${3:N-1});
 for (int i = 0; i < $3; ++i) {
