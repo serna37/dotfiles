@@ -1,3 +1,5 @@
+# TODO [WIP] OS判定だけど、CentOS系もLinuxなので、aptなのかyumなのか判断つかない。
+
 # ======================================================
 # OS HANDLING
 # ======================================================
@@ -147,7 +149,8 @@ echo_error() {
 # 確認ダイアログ
 # confirm echo Hello World!
 confirm() {
-    CMD=$(echo $@)
+    #CMD=$(echo $@)
+    CMD=$@
     if command -v gum > /dev/null 2>&1; then
         gum confirm && eval $CMD || echo_info "cancel"
     else
@@ -187,54 +190,6 @@ loading_long() {
 # ======================================================
 # Logo
 # ======================================================
-# macOSロゴ
-#logo_darwin() {
-#    echo -e "\e[34m"
-#    echo "                ..J.               "
-#    echo "               dMMF                "
-#    echo "          ....,M#:...              "
-#    echo "        .MMMMMMMMNN#MN             "
-#    echo "       .MMMMMMMMMNNM@              "
-#    echo "       JMMMMMMMMNNNM[              "
-#    echo "       (MMMMMMMMNNN#N,             "
-#    echo "        MMMMMMNNNNN##M]            "
-#    echo "         WMMMMMNMNNN##             "
-#    echo "          (YMMY'WMMY=              "
-#    echo "  _____                         _ ";
-#    echo " (____ \                       (_) ";
-#    echo "  _   \ \   ____   ____  _ _ _  _  ____ ";
-#    echo " | |   | | / _  | / ___)| | | || ||  _ \ ";
-#    echo " | |__/ / ( ( | || |    | | | || || | | | ";
-#    echo " |_____/   \_||_||_|     \____||_||_| |_| ";
-#    echo -e "\e[m"
-#}
-
-# debianロゴ
-#logo_debian() {
-#    echo -e "\e[34m"
-#    echo "                  ..gMNgga             "
-#    echo "           .(MMMM9''''MMMN,            "
-#    echo "          .MM#^          TMMN,         "
-#    echo "         JMD              ,M#5         "
-#    echo "       .JM$      .Y=  ?!   JM[         "
-#    echo "        MF      .%      .  .MF         "
-#    echo "        M%      d,     ..  .#_         "
-#    echo "        M[      ,N.  ~'   .@'          "
-#    echo "        Mb      .?dN....J@^            "
-#    echo "        .NN,        ?!                 "
-#    echo "         (NN                           "
-#    echo "          ,HN.                         "
-#    echo "            ?Hm.                       "
-#    echo "               79a.                    "
-#    echo "  _____           _      _ ";
-#    echo " (____ \         | |    (_) ";
-#    echo "  _   \ \   ____ | | _   _   ____  ____ ";
-#    echo " | |   | | / _  )| || \ | | / _  ||  _ \ ";
-#    echo " | |__/ / ( (/ / | |_) )| |( ( | || | | | ";
-#    echo " |_____/   \____)|____/ |_| \_||_||_| |_| ";
-#    echo -e "\e[m"
-#}
-
 # tool-boxロゴ
 logo_toolbox() {
     echo -e "\e[32m"
@@ -574,7 +529,7 @@ devbox() {
 # ======================================================
 # Custom Commands
 # ======================================================
-# historyのfzf
+# バックiサーチをhistoryのfzfにする
 incremental_search_history() {
   selected=`history -E 0 | fzf --tac --height 75% --reverse --margin=0,1 | cut -b 24-`
   BUFFER=`[ ${#selected} -gt 0 ] && echo $selected || echo $BUFFER`
@@ -585,94 +540,91 @@ zle -N incremental_search_history
 bindkey "^r" incremental_search_history
 
 # ツール系のカスタムしたコマンドをリストで選択し実行
+export TOOL_BOX=$(cat << "EOF"
+[
+    {
+        "name": "[ devbox] devbox-ctrl",
+        "cmd": "devbox-ctrl"
+    },
+    {
+        "name": "[ cpp] init project",
+        "cmd": "cpp_ini"
+    },
+    {
+        "name": "[ cpp] exe file",
+        "cmd": "cpp_exe $(find . -name 'main.cpp' | gum choose)"
+    },
+    {
+        "name": "[ Python] venv",
+        "cmd": "logo_py_venv && python -m venv venv && . venv/bin/activate"
+    },
+    {
+        "name": "[ Python] localhost",
+        "cmd": "logo_py_localhost && python -m http.server $(gum input --header='port' --value='8000')"
+    },
+    {
+        "name": "[ Mac] application",
+        "cmd": "find /Applications -maxdepth 1 -name '*.app' | fzf | xargs -I {} open '{}'"
+    },
+    {
+        "name": "[ Mac] finder",
+        "cmd": "open ."
+    },
+    {
+        "name": "[ DB] gobang",
+        "cmd": "gobang"
+    },
+    {
+        "name": "[ DB] edit connection",
+        "cmd": "cd ~/git/dotfiles && v conf/gobang/config.toml"
+    },
+    {
+        "name": "[ scp] termscp",
+        "cmd": "termscp"
+    },
+    {
+        "name": "[ clock] show clock",
+        "cmd": "tty-clock -sc -C2"
+    },
+    {
+        "name": "[ gif] convert mov -> gif",
+        "cmd": "ffmpeg -i $(ls -A | gum choose) -r 10 $(gum input --prompt 'e.g.) test.gif: ')"
+    },
+    {
+        "name": "[ zoxide] ls",
+        "cmd": "zoxide query -ls"
+    },
+    {
+        "name": "[ zoxide] rm filename",
+        "cmd": "(){zoxide remove $(gum input --prompt \"del: \")}"
+    },
+    {
+        "name": "[ x86 brew]",
+        "cmd": "arch -x86_64 /usr/local/bin/brew"
+    },
+    {
+        "name": "[cancel]",
+        "cmd": "echo_info cancel"
+    }
+]
+EOF
+)
+
 tool-box() {
     logo_toolbox
-    LIST=(
-        "[ GitHub] gh-ctrl"
-        "[ devbox] devbox-ctrl"
-        "[ ini] initiation"
-        "[ exe] exe C++ file"
-        "[ venv]"
-        "[ server] localhost 8000"
-        "[ app] open application"
-        "[ finder] open ."
-        "[ DB] gobang"
-        "[ DB] edit connection"
-        "[ SCP] termscp"
-        "[ clock] show clock"
-        "[ gif] convert mov -> gif"
-        "[ fzf] fzf"
-        "[ zoxide] ls"
-        "[ zoxide] rm filename"
-        "[ x86 brew]"
-        "[cancel]"
-    )
-    echo_info "Choose tool"
-    LEN=$(expr ${#LIST[@]} + 3)
-    TARGET=$(gum choose --height $LEN $LIST)
-    case $TARGET in
-        "[ GitHub] gh-ctrl")
-            gh-ctrl
-            return
-            ;;
-        "[ devbox] devbox-ctrl")
-            devbox-ctrl
-            return
-            ;;
-        "[ ini] initiation")
-            CMD='cpp_ini'
-            ;;
-        "[ exe] exe C++ file")
-            FROM=$(ls -d $(find .) | grep main.cpp | gum choose)
-            CMD="cpp_exe $FROM"
-            ;;
-        "[ venv]")
-            CMD='logo_py_venv && python -m venv venv && . venv/bin/activate'
-            ;;
-        "[ server] localhost 8000")
-            CMD='logo_py_localhost && python -m http.server 8000'
-            ;;
-        "[ app] open application")
-            CMD='open "$(\fd -t d -d 1 . /Applications | \fzf)"'
-            ;;
-        "[ finder] open .")
-            CMD='open .'
-            ;;
-        "[ DB] gobang")
-            CMD='gobang'
-            ;;
-        "[ DB] edit connection")
-            CMD='cd ~/git/dotfiles && v conf/gobang/config.toml'
-            ;;
-        "[ SCP] termscp")
-            CMD='termscp'
-            ;;
-        "[ clock] show clock")
-            CMD='tty-clock -sc -C2'
-            ;;
-        "[ gif] convert mov -> gif")
-            FROM=$(ls -A | gum choose)
-            TO=$(gum input --prompt "e.g.) test.gif: ")
-            CMD="ffmpeg -i $FROM -r 10 $TO"
-            ;;
-        "[ fzf] fzf")
-            CMD="fzf --preview 'bat -n --color=always {}'"
-            ;;
-        "[ zoxide] ls")
-            CMD='zoxide query -ls'
-            ;;
-        "[ zoxide] rm filename")
-            TO=$(gum input --prompt "del: ")
-            CMD="(){zoxide remove $TO}"
-            ;;
-        "[ x86 brew]")
-            CMD='arch -x86_64 /usr/local/bin/brew'
-            ;;
-        *)
-            echo_info "Skipped"
-            return
-            ;;
-    esac
+    echo_info "Choose Tool"
+    IFS=$'\n'
+    TOOLS=($(echo $TOOL_BOX | jq '.[].name'))
+    LEN=$(expr ${#TOOLS[@]} + 3)
+    TARGET="[cancel]"
+    TARGET=$(gum choose --height $LEN --cursor="❯ " --header="Choose" $TOOLS)
+    if [ -z "$TARGET" ]; then
+        echo_info "Cancel"
+        return
+    fi
+    CMD=$(echo $TOOL_BOX | jq ".[] | select(.name == $TARGET) | .cmd")
+    CMD="${CMD:1:-1}" # 前後のダブルクォーとを取ってevalに渡す
+    echo $CMD
     confirm $CMD
 }
 
@@ -685,14 +637,15 @@ devbox-ctrl() {
     LIST=(
         "[ ] devbox start"
         "[ file](on devbox) cp file into devbox/vol"
-        "[ file](on devbox) cp DL file into devbox/vol"
-        "[ crush](on devbox) current devbox"
-        "[ crush] all devbox"
+        "[ file](on devbox) cp ~/Downloads file into devbox/vol"
+        "[  crush](on devbox) current devbox"
+        "[  crush] all devbox"
         "[cancel]"
     )
     echo_info "Choose devbox Ctrl"
     LEN=$(expr ${#LIST[@]} + 3)
-    TARGET=$(gum choose --height $LEN $LIST)
+    #gum choose --height $LEN --cursor="❯ " --header="Choose tool:" $LIST
+    TARGET=$(gum choose --height $LEN --cursor="❯ " --header="Choose tool:" $LIST)
     case $TARGET in
         "[ ] devbox start")
             CMD="devbox"
@@ -702,22 +655,26 @@ devbox-ctrl() {
                 echo_error "No devbox"
                 return
             fi
-            CMD='echo_info "Choose Current file / dir"'
-            CMD="$CMD && ls -AF | gum choose --no-limit --height 20"
-            CMD="$CMD | xargs -I {} cp -R {} .devbox-**/vol"
-            CMD="$CMD && echo_info 'cp to devbox/vol'"
+            ls -AF | gum choose --no-limit --height 20 --cursor='❯ ' --header='current file / dir:' \
+                | xargs -I {} cp -R {} .devbox-**/vol \
+                && echo_info 'cp to devbox/vol'
+            return
+            #CMD='echo_info "Choose Current file / dir"'
+            #CMD="$CMD && ls -AF | gum choose --no-limit --height 20 --cursor='❯ ' --header='current file / dir:'"
+            #CMD="$CMD | xargs -I {} cp -R {} .devbox-**/vol"
+            #CMD="$CMD && echo_info 'cp to devbox/vol'"
             ;;
-        "[ file](on devbox) cp DL file into devbox/vol")
+        "[ file](on devbox) cp ~/Downloads file into devbox/vol")
             if ! ls -d .devbox*/ > /dev/null 2>&1; then
                 echo_error "No devbox"
                 return
             fi
             CMD='echo_info "Choose DL file"'
-            CMD="$CMD && ls -AF ~/Downloads | grep -v / | gum choose --no-limit"
+            CMD="$CMD && ls -AF ~/Downloads | grep -v / | gum choose --no-limit --cursor='❯ ' --header='DL file:'"
             CMD="$CMD | xargs -I {} cp ~/Downloads/{} .devbox-**/vol"
             CMD="$CMD && echo_info 'cp DL files to devbox/vol'"
             ;;
-        "[ crush](on devbox) current devbox")
+        "[  crush](on devbox) current devbox")
             if ! ls -d .devbox*/ > /dev/null 2>&1; then
                 echo_error "No devbox"
                 return
@@ -738,7 +695,7 @@ devbox-ctrl() {
             CMD="$CMD && rm -rf .devbox*/"
             CMD="$CMD && echo_info 'delete .devbox directory'"
             ;;
-        "[ crush] all devbox")
+        "[  crush] all devbox")
             STOP='docker stop $(docker ps -aq -f name=^devbox)'
             RM='docker rm $(docker ps -aq -f name=^devbox)'
             DELNET='docker network rm $(docker network ls --format '\''{{.Name}}'\'' | grep devbox)'
@@ -752,62 +709,6 @@ devbox-ctrl() {
             CMD="$CMD && gum spin --title 'delete all devbox images...' -- $RMI"
             CMD="$CMD && echo_info 'delete all devbox images'"
             CMD="$CMD && echo_info '\e[31m remain .devbox directories'"
-            ;;
-        *)
-            echo_info "Skipped"
-            return
-            ;;
-    esac
-    confirm $CMD
-}
-
-# GitHub CLIでのカスタムしたコマンドを一覧で選択
-gh-ctrl() {
-    if "$IS_DOCKER"; then
-        echo_warn "Don't allow to use GitHub CLI in Dev Container Box"
-        return
-    fi
-    if [ ! -d ~/git/task ]; then
-        cd ~/git && git clone https://github.com/serna37/task
-    fi
-    LIST=(
-        "Daily Algo v1"
-        "Daily Algo v2"
-        "Daily Algo v3"
-        "Daily Algo POWER"
-        "Daily Hacking"
-        "PR develop <- feature"
-        "PR release <- develop"
-        "PR master  <- release"
-        "[cancel]"
-    )
-    echo_info "Choose GitHub Ctrl"
-    LEN=$(expr ${#LIST[@]} + 3)
-    TARGET=$(gum choose --height $LEN $LIST)
-    case $TARGET in
-        "Daily Algo v1")
-            CMD='cd ~/git/task && gh issue view 49 && gh issue close 49'
-            ;;
-        "Daily Algo v2")
-            CMD='cd ~/git/task && gh issue view 172 && gh issue close 172'
-            ;;
-        "Daily Algo v3")
-            CMD='cd ~/git/task && gh issue view 177 && gh issue close 177'
-            ;;
-        "Daily Algo POWER")
-            CMD='cd ~/git/task && gh issue view 198 && gh issue close 198'
-            ;;
-        "Daily Hacking")
-            CMD='cd ~/git/task && gh issue view 57 && gh issue close 57'
-            ;;
-        "PR develop <- feature")
-            CMD='gh pr create --base develop --head $(git branch --contains | cut -d " " -f 2) --title "modify" --body ""'
-            ;;
-        "PR release <- develop")
-            CMD='gh pr create --base release --head develop --title "Publish" --body ""'
-            ;;
-        "PR master  <- release")
-            CMD='gh pr create --base master --head release --title "Publish" --body ""'
             ;;
         *)
             echo_info "Skipped"
@@ -949,9 +850,7 @@ clear
 echo_info "Load ~/.zshrc"
 if "$IS_MAC"; then
     fastfetch
-    #logo_darwin
 fi
 if "$IS_DOCKER"; then
     screenfetch
-    #logo_debian
 fi

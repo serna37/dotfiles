@@ -37,6 +37,7 @@ syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase 
 
 - 主に[Terminal Trove](https://terminaltrove.com/)からコマンドを選んでいます
 - 開発関連のツール等を[obsidian-forge](https://github.com/serna37/obsidian-forge)にまとめています
+サーバ用のdotfileと、開発~デプロイまでのSDK
 
 ## dotfiles構成
 <!-- file tree -->

@@ -11,6 +11,7 @@ eza
 fzf
 bat
 ripgrep
+jq
 
 # TUIツール
 lazygit
