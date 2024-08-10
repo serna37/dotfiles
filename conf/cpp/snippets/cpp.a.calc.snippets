@@ -8,7 +8,11 @@ snippet anymatch "anymatch" b
 ${1:anma} |= ${2};
 endsnippet
 
-snippet cnt_all "cnt all" b
+snippet cnt_all_vec "cnt all vec" b
+vector<int> cnt(${1:MAX});
+for (auto &&v : ${2:A}) ++cnt[v];
+endsnippet
+snippet cnt_all_map "cnt all map" b
 map<int, int> mp;
 for (auto &&v : ${1:A}) ++mp[v];
 endsnippet
