@@ -32,11 +32,12 @@ snippet algo_dp "dp" b
 // 1次元DP
 //         ↱    ↴    ↴
 // ...  dp_i  dp_i+1  dp_i+2  ...
+
 //vector<$1> dp($2, $3);
 //dp[0] = $5;
 //for (int i = 0; i < $2; ++i) {
 //	for (int j = 1; j <= K; ++j) {
-//		if (i + j) {
+//		if (i + j < N) {
 //			dp[i + j] = min(dp[i + j], dp[i] + cost);
 //		}
 //	}
@@ -69,9 +70,13 @@ for (int i = 0; i < $2; ++i, swap(dp, nx)) {
 	//	nx[j] += S[j + 1];
 	//}
 }
+
+// =====================================
+//cout << dp.back() << endl;
 //cout << (dp.back() == INF ? -1 : dp.back()) << endl;
 //cout << *max_element(dp.begin(), dp.end()) << endl;
 //cout << *min_element(dp.begin(), dp.end()) << endl;
+
 // mod sum
 //long long ans = 0;
 //for (auto &&v : dp) ans += v, ans %= MOD;
