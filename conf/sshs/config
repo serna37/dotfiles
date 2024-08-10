@@ -15,8 +15,3 @@ Host *
   UseKeychain yes
   #IdentityFile ~/.ssh/id_rsa
 
-Host "My server"
-  HostName neras-sta.com
-  User serna37
-  Port 22
-
