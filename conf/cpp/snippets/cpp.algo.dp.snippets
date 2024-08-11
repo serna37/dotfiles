@@ -92,10 +92,10 @@ snippet algo_dp_seg "DP on segment tree" b
 
 // セグ木DP
 algo_ds_segment_tree_ALL
-act(0, $6);
+act(0, $5);
 for (int i = 0; i < $2; ++i) {
 	$1 tmp = prod(l, r + 1);
-	act(X, tmp); // 更新か緩和
+	act(X, tmp + cost); // 更新か緩和
 }
 //cout << seg[L + sz] << endl;
 //cout << seg[1] << endl;
