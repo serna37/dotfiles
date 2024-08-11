@@ -734,10 +734,11 @@ cpp_ini() {
     cp -f ~/git/dotfiles/conf/vim/.vimspector.json .
 
     # ojコマンドのためにPython仮想環境を作成
-    logo_py_venv && python -m venv venv && . venv/bin/activate
-    pip install --upgrade pip
-    pip install --upgrade setuptools
-    pip install online-judge-tools
+    logo_py_venv
+    gum spin --title "Python venv activation" -- python -m venv venv && . venv/bin/activate
+    gum spin --title "pip install --upgrade pip" -- pip install --upgrade pip
+    gum spin --title "pip install --upgrade setuptools" -- pip install --upgrade setuptools
+    gum spin --title "pip install online-judge-tools" -- pip install online-judge-tools
 }
 
 # C++ビルドコマンド
