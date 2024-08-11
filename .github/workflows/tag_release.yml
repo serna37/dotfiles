@@ -1,9 +1,17 @@
 name: tag_release
 
 on:
-  push:
-    branches:
-      - 'master'
+  workflow_dispatch:
+    inputs:
+      ref:
+        type: choice
+        description: Tag Release
+        required: true
+        options:
+        - develop
+        - release
+        - master
+        - main
 
 permissions:
   contents: write
