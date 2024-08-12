@@ -556,7 +556,7 @@ export TOOL_BOX=$(cat << "EOF"
     },
     {
         "name": "[ Python] venv",
-        "cmd": "logo_py_venv && python -m venv venv && . venv/bin/activate"
+        "cmd": "logo_py_venv && gum spin --title 'Python venv activation' -- python -m venv venv && . venv/bin/activate"
     },
     {
         "name": "[ Python] localhost",
@@ -734,7 +734,8 @@ cpp_ini() {
 
     # ojコマンドのためにPython仮想環境を作成
     logo_py_venv
-    gum spin --title "Python venv activation" -- python -m venv venv && . venv/bin/activate
+    gum spin --title "Python venv activation" -- python -m venv venv
+    . venv/bin/activate
     gum spin --title "pip install --upgrade pip" -- pip install --upgrade pip
     gum spin --title "pip install --upgrade setuptools" -- pip install --upgrade setuptools
     gum spin --title "pip install online-judge-tools" -- pip install online-judge-tools
