@@ -17,8 +17,9 @@ map<int, int> mp;
 for (auto &&v : ${1:A}) ++mp[v];
 endsnippet
 snippet sum_all "sum all" b
-long long sum = 0;
-for (auto &&v : ${1:A}) sum += v;
+//long long sum = 0;
+//for (auto &&v : ${1:A}) sum += v;
+long long sum = reduce($1.begin(), $1.end(), 0ll);
 endsnippet
 snippet gcd_all "gcd all" b
 long long GCD = 0;
