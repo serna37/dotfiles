@@ -169,6 +169,8 @@ confirm() {
 
 # 指定秒数待機アニメーション
 # loading 2 "Loading..."
+# TODO gum spin --title "$1" -- ${@:2}
+# bashならこれでいい感じに汎用, zshだとちょっと違うと思う
 loading() {
     if command -v gum > /dev/null 2>&1; then
         gum spin --title $2 -- sleep $1
