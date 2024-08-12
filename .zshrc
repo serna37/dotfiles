@@ -8,9 +8,9 @@ IS_MAC=false
 IS_DOCKER=false
 
 if [ "$OS_NAME" = "Darwin" ]; then
-  IS_MAC=true
+    IS_MAC=true
 elif [ "$OS_NAME" = "Linux" ]; then
-  IS_DOCKER=true
+    IS_DOCKER=true
 fi
 
 # ======================================================
@@ -624,7 +624,6 @@ tool-box() {
     fi
     CMD=$(echo $TOOL_BOX | jq ".[] | select(.name == $TARGET) | .cmd")
     CMD="${CMD:1:-1}" # 前後のダブルクォーとを取ってevalに渡す
-    echo $CMD
     confirm $CMD
 }
 
