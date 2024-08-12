@@ -57,6 +57,22 @@ cd fonts
 cd ..
 \rm -rf fonts
 
+echo "=========================================================="
+echo "[Git] create ~/.gitconfig"
+echo "=========================================================="
+cat << "EOF" > ~/.gitconfig
+[user]
+    name = さーな
+    email = 37serna37serna37serna@gmail.com
+EOF
+if [ "$(uname -s)" = "Darwin" ]; then
+    # 最初だけ認証が必要 netrcに書いてもよいが...
+    # OSキーチェーンに保存する
+    git config --global credential.helper osxkeychain
+    # git config --global credential.helper store
+    # git config --global credential.helper store --file ファイルパス
+fi
+
 # end
 exec $SHELL -l
 
