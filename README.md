@@ -1,5 +1,5 @@
 [![tag](https://img.shields.io/badge/tag-v9.0.1-green)](https://github.com/serna37/dotfiles/releases/tag/v9.0.1)
-[![tag_release](https://github.com/serna37/dotfiles/actions/workflows/tag_release.yml/badge.svg?branch=master)](https://github.com/serna37/dotfiles/actions/workflows/tag_release.yml)
+
 # dotfiles
 <a href="https://github.com/serna37/dotfiles/blob/master/install.sh">
     <img src="http://img.shields.io/badge/homebrew-4.2.21-FBB040.svg?logo=homebrew&logoColor=FBB040&labelColor=fafffe&style=for-the-badge">
@@ -12,8 +12,6 @@
     <img src="http://img.shields.io/badge/vim-9.0-019733.svg?logo=vim&logoColor=019733&labelColor=dedede&style=popout-square">
 </a>
 
-- [Author Profile](https://github.com/serna37)
-
 ## Installation
 - `Homebrew`を入れる
 ```shell
@@ -25,24 +23,21 @@
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/serna37/dotfiles/master/install.sh)"
 ```
 
-ちょっとサーバで作業したいときの最低限コマンド
+## 軽量版
+- [軽量版zshrc](https://github.com/serna37/dotfiles/blob/master/conf/zsh/.zshrc.light)
+- [軽量版vimrc](https://github.com/serna37/dotfiles/blob/master/conf/vim/.vimrc.light)
+
+## 一時コピペ用
 ```vim
 syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase smartcase shortmess-=S
 ```
-また、依存なしを重視した[軽量版vimrc](https://github.com/serna37/dotfiles/blob/master/conf/vim/.vimrc.light)を用意している。
-
-
-- サーバや仕事PCに入れる軽量版ファイル
-- 突発で入れたいコピペ用設定
-
+```zsh
+# TODO
+```
 
 ## 関連
-- [serna37/library](https://github.com/serna37/library)
-(`install.sh`からcloneし設定されます)
-
+- [serna37/library](https://github.com/serna37/library)を導入します
 - 主に[Terminal Trove](https://terminaltrove.com/)からコマンドを選んでいます
-- 開発関連のツール等を[obsidian-forge](https://github.com/serna37/obsidian-forge)にまとめています
-サーバ用のdotfileと、開発~デプロイまでのSDK
 
 ## dotfiles構成
 <!-- file tree -->
@@ -58,10 +53,10 @@ syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase 
 │   ├── devbox/   : 自作Devコンテナ用設定ファイル
 │   ├── snippets/ : 雑多スニペットファイル
 │   ├── ssh/      : ssh用設定ファイル
-│   ├── zsh/      : zsh用設定ファイル
-│   └── vim/      : vim用設定ファイル
+│   ├── vim/      : vim用設定ファイル
+│   └── zsh/      : zsh用設定ファイル
 │
-├── .p10k.zsh     : powerlevel10k設定
+├── .gitconfig    : git設定
 ├── .vimrc        : vim設定
 ├── .wezterm.lua  : wezterm設定
 ├── .zshrc        : zsh設定
