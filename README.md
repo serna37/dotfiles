@@ -28,11 +28,13 @@
 - [軽量版vimrc](https://github.com/serna37/dotfiles/blob/master/conf/vim/.vimrc.light)
 
 ## 一時コピペ用
-```vim
-syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase smartcase shortmess-=S
-```
+- vim
+- zsh
 ```zsh
 # TODO
+```
+```vim
+syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase smartcase shortmess-=S
 ```
 
 ## 関連
