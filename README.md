@@ -28,13 +28,17 @@
 - [軽量版vimrc](https://github.com/serna37/dotfiles/blob/master/conf/light/.vimrc.light)
 
 ## 一時コピペ用
-- vim
 - zsh
 ```zsh
-# TODO
+alias v='vim'
+alias l='ls -AFlihrt --color=auto'
+alias tree="pwd;find . | sort | sed '1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'"
+alias rm='rm -i'
+alias q='exit'
 ```
+- vim
 ```vim
-syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase smartcase shortmess-=S
+syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase smartcase shortmess-=S noswapfile nobackup noundofile fileformat=unix fileencoding=utf8 clipboard+=unnamed list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 ```
 
 ## 関連
