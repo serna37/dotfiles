@@ -10,9 +10,6 @@ if [ "$(uname)" = "Darwin" ]; then
     [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
     autoload -Uz compinit
     compinit
-    if ! type gh > /dev/null 2>&1; then
-        brew install gh
-    fi
     eval "$(gh completion -s zsh)"
 fi
 

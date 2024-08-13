@@ -18,9 +18,6 @@
 #veeso/termscp/termscp
 #tako8ki/tap/gobang
 
-# GitHub CLI
-#gh
-
 # Utility
 #ffmpeg
 #silicon
@@ -38,6 +35,7 @@
 # brew install用
 REPOS=(
 git
+gh
 
 # Mac Apple Store CLI
 mas
