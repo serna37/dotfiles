@@ -14,7 +14,7 @@ work_dir=__work
 cd $dotfiles_snippet_dir
 no_del=($(ls))
 
-if command -v genact > /dev/null 2>&1; then
+if type genact > /dev/null 2>&1; then
     genact -s 10 --exit-after-modules 1 -m botnet
 fi
 echo "===================================================="
@@ -22,14 +22,14 @@ echo "===================================================="
 sleep 0.5
 echo " >> STEP1. DELETE old snippets ( without whitelist )"
 cd $snippet_dir
-for v in $(\find . -maxdepth 1 -type f ! -name '${no_del[@]}'); do
-    rm "$v"
+for v in $(find . -maxdepth 1 -type f ! -name '${no_del[@]}'); do
+    \rm "$v"
 done
 
 sleep 0.5
 echo " >> STEP2. GENERATE snippets up to over 200 char"
 cd $library_root
-files=($(\find . -mindepth 2 -type f -not -path '*/.*'))
+files=($(find . -mindepth 2 -type f -not -path '*/.*'))
 mkdir $work_dir
 cnt=1
 create=$work_dir/$cnt.snippets
@@ -37,7 +37,7 @@ touch $create
 line=0
 for v in $files; do
     l=$(wc -l < $v)
-    if [[ $((line + l + 2))  -gt 200 ]] then
+    if [[ $((line + l + 2)) -gt 200 ]] then
         ((cnt++))
         line=0
         create=$work_dir/$cnt.snippets
@@ -55,14 +55,12 @@ for v in $files; do
     echo "endsnippet" >> $create
 done
 
-sleep 0.5
 echo " >> STEP3. Move snippets files for extension root ( $snippet_dir )"
 cd $library_root/$work_dir
 generated=(*.snippets)
 mv *.snippets $snippet_dir
 cd $library_root && rm -r $work_dir
 
-sleep 0.5
 echo " >> STEP4. Bundle snippets in the root file"
 cd $snippet_dir
 root_sni=cpp.snippets
@@ -78,7 +76,7 @@ for v in $generated; do
 done
 
 echo "===================================================="
-if command -v genact > /dev/null 2>&1; then
+if type genact > /dev/null 2>&1; then
     genact -s 10 --exit-after-modules 1 -m bruteforce
 fi
 
