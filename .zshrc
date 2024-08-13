@@ -1,11 +1,11 @@
 # TODO [WIP] OS判定だけど、CentOS系もLinuxなので、aptなのかyumなのか判断つかない。
 
-source ~/git/dotfiles/conf/zsh/.zshrc.init
+source ~/git/dotfiles/conf/zsh/.zshrc.dotfiles_conf
 source ~/git/dotfiles/conf/zsh/.zshrc.prompt
-source ~/git/dotfiles/conf/zsh/.zshrc.lang
-source ~/git/dotfiles/conf/zsh/.zshrc.install
+source ~/git/dotfiles/conf/zsh/.zshrc.lang_path
+source ~/git/dotfiles/conf/zsh/.zshrc.install_necessary
 source ~/git/dotfiles/conf/zsh/.zshrc.cmds
-source ~/git/dotfiles/conf/zsh/.zshrc.tools
+source ~/git/dotfiles/conf/zsh/.zshrc.dev_tools
 source ~/git/dotfiles/conf/zsh/.zshrc.toolbox
 source ~/git/dotfiles/conf/zsh/.zshrc.devbox
 
