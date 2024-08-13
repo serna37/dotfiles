@@ -43,11 +43,6 @@ zsh ~/git/dotfiles/conf/cpp/library.zsh
 ln -nfs ~/git/dotfiles/conf/snippets/* ~/.vim/UltiSnips/
 
 echo "=========================================================="
-echo "[tool] atcoder-cli"
-echo "=========================================================="
-npm install -g atcoder-cli
-
-echo "=========================================================="
 echo "[tool] install font"
 echo "=========================================================="
 cd ~/git
@@ -72,6 +67,9 @@ if [ "$(uname -s)" = "Darwin" ]; then
     # git config --global credential.helper store
     # git config --global credential.helper store --file ファイルパス
 fi
+
+# TODO gh auth
+# forgeから持ってくる
 
 # end
 exec $SHELL -l
