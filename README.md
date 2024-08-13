@@ -31,6 +31,11 @@ syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase 
 ```
 また、依存なしを重視した[軽量版vimrc](https://github.com/serna37/dotfiles/blob/master/conf/vim/.vimrc.light)を用意している。
 
+
+- サーバや仕事PCに入れる軽量版ファイル
+- 突発で入れたいコピペ用設定
+
+
 ## 関連
 - [serna37/library](https://github.com/serna37/library)
 (`install.sh`からcloneし設定されます)
