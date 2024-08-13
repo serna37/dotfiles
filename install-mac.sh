@@ -1,8 +1,6 @@
 #!/bin/bash
 
-# brew install用
-REPOS=(
-
+# 以下はzsh中で、必要になった時にinstallされる
 # 開発ツール
 #git
 #vim
@@ -18,12 +16,8 @@ REPOS=(
 #lazydocker
 #gum
 #yazi
-#sshs # いらんかな
 #veeso/termscp/termscp
 #tako8ki/tap/gobang
-
-# Mac Apple Store CLI
-mas
 
 # GitHub CLI
 #gh
@@ -39,6 +33,13 @@ mas
 #cmatrix
 #fastfetch
 #screenfetch
+
+# =========================================-
+
+# brew install用
+REPOS=(
+# Mac Apple Store CLI
+mas
 
 # shell支援
 powerlevel10k
@@ -57,11 +58,6 @@ sqlite
 #go
 #java11
 )
-echo "===========================START==========================="
-echo "brew install"
-echo "=========================================================="
-brew list
-brew cleanup
 for v in ${REPOS[@]}; do
     brew reinstall $v
     wait $!
@@ -74,23 +70,11 @@ orbstack
 maccy
 keycastr
 )
-echo "=========================================================="
-echo "brew cask install"
-echo "=========================================================="
 for v in ${CASK_REPOS[@]}; do
     brew reinstall --cask $v
     wait $!
 done
 
-echo "=========================================================="
-echo "brew clean list"
-echo "=========================================================="
-brew cleanup
-brew list
-
-echo "=========================================================="
-echo "mas install apps"
-echo "=========================================================="
 MAS_IDS=(
 1429033973 # RunCat
 1187652334 # Fuwari
