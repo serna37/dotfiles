@@ -1,0 +1,11 @@
+" =====================================================================
+" Docker用クリップボード
+" =====================================================================
+if system('uname -s')->split('\n')[0] =~ 'Linux'
+    aug Yank
+        au!
+        " yankした文字列を共有ファイルに書き込む
+        au TextYankPost * cal system('tee <&0 > /shared-register/clip', @")
+    aug END
+endif
+
