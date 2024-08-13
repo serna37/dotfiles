@@ -117,7 +117,7 @@ cd ..
 
 # git
 if [ "$(uname)" = "Darwin" ]; then
-    # 最初だけ認証が必要. netrcに書いてもよいが...
+    # 最初だけ認証が必要
     # OSキーチェーンに保存する
     git config --global credential.helper osxkeychain
     # git config --global credential.helper store
