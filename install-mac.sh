@@ -2,7 +2,6 @@
 
 # 以下はzsh中で、必要になった時にinstallされる
 # 開発ツール
-#git
 #vim
 #zoxide
 #eza
@@ -38,6 +37,8 @@
 
 # brew install用
 REPOS=(
+git
+
 # Mac Apple Store CLI
 mas
 
