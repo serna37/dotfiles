@@ -1,7 +1,9 @@
 #!/bin/zsh
 
 # clone
-cd ~/git && git clone https://github.com/serna37/library
+if [ ! -d ~/git/library ]; then
+    cd ~/git && git clone https://github.com/serna37/library
+fi
 
 # profile
 library_root=~/git/library/
