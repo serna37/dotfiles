@@ -1,5 +1,6 @@
 syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase smartcase shortmess-=S
 let mapleader = "\<Space>"
+
 " 使ってたが不要なものをコメントアウトで残してる、そのうち消したい
 " Plugin管理
 " =====================================================================
