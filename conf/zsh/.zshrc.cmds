@@ -37,7 +37,7 @@ function confirm() {
 # spin 'loading...' sleep 3
 function spin() {
     _install_not_exist_gum
-    gum spin --title "$1" -- ${@:2}
+    gum spin --title "$1" -- "${@:2}"
 }
 
 # vim
