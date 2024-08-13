@@ -752,8 +752,6 @@ cpp_ini() {
 # -mtune=native マシン最適化
 # -march=native マシン最適化
 # -fconstexpr-depth=2147483647 コンパイル時の再帰回数
-# -fconstexpr-loop-limit=2147483647 評価回数上限
-# -fconstexpr-ops-limit=2147483647 評価回数上限
 export CPP_BUILD_CMD="g++ -std=c++20 \
 -I $HOME/git/dotfiles/conf/cpp \
 -Wall \
@@ -761,8 +759,6 @@ export CPP_BUILD_CMD="g++ -std=c++20 \
 -mtune=native \
 -march=native \
 -fconstexpr-depth=2147483647 \
--fconstexpr-loop-limit=2147483647 \
--fconstexpr-ops-limit=2147483647 \
 -o "
 
 # -ftrapv 符号あり整数計算でover under flow
@@ -775,8 +771,6 @@ export CPP_BUILD_CMD_SANITIZE="g++ -std=c++20 \
 -mtune=native \
 -march=native \
 -fconstexpr-depth=2147483647 \
--fconstexpr-loop-limit=2147483647 \
--fconstexpr-ops-limit=2147483647 \
 -ftrapv \
 -fsanitize-undefined-trap-on-error \
 -fsanitize=address \
