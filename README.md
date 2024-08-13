@@ -4,6 +4,7 @@
 <a href="https://github.com/serna37/dotfiles/blob/master/install.sh">
     <img src="http://img.shields.io/badge/homebrew-4.2.21-FBB040.svg?logo=homebrew&logoColor=FBB040&labelColor=fafffe&style=for-the-badge">
 </a>
+<br />
 <a href="https://github.com/serna37/dotfiles/blob/master/.zshrc">
     <img src="http://img.shields.io/badge/zsh-5.9_x86_64-0000cd.svg?logo=zsh&logoColor=0000cd&labelColor=a3a3a3&style=popout-square">
 </a>
