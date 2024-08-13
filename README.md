@@ -24,8 +24,8 @@
 ```
 
 ## 軽量版
-- [軽量版zshrc](https://github.com/serna37/dotfiles/blob/master/conf/zsh/.zshrc.light)
-- [軽量版vimrc](https://github.com/serna37/dotfiles/blob/master/conf/vim/.vimrc.light)
+- [軽量版zshrc](https://github.com/serna37/dotfiles/blob/master/conf/light/.zshrc.light)
+- [軽量版vimrc](https://github.com/serna37/dotfiles/blob/master/conf/light/.vimrc.light)
 
 ## 一時コピペ用
 - vim
