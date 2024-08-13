@@ -167,12 +167,19 @@ nnoremap <silent><Leader>s :CocCommand fzf-preview.Lines<CR>
 nnoremap <silent><Leader>m :CocCommand fzf-preview.Bookmarks<CR>
 nnoremap <silent><Leader>nn :CocCommand fzf-preview.MemoList<CR>
 nnoremap <silent><Leader>ng :CocCommand fzf-preview.MemoListGrep .<CR>
-fu! s:grep() abort
+"au QuickFixCmdPost *grep* cwindow
+fu! s:vimgrep() abort
+    let w = input('[word]>>', expand('<cword>'))
+    execute('vim '.w.' `git ls-files` | cw')
+endf
+fu! s:fzfgrep() abort
     let w = input('[word]>>', expand('<cword>'))
     execute('CocCommand fzf-preview.ProjectGrep '.w)
 endf
-noremap <silent><Plug>(fzf-grep) :<C-u>cal <SID>grep()<CR>
-nnoremap <Leader>g <Plug>(fzf-grep)
+noremap <silent><Plug>(vim-grep) :<C-u>cal <SID>vimgrep()<CR>
+noremap <silent><Plug>(fzf-grep) :<C-u>cal <SID>fzfgrep()<CR>
+nnoremap <Leader>g <Plug>(vim-grep)
+nnoremap <Leader><Leader>g <Plug>(fzf-grep)
 if !glob('~/.vim/plugged/coc.nvim')->empty()
     au DirChanged * cal execute('CocCommand explorer --no-focus --width 30')
 endif
