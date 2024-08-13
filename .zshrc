@@ -744,6 +744,7 @@ cpp_ini() {
 }
 
 # C++ビルドコマンド
+# AtCoderでの指定: https://atcoder.jp/contests/APG4b/rules?lang=ja
 # -std=c++20 バージョン指定
 # -I includeパス
 # -Wall 警告オプションまとめ
@@ -751,16 +752,31 @@ cpp_ini() {
 # -mtune=native マシン最適化
 # -march=native マシン最適化
 # -fconstexpr-depth=2147483647 コンパイル時の再帰回数
-# -ftrapv 符号あり整数計算でover under flow
-# -fsanitize-undefined-trap-on-error 未定義サニタイザ
-# -fsanitize=address アドレスサニタイザ
-export CC_BUILD_CMD="g++ -std=c++20 \
+# -fconstexpr-loop-limit=2147483647 評価回数上限
+# -fconstexpr-ops-limit=2147483647 評価回数上限
+export CPP_BUILD_CMD="g++ -std=c++20 \
 -I $HOME/git/dotfiles/conf/cpp \
 -Wall \
 -Wextra \
 -mtune=native \
 -march=native \
 -fconstexpr-depth=2147483647 \
+-fconstexpr-loop-limit=2147483647 \
+-fconstexpr-ops-limit=2147483647 \
+-o "
+
+# -ftrapv 符号あり整数計算でover under flow
+# -fsanitize-undefined-trap-on-error 未定義サニタイザ
+# -fsanitize=address アドレスサニタイザ
+export CPP_BUILD_CMD_SANITIZE="g++ -std=c++20 \
+-I $HOME/git/dotfiles/conf/cpp \
+-Wall \
+-Wextra \
+-mtune=native \
+-march=native \
+-fconstexpr-depth=2147483647 \
+-fconstexpr-loop-limit=2147483647 \
+-fconstexpr-ops-limit=2147483647 \
 -ftrapv \
 -fsanitize-undefined-trap-on-error \
 -fsanitize=address \
@@ -768,9 +784,14 @@ export CC_BUILD_CMD="g++ -std=c++20 \
 
 # C++ビルド+実行
 cpp_exe() {
+    RUN_MODE=$(gum choose "normal" "sanitize")
+    CMD=$CPP_BUILD_CMD
+    if [ $RUN_MODE = "sanitize" ]; then
+        CMD=$CPP_BUILD_CMD_SANITIZE
+    fi
     echo "==================================="
     echo_info "build :$1 processing..."
-    eval "$CC_BUILD_CMD _cpp_tmp $1 2>&1"
+    eval "$CPP_BUILD_CMD _cpp_tmp $1 2>&1"
     echo_info "build :$1 complete."
     echo "==================================="
     echo -e "\e[33m-----------------------------\e[m"

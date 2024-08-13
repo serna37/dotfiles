@@ -618,7 +618,7 @@ fu! s:ac_test.exe() abort
     cal setbufvar(winbufnr(self.wid), '&filetype', 'log')
     cal matchadd('AC_TEST_WIN', 'SUCCESS',  16, -1, #{window: self.wid})
     let cmd = "cd ".task
-    let cmd = cmd.' && '.$CC_BUILD_CMD.' main main.cpp'
+    let cmd = cmd.' && '.$CPP_BUILD_CMD.' main main.cpp'
     let cmd = cmd.' && oj t -c "./main"'
     cal job_start(["/bin/zsh", "-c", cmd], #{out_cb: self.async})
     let self.tid = timer_start(10000, { -> self.close()})
