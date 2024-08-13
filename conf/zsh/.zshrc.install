@@ -1,0 +1,152 @@
+# vim
+function _install_not_exist_vim() {
+    if ! type vim > /dev/null 2>&1; then
+        brew install vim
+    else
+        # vim 9.x以上でない場合
+        VIM_MAJOR_VERSION=$(vim --version | grep IMproved | sed 's/^.*IMproved \(.*\) (.*/\1/' | sed 's/\..*//g')
+        if [ ! $VIM_MAJOR_VERSION -ge 9 ]; then
+            brew reinstall vim
+        fi
+    fi
+}
+
+# zoxide
+function _install_not_exist_zoxide() {
+    if ! type zoxide > /dev/null 2>&1; then
+        brew install zoxide
+    fi
+}
+
+# eza
+function _install_not_exist_eza() {
+    if ! type eza > /dev/null 2>&1; then
+        brew install eza
+    fi
+}
+
+# fzf
+function _install_not_exist_fzf() {
+    if ! type fzf > /dev/null 2>&1; then
+        brew install fzf
+    fi
+}
+
+# bat
+function _install_not_exist_bat() {
+    if ! type bat > /dev/null 2>&1; then
+        brew install bat
+    fi
+}
+
+# lazygit
+function _install_not_exist_lazygit() {
+    if ! type git > /dev/null 2>&1; then
+        brew install git
+    fi
+    if ! type lazygit > /dev/null 2>&1; then
+        brew install lazygit
+    fi
+}
+
+# lazydocker
+function _install_not_exist_lazydocker() {
+    if ! type lazydocker > /dev/null 2>&1; then
+        brew install lazydocker
+    fi
+}
+
+# gum
+function _install_not_exist_gum() {
+    if ! type gum > /dev/null 2>&1; then
+        brew install gum
+    fi
+}
+
+# yazi
+function _install_not_exist_yazi() {
+    if ! type yazi > /dev/null 2>&1; then
+        brew install yazi
+    fi
+    if [ ! -f ~/.config/yazi/yazi.toml ]; then
+        ln -nfs ~/git/dotfiles/conf/config/yazi.toml ~/.config/yazi/yazi.toml
+    fi
+}
+
+# veeso/termscp/termscp
+function _install_not_exist_termscp() {
+    if ! type termscp > /dev/null 2>&1; then
+        brew install veeso/termscp/termscp
+    fi
+}
+
+# tako8ki/tap/gobang
+function _install_not_exist_gobang() {
+    if ! type gobang > /dev/null 2>&1; then
+        brew install tako8ki/tap/gobang
+    fi
+    if [ ! -f ~/.config/gobang/config.toml ]; then
+        ln -nfs ~/git/dotfiles/conf/config/gpbang/config.toml ~/.config/gobang/config.toml
+    fi
+}
+
+# ffmpeg
+function _install_not_exist_ffmpeg() {
+    if ! type ffmpeg > /dev/null 2>&1; then
+        brew install ffmpeg
+    fi
+}
+
+# fastfetch
+function _install_not_exist_fastfetch() {
+    if ! type fastfetch > /dev/null 2>&1; then
+        brew install fastfetch
+    fi
+}
+
+# screenfetch
+function _install_not_exist_screenfetch() {
+    if ! type screenfetch > /dev/null 2>&1; then
+        brew install screenfetch
+    fi
+}
+
+# others
+function _install_not_exist_others() {
+    # developer tools
+    # gh
+    if ! type gh > /dev/null 2>&1; then
+        brew install gh
+    fi
+    # ripgrep
+    if ! type rg > /dev/null 2>&1; then
+        brew install ripgrep
+    fi
+    # jq
+    if ! type jq > /dev/null 2>&1; then
+        brew install jq
+    fi
+    # silicon
+    if ! type silicon > /dev/null 2>&1; then
+        brew install silicon
+    fi
+    # code-minimap
+    if ! type code-minimap > /dev/null 2>&1; then
+        brew install code-minimap
+    fi
+
+    # make me happy
+    # genact
+    if ! type genact > /dev/null 2>&1; then
+        brew install genact
+    fi
+    # tty-clock
+    if ! type tty-clock > /dev/null 2>&1; then
+        brew install tty-clock
+    fi
+    # cmatrix
+    if ! type cmatrix > /dev/null 2>&1; then
+        brew install cmatrix
+    fi
+}
+

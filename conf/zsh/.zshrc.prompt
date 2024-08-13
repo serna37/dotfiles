@@ -1,0 +1,28 @@
+HISTSIZE=1000
+SAVEHIST=1000
+setopt no_beep
+
+if [ "$(uname)" = "Darwin" ]; then
+    source /opt/homebrew/opt/zsh-git-prompt/zshrc.sh
+    source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme
+    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+    autoload -Uz compinit
+    compinit
+    if ! type gh > /dev/null 2>&1; then
+        brew install gh
+    fi
+    eval "$(gh completion -s zsh)"
+fi
+
+if [ "$(uname)" = "Linux" ]; then
+    export ZSH="$HOME/.oh-my-zsh"
+    ZSH_THEME="fino"
+    plugins=(
+      zsh-autosuggestions
+      zsh-syntax-highlighting
+    )
+    source $ZSH/oh-my-zsh.sh
+fi
+

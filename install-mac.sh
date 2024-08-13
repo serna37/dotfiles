@@ -4,41 +4,41 @@
 REPOS=(
 
 # 開発ツール
-git
-vim
-zoxide
-eza
-fzf
-bat
-ripgrep
-jq
+#git
+#vim
+#zoxide
+#eza
+#fzf
+#bat
+#ripgrep
+#jq
 
 # TUIツール
-lazygit
-lazydocker
-gum
-yazi
-sshs
-veeso/termscp/termscp
-tako8ki/tap/gobang
+#lazygit
+#lazydocker
+#gum
+#yazi
+#sshs # いらんかな
+#veeso/termscp/termscp
+#tako8ki/tap/gobang
 
 # Mac Apple Store CLI
 mas
 
 # GitHub CLI
-gh
+#gh
 
 # Utility
-ffmpeg
-silicon
-code-minimap
+#ffmpeg
+#silicon
+#code-minimap
 
 # Make me happy
-genact
-tty-clock
-cmatrix
-fastfetch
-screenfetch
+#genact
+#tty-clock
+#cmatrix
+#fastfetch
+#screenfetch
 
 # shell支援
 powerlevel10k

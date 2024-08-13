@@ -1,0 +1,154 @@
+# 情報ログ形式でecho
+# info 'Hello World!'
+# info 'test \e[33m yellw'  途中から色を変えることも可能
+function info() {
+    #echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m$1\e[m"
+    printf "\e[32m[\e[34mINFO\e[32m] \e[34m$1\e[m\n"
+}
+function warn() {
+    printf "\e[32m[\e[33mWARN\e[32m] \e[34m$1\e[m\n"
+}
+function error() {
+    printf "\e[32m[\e[31mERROR\e[32m] \e[34m$1\e[m\n"
+}
+
+# 確認ダイアログ越しにコマンド実行
+# confirm echo Hello World!
+function confirm() {
+    CMD=$@
+    _install_not_exist_gum
+    if type gum > /dev/null 2>&1; then
+        gum confirm && eval $CMD || info 'cancel'
+    else
+        if [ -n "$ZSH_VERSION" ]; then
+            read "input?Are you sure? (y/n):"
+        else
+            read -p "Are you sure? (y/n):" input
+        fi
+        if [ "$input" = "y" ]; then
+            eval $CMD
+        else
+            info "cancel"
+        fi
+    fi
+}
+
+# 標準出力を出さずに、ロード中spinを表示
+# spin 'loading...' sleep 3
+function spin() {
+    _install_not_exist_gum
+    gum spin --title "$1" -- ${@:2}
+}
+
+# vim
+function v() {
+    _install_not_exist_vim
+    if [ ! -d ~/.vim/plugged ]; then
+        # vim-plugがない場合
+        spin 'install vim-plug' \
+            curl -fSsLo ~/.vim/autoload/plug.vim --create-dirs \
+            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        vim -c "PlugInstall"
+    else
+        vim -c "CocCommand explorer --no-focus --width 30" $@
+    fi
+}
+
+# zoxide
+# eza fzf bat
+_install_not_exist_zoxide
+_install_not_exist_eza
+_install_not_exist_fzf
+_install_not_exist_bat
+if type zoxide > /dev/null 2>&1; then
+    eval "$(zoxide init zsh)"
+fi
+export _ZO_FZF_OPTS='
+    --no-sort --height 75% --reverse --margin=0,1 --exit-0 --select-1
+    --bind ctrl-f:page-down,ctrl-b:page-up
+    --bind pgdn:preview-page-down,pgup:preview-page-up
+    --prompt="❯ "
+    --color bg+:#262626,fg+:#dadada,hl:#f09479,hl+:#f09479
+    --color border:#303030,info:#cfcfb0,header:#80a0ff,spinner:#36c692
+    --color prompt:#87afff,pointer:#ff5189,marker:#f09479
+    --preview "([[ -e '{2..}/README.md' ]] && bat --color=always --style=numbers --line-range=:50 '{2..}/README.md') || eza --color=always --group-directories-first --oneline {2..}"
+'
+alias zv='zi && v'
+
+# terminal ctrl
+alias rm='rm -i'
+alias rmf='confirm rm -rf'
+alias re='exec $SHELL -l'
+alias q='exit'
+
+# ls
+function l() {
+    _install_not_exist_eza
+    if type eza > /dev/null 2>&1; then
+        if [ "$(uname)" = "Darwin" ]; then
+            eza -abghHliS --icons --git $@
+        else
+            eza -abghHliS $@
+        fi
+    else
+        if [ "$(uname)" = "Darwin" ]; then
+            ls -AFGlihrt --color=auto $@
+        else
+            ls -AFlihrt --color=auto $@
+        fi
+    fi
+}
+function tree() {
+    _install_not_exist_eza
+    if type eza > /dev/null 2>&1; then
+        if [ "$(uname)" = "Darwin" ]; then
+            eza -bghHliST --icons --git $@
+        else
+            eza -bghHliST $@
+        fi
+    else
+        pwd;find . | sort | sed '1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'
+    fi
+}
+
+# TUI
+function e() {
+    _install_not_exist_yazi
+    yazi
+}
+function db() {
+    _install_not_exist_gobang
+    gobang
+}
+function cyber() {
+    _install_not_exist_termscp
+    termscp
+}
+function g() {
+    _install_not_exist_lazygit
+    lazygit
+}
+function d() {
+    _install_not_exist_lazydocker
+    lazydocker
+}
+
+# バックiサーチをhistoryのfzfにする
+function incremental_search_history() {
+  selected=`history -E 0 | fzf --tac --height 75% --reverse --margin=0,1 | cut -b 24-`
+  BUFFER=`[ ${#selected} -gt 0 ] && echo $selected || echo $BUFFER`
+  CURSOR=${#BUFFER}
+  zle redisplay
+}
+zle -N incremental_search_history
+bindkey "^r" incremental_search_history
+
+# others
+function gif() {
+    _install_not_exist_ffmpeg
+    _install_not_exist_gum
+    ffmpeg -i $(ls -A | gum choose) -r 10 $(gum input --prompt 'e.g.) test.gif: ')
+}
+
+_install_not_exist_others
+

@@ -1,0 +1,32 @@
+# ssh接続設定
+if [ ! -f ~/.ssh/config ]; then
+    mkdir -p ~/.ssh > /dev/null 2>&1
+    ln -nfs ~/git/dotfiles/conf/sshs/config ~/.ssh/config
+fi
+
+# コメント行から改行した際、次の行をコメントにしない設定
+if [ ! -f ~/.vim/after/plugin/common-settings.vim ]; then
+    mkdir -p ~/.vim/after/plugin > /dev/null 2>&1
+    cp ~/git/dotfiles/conf/vim/common-settings.vim ~/.vim/after/plugin/
+fi
+
+# coc用設定
+if [ ! -f ~/.vim/coc-settings.json ]; then
+    mkdir -p ~/.vim > /dev/null 2>&1
+    ln -nfs ~/git/dotfiles/conf/vim/coc-settings.json ~/.vim/coc-settings.json
+fi
+
+# snippets
+# TODO library更新時の適用は?
+if [ ! -d ~/.vim/UltiSnips ]; then
+    mkdir -p ~/.vim/UltiSnips > /dev/null 2>&1
+    ln -nfs ~/git/dotfiles/conf/cpp/snippets/* ~/.vim/UltiSnips/
+    zsh ~/git/dotfiles/conf/cpp/library.zsh
+    ln -nfs ~/git/dotfiles/conf/snippets/* ~/.vim/UltiSnips/
+fi
+
+# gitconfig
+if [ ! -f ~/.gitconfig ]; then
+    ln -nfs ~/git/dotfiles/.gitconfig ~/.gitconfig
+fi
+

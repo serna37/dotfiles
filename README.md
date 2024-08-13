@@ -53,13 +53,13 @@ syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase 
 ```
 .
 ├── conf/
+│   ├── config/   : ~/.config配下のファイル
 │   ├── cpp/      : C++用設定ファイル デバッグ、フォーマット設定等
 │   ├── devbox/   : 自作Devコンテナ用設定ファイル
-│   ├── gobang/   : gobang用設定ファイル
 │   ├── snippets/ : 雑多スニペットファイル
-│   ├── sshs/     : sshs用設定ファイル
-│   ├── vim/      : vim用追加設定ファイル
-│   └── yazi/     : yazi用設定ファイル
+│   ├── ssh/      : ssh用設定ファイル
+│   ├── zsh/      : zsh用設定ファイル
+│   └── vim/      : vim用設定ファイル
 │
 ├── .p10k.zsh     : powerlevel10k設定
 ├── .vimrc        : vim設定
