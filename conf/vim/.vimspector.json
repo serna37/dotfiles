@@ -22,7 +22,7 @@
             "default": true,
             "variables": {
                 "BUILDME": {
-                    "shell": "g++ -g -std=c++20 -I $HOME/git/dotfiles/conf/cpp -Wall -Wextra -mtune=native -march=native -fconstexpr-depth=2147483647 -fconstexpr-loop-limit=2147483647 -fconstexpr-ops-limit=2147483647 -o ${workspaceRoot}/debug_build ${file}"
+                    "shell": "g++ -g -std=c++20 -I $HOME/git/dotfiles/conf/cpp -Wall -Wextra -mtune=native -march=native -fconstexpr-depth=2147483647 -o ${workspaceRoot}/debug_build ${file}"
                 },
                 "arch": {
                     "shell": "uname -m"
