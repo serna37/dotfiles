@@ -785,7 +785,7 @@ cpp_exe() {
     fi
     echo "==================================="
     echo_info "build :$1 processing..."
-    eval "$CPP_BUILD_CMD _cpp_tmp $1 2>&1"
+    eval "$CMD _cpp_tmp $1 2>&1"
     echo_info "build :$1 complete."
     echo "==================================="
     echo -e "\e[33m-----------------------------\e[m"
