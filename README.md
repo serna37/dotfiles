@@ -67,10 +67,7 @@ syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase 
 ├── .wezterm.lua  : wezterm設定
 ├── .zshrc        : zsh設定
 │
-├── install-docker.sh  : devコンテナ用インストーラ
-├── install-mac.sh     : Mac用インストーラ
-├── install.sh         : OSで分岐するインストーラ
-└── setup.sh           : dotfilesの適用, install.shから呼ばれる
+└── install.sh    : OSで分岐するインストーラ
 ```
 
 ---
