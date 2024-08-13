@@ -1,7 +1,7 @@
 # ssh接続設定
-if [ ! -f ~/.ssh/config ]; then
+if [ ! -L ~/.ssh/config ]; then
     mkdir -p ~/.ssh > /dev/null 2>&1
-    ln -nfs ~/git/dotfiles/conf/sshs/config ~/.ssh/config
+    ln -nfs ~/git/dotfiles/conf/ssh/config ~/.ssh/config
 fi
 
 # コメント行から改行した際、次の行をコメントにしない設定
@@ -11,7 +11,7 @@ if [ ! -f ~/.vim/after/plugin/common-settings.vim ]; then
 fi
 
 # coc用設定
-if [ ! -f ~/.vim/coc-settings.json ]; then
+if [ ! -L ~/.vim/coc-settings.json ]; then
     mkdir -p ~/.vim > /dev/null 2>&1
     ln -nfs ~/git/dotfiles/conf/vim/coc-settings.json ~/.vim/coc-settings.json
 fi
@@ -26,7 +26,7 @@ if [ ! -d ~/.vim/UltiSnips ]; then
 fi
 
 # gitconfig
-if [ ! -f ~/.gitconfig ]; then
+if [ ! -L ~/.gitconfig ]; then
     ln -nfs ~/git/dotfiles/.gitconfig ~/.gitconfig
 fi
 
