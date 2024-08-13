@@ -122,6 +122,11 @@ if [ "$(uname)" = "Darwin" ]; then
     git config --global credential.helper osxkeychain
     # git config --global credential.helper store
     # git config --global credential.helper store --file ファイルパス
+
+    # gh
+    if ! gh auth status > /dev/null 2>&1; then
+        gh auth login
+    fi
 fi
 
 exec $SHELL -l
