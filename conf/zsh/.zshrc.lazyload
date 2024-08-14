@@ -1,46 +1,37 @@
-# vim
-function _install_not_exist_vim() {
-    if ! type vim > /dev/null 2>&1; then
-        brew install vim
-    else
-        # vim 9.x以上でない場合
-        VIM_MAJOR_VERSION=$(vim --version | grep IMproved | sed 's/^.*IMproved \(.*\) (.*/\1/' | sed 's/\..*//g')
-        if [ ! $VIM_MAJOR_VERSION -ge 9 ]; then
-            brew reinstall vim
-        fi
-    fi
-}
+# 必要な時にインストールする用
 
+# ===============================
+# 開発ツール
 # zoxide
-function _install_not_exist_zoxide() {
+function _lazy_install_zoxide() {
     if ! type zoxide > /dev/null 2>&1; then
         brew install zoxide
     fi
 }
 
 # eza
-function _install_not_exist_eza() {
+function _lazy_install_eza() {
     if ! type eza > /dev/null 2>&1; then
         brew install eza
     fi
 }
 
 # fzf
-function _install_not_exist_fzf() {
+function _lazy_install_fzf() {
     if ! type fzf > /dev/null 2>&1; then
         brew install fzf
     fi
 }
 
 # bat
-function _install_not_exist_bat() {
+function _lazy_install_bat() {
     if ! type bat > /dev/null 2>&1; then
         brew install bat
     fi
 }
 
 # lazygit
-function _install_not_exist_lazygit() {
+function _lazy_install_lazygit() {
     if ! type git > /dev/null 2>&1; then
         brew install git
     fi
@@ -50,21 +41,21 @@ function _install_not_exist_lazygit() {
 }
 
 # lazydocker
-function _install_not_exist_lazydocker() {
+function _lazy_install_lazydocker() {
     if ! type lazydocker > /dev/null 2>&1; then
         brew install lazydocker
     fi
 }
 
 # gum
-function _install_not_exist_gum() {
+function _lazy_install_gum() {
     if ! type gum > /dev/null 2>&1; then
         brew install gum
     fi
 }
 
 # yazi
-function _install_not_exist_yazi() {
+function _lazy_install_yazi() {
     if ! type yazi > /dev/null 2>&1; then
         brew install yazi
     fi
@@ -74,14 +65,14 @@ function _install_not_exist_yazi() {
 }
 
 # veeso/termscp/termscp
-function _install_not_exist_termscp() {
+function _lazy_install_termscp() {
     if ! type termscp > /dev/null 2>&1; then
         brew install veeso/termscp/termscp
     fi
 }
 
 # tako8ki/tap/gobang
-function _install_not_exist_gobang() {
+function _lazy_install_gobang() {
     if ! type gobang > /dev/null 2>&1; then
         brew install tako8ki/tap/gobang
     fi
@@ -91,48 +82,53 @@ function _install_not_exist_gobang() {
 }
 
 # ffmpeg
-function _install_not_exist_ffmpeg() {
+function _lazy_install_ffmpeg() {
     if ! type ffmpeg > /dev/null 2>&1; then
         brew install ffmpeg
     fi
 }
 
 # fastfetch
-function _install_not_exist_fastfetch() {
+function _lazy_install_fastfetch() {
     if ! type fastfetch > /dev/null 2>&1; then
         brew install fastfetch
     fi
 }
 
 # screenfetch
-function _install_not_exist_screenfetch() {
+function _lazy_install_screenfetch() {
     if ! type screenfetch > /dev/null 2>&1; then
         brew install screenfetch
     fi
 }
 
-# others
-function _install_not_exist_others() {
-    # developer tools
-    # gh
-    if ! type gh > /dev/null 2>&1; then
-        brew install gh
-    fi
-    # ripgrep
+# ripgrep
+function _lazy_install_ripgrep() {
     if ! type rg > /dev/null 2>&1; then
         brew install ripgrep
     fi
-    # jq
-    if ! type jq > /dev/null 2>&1; then
-        brew install jq
-    fi
-    # silicon
+}
+
+# silicon
+function _lazy_install_silicon() {
     if ! type silicon > /dev/null 2>&1; then
         brew install silicon
     fi
-    # code-minimap
+}
+
+# code-minimap
+function _lazy_install_code_minimap() {
     if ! type code-minimap > /dev/null 2>&1; then
         brew install code-minimap
+    fi
+}
+
+# others
+function _lazy_install_others() {
+    # developer tools
+    # jq
+    if ! type jq > /dev/null 2>&1; then
+        brew install jq
     fi
 
     # make me happy
@@ -149,4 +145,34 @@ function _install_not_exist_others() {
         brew install cmatrix
     fi
 }
+
+# ===============================
+# prompt系
+function _lazy_install_zsh_syntax_highlighting() {
+    if [ ! -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+        brew install zsh-syntax-highlighting
+    fi
+}
+
+function _lazy_install_zsh_autosuggestions() {
+    if [ ! -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+        brew install zsh-autosuggestions
+    fi
+}
+
+function _lazy_install_p10k() {
+    if [ ! -f /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme ]; then
+        brew install powerlevel10k
+    fi
+}
+
+function _lazy_install_zsh_git_prompt() {
+    if [ ! -f /opt/homebrew/opt/zsh-git-prompt/zshrc.sh ]; then
+        brew install zsh-git-prompt
+    fi
+}
+
+# ===============================
+# 言語系
+# TODO
 

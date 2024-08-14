@@ -16,7 +16,7 @@ function error() {
 # confirm echo Hello World!
 function confirm() {
     CMD=$@
-    _install_not_exist_gum
+    _lazy_install_gum
     if type gum > /dev/null 2>&1; then
         gum confirm && eval $CMD || info 'cancel'
     else
@@ -36,13 +36,16 @@ function confirm() {
 # 標準出力を出さずに、ロード中spinを表示
 # spin 'loading...' sleep 3
 function spin() {
-    _install_not_exist_gum
+    _lazy_install_gum
     gum spin --title "$1" -- "${@:2}"
 }
 
 # vim
 function v() {
-    _install_not_exist_vim
+    _lazy_install_fzf
+    _lazy_install_ripgrep
+    _lazy_install_silicon
+    _lazy_install_code_minimap
     if [ ! -d ~/.vim/plugged ]; then
         # vim-plugがない場合
         spin 'install vim-plug' \
@@ -57,10 +60,10 @@ function v() {
 # zoxide
 # eza fzf bat
 function _zoxide() {
-    _install_not_exist_zoxide
-    _install_not_exist_eza
-    _install_not_exist_fzf
-    _install_not_exist_bat
+    _lazy_install_zoxide
+    _lazy_install_eza
+    _lazy_install_fzf
+    _lazy_install_bat
     eval "$(zoxide init zsh)"
     zi
 }
@@ -85,7 +88,7 @@ alias q='exit'
 
 # ls
 function l() {
-    _install_not_exist_eza
+    _lazy_install_eza
     if type eza > /dev/null 2>&1; then
         if [ "$(uname)" = "Darwin" ]; then
             eza -abghHliS --icons --git $@
@@ -101,7 +104,7 @@ function l() {
     fi
 }
 function tree() {
-    _install_not_exist_eza
+    _lazy_install_eza
     if type eza > /dev/null 2>&1; then
         if [ "$(uname)" = "Darwin" ]; then
             eza -bghHliST --icons --git $@
@@ -115,23 +118,23 @@ function tree() {
 
 # TUI
 function e() {
-    _install_not_exist_yazi
+    _lazy_install_yazi
     yazi
 }
 function db() {
-    _install_not_exist_gobang
+    _lazy_install_gobang
     gobang
 }
 function cyber() {
-    _install_not_exist_termscp
+    _lazy_install_termscp
     termscp
 }
 function g() {
-    _install_not_exist_lazygit
+    _lazy_install_lazygit
     lazygit
 }
 function d() {
-    _install_not_exist_lazydocker
+    _lazy_install_lazydocker
     lazydocker
 }
 
@@ -147,10 +150,10 @@ bindkey "^r" incremental_search_history
 
 # others
 function gif() {
-    _install_not_exist_ffmpeg
-    _install_not_exist_gum
+    _lazy_install_ffmpeg
+    _lazy_install_gum
     ffmpeg -i $(ls -A | gum choose) -r 10 $(gum input --prompt 'e.g.) test.gif: ')
 }
 
-_install_not_exist_others
+_lazy_install_others
 

@@ -34,11 +34,7 @@
 #java11
 if [ "$(uname)" = "Darwin" ]; then
 # ===============================
-REPOS=(git gh mas
-powerlevel10k
-zsh-git-prompt
-zsh-autosuggestions
-zsh-syntax-highlighting
+REPOS=(vim git gh mas
 llvm gcc@12 node python3 sqlite
 )
 for v in ${REPOS[@]}; do

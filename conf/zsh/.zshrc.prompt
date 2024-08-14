@@ -3,11 +3,15 @@ SAVEHIST=1000
 setopt no_beep
 
 if [ "$(uname)" = "Darwin" ]; then
-    source /opt/homebrew/opt/zsh-git-prompt/zshrc.sh
-    source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    _lazy_install_zsh_syntax_highlighting
     source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    _lazy_install_zsh_autosuggestions
+    source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    _lazy_install_p10k
     source /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme
     [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+    _lazy_install_zsh_git_prompt
+    source /opt/homebrew/opt/zsh-git-prompt/zshrc.sh
     autoload -Uz compinit
     compinit
     eval "$(gh completion -s zsh)"
