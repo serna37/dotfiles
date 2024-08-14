@@ -1,62 +1,19 @@
 # 必要な時にインストールする用
+function not_has() {
+    ! type "$1" > /dev/null 2>&1
+}
+
+function _lazy_install() {
+    if not_has $1; then
+        brew install $1
+    fi
+}
 
 # ===============================
-# 開発ツール
-# zoxide
-function _lazy_install_zoxide() {
-    if ! type zoxide > /dev/null 2>&1; then
-        brew install zoxide
-    fi
-}
-
-# eza
-function _lazy_install_eza() {
-    if ! type eza > /dev/null 2>&1; then
-        brew install eza
-    fi
-}
-
-# fzf
-function _lazy_install_fzf() {
-    if ! type fzf > /dev/null 2>&1; then
-        brew install fzf
-    fi
-}
-
-# bat
-function _lazy_install_bat() {
-    if ! type bat > /dev/null 2>&1; then
-        brew install bat
-    fi
-}
-
-# lazygit
-function _lazy_install_lazygit() {
-    if ! type git > /dev/null 2>&1; then
-        brew install git
-    fi
-    if ! type lazygit > /dev/null 2>&1; then
-        brew install lazygit
-    fi
-}
-
-# lazydocker
-function _lazy_install_lazydocker() {
-    if ! type lazydocker > /dev/null 2>&1; then
-        brew install lazydocker
-    fi
-}
-
-# gum
-function _lazy_install_gum() {
-    if ! type gum > /dev/null 2>&1; then
-        brew install gum
-    fi
-}
-
+# 開発ツール (configファイルが必要、コマンドとレポ名が違うなど)
 # yazi
 function _lazy_install_yazi() {
-    if ! type yazi > /dev/null 2>&1; then
+    if not_has yazi; then
         brew install yazi
     fi
     if [ ! -f ~/.config/yazi/yazi.toml ]; then
@@ -66,14 +23,14 @@ function _lazy_install_yazi() {
 
 # veeso/termscp/termscp
 function _lazy_install_termscp() {
-    if ! type termscp > /dev/null 2>&1; then
+    if not_has termscp; then
         brew install veeso/termscp/termscp
     fi
 }
 
 # tako8ki/tap/gobang
 function _lazy_install_gobang() {
-    if ! type gobang > /dev/null 2>&1; then
+    if not_has gobang; then
         brew install tako8ki/tap/gobang
     fi
     if [ ! -f ~/.config/gobang/config.toml ]; then
@@ -81,68 +38,10 @@ function _lazy_install_gobang() {
     fi
 }
 
-# ffmpeg
-function _lazy_install_ffmpeg() {
-    if ! type ffmpeg > /dev/null 2>&1; then
-        brew install ffmpeg
-    fi
-}
-
-# fastfetch
-function _lazy_install_fastfetch() {
-    if ! type fastfetch > /dev/null 2>&1; then
-        brew install fastfetch
-    fi
-}
-
-# screenfetch
-function _lazy_install_screenfetch() {
-    if ! type screenfetch > /dev/null 2>&1; then
-        brew install screenfetch
-    fi
-}
-
 # ripgrep
 function _lazy_install_ripgrep() {
-    if ! type rg > /dev/null 2>&1; then
+    if not_has rg; then
         brew install ripgrep
-    fi
-}
-
-# silicon
-function _lazy_install_silicon() {
-    if ! type silicon > /dev/null 2>&1; then
-        brew install silicon
-    fi
-}
-
-# code-minimap
-function _lazy_install_code_minimap() {
-    if ! type code-minimap > /dev/null 2>&1; then
-        brew install code-minimap
-    fi
-}
-
-# others
-function _lazy_install_others() {
-    # developer tools
-    # jq
-    if ! type jq > /dev/null 2>&1; then
-        brew install jq
-    fi
-
-    # make me happy
-    # genact
-    if ! type genact > /dev/null 2>&1; then
-        brew install genact
-    fi
-    # tty-clock
-    if ! type tty-clock > /dev/null 2>&1; then
-        brew install tty-clock
-    fi
-    # cmatrix
-    if ! type cmatrix > /dev/null 2>&1; then
-        brew install cmatrix
     fi
 }
 
@@ -187,12 +86,13 @@ function _lazy_install_python() {
 }
 
 function _lazy_install_nvm() {
-    if ! type nvm > /dev/null 2>&1; then
-        if [ ! -d $HOME/.nvm ]; then
-            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
-            nvm install stable --latest-npm
-            nvm alias default stable
-        fi
+    if [ ! -d $HOME/.nvm ]; then
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+        export NVM_DIR="$HOME/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+        [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+        nvm install stable --latest-npm
+        nvm alias default stable
     fi
 }
 
