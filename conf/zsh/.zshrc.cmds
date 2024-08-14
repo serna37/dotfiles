@@ -208,5 +208,6 @@ function Azathoth() {
     for v in ${DEL[@]}; do
         brew uninstall $v
     done
+    exec $SHELL -l
 }
 
