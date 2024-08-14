@@ -11,6 +11,8 @@ if [ "$(uname)" = "Darwin" ]; then
 REPOS=(vim git gh mas
 llvm gcc@12 node python3 sqlite
 )
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+export PATH="$PATH:/opt/homebrew/bin/"
 for v in ${REPOS[@]}; do
     brew reinstall $v
     wait $!
