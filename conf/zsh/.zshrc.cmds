@@ -194,8 +194,8 @@ function Azathoth() {
         return
     fi
     brew list
-    rm -rf ~/.nvm
-    rm ~/.netrc
+    \rm -rf ~/.nvm
+    \rm ~/.netrc
     DEL=(fastfetch screenfetch
     zoxide fzf bat eza ripgrep
     lazygit lazydocker
