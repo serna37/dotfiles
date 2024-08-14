@@ -3,9 +3,15 @@ if [ "$(uname)" = "Darwin" ]; then
     export PATH="$PATH:/opt/homebrew/bin/"
 
     # Python
+    _lazy_install_python
     export PATH="$PATH:/opt/homebrew/bin/python3"
     alias python='python3'
     alias pip='python -m pip'
+
+    # nvm
+    _lazy_install_nvm
+    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
     # Rust
     #export PATH="$PATH:$CARGO_HOME/bin"

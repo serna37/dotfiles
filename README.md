@@ -13,12 +13,7 @@
 </a>
 
 ## Installation
-- `Homebrew`を入れる
-```shell
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-```
-
-- このレポジトリでの設定を適用する
+- このレポジトリでの設定を適用する(Macの場合Homebrewを導入します)
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/serna37/dotfiles/master/install.sh)"
 ```

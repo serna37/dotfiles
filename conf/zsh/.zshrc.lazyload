@@ -174,5 +174,25 @@ function _lazy_install_zsh_git_prompt() {
 
 # ===============================
 # 言語系
-# TODO
+function _lazy_install_llvm() {
+    if [ ! -d /opt/homebrew/opt/llvm ]; then
+        brew install llvm
+    fi
+}
+
+function _lazy_install_python() {
+    if [ ! -f /opt/homebrew/bin/python3 ]; then
+        brew install python3
+    fi
+}
+
+function _lazy_install_nvm() {
+    if ! type nvm > /dev/null 2>&1; then
+        if [ ! -d $HOME/.nvm ]; then
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+            nvm install stable --latest-npm
+            nvm alias default stable
+        fi
+    fi
+}
 

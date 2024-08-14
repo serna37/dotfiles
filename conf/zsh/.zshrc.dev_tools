@@ -21,6 +21,7 @@ function dev_tools_logo_python() {
 }
 
 function dev_tools_python_localhost() {
+    _lazy_install_gum
     dev_tools_logo_python
     printf "\e[32m\n"
     echo "  _                       _  _                             _____    ______   ______   ______ ";
@@ -136,6 +137,7 @@ function dev_tools_cpp_setup_atcoder() {
 }
 
 function solve() {
+    _lazy_install_llvm
     # 書き捨てで解く
     SAND_DIR="$HOME/work/sandbox"
     if [ $# -eq 0 ]; then
@@ -181,6 +183,8 @@ function solve() {
 }
 
 function cpp_exe() {
+    _lazy_install_gum
+    _lazy_install_llvm
     TARGET=$(find . -name 'main.cpp' | gum choose)
     RUN_MODE=$(gum choose "normal" "sanitize")
     CMD=$CPP_BUILD_CMD

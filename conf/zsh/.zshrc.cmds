@@ -140,10 +140,11 @@ function d() {
 
 # バックiサーチをhistoryのfzfにする
 function incremental_search_history() {
-  selected=`history -E 0 | fzf --tac --height 75% --reverse --margin=0,1 | cut -b 24-`
-  BUFFER=`[ ${#selected} -gt 0 ] && echo $selected || echo $BUFFER`
-  CURSOR=${#BUFFER}
-  zle redisplay
+    _lazy_install_fzf
+    selected=`history -E 0 | fzf --tac --height 75% --reverse --margin=0,1 | cut -b 24-`
+    BUFFER=`[ ${#selected} -gt 0 ] && echo $selected || echo $BUFFER`
+    CURSOR=${#BUFFER}
+    zle redisplay
 }
 zle -N incremental_search_history
 bindkey "^r" incremental_search_history
