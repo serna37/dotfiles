@@ -2,3 +2,5 @@
     name = さーな
     email = 37serna37serna37serna@gmail.com
 
+[credential]
+	helper = osxkeychain
