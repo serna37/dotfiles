@@ -188,4 +188,25 @@ password $password
 EOF
     fi
 }
+function Azathoth() {
+    _lazy_install gum
+    if ! gum confirm; then
+        return
+    fi
+    brew list
+    rm -rf ~/.nvm
+    rm ~/.netrc
+    DEL=(fastfetch screenfetch
+    zoxide fzf bat eza ripgrep
+    lazygit lazydocker
+    genact cmatrix tty-clock
+    yazi gobang termscp gum
+    ffmpeg jq
+    zsh-syntax-highlighting zsh-autosuggestions
+    zsh-git-prompt powerlevel10k
+    )
+    for v in ${DEL[@]}; do
+        brew uninstall $v
+    done
+}
 
