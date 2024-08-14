@@ -16,7 +16,7 @@ function error() {
 # confirm echo Hello World!
 function confirm() {
     CMD=$@
-    _lazy_install_gum
+    _lazy_install gum
     if type gum > /dev/null 2>&1; then
         gum confirm && eval $CMD || info 'cancel'
     else
@@ -36,16 +36,16 @@ function confirm() {
 # 標準出力を出さずに、ロード中spinを表示
 # spin 'loading...' sleep 3
 function spin() {
-    _lazy_install_gum
+    _lazy_install gum
     gum spin --title "$1" -- "${@:2}"
 }
 
 # vim
 function v() {
-    _lazy_install_fzf
+    _lazy_install fzf
     _lazy_install_ripgrep
-    _lazy_install_silicon
-    _lazy_install_code_minimap
+    _lazy_install silicon
+    _lazy_install code-minimap
     if [ ! -d ~/.vim/plugged ]; then
         # vim-plugがない場合
         spin 'install vim-plug' \
@@ -60,10 +60,10 @@ function v() {
 # zoxide
 # eza fzf bat
 function _zoxide() {
-    _lazy_install_zoxide
-    _lazy_install_eza
-    _lazy_install_fzf
-    _lazy_install_bat
+    _lazy_install zoxide
+    _lazy_install eza
+    _lazy_install fzf
+    _lazy_install bat
     eval "$(zoxide init zsh)"
     zi
 }
@@ -88,7 +88,7 @@ alias q='exit'
 
 # ls
 function l() {
-    _lazy_install_eza
+    _lazy_install eza
     if type eza > /dev/null 2>&1; then
         if [ "$(uname)" = "Darwin" ]; then
             eza -abghHliS --icons --git $@
@@ -104,7 +104,7 @@ function l() {
     fi
 }
 function tree() {
-    _lazy_install_eza
+    _lazy_install eza
     if type eza > /dev/null 2>&1; then
         if [ "$(uname)" = "Darwin" ]; then
             eza -bghHliST --icons --git $@
@@ -130,17 +130,31 @@ function cyber() {
     termscp
 }
 function g() {
-    _lazy_install_lazygit
+    _lazy_install git
+    _lazy_install lazygit
     lazygit
 }
 function d() {
-    _lazy_install_lazydocker
+    _lazy_install lazydocker
+    CNT=$(ps aux | grep -c OrbStack)
+    if [ $CNT -eq 1 ]; then
+        info 'START OrbStack'
+        open -g /Applications/OrbStack.app
+        sleep 1
+        _lazy_install genact
+        genact -s 10 --exit-after-modules 1 -m botnet
+        genact -s 10 --exit-after-modules 1 -m bruteforce
+    fi
     lazydocker
+}
+function c() {
+    _lazy_install cmatrix
+    cmatrix
 }
 
 # バックiサーチをhistoryのfzfにする
 function incremental_search_history() {
-    _lazy_install_fzf
+    _lazy_install fzf
     selected=`history -E 0 | fzf --tac --height 75% --reverse --margin=0,1 | cut -b 24-`
     BUFFER=`[ ${#selected} -gt 0 ] && echo $selected || echo $BUFFER`
     CURSOR=${#BUFFER}
@@ -151,10 +165,8 @@ bindkey "^r" incremental_search_history
 
 # others
 function gif() {
-    _lazy_install_ffmpeg
-    _lazy_install_gum
+    _lazy_install ffmpeg
+    _lazy_install gum
     ffmpeg -i $(ls -A | gum choose) -r 10 $(gum input --prompt 'e.g.) test.gif: ')
 }
-
-_lazy_install_others
 

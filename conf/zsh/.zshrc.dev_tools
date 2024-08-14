@@ -21,7 +21,7 @@ function dev_tools_logo_python() {
 }
 
 function dev_tools_python_localhost() {
-    _lazy_install_gum
+    _lazy_install gum
     dev_tools_logo_python
     printf "\e[32m\n"
     echo "  _                       _  _                             _____    ______   ______   ______ ";
@@ -182,9 +182,42 @@ function solve() {
     v
 }
 
+# C++ビルドコマンド
+# AtCoderでの指定: https://atcoder.jp/contests/APG4b/rules?lang=ja
+# -std=c++20 バージョン指定
+# -I includeパス
+# -Wall 警告オプションまとめ
+# -Wextra その他の警告オプションまとめ
+# -mtune=native マシン最適化
+# -march=native マシン最適化
+# -fconstexpr-depth=2147483647 コンパイル時の再帰回数
+export CPP_BUILD_CMD="g++ -std=c++20 \
+-I $HOME/git/dotfiles/conf/cpp \
+-Wall \
+-Wextra \
+-mtune=native \
+-march=native \
+-fconstexpr-depth=2147483647 \
+-o "
+
+# -ftrapv 符号あり整数計算でover under flow
+# -fsanitize-undefined-trap-on-error 未定義サニタイザ
+# -fsanitize=address アドレスサニタイザ
+export CPP_BUILD_CMD_SANITIZE="g++ -std=c++20 \
+-I $HOME/git/dotfiles/conf/cpp \
+-Wall \
+-Wextra \
+-mtune=native \
+-march=native \
+-fconstexpr-depth=2147483647 \
+-ftrapv \
+-fsanitize-undefined-trap-on-error \
+-fsanitize=address \
+-o "
+
 function cpp_exe() {
-    _lazy_install_gum
-    _lazy_install_llvm
+    _lazy_install gum
+    _lazy_install llvm
     TARGET=$(find . -name 'main.cpp' | gum choose)
     RUN_MODE=$(gum choose "normal" "sanitize")
     CMD=$CPP_BUILD_CMD

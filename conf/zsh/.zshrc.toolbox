@@ -30,7 +30,7 @@ export TOOL_BOX=$(cat << "EOF"
     },
     {
         "name": "[ clock] show clock",
-        "cmd": "tty-clock -sc -C2"
+        "cmd": "_lazy_install tty-clock && tty-clock -sc -C2"
     },
     {
         "name": "[ gif] convert mov -> gif",

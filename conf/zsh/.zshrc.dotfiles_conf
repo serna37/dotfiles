@@ -21,6 +21,7 @@ fi
 if [ ! -d ~/.vim/UltiSnips ]; then
     mkdir -p ~/.vim/UltiSnips > /dev/null 2>&1
     ln -nfs ~/git/dotfiles/conf/cpp/snippets/* ~/.vim/UltiSnips/
+    _lazy_install genact
     zsh ~/git/dotfiles/conf/cpp/library.zsh
     ln -nfs ~/git/dotfiles/conf/snippets/* ~/.vim/UltiSnips/
 fi
