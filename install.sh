@@ -1,30 +1,4 @@
 #!/bin/bash
-# 以下はzsh中で、必要になった時にinstallされる
-# - 開発ツール
-#vim
-#zoxide
-#eza
-#fzf
-#bat
-#ripgrep
-#jq
-# - TUIツール
-#lazygit
-#lazydocker
-#gum
-#yazi
-#veeso/termscp/termscp
-#tako8ki/tap/gobang
-# - Utility
-#ffmpeg
-#silicon
-#code-minimap
-# - Make me happy
-#genact
-#tty-clock
-#cmatrix
-#fastfetch
-#screenfetch
 
 # いったん不要と判断
 #sshs
