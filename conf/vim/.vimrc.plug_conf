@@ -170,7 +170,7 @@ nnoremap <silent><Leader>ng :CocCommand fzf-preview.MemoListGrep .<CR>
 "au QuickFixCmdPost *grep* cwindow
 fu! s:vimgrep() abort
     let w = input('[word]>>', expand('<cword>'))
-    execute('vim '.w.' `git ls-files` | cw')
+    execute('vimgrep /'.w.'/gj `git ls-files` | cw')
 endf
 fu! s:fzfgrep() abort
     let w = input('[word]>>', expand('<cword>'))
