@@ -166,28 +166,23 @@ function gif() {
     _lazy_install gum
     ffmpeg -i $(ls -A | gum choose) -r 10 $(gum input --prompt 'e.g.) test.gif: ')
 }
+
 function s() {
-    if [ -f ~/.netrc ]; then
-        _lazy_install gum
-        KIND=$(gum choose ssh scp)
-        if [ "$KIND" = "ssh" ]; then
-            ssh $(cat ~/.netrc| grep machine | awk '{print $2}')
+    _lazy_install gum
+    KIND=$(gum choose ssh scp)
+    if [ "$KIND" = "ssh" ]; then
+        if [ ! -f ~/.ssh/known_hosts ]; then
+            ssh $(gum input --prompt 'target. e.g.) github.com: ')
+        else
+            ssh $(cat ~/.ssh/known_hosts | awk '{print $1}' | uniq | gum choose)
         fi
-        if [ "$KIND" = "scp" ]; then
-            _lazy_install_termscp
-            termscp
-        fi
-    else
-        read 'name?machine:'
-        read 'login?login:'
-        read 'password?password:'
-cat << EOF > ~/.netrc
-machine $name
-login $login
-password $password
-EOF
+    fi
+    if [ "$KIND" = "scp" ]; then
+        _lazy_install_termscp
+        termscp
     fi
 }
+
 function Azathoth() {
     _lazy_install gum
     if ! gum confirm; then
