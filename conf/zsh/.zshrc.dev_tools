@@ -218,7 +218,7 @@ export CPP_BUILD_CMD_SANITIZE="g++ -std=c++20 \
 function cpp_exe() {
     _lazy_install gum
     _lazy_install_llvm
-    TARGET=$(find . -name 'main.cpp' | gum choose)
+    TARGET=$(find . -name '*.cpp' | gum choose)
     RUN_MODE=$(gum choose "normal" "sanitize")
     CMD=$CPP_BUILD_CMD
     if [ $RUN_MODE = "sanitize" ]; then
