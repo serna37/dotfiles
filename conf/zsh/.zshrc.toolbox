@@ -81,8 +81,7 @@ t() {
         info "Cancel"
         return
     fi
-    CMD=$(echo $TOOL_BOX | jq ".[] | select(.name == $TARGET) | .cmd")
-    CMD="${CMD:1:-1}" # 前後のダブルクォーとを取ってevalに渡す
+    CMD=$(echo $TOOL_BOX | jq -r ".[] | select(.name == $TARGET) | .cmd")
     confirm $CMD
 }
 
