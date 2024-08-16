@@ -1,64 +1,54 @@
 export TOOL_BOX=$(cat << "EOF"
 [
     {
-        "name": "[ Python] localhost",
+        "name": "cpp_exe",
+        "cmd": "cpp_exe"
+    },
+    {
+        "name": "localhost",
         "cmd": "dev_tools_python_localhost"
     },
     {
-        "name": "[ Python] venv",
+        "name": "venv",
         "cmd": "dev_tools_python_venv"
     },
     {
-        "name": "[ scp] termscp",
-        "cmd": "cyber"
-    },
-    {
-    },
-    {
-        "name": "[ DB] edit connection",
-        "cmd": "cd ~/git/dotfiles && v conf/config/gobang/config.toml"
-    },
-    {
-        "name": "[ Mac] application",
+        "name": "application",
         "cmd": "find /Applications -maxdepth 1 -name '*.app' | fzf | xargs -I {} open '{}'"
     },
     {
-        "name": "[ Mac] finder",
+        "name": "finder",
         "cmd": "open ."
     },
     {
-        "name": "[ clock] show clock",
+        "name": "clock",
         "cmd": "_lazy_install tty-clock && tty-clock -sc -C2"
     },
     {
-        "name": "[ gif] convert mov -> gif",
-        "cmd": "gif"
-    },
-    {
-        "name": "[ devbox] devbox-ctrl",
+        "name": "devbox-ctrl",
         "cmd": "devbox-ctrl"
     },
     {
-        "name": "[ zoxide] ls",
+        "name": "zoxide-ls",
         "cmd": "zoxide query -ls"
     },
     {
-        "name": "[ zoxide] rm filename",
+        "name": "zoxide-rm",
         "cmd": "(){zoxide remove $(gum input --prompt \"del: \")}"
     },
     {
-        "name": "[ x86 brew]",
+        "name": "x86-brew",
         "cmd": "arch -x86_64 /usr/local/bin/brew"
     },
     {
-        "name": "[cancel]",
+        "name": "cancel",
         "cmd": "info cancel"
     }
 ]
 EOF
 )
 
-t() {
+toolbox() {
     _lazy_install jq
     printf "\e[32m\n"
     echo "                      _  _ ";
@@ -69,17 +59,30 @@ t() {
     echo "  \___) \___/  \___/ |_||____/  \___/ (_/ \_) ";
     printf "\e[m"
     info "Choose Tool"
-    IFS=$'\n'
-    TOOLS=($(echo $TOOL_BOX | jq '.[].name'))
-    IFS=' '
-    LEN=$(expr ${#TOOLS[@]} + 3)
-    TARGET="[cancel]"
-    TARGET=$(gum choose --height $LEN --cursor="❯ " --header="Choose" $TOOLS)
+    TARGET=$1
     if [ -z "$TARGET" ]; then
         info "Cancel"
         return
     fi
-    CMD=$(echo $TOOL_BOX | jq -r ".[] | select(.name == $TARGET) | .cmd")
+    CMD=$(echo $TOOL_BOX | jq -r ".[] | select(.name == \"$TARGET\") | .cmd")
     confirm $CMD
 }
+function _toolbox() {
+    local -a val
+    val=(
+        'cpp_exe[cpp exe main.cpp]'
+        'localhost[python localhost]'
+        'venv[python venv]'
+        'application[open mac applocation]'
+        'finder[open finder]'
+        'clock[show clock]'
+        'devbox-ctrl[dev box container control]'
+        'zoxide-ls[zoxide ls]'
+        'zoxide-rm[zoxide rm]'
+        'x86-brew[arch x86_64 brew]'
+        'cancel[cancel]'
+    )
+    _values '' $val
+}
+compdef _toolbox toolbox
 
