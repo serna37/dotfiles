@@ -181,19 +181,20 @@ function gif() {
 
 function s() {
     _lazy_install gum
-    KIND=$(gum choose ssh scp)
-    if [ "$KIND" = "ssh" ]; then
+    if [ "$1" = "ssh" ]; then
         if [ ! -f ~/.ssh/known_hosts ]; then
             ssh $(gum input --prompt 'target. e.g.) github.com: ')
         else
             ssh $(cat ~/.ssh/known_hosts | awk '{print $1}' | uniq | gum choose)
         fi
     fi
-    if [ "$KIND" = "scp" ]; then
+    if [ "$1" = "scp" ]; then
         _lazy_install_termscp
         termscp
     fi
 }
+function _s() { _values '' 'ssh' 'scp' }
+compdef _s s
 
 # forgeコマンドと補完
 if not_has forge; then
