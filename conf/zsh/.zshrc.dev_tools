@@ -181,6 +181,9 @@ function solve() {
     done
     v
 }
+function _solve() { _values '' '[ 書き捨て]' 'abc[ AtCoderコンテスト番号]' }
+compdef _solve solve
+
 
 # C++ビルドコマンド
 # AtCoderでの指定: https://atcoder.jp/contests/APG4b/rules?lang=ja

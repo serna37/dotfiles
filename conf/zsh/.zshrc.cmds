@@ -133,7 +133,7 @@ function db() {
         cd ~/git/dotfiles && v conf/config/gobang/config.toml
     fi
 }
-function _db() { _values '' 'edit_con' }
+function _db() { _values '' '[DB接続]' 'edit_con[DB接続を編集]' }
 compdef _db db
 
 function g() {
@@ -193,7 +193,7 @@ function s() {
         termscp
     fi
 }
-function _s() { _values '' 'ssh' 'scp' }
+function _s() { _values '' 'ssh[ssh接続]' 'scp[scp接続]' }
 compdef _s s
 
 # forgeコマンドと補完
@@ -203,13 +203,13 @@ fi
 function _forge() {
     local -a val
     val=(
-      'gen[generate a new repository and init deploy]'
-      'init-deploy[init deploy]'
-      'run[run containers on local]'
-      'stop[stop containers on local]'
+      'gen[mksリポジトリ作成、初回デプロイ]'
+      'init-deploy[初回デプロイ]'
+      'run[ローカルコンテナ起動]'
+      'stop[ローカルコンテナ停止削除]'
       'release[develop -> release -> master]'
-      'upgrade[upgrade forge]'
-      '-h[show help]'
+      'upgrade[forgeを更新]'
+      '-h[help]'
     )
     _values '' $val
 }

@@ -70,16 +70,16 @@ toolbox() {
 function _toolbox() {
     local -a val
     val=(
-        'cpp_exe[cpp exe main.cpp]'
-        'localhost[python localhost]'
-        'venv[python venv]'
-        'application[open mac applocation]'
-        'finder[open finder]'
-        'clock[show clock]'
-        'devbox-ctrl[dev box container control]'
-        'zoxide-ls[zoxide ls]'
-        'zoxide-rm[zoxide rm]'
-        'x86-brew[arch x86_64 brew]'
+        'cpp_exe[ main.cppを実行]'
+        'localhost[ Python localhost]'
+        'venv[ Python venv]'
+        'application[ アプリ起動]'
+        'finder[ finder起動]'
+        'devbox-ctrl[ dev box container control]'
+        'clock[ 時計]'
+        'zoxide-ls[ zoxide ls]'
+        'zoxide-rm[ zoxide rm]'
+        'x86-brew[ arch x86_64 brew]'
         'cancel[cancel]'
     )
     _values '' $val
