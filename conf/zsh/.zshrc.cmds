@@ -122,15 +122,26 @@ function e() {
     _lazy_install_yazi
     yazi
 }
+
 function db() {
     _lazy_install_gobang
-    gobang
+    if [ $# -eq 0 ]; then
+        gobang
+        return
+    fi
+    if [ "$1" = "edit_con" ]; then
+        cd ~/git/dotfiles && v conf/config/gobang/config.toml
+    fi
 }
+function _db() { _values '' 'edit_con' }
+compdef _db db
+
 function g() {
     _lazy_install git
     _lazy_install lazygit
     lazygit
 }
+
 function d() {
     _lazy_install lazydocker
     CNT=$(ps aux | grep -c OrbStack)
@@ -144,6 +155,7 @@ function d() {
     fi
     lazydocker
 }
+
 function c() {
     _lazy_install cmatrix
     cmatrix

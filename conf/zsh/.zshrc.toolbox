@@ -13,8 +13,6 @@ export TOOL_BOX=$(cat << "EOF"
         "cmd": "cyber"
     },
     {
-        "name": "[ DB] gobang",
-        "cmd": "db"
     },
     {
         "name": "[ DB] edit connection",
