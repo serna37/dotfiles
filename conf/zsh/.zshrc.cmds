@@ -183,6 +183,25 @@ function s() {
     fi
 }
 
+# forgeコマンドと補完
+if not_has forge; then
+    gh api -H "Accept: application/vnd.github.raw" -H "X-GitHub-Api-Version: 2022-11-28" "/repos/serna37/forge/contents/forge.sh?ref=main" > /usr/local/bin/forge && chmod +xw /usr/local/bin/forge
+fi
+function _forge() {
+  local -a val
+  val=(
+      'gen[generate a new repository and init deploy]'
+      'init-deploy[init deploy]'
+      'run[run containers on local]'
+      'stop[stop containers on local]'
+      'release[develop -> release -> master]'
+      'upgrade[upgrade forge]'
+      '-h[show help]'
+  )
+  _values '' $val
+}
+compdef _forge forge
+
 function Azathoth() {
     _lazy_install gum
     if ! gum confirm; then
@@ -191,6 +210,7 @@ function Azathoth() {
     brew list
     \rm -rf ~/.nvm
     \rm ~/.netrc
+    \rm /usr/local/bin/forge
     DEL=(fastfetch screenfetch
     zoxide fzf bat eza ripgrep
     lazygit lazydocker
