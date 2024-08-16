@@ -1,5 +1,9 @@
 syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase smartcase shortmess-=S
 let mapleader = "\<Space>"
+" vmap <S-k>がvimデフォルトの[set keywordprg=:help]によりhelpだが
+" 往々にして邪魔なので消す
+vnoremap <S-k> <Nop>
+
 " 使ってたが不要なものをコメントアウトで残してる、そのうち消したい
 " Plugin管理
 " =====================================================================
