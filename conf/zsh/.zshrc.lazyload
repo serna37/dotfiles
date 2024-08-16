@@ -83,6 +83,7 @@ function _lazy_install_zsh_git_prompt() {
 # ===============================
 # 言語系
 function _lazy_install_llvm() {
+    # C++デバッガのlldbのために導入
     if [ ! -d /opt/homebrew/opt/llvm ]; then
         printf "\e[32m[\e[34mINFO\e[32m] \e[34mINSTALL: llvm\e[m\n"
         brew install llvm
