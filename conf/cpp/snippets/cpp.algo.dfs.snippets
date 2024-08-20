@@ -18,6 +18,57 @@ auto ${1:dfs} = [${2:&}](auto &f, ${3:const int &a}) -> ${4:void} {
 	// 帰りがけ
 };
 endsnippet
+snippet algo_dfs_memo_rec "lambda recursive memo" b
+map<long long , long long >mp;
+auto ${1:rec} = [${2:&}](auto &f, ${3:const long long &a}) -> ${4:long long} {
+	// ベースケース
+	if (a == 0) return 0;
+
+	// メモにあれば使用
+	if (mp.count(a)) return mp[a];
+
+	// なければ再帰しつつメモに追加
+	return mp[a] = f(f, a);
+};
+endsnippet
+snippet algo_dfs_permutation "DFS順列" b
+// 順列全パターンを作る
+vector<int> ${2:perm}(${1:N});
+auto ${3:dfs} = [&](auto &f, int order = 0) -> void {
+	if (order == $1) {
+		// ベースケース 前まで$1-1個作、今=$1で終了
+		${6:some}
+		return;
+	}
+	// 桁ごとに$4 ~ $5までを、全桁ぶん潜る
+	for (int i = ${4:a}; i <= ${5:b}; ++i) {
+		$2[order] = i;
+		f(f, order + 1); // 次の桁どうぞ
+	}
+};
+$3($3);
+endsnippet
+snippet algo_dfs_permutation_increase "DFS順列 単調増加" b
+// 広義単調増加の組み合わせは N + M - 1 C M
+// $4 ~ $5 までの数で要素数${1:N}の数列を順列全探索 単調増加でN<13程度
+vector<int> ${2:perm}($1);
+auto ${3:dfs} = [&](auto &f, int mi, int mx, int last = 0) -> void {
+	if (last == $1) {
+		// ベースケース 前まで$1-1個作、今=$1で終了
+		${6:some}
+		return;
+	}
+	for (int i = mi; i <= mx; ++i) {
+		$2[last] = i;
+		// 狭義単調増加 1 2 3 4 5
+		// mi = i + 1;
+		// 広義単調増加 1 1 2 3 4 被りok
+		// mi = i;
+		f(f, mi, mx, last + 1);
+	}
+};
+$3($3, ${4:1}, ${5:M});
+endsnippet
 snippet algo_dfs_graph "dfs graph" b
 // DFS O(N+M)
 //         o
@@ -61,18 +112,5 @@ auto dfs = [&](auto &f, int v, int p, int d) -> void {
 	// 帰りがけ
 };
 dfs(dfs, ${2:root}, -1, 0); // 親なし
-endsnippet
-snippet algo_dfs_memo_rec "lambda recursive memo" b
-map<long long , long long >mp;
-auto ${1:rec} = [${2:&}](auto &f, ${3:const long long &a}) -> ${4:long long} {
-	// ベースケース
-	if (a == 0) return 0;
-
-	// メモにあれば使用
-	if (mp.count(a)) return mp[a];
-
-	// なければ再帰しつつメモに追加
-	return mp[a] = f(f, a);
-};
 endsnippet
 
