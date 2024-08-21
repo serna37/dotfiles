@@ -30,6 +30,7 @@ source ~/git/dotfiles/conf/zsh/.zshrc.prompt
 source ~/git/dotfiles/conf/zsh/.zshrc.cmds
 source ~/git/dotfiles/conf/zsh/.zshrc.dev_tools
 source ~/git/dotfiles/conf/zsh/.zshrc.toolbox
+source ~/git/dotfiles/conf/zsh/.zshrc.hackbox
 source ~/git/dotfiles/conf/zsh/.zshrc.devbox
 
 clear

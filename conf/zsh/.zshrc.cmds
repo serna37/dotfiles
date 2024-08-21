@@ -232,6 +232,7 @@ function Azathoth() {
     genact cmatrix tty-clock
     yazi gobang termscp gum
     ffmpeg jq
+    nmap gobuster
     zsh-syntax-highlighting zsh-autosuggestions
     zsh-git-prompt powerlevel10k
     )
