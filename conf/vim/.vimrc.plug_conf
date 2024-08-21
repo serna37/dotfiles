@@ -324,8 +324,11 @@ nnoremap <Leader>_ <Plug>VimspectorBalloonEval
 " Util
 " =====================================================================
 " segeljakt/vim-silicon
-let g:silicon = {}
-let g:silicon['output'] = '~/Desktop/tmp.png'
+"let g:silicon = {}
+"let g:silicon['output'] = '~/Desktop/tmp.png'
+
+" kristijanhusak/vim-carbon-now-sh
+nnoremap <Leader>S ggVG:CarbonNowSh<CR>
 
 " =====================================================================
 " Initiation, Art

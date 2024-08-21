@@ -72,7 +72,8 @@ Plug 'puremourning/vimspector'
 "Plug 'rhysd/wandbox-vim'
 
 " Util
-Plug 'segeljakt/vim-silicon'
+"Plug 'segeljakt/vim-silicon'
+Plug 'kristijanhusak/vim-carbon-now-sh'
 Plug 'glidenote/memolist.vim'
 "Plug 'nanotee/zoxide.vim'
 "Plug 'soywod/unfog.vim'

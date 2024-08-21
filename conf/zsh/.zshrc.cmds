@@ -45,7 +45,6 @@ function v() {
     _lazy_install fzf
     _lazy_install_ripgrep
     # deactivating vim-IDE-menu
-    #_lazy_install silicon
     #_lazy_install code-minimap
     if [ ! -d ~/.vim/plugged ]; then
         # vim-plugがない場合
