@@ -200,8 +200,8 @@ let g:indent_guides_exclude_filetypes = ['help', 'coc-explorer', 'startify']
 let g:indent_guides_auto_colors = 0
 aug indent_guide
     au!
-    au ColorScheme * hi IndentGuidesOdd ctermbg=236
-    au ColorScheme * hi IndentGuidesEven ctermbg=234
+    au ColorScheme * hi IndentGuidesOdd ctermbg=4
+    au ColorScheme * hi IndentGuidesEven ctermbg=103
 aug END
 
 " liuchengxu/vista.vim
