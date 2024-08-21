@@ -6,7 +6,9 @@ function not_has() {
 function _lazy_install() {
     if not_has $1; then
         printf "\e[32m[\e[34mINFO\e[32m] \e[34mINSTALL: $1\e[m\n"
-        brew install $1
+        if [ "$(uname)" = "Darwin" ]; then
+            brew install $1
+        fi
     fi
 }
 
