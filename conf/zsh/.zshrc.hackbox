@@ -20,6 +20,20 @@ export HACK_BOX=$(cat << "EOF"
 EOF
 )
 
+# https://qiita.com/rsooo/items/bb91071685f447ce29db
+# file
+# strings
+# od hexdump
+
+# 画像
+# exif tool
+# wireshark入れる
+
+# ↑ここまでは割とWebサイトで何とかなる
+
+# vuln系
+# nmap
+# gobuster
 hackbox() {
     _lazy_install jq
     _lazy_install gum
