@@ -44,6 +44,14 @@ for (int ${7:i} = ${8:0}; $7 <${9:$6}; ++$7) {
 	cin >> $2[$7] >> $3[$7] >> $4[$7] >> $5[$7];
 }
 endsnippet
+snippet vec_in_vec2 "vec in vec2" b
+vector<vector<${1:int}>> ${2:A}(${3:N}, vector<$1>(${4:N}));
+for (int i = 0; i < $3; ++i) {
+	for (int j = 0; j < $4; ++j) {
+		cin >> $2[i][j];
+	}
+}
+endsnippet
 
 # template
 snippet in_1_vec "in 1 + vec" b
