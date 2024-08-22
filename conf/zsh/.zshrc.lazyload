@@ -52,6 +52,14 @@ function _lazy_install_ripgrep() {
     fi
 }
 
+# bottom
+function _lazy_install_bottom() {
+    if not_has btm; then
+        printf "\e[32m[\e[34mINFO\e[32m] \e[34mINSTALL: bottom\e[m\n"
+        brew install bottom
+    fi
+}
+
 # ===============================
 # prompt系
 function _lazy_install_zsh_syntax_highlighting() {

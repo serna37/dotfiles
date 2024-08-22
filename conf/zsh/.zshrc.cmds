@@ -155,6 +155,11 @@ function d() {
     lazydocker
 }
 
+function top() {
+    _lazy_install_bottom
+    btm --battery
+}
+
 function c() {
     _lazy_install cmatrix
     cmatrix
@@ -231,6 +236,7 @@ function Azathoth() {
     genact cmatrix tty-clock
     yazi gobang termscp gum
     ffmpeg jq
+    bottom
     nmap gobuster
     zsh-syntax-highlighting zsh-autosuggestions
     zsh-git-prompt powerlevel10k
