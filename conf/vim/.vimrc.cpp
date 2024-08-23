@@ -2,36 +2,37 @@
 " 提出用圧縮コピペ
 fu! s:fmt4Submisstion() abort
     w | e!
+    " ifdef LOCALのおかげで消す必要なくなった！
     " // --- debug_start
     " から
     " // --- debug_end
     " までの行を全て削除
-    let flg = 0
-    let row = 0
-    for v in getline(0, '$')
-        let row += 1
-        if v == '// --- debug_start'
-            let flg = 1
-        endif
-        if v == '// --- debug_end'
-            let flg = 0
-        endif
-        if flg
-            cal setline(row, '')
-        endif
-    endfor
-    " debugのincludeを削除
-    let row = 0
-    for v in getline(0, '$')
-        let row += 1
-        if v == '#include <bits/debug.hpp>'
-            cal setline(row, '')
-            break
-        endif
-    endfor
+    "let flg = 0
+    "let row = 0
+    "for v in getline(0, '$')
+        "let row += 1
+        "if v == '// --- debug_start'
+            "let flg = 1
+        "endif
+        "if v == '// --- debug_end'
+            "let flg = 0
+        "endif
+        "if flg
+            "cal setline(row, '')
+        "endif
+    "endfor
+    "" debugのincludeを削除
+    "let row = 0
+    "for v in getline(0, '$')
+        "let row += 1
+        "if v == '#include <bits/debug.hpp>'
+            "cal setline(row, '')
+            "break
+        "endif
+    "endfor
     " debug出力も削除
-    try | %s/debug(.*/ /g | catch
-    endtry
+    "try | %s/debug(.*/ /g | catch
+    "endtry
     " //から右を全て削除
     try | %s/\/\/.*/ /g | catch
     endtry

@@ -3,17 +3,22 @@
 # =========================================================
 snippet fastio "fast io template" b
 #include <bits/stdc++.h>
+#ifdef LOCAL
+#include <bits/debug.hpp>
+#else
+#define debug(...) 42
+#endif
 using namespace std;
 ${1}
 int main() {
 	ios::sync_with_stdio(false);
-	cin.tie(0);
+	cin.tie(nullptr);
 	${2}
 }
 endsnippet
-snippet debug_include "debug include" b
-#include <bits/debug.hpp>
-endsnippet
+#snippet debug_include "debug include" b
+##include <bits/debug.hpp>
+#endsnippet
 snippet debug "debug" b
 debug(${1});
 endsnippet
