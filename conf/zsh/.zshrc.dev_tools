@@ -149,7 +149,7 @@ function solve() {
         mkdir a > /dev/null 2>&1
         mkdir z > /dev/null 2>&1
         touch a/main.cpp z/main.cpp
-        \rm -rf a/test z/test
+        #\rm -rf a/test z/test
         v z/main.cpp
         return
     fi
@@ -243,5 +243,20 @@ function cpp_exe() {
     else
         error "exit code:$res."
     fi
+}
+
+# より高速なC++実行
+# z/main.cppをojでテストする場合はdebug
+# a/main.cppをojでテストする場合はdebug a
+function debug() {
+    TARGET=z
+    if [ $# -eq 1 ]; then
+        TARGET=$1
+    fi
+    cd $TARGET
+    eval $CPP_BUILD_CMD main main.cpp
+    oj t -c ./main
+    \rm main
+    cd ..
 }
 
