@@ -68,7 +68,7 @@ const grammerSplit = line => {
 
 // プログラム文字列を受け取る
 const input = require('fs').readFileSync("/dev/stdin", "utf8")
-const words = input.split("\n").flatMap(grammerSplit)
+let words = input.split("\n").flatMap(grammerSplit)
 
 // AAを読み込む
 let cnt = 0
@@ -115,7 +115,9 @@ if (cnt < need ) {
 // 空白はそのまま
 // 2文字以上余ったら、全部/で埋める
 let i = 0
-const AAformattedProgram = AA.map(blocks => {
+const headers = words.filter(v => v.startsWith("#")).join("\n")
+words = words.filter(v => !v.startsWith("#"))
+const AAformattedProgram = headers + "\n" + AA.map(blocks => {
     const line = blocks.map(block => {
         if (block.startsWith(" ")) return block
         if (i >= words.length) {
