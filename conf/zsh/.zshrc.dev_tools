@@ -86,6 +86,8 @@ function dev_tools_cpp_setup() {
     cp -f ~/git/dotfiles/conf/cpp/compile_flags.txt .
     # vimspector debug設定を追加
     cp -f ~/git/dotfiles/conf/vim/.vimspector.json .
+    # C++ロゴフォーマッタとAAを追加
+    cp -fR ~/git/dotfiles/conf/cpp/AA .
 }
 
 function dev_tools_logo_atcoder() {

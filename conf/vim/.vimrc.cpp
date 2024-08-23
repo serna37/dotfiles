@@ -72,8 +72,8 @@ fu! s:ac_test.close() abort
 endf
 fu! s:ac_test.exe() abort
     " フォーマッタ+保存
-    cal CocAction('format')
-    w
+    "cal CocAction('format')
+    "w
     cal timer_stop(self.tid)
     let task = s:ac_test.gettask()
     if task == "nodata" || len(task) != 1
@@ -133,4 +133,20 @@ fu! s:atcoderSetTestUrl() abort
     cal popup_notification(['DL Test Data By', contest_url], #{line: &lines})
 endf
 com! AtCoderSetTestUrl cal <SID>atcoderSetTestUrl()
+
+" C++のロゴAAにコードフォーマットする
+fu! s:fmt_cpp_AA() abort
+    let pg = "./AA/AAfmt.js"
+    if glob(pg)->empty()
+        echom "[ERROR] AAfmt.js not found. Please setup C++ for dotfiles"
+        retu
+    endif
+    let tmp = "___tmp_fmt_cpp"
+    cal system("node ".pg." < ".bufname("%")." > ".tmp)
+    cal system("cat ".tmp." > ".bufname("%"))
+    cal system("rm ".tmp)
+    cal popup_notification(['Format C++ AA'], #{line: &lines})
+endf
+noremap <silent><Plug>(cpp-AA-fmt) :<C-u>cal <SID>fmt_cpp_AA()<CR>
+nnoremap <Leader><Leader>F <Plug>(cpp-AA-fmt)
 
