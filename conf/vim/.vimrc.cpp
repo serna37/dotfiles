@@ -145,9 +145,9 @@ fu! s:fmt_cpp_AA() abort
     let tmp = "___tmp_fmt_cpp"
     cal system("node ".pg." < ".bufname("%")." > ".tmp)
     cal system("cat ".tmp." > ".bufname("%"))
-    exe "FixWhitespace"
     cal system("rm ".tmp)
-    cal popup_notification(['Format C++ AA'], #{line: &lines})
+    cal timer_start(900, { -> execute("%y") })
+    cal timer_start(1000, { -> popup_notification(['Format C++ AA'], #{line: &lines}) })
 endf
 noremap <silent><Plug>(cpp-AA-fmt) :<C-u>cal <SID>fmt_cpp_AA()<CR>
 nnoremap <Leader><Leader>F <Plug>(cpp-AA-fmt)

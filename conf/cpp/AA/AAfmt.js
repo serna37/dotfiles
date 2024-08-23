@@ -138,7 +138,7 @@ const AAformattedProgram = headers + "\n" + AA.map(blocks => {
         return a
     }).join("")
     return line
-}).join("\n")
+}).map(v => v.trimEnd()).join("\n")
 
 // 出力
 console.log(AAformattedProgram)
