@@ -144,6 +144,7 @@ fu! s:fmt_cpp_AA() abort
     let tmp = "___tmp_fmt_cpp"
     cal system("node ".pg." < ".bufname("%")." > ".tmp)
     cal system("cat ".tmp." > ".bufname("%"))
+    exe "FixWhitespace"
     cal system("rm ".tmp)
     cal popup_notification(['Format C++ AA'], #{line: &lines})
 endf
