@@ -235,7 +235,7 @@ function cpp_exe() {
     info "build :$TARGET complete."
     echo "==================================="
     printf "\e[33m-----------------------------\e[m\n"
-    ./_cpp_tmp
+    ./_cpp_exe
     res=$?
     printf "\e[33m-----------------------------\e[m\n"
     if [ $res -eq 0 ]; then

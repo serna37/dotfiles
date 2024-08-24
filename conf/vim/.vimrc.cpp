@@ -90,16 +90,19 @@ fu! s:ac_test.exe() abort
         \ fixed: 1,
         \ border: [], borderchars: ['─','│','─','│','╭','╮','╯','╰'], borderhighlight: ['AC_TEST_WIN'],
         \ minwidth: 50, maxwidth: 50,
-        \ minheight: 35, maxheight: 35,
+        \ minheight: 40, maxheight: 40,
         \ pos: 'topleft',
-        \ line: 35, col: &columns - 50,
+        \ line: 40, col: &columns - 50,
         \ })
     cal setbufvar(winbufnr(self.wid), '&filetype', 'log')
     cal matchadd('AC_TEST_WIN', 'SUCCESS',  16, -1, #{window: self.wid})
     let cmd = "cd ".task
     let cmd = cmd.' && '.$CPP_BUILD_CMD.' main main.cpp'
     let cmd = cmd.' && oj t -c "./main"'
-    cal job_start(["/bin/zsh", "-c", cmd], #{out_cb: self.async})
+    " out_cb: 標準出力、err_cb: 標準エラー
+    " callback: 両方
+    " debugの出力をstderrにしているので両方受け取る
+    cal job_start(["/bin/zsh", "-c", cmd], #{callback: self.async})
     let self.tid = timer_start(10000, { -> self.close()})
 endf
 fu! s:ac_test.async(ch, msg) abort
@@ -137,6 +140,14 @@ com! AtCoderSetTestUrl cal <SID>atcoderSetTestUrl()
 
 " C++のロゴAAにコードフォーマットする
 fu! s:fmt_cpp_AA() abort
+    " コメントを全て削除+フォーマット
+    w | e!
+    try | %s/\/\/.*/ /g | catch
+    endtry
+    cal CocAction('format')
+    w
+    cal cursor(1, 1)
+    " C++のロゴAAにフォーマット
     let pg = "./AA/AAfmt.js"
     if glob(pg)->empty()
         echom "[ERROR] AAfmt.js not found. Please setup C++ for dotfiles"
@@ -146,6 +157,7 @@ fu! s:fmt_cpp_AA() abort
     cal system("node ".pg." < ".bufname("%")." > ".tmp)
     cal system("cat ".tmp." > ".bufname("%"))
     cal system("rm ".tmp)
+    " 全てヤンク
     cal timer_start(900, { -> execute("%y") })
     cal timer_start(1000, { -> popup_notification(['Format C++ AA'], #{line: &lines}) })
 endf
