@@ -150,7 +150,7 @@ function solve() {
         mkdir z > /dev/null 2>&1
         touch a/main.cpp z/main.cpp
         #\rm -rf a/test z/test
-        v z/main.cpp
+        v
         return
     fi
 
@@ -254,7 +254,7 @@ function debug() {
         TARGET=$1
     fi
     cd $TARGET
-    info "build: $TARGET"
+    info "build: $TARGET/main.cpp"
     eval $CPP_BUILD_CMD main main.cpp
     info "exe stdin: test/sample-1.in"
     # 標準出力のみをファイルに保存
@@ -266,10 +266,13 @@ function debug() {
     # 標準出力のみを比較
     if diff -q test/sample-1.out tmp > /dev/null; then
         info "assert OK !!!"
+        echo "===================================="
+        echo "==== oj t -c ./main ==========="
+        echo "===================================="
+        oj t -c ./main --ignore-spaces-and-newlines 2>/dev/null
     else
         error "assert NG !!!"
     fi
-    #oj t -c ./main
     \rm main
     \rm tmp
     cd ..
