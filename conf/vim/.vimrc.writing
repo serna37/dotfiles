@@ -44,6 +44,6 @@ endf
 fu! s:comment_design_reset() abort
     let s:cmt_design_step = 1
 endf
-nnoremap <silent><C-c> :cal <SID>comment_design_reset()<CR>:echom '[INFO] comment sequence reset'<CR>
-nnoremap <silent><Leader>j :cal <SID>comment_design()<CR>
+"nnoremap <silent><C-c> :cal <SID>comment_design_reset()<CR>:echom '[INFO] comment sequence reset'<CR>
+"nnoremap <silent><Leader>j :cal <SID>comment_design()<CR>
 
