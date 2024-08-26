@@ -126,6 +126,7 @@ nnoremap <silent><Leader><Leader>a <Plug>(atcoder-oj-test-off)
 " C++のdebug結果見る用に、右画面にターミナル画面(floatでない)
 " ==============================
 fu s:atcoder_debug_window() abort
+    w
     let debug_cmd = "debug ".expand('%')->split('/')[0]."\<CR>\<C-e>h"
     " 右のウィンドウを閉じる(前回分のterminalがある想定)
     if winnr('$') == 3 " 右端が3つ目のウィンドウであること
