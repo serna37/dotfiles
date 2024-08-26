@@ -254,8 +254,14 @@ function debug() {
         TARGET=$1
     fi
     cd $TARGET
+    info "build: $TARGET"
     eval $CPP_BUILD_CMD main main.cpp
-    oj t -c ./main
+    info "exe stdin: test/sample-1.in"
+    ./main < test/sample-1.in
+    echo &1
+    info "answer: test/sample-1.out"
+    cat test/sample-1.out
+    #oj t -c ./main
     \rm main
     cd ..
 }

@@ -1,20 +1,20 @@
 #include <iostream>
+#include <map>
+#include <queue>
 #include <set>
 #include <stack>
-#include <queue>
-#include <map>
 using std::cerr;
-using std::string;
+using std::deque;
+using std::map;
+using std::multiset;
 using std::pair;
+using std::priority_queue;
+using std::queue;
+using std::set;
+using std::stack;
+using std::string;
 using std::tuple;
 using std::vector;
-using std::set;
-using std::multiset;
-using std::map;
-using std::stack;
-using std::queue;
-using std::priority_queue;
-using std::deque;
 // copy for bits
 // ==========================================================================
 // ==========================================================================
@@ -195,7 +195,16 @@ template <typename T> void print(const T &v) {
     _print(v);
     _print_LF();
 }
-#define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", print(__VA_ARGS__)
+#define debug(...)                                                             \
+    cerr << "\033[32m"                                                         \
+         << "--debug "                                                         \
+         << "\033[34m"                                                         \
+         << "["                                                                \
+         << "\033[33m" << #__VA_ARGS__ << "\033[34m"                           \
+         << "]"                                                                \
+         << "\033[m"                                                           \
+         << ":",                                                               \
+        print(__VA_ARGS__)
 // --- debug_end
 // ==========================================================================
 // ==========================================================================
