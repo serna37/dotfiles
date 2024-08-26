@@ -28,25 +28,39 @@ void _print(const double &v) {
     cerr << v;
 }
 void _print(const string &v) {
-    cerr << '"' << v << '"';
+    cerr << "\033[32m" << '"' << "\033[m" << v << "\033[32m" << '"' << "\033[m";
 }
 void _print(const char &v) {
-    cerr << "'" << v << "'";
+    cerr << "\033[32m"
+         << "'"
+         << "\033[m" << v << "\033[32m"
+         << "'"
+         << "\033[m";
 }
 void _print_start() {
-    cerr << "\033[32m" << "{" << "\033[m";
+    cerr << "\033[32m"
+         << "{"
+         << "\033[m";
 }
 void _print_end() {
-    cerr << "\033[32m" << "}" << "\033[m";
+    cerr << "\033[32m"
+         << "}"
+         << "\033[m";
 }
 void _print_p_start() {
-    cerr << "\033[32m" << "(" << "\033[m";
+    cerr << "\033[32m"
+         << "("
+         << "\033[m";
 }
 void _print_p_end() {
-    cerr << "\033[32m" << ")" << "\033[m";
+    cerr << "\033[32m"
+         << ")"
+         << "\033[m";
 }
 void _print_sep() {
-    cerr << "\033[32m" << "," << "\033[m";
+    cerr << "\033[32m"
+         << ","
+         << "\033[m";
 }
 void _print_LF() {
     cerr << "\n";
