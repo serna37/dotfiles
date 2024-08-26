@@ -1,5 +1,20 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <iostream>
+#include <set>
+#include <stack>
+#include <queue>
+#include <map>
+using std::cerr;
+using std::string;
+using std::pair;
+using std::tuple;
+using std::vector;
+using std::set;
+using std::multiset;
+using std::map;
+using std::stack;
+using std::queue;
+using std::priority_queue;
+using std::deque;
 // copy for bits
 // ==========================================================================
 // ==========================================================================
