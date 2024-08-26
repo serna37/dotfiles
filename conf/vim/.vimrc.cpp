@@ -74,7 +74,7 @@ endf
 fu! s:ac_test.exe() abort
     " フォーマッタ+保存
     "cal CocAction('format')
-    "w
+    w
     cal timer_stop(self.tid)
     let task = s:ac_test.gettask()
     if task == "nodata" || len(task) != 1
