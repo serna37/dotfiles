@@ -257,11 +257,21 @@ function debug() {
     info "build: $TARGET"
     eval $CPP_BUILD_CMD main main.cpp
     info "exe stdin: test/sample-1.in"
+    # 標準出力のみをファイルに保存
+    ./main < test/sample-1.in > tmp 2> /dev/null
+    # 画面に表示する
     ./main < test/sample-1.in
     info "answer: test/sample-1.out"
     cat test/sample-1.out
+    # 標準出力のみを比較
+    if diff -q test/sample-1.out tmp > /dev/null; then
+        info "assert OK !!!"
+    else
+        error "assert NG !!!"
+    fi
     #oj t -c ./main
     \rm main
+    \rm tmp
     cd ..
 }
 

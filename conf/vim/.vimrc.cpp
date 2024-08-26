@@ -166,5 +166,11 @@ noremap <silent><Plug>(cpp-AA-fmt) :<C-u>cal <SID>fmt_cpp_AA()<CR>
 nnoremap <Leader><Leader>F <Plug>(cpp-AA-fmt)
 
 " C++のdebug結果見る用に、右画面にターミナル画面(floatでない)
-nnoremap <Leader>t <Plug>(atcoder-oj-test-off):<C-u>vert term ++cols=60<CR>debug 
+fu s:atcoderDebugWindow() abort
+    let debug_cmd = "debug ".expand('%')->split('/')[0]."\<CR>"
+    exe "vert term ++cols=60"
+    cal feedkeys(debug_cmd)
+endf
+noremap <silent><Plug>(atcoder-debug-window) :<C-u>cal <SID>atcoderDebugWindow()<CR>
+nnoremap <Leader>t <Plug>(atcoder-oj-test-off)<Plug>(atcoder-debug-window)
 
