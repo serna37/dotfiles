@@ -36,8 +36,7 @@ fu! s:atcoder_maincpp_next() abort
 endf
 com! MainOpen cal s:atcoder_maincpp_open()
 com! MainNext cal s:atcoder_maincpp_next()
-nnoremap <silent><Leader>j :<C-u>MainNext<CR>
-nnoremap <silent><Leader>k :<C-u>MainOpen<CR>
+nnoremap <silent><Leader>a :<C-u>MainNext<CR>
 
 " ==============================
 " URLからテストケースをダウンロード
