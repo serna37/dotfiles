@@ -5,10 +5,12 @@
 " 依存スニペット展開用。トリガ文言を展開する
 fu! s:expandSnippet() abort
     cal feedkeys("A\<C-s>\<Esc>", 'x')
+    exe "DebugOnSaveAtCoderCppEnd"
     w
+    exe "DebugOnSaveAtCoderCpp"
 endf
 noremap <silent><Plug>(exp-snip) :<C-u>cal <SID>expandSnippet()<CR>
-nnoremap <Leader>t <Plug>(exp-snip)
+nnoremap <silent><Leader>t <Plug>(exp-snip)
 
 " 一番下行から書く時に、フォーマットして画面真ん中フォーカス
 fu! s:asyncFormat() abort
@@ -25,7 +27,6 @@ fu! s:tailsemi() abort
     if getline('.')[-1:] != ';'
         execute('normal A;')
     endif
-    w
 endf
 noremap <silent><Plug>(tailsemi) :<C-u>cal <SID>tailsemi()<CR>
 inoremap ;; <Esc><Plug>(tailsemi)
