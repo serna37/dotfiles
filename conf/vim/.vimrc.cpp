@@ -36,8 +36,8 @@ fu! s:atcoder_maincpp_next() abort
 endf
 com! MainOpen cal s:atcoder_maincpp_open()
 com! MainNext cal s:atcoder_maincpp_next()
-nnoremap <Leader>j :<C-u>MainNext<CR>
-nnoremap <Leader>k :<C-u>MainOpen<CR>
+nnoremap <silent><Leader>j :<C-u>MainNext<CR>
+nnoremap <silent><Leader>k :<C-u>MainOpen<CR>
 
 " ==============================
 " URLからテストケースをダウンロード
@@ -89,7 +89,7 @@ endf
 fu! s:ac_test.exe() abort
     " フォーマッタ+保存
     "cal CocAction('format')
-    w
+    "w
     cal timer_stop(self.tid)
     let task = s:ac_test.gettask()
     if task == "nodata" || len(task) != 1
@@ -131,24 +131,29 @@ endf
 fu! s:ac_test_off() abort
     cal s:ac_test.close()
 endf
-noremap <silent><Plug>(atcoder-oj-test) :<C-u>cal <SID>ac_test_call()<CR>
-noremap <silent><Plug>(atcoder-oj-test-off) :<C-u>cal <SID>ac_test_off()<CR>
-nnoremap <silent><Leader>a <Plug>(atcoder-oj-test)
-nnoremap <silent><Leader><Leader>a <Plug>(atcoder-oj-test-off)
+"noremap <silent><Plug>(atcoder-oj-test) :<C-u>cal <SID>ac_test_call()<CR>
+"noremap <silent><Plug>(atcoder-oj-test-off) :<C-u>cal <SID>ac_test_off()<CR>
+"nnoremap <silent><Leader>a <Plug>(atcoder-oj-test)
+"nnoremap <silent><Leader><Leader>a <Plug>(atcoder-oj-test-off)
+com! TestAtCoderCpp cal s:ac_test_call()
 
 " ==============================
 " C++のdebug結果見る用に、右画面にターミナル画面(floatでない)
 " ==============================
 fu s:atcoder_debug_window() abort
-    w
-    let debug_cmd = "debug ".expand('%')->split('/')[0]."\<CR>\<C-e>h"
-    " 右のウィンドウを閉じる(前回分のterminalがある想定)
+    let debug_cmd = "\<C-l>debug ".expand('%')->split('/')[0]."\<CR>\<C-e>h"
     if winnr('$') == 3 " 右端が3つ目のウィンドウであること
-        let terminal_winid = win_getid(3)
-        cal win_execute(terminal_winid, 'q')
+        " 前回分のterminalがある場合は移動
+        cal feedkeys("\<C-w>l")
+    else
+        " ない場合は開く
+        exe "vert term ++cols=60"
+        cal feedkeys("\<C-w>l")
     endif
-    exe "vert term ++cols=60"
-    cal feedkeys("\<C-l>".debug_cmd)
+    cal feedkeys(debug_cmd)
+endf
+com! DebugWindowAtCoderCpp cal s:atcoder_debug_window()
+
 " ==============================
 " ファイル保存時にdebug実行
 " ==============================
@@ -163,8 +168,6 @@ fu! s:atcoder_debug_on_save_end() abort
         au!
     aug END
 endf
-noremap <silent><Plug>(atcoder-debug-window) :<C-u>cal <SID>atcoder_debug_window()<CR>
-nnoremap <Leader>t <Plug>(atcoder-oj-test-off)<Plug>(atcoder-debug-window)
 com! DebugOnSaveAtCoderCpp cal s:atcoder_debug_on_save_start()
 com! DebugOnSaveAtCoderCppEnd cal s:atcoder_debug_on_save_end()
 
@@ -214,5 +217,5 @@ fu! s:atcoder_fmt_cpp() abort
     cal timer_start(1000, { -> popup_notification(['Format C++ AA'], #{line: &lines}) })
 endf
 noremap <silent><Plug>(atcoder-fmt-cpp) :<C-u>cal <SID>atcoder_fmt_cpp()<CR>
-nnoremap <Leader><Leader>F <Plug>(atcoder-fmt-cpp)
+nnoremap <silent><Leader><Leader>F <Plug>(atcoder-fmt-cpp)
 
