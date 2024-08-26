@@ -116,6 +116,7 @@ fu! s:goyo_enter()
     if &filetype =~ 'cpp'
         " LSPサーバが停止したときに自動で再起動
         let s:zen_lsp_watch_tid = timer_start(2000, { -> s:chkLSP() })
+        exe "DebugOnSaveAtCoderCppEnd"
     endif
 endf
 
@@ -123,6 +124,7 @@ fu! s:goyo_leave()
     cal s:colorscheme_onedark()
     if &filetype =~ 'cpp'
         cal timer_stop(s:zen_lsp_watch_tid)
+        exe "DebugOnSaveAtCoderCpp"
     endif
 endf
 
