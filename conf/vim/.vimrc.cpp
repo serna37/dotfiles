@@ -168,6 +168,11 @@ nnoremap <Leader><Leader>F <Plug>(cpp-AA-fmt)
 " C++のdebug結果見る用に、右画面にターミナル画面(floatでない)
 fu s:atcoderDebugWindow() abort
     let debug_cmd = "debug ".expand('%')->split('/')[0]."\<CR>\<C-e>h"
+    " 右のウィンドウを閉じる(前回分のterminalがある想定)
+    if winnr('$') == 3 " 右端が3つ目のウィンドウであること
+        let terminal_winid = win_getid(3)
+        cal win_execute(terminal_winid, 'q')
+    endif
     exe "vert term ++cols=60"
     cal feedkeys(debug_cmd)
 endf
