@@ -266,7 +266,7 @@ nnoremap <silent><Leader>o :CocCommand fzf-preview.CocOutline<CR>
 nnoremap <silent><Leader>? :cal CocAction('doHover')<CR>
 nnoremap <Leader>, <plug>(coc-diagnostic-next)
 nnoremap <Leader>. <plug>(coc-diagnostic-prev)
-nnoremap <silent><Leader><S-F> :<C-u>cal CocAction('format')<CR>:w<CR>
+nnoremap <silent><Leader><S-F> :<C-u>cal CocActionAsync('format')<CR>
 nnoremap <silent><Leader><S-R> <Plug>(coc-rename)
 
 " ホバードキュメントスクロールを有効に
