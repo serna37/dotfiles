@@ -15,7 +15,15 @@ fu! s:atcoder_maincpp_next() abort
         retu
     endif
     let current = expand('%')->split('/')[0]
-    let idx = match(all,current)
+    if current == "z"
+        " クリップボードのURLを退避
+        let @a = @*
+        exe "%d"
+        let @* = @a
+        exe "AtCoderSetTestUrl"
+        retu
+    endif
+    let idx = match(all, current)
     if idx + 1 < len(all)
         exe "e ".all[idx + 1]."/main.cpp"
     else

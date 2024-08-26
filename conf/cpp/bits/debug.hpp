@@ -34,19 +34,19 @@ void _print(const char &v) {
     cerr << "'" << v << "'";
 }
 void _print_start() {
-    cerr << "{";
+    cerr << "\033[32m" << "{" << "\033[m";
 }
 void _print_end() {
-    cerr << "}";
+    cerr << "\033[32m" << "}" << "\033[m";
 }
 void _print_p_start() {
-    cerr << "(";
+    cerr << "\033[32m" << "(" << "\033[m";
 }
 void _print_p_end() {
-    cerr << ")";
+    cerr << "\033[32m" << ")" << "\033[m";
 }
 void _print_sep() {
-    cerr << ", ";
+    cerr << "\033[32m" << "," << "\033[m";
 }
 void _print_LF() {
     cerr << "\n";
