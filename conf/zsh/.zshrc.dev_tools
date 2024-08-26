@@ -231,7 +231,7 @@ function cpp_exe() {
     fi
     echo "==================================="
     info "build :$TARGET processing..."
-    eval "$CMD _cpp_tmp $TARGET 2>&1"
+    eval "$CMD _cpp_exe $TARGET 2>&1"
     info "build :$TARGET complete."
     echo "==================================="
     printf "\e[33m-----------------------------\e[m\n"
