@@ -165,3 +165,6 @@ endf
 noremap <silent><Plug>(cpp-AA-fmt) :<C-u>cal <SID>fmt_cpp_AA()<CR>
 nnoremap <Leader><Leader>F <Plug>(cpp-AA-fmt)
 
+" C++のdebug結果見る用に、右画面にターミナル画面(floatでない)
+nnoremap <Leader>t <Plug>(atcoder-oj-test-off):<C-u>vert term ++cols=60<CR>debug 
+
