@@ -7,11 +7,13 @@ endf
 fu! s:atcoder_maincpp_open() abort
     let w = input("input problem code >", "", "customlist,Atcoder_maincpp_completion")
     exe "e ".w."/main.cpp"
+    cal s:atcoder_debug_on_save_start()
 endf
 fu! s:atcoder_maincpp_next() abort
     let all = Atcoder_maincpp_completion("", "", "")
     if expand('%')->empty()
         exe "e a/main.cpp"
+        cal s:atcoder_debug_on_save_start()
         retu
     endif
     let current = expand('%')->split('/')[0]
@@ -21,11 +23,13 @@ fu! s:atcoder_maincpp_next() abort
         exe "%d"
         let @* = @a
         exe "AtCoderSetTestUrl"
+        cal s:atcoder_debug_on_save_start()
         retu
     endif
     let idx = match(all, current)
     if idx + 1 < len(all)
         exe "e ".all[idx + 1]."/main.cpp"
+        cal s:atcoder_debug_on_save_start()
     else
         echom "last problem"
     endif
@@ -145,20 +149,37 @@ fu s:atcoder_debug_window() abort
     endif
     exe "vert term ++cols=60"
     cal feedkeys("\<C-l>".debug_cmd)
+" ==============================
+" ファイル保存時にdebug実行
+" ==============================
+fu! s:atcoder_debug_on_save_start() abort
+    aug debug_on_save
+        au!
+        au BufWrite *.cpp cal s:atcoder_debug_window()
+    aug END
+endf
+fu! s:atcoder_debug_on_save_end() abort
+    aug debug_on_save
+        au!
+    aug END
 endf
 noremap <silent><Plug>(atcoder-debug-window) :<C-u>cal <SID>atcoder_debug_window()<CR>
 nnoremap <Leader>t <Plug>(atcoder-oj-test-off)<Plug>(atcoder-debug-window)
+com! DebugOnSaveAtCoderCpp cal s:atcoder_debug_on_save_start()
+com! DebugOnSaveAtCoderCppEnd cal s:atcoder_debug_on_save_end()
 
 " ==============================
 " 提出用圧縮コピペ
 " ==============================
 fu! s:atcoder_fmt() abort
+    cal s:atcoder_debug_on_save_end()
     w | e!
     " //から右を全て削除
     try | %s/\/\/.*/ /g | catch
     endtry
     cal CocAction('format')
     w
+    cal s:atcoder_debug_on_save_start()
     %y
     cal cursor(1, 1)
     cal popup_notification(['⭐️ 圧縮&コピー完了⭐️'], #{line: &lines/2, col: &columns/3})
@@ -169,12 +190,14 @@ nnoremap <silent><Leader>u :<C-u>cal <SID>atcoder_fmt()<CR><Esc>
 " C++のロゴAAにコードフォーマットする
 " ==============================
 fu! s:atcoder_fmt_cpp() abort
+    cal s:atcoder_debug_on_save_end()
     " コメントを全て削除+フォーマット
     w | e!
     try | %s/\/\/.*/ /g | catch
     endtry
     cal CocAction('format')
     w
+    cal s:atcoder_debug_on_save_start()
     cal cursor(1, 1)
     " C++のロゴAAにフォーマット
     let pg = "./AA/AAfmt.js"
