@@ -142,7 +142,7 @@ fu s:atcoder_debug_window() abort
         cal win_execute(terminal_winid, 'q')
     endif
     exe "vert term ++cols=60"
-    cal feedkeys(debug_cmd)
+    cal feedkeys("\<C-l>".debug_cmd)
 endf
 noremap <silent><Plug>(atcoder-debug-window) :<C-u>cal <SID>atcoder_debug_window()<CR>
 nnoremap <Leader>t <Plug>(atcoder-oj-test-off)<Plug>(atcoder-debug-window)
