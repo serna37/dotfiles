@@ -167,7 +167,7 @@ nnoremap <Leader><Leader>F <Plug>(cpp-AA-fmt)
 
 " C++のdebug結果見る用に、右画面にターミナル画面(floatでない)
 fu s:atcoderDebugWindow() abort
-    let debug_cmd = "debug ".expand('%')->split('/')[0]."\<CR>"
+    let debug_cmd = "debug ".expand('%')->split('/')[0]."\<CR>\<C-e>h"
     exe "vert term ++cols=60"
     cal feedkeys(debug_cmd)
 endf
