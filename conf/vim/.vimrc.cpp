@@ -101,8 +101,9 @@ fu! s:ac_test.exe() abort
     let cmd = cmd.' && oj t -c "./main"'
     " out_cb: 標準出力、err_cb: 標準エラー
     " callback: 両方
-    " debugの出力をstderrにしているので両方受け取る
-    cal job_start(["/bin/zsh", "-c", cmd], #{callback: self.async})
+    " debugの出力をstderrにしている
+    " 現状、debug出力の色コードが変な出力になるので、stderrは塞いでいる
+    cal job_start(["/bin/zsh", "-c", cmd], #{out_cb: self.async})
     let self.tid = timer_start(10000, { -> self.close()})
 endf
 fu! s:ac_test.async(ch, msg) abort
