@@ -1,52 +1,53 @@
-" C++用設定
-" 提出用圧縮コピペ
-fu! s:fmt4Submisstion() abort
-    w | e!
-    " ifdef LOCALのおかげで消す必要なくなった！
-    " // --- debug_start
-    " から
-    " // --- debug_end
-    " までの行を全て削除
-    "let flg = 0
-    "let row = 0
-    "for v in getline(0, '$')
-        "let row += 1
-        "if v == '// --- debug_start'
-            "let flg = 1
-        "endif
-        "if v == '// --- debug_end'
-            "let flg = 0
-        "endif
-        "if flg
-            "cal setline(row, '')
-        "endif
-    "endfor
-    "" debugのincludeを削除
-    "let row = 0
-    "for v in getline(0, '$')
-        "let row += 1
-        "if v == '#include <bits/debug.hpp>'
-            "cal setline(row, '')
-            "break
-        "endif
-    "endfor
-    " debug出力も削除
-    "try | %s/debug(.*/ /g | catch
-    "endtry
-    " //から右を全て削除
-    try | %s/\/\/.*/ /g | catch
-    endtry
-
-    cal CocAction('format')
-    w
-    %y
-    cal cursor(1, 1)
-    cal popup_notification(['⭐️ 圧縮&コピー完了⭐️'], #{line: &lines/2, col: &columns/3})
+" ==============================
+" 問題番号のmain.cppを開く
+" ==============================
+fu! Atcoder_maincpp_completion(A, L, P) abort
+    retu system("find . -name '*.cpp' | cut -d '/' -f 2 | sort -u")->split("\n")
 endf
-nnoremap <silent><Leader>u :<C-u>cal <SID>fmt4Submisstion()<CR><Esc>
+fu! s:atcoder_maincpp_open() abort
+    let w = input("input problem code >", "", "customlist,Atcoder_maincpp_completion")
+    exe "e ".w."/main.cpp"
+endf
+fu! s:atcoder_maincpp_next() abort
+    let all = Atcoder_maincpp_completion("", "", "")
+    if expand('%')->empty()
+        exe "e a/main.cpp"
+        retu
+    endif
+    let current = expand('%')->split('/')[0]
+    let idx = match(all,current)
+    if idx + 1 < len(all)
+        exe "e ".all[idx + 1]."/main.cpp"
+    else
+        echom "last problem"
+    endif
+endf
+com! MainOpen cal s:atcoder_maincpp_open()
+com! MainNext cal s:atcoder_maincpp_next()
 
+" ==============================
+" URLからテストケースをダウンロード
+" ==============================
+fu! s:atcoder_set_test_url() abort
+    let task = s:ac_test.gettask()
+    if task == "nodata" || len(task) != 1
+        echohl AC_ALERT
+        echom "[ERROR] AtCoder Format Program Not Found. sample: 'a/main.cpp'"
+        echohl None
+        retu
+    endif
+    let contest_url = input('input URL>')
+    if !glob('./'.task.'/test')->empty()
+        cal system('cd '.task.'/ && rm -rf test')
+    endif
+    cal system('cd '.task.'/ && oj d '.contest_url)
+    cal popup_notification(['DL Test Data By', contest_url], #{line: &lines})
+endf
+com! AtCoderSetTestUrl cal s:atcoder_set_test_url()
 
+" ==============================
 " 非同期でテスト結果をポップアップに表示
+" ==============================
 aug AC_TEST_COLOR
     au!
     au ColorScheme * hi AC_TEST_WIN ctermfg=39 ctermbg=237
@@ -121,26 +122,42 @@ noremap <silent><Plug>(atcoder-oj-test-off) :<C-u>cal <SID>ac_test_off()<CR>
 nnoremap <silent><Leader>a <Plug>(atcoder-oj-test)
 nnoremap <silent><Leader><Leader>a <Plug>(atcoder-oj-test-off)
 
-" URLからテストケースをダウンロード
-fu! s:atcoderSetTestUrl() abort
-    let task = s:ac_test.gettask()
-    if task == "nodata" || len(task) != 1
-        echohl AC_ALERT
-        echom "[ERROR] AtCoder Format Program Not Found. sample: 'a/main.cpp'"
-        echohl None
-        retu
+" ==============================
+" C++のdebug結果見る用に、右画面にターミナル画面(floatでない)
+" ==============================
+fu s:atcoder_debug_window() abort
+    let debug_cmd = "debug ".expand('%')->split('/')[0]."\<CR>\<C-e>h"
+    " 右のウィンドウを閉じる(前回分のterminalがある想定)
+    if winnr('$') == 3 " 右端が3つ目のウィンドウであること
+        let terminal_winid = win_getid(3)
+        cal win_execute(terminal_winid, 'q')
     endif
-    let contest_url = input('input URL>')
-    if !glob('./'.task.'/test')->empty()
-        cal system('cd '.task.'/ && rm -rf test')
-    endif
-    cal system('cd '.task.'/ && oj d '.contest_url)
-    cal popup_notification(['DL Test Data By', contest_url], #{line: &lines})
+    exe "vert term ++cols=60"
+    cal feedkeys(debug_cmd)
 endf
-com! AtCoderSetTestUrl cal <SID>atcoderSetTestUrl()
+noremap <silent><Plug>(atcoder-debug-window) :<C-u>cal <SID>atcoder_debug_window()<CR>
+nnoremap <Leader>t <Plug>(atcoder-oj-test-off)<Plug>(atcoder-debug-window)
 
+" ==============================
+" 提出用圧縮コピペ
+" ==============================
+fu! s:atcoder_fmt() abort
+    w | e!
+    " //から右を全て削除
+    try | %s/\/\/.*/ /g | catch
+    endtry
+    cal CocAction('format')
+    w
+    %y
+    cal cursor(1, 1)
+    cal popup_notification(['⭐️ 圧縮&コピー完了⭐️'], #{line: &lines/2, col: &columns/3})
+endf
+nnoremap <silent><Leader>u :<C-u>cal <SID>atcoder_fmt()<CR><Esc>
+
+" ==============================
 " C++のロゴAAにコードフォーマットする
-fu! s:fmt_cpp_AA() abort
+" ==============================
+fu! s:atcoder_fmt_cpp() abort
     " コメントを全て削除+フォーマット
     w | e!
     try | %s/\/\/.*/ /g | catch
@@ -162,20 +179,6 @@ fu! s:fmt_cpp_AA() abort
     cal timer_start(900, { -> execute("%y") })
     cal timer_start(1000, { -> popup_notification(['Format C++ AA'], #{line: &lines}) })
 endf
-noremap <silent><Plug>(cpp-AA-fmt) :<C-u>cal <SID>fmt_cpp_AA()<CR>
-nnoremap <Leader><Leader>F <Plug>(cpp-AA-fmt)
-
-" C++のdebug結果見る用に、右画面にターミナル画面(floatでない)
-fu s:atcoderDebugWindow() abort
-    let debug_cmd = "debug ".expand('%')->split('/')[0]."\<CR>\<C-e>h"
-    " 右のウィンドウを閉じる(前回分のterminalがある想定)
-    if winnr('$') == 3 " 右端が3つ目のウィンドウであること
-        let terminal_winid = win_getid(3)
-        cal win_execute(terminal_winid, 'q')
-    endif
-    exe "vert term ++cols=60"
-    cal feedkeys(debug_cmd)
-endf
-noremap <silent><Plug>(atcoder-debug-window) :<C-u>cal <SID>atcoderDebugWindow()<CR>
-nnoremap <Leader>t <Plug>(atcoder-oj-test-off)<Plug>(atcoder-debug-window)
+noremap <silent><Plug>(atcoder-fmt-cpp) :<C-u>cal <SID>atcoder_fmt_cpp()<CR>
+nnoremap <Leader><Leader>F <Plug>(atcoder-fmt-cpp)
 
