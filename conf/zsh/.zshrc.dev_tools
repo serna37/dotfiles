@@ -267,6 +267,9 @@ function debug() {
     if diff -q test/sample-1.out res > /dev/null; then
         info "assert OK !!!"
         echo "===================================="
+        echo ">> sanitizer build & exe"
+        eval $CPP_BUILD_CMD_SANITIZE sani main.cpp
+        ./sani < test/sample-1.in
         echo "===================================="
         echo ">> oj t -c ./main --ignore-spaces-and-newlines"
         if oj t -c ./main --ignore-spaces-and-newlines 2>/dev/null; then
@@ -275,8 +278,7 @@ function debug() {
     else
         error "assert NG !!!"
     fi
-    \rm main
-    \rm tmp
+    \rm main res sani
     cd ..
 }
 
