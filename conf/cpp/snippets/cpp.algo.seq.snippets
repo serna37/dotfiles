@@ -21,6 +21,9 @@ endsnippet
 
 # 圧縮
 snippet algo_seq_zip "座標圧縮" b
+/**
+ * 座標圧縮
+ */
 vector<${1:long long}> ${2:cvt} = ${3:target};
 sort($2.begin(), $2.end());
 $2.erase(unique($2.begin(), $2.end()), $2.end());
@@ -32,13 +35,22 @@ endsnippet
 # 転頭数
 snippet algo_seq_inv "転倒数" b
 // 右に倒れるA_i > A_j (i < j)の回数
+/**
+ * 座標圧縮
+ */
 vector<${1:long long}> ${2:cvt} = ${3:A};
 sort($2.begin(), $2.end());
 $2.erase(unique($2.begin(), $2.end()), $2.end());
 for (auto &v : $3) v = lower_bound($2.begin(), $2.end(), v) - $2.begin();
 // 圧縮後の種類数
 int ${5:sz} = $2.size();
+/**
+ * Fecwick Tree
+ */
 vector<int> ${6:fwk}($5 + 1); // 追加しながらFenwickの右側和
+/**
+ * 転頭数
+ */
 ${7:long long} ${8:inv} = 0; // 転倒数
 int ${9:R} = $5 - 1; // 座標圧縮したため最大要素 = サイズ-1
 for (int i = 0; i < ${10:N}; ++i) {

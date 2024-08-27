@@ -24,12 +24,18 @@ endsnippet
 
 # zeta
 snippet algo_range_zeta "累積和" b
+/**
+ * zeta
+ */
 vector<${1:long long}> ${2:S}(${3:N} + 1); // Σ(0, i-1)
 for (int ${4:i} = 0; $4 < $3; ++$4) {
 	$2[$4 + 1] = $2[$4] + ${5:A}[$4];
 } // Σ[l, r) = S[r] - S[l]
 endsnippet
 snippet algo_range_zeta_diff2 "二項差の累積和" b
+/**
+ * zeta diff
+ */
 vector<${1:long long}> ${2:S}(${3:N} + 1); // Σ(0, i-1)
 for (int ${4:i} = 0; $4 < $3; ++$4) {
 	$2[$4 + 1] = $2[$4];
@@ -39,12 +45,18 @@ endsnippet
 
 # zeta rev
 snippet algo_range_zeta_rev "反転累積和" b
+/**
+ * zeta rev
+ */
 vector<${1:long long}> ${2:R}(${3:N} + 1); // Aiから右全部
 for (int ${4:i} = $3 - 1; $4 >= 0; --$4) {
 	$2[$4] = $2[$4 + 1] + ${5:A}[$4];
 } // Σ(0, i-1) + Σ(i, last) = S[i] + R[i]
 endsnippet
 snippet algo_range_zeta_rev_diff2 "二項差の反転累積和" b
+/**
+ * zeta rev diff
+ */
 vector<${1:long long}> ${2:R}(${3:N} + 1); // Aiから右全部
 for (int ${4:i} = $3 - 1; $4 >= 0; --$4) {
 	$2[$4] = $2[$4 + 1];
@@ -54,6 +66,9 @@ endsnippet
 
 # 2D
 snippet algo_range_zeta_2D "2次元累積和" b
+/**
+ * zeta 2D
+ */
 vector<vector<${1:long long}>> ${2:S}(${3:H} + 1, vector<$1>(${4:W} + 1));
 // 横向き
 for (int i = 0; i < $3; ++i) {
@@ -73,6 +88,9 @@ endsnippet
 
 # 3D
 snippet algo_range_zeta_3D "3次元累積和" b
+/**
+ * zeta 3D
+ */
 using sum = int;
 vector<vector<vector<sum>>> S;
 int szx = ${1:A}.size(), szy = $1[0].size(), szz = $1[0][0].size();
@@ -95,6 +113,9 @@ for (int x = 1; x <= szx; ++x) {
 endsnippet
 
 snippet algo_range_moebius "メビウス変換" b
+/**
+ * moebius
+ */
 vector<${1:int}> ${2:D}(${3:N-1});
 for (int i = 0; i < $3; ++i) {
 	$2[i] = ${4:A}[i + 1] - $4[i];

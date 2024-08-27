@@ -6,9 +6,12 @@
 
 # 順列
 snippet algo_brute_permutation "順列全探索" b
-// 10!=3628800 < 10^7
-// 11!=39916800 < 10^8
-// 12!=479001600 < 10^9
+/**
+ * 順列全探索
+ * 10!=3628800 < 10^7
+ * 11!=39916800 < 10^8
+ * 12!=479001600 < 10^9
+ */
 sort(${1:A}.begin(), $1.end());
 do {
 	${2}
@@ -17,6 +20,9 @@ endsnippet
 
 # bit全探索
 snippet algo_brute_bit_loop "bit全探索" b
+/**
+ * bit全探索
+ */
 for (${1:long long} ${2:bit} = 0; $2 < (${3:1ll} << ${4:N}); ++$2) {
 	${5:long long} tmp = 0;
 	for (int k = 0; k < $4; ++k) {
@@ -28,6 +34,9 @@ for (${1:long long} ${2:bit} = 0; $2 < (${3:1ll} << ${4:N}); ++$2) {
 }
 endsnippet
 snippet algo_brute_bit_loop_2 "bit全探索 2重" b
+/**
+ * bit全探索 2重
+ */
 for (int bit = 0; bit < (1 << ${1:H}); ++bit) {
 	for (int bit2 = 0; bit2 < (1 << ${2:W}); ++bit2) {
 		vector<int> ${3:h}, ${4:w};

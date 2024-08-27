@@ -2,11 +2,17 @@
 # function
 # =========================================================
 snippet func "function" b
+/**
+ * ${5:solve}
+ */
 ${1:void} ${2:func}(${3:int n}) {
 	${4}
 }
 endsnippet
 snippet lambda "function lambda" b
+/**
+ * ${7:solve}
+ */
 auto ${1:f} = [${2:&}](const ${3:char} & ${4:ch}) ${5:-> void} {
 	${6}
 };
@@ -83,6 +89,7 @@ for (long long ${1:i} = ${2:0}; $1 <${3:N}; ++$1) {
 }
 endsnippet
 snippet fori_range "for i range loop" b
+// $3を$4個ずつ
 for (int ${1:i} = ${2:0}; $1 <${3:N} - ${4:M} + 1; ++$1) {
 	${5}
 }

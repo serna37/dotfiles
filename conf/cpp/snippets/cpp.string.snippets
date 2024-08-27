@@ -13,14 +13,21 @@ snippet string_transform "transform case" b
 std::transform(${1:str}.begin(), $1.end(), $1.begin(), ::${2:tolower});
 endsnippet
 snippet string_islower "string islower" b
-// bool値を返すようwrap
+/**
+ * 小文字ならtrue
+ */
 auto islow = [](char c) -> bool { return islower(c) != 0; };
 endsnippet
 snippet string_isupper "string isupper" b
-// bool値を返すようwrap
+/**
+ * 大文字ならtrue
+ */
 auto isupp = [](char c) -> bool { return isupper(c) != 0; };
 endsnippet
 snippet string_lpad "string lpad" b
+/**
+ * 左に0埋め
+ */
 auto lpad = [](const string &S, int size, char ch = '0') -> string {
 	int N = S.size();
 	if (N >= size) return S;
@@ -28,6 +35,9 @@ auto lpad = [](const string &S, int size, char ch = '0') -> string {
 };
 endsnippet
 snippet string_rpad "string rpad" b
+/**
+ * 右に0埋め
+ */
 auto rpad = [](const string &S, int size, char ch = '0') -> string {
 	int N = S.size();
 	if (N >= size) return S;
@@ -35,6 +45,9 @@ auto rpad = [](const string &S, int size, char ch = '0') -> string {
 };
 endsnippet
 snippet string_finds "string finds" b
+/**
+ * 文字列中の一致場所を全て
+ */
 auto finds = [](const string &T, const string &S) -> vector<int> {
 	vector<int> pos;
 	auto p = T.find(S);
@@ -46,7 +59,10 @@ auto finds = [](const string &T, const string &S) -> vector<int> {
 };
 endsnippet
 snippet string_split "string split" b
-// 区切り文字がない場合空文字
+/**
+ * 区切り文字で区切る
+ * 区切り文字がない場合空文字
+ */
 auto split = [](const string &S, const char &sep) -> vector<string> {
 	vector<string> res = {""};
 	for (auto &&v : S) {
@@ -60,7 +76,10 @@ auto split = [](const string &S, const char &sep) -> vector<string> {
 };
 endsnippet
 snippet string_split_multi "string split multi" b
-// 複数のcharで区切る 区切り文字がない場合空文字
+/**
+ * 複数のcharで区切る
+ * 区切り文字がない場合空文字
+ */
 auto split = [](const string &S, const string &seps) -> vector<string> {
 	vector<string> res = {""};
 	for (auto &&v : S) {
@@ -74,6 +93,9 @@ auto split = [](const string &S, const string &seps) -> vector<string> {
 };
 endsnippet
 snippet string_run_length "string run length" b
+/**
+ * ランレングス圧縮
+ */
 auto run_length = [](const string &S) -> vector<pair<char, int>> {
 	vector<pair<char, int>> res;
 	for (auto &&x : S) {
@@ -86,6 +108,9 @@ auto run_length = [](const string &S) -> vector<pair<char, int>> {
 };
 endsnippet
 snippet string_z_algo "string z algorithm" b
+/**
+ * Z-Algorithm
+ */
 auto z_algo = [](const string &S) -> vector<int> {
 	int n = S.size();
 	if (n == 0) return {};
