@@ -273,7 +273,8 @@ function debug() {
         echo "===================================="
         echo ">> oj t -c ./main --ignore-spaces-and-newlines"
         if oj t -c ./main --ignore-spaces-and-newlines 2>/dev/null; then
-            afplay /System/Library/Sounds/Hero.aiff
+            #afplay /System/Library/Sounds/Hero.aiff
+            info "-- DONE --"
         fi
     else
         error "assert NG !!!"
