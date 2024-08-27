@@ -282,3 +282,21 @@ function debug() {
     cd ..
 }
 
+# 提出コマンド
+function submit() {
+    TARGET=$1
+    if [ $# -eq 2 ]; then
+        # 書き捨ての場合
+        URL=$2
+    else
+        # コンテストの場合、jsonから自動でURL検出
+        URL=$(cat contest.acc.json | jq -r ".tasks.[] | select(.directory.path == \"$TARGET\") | .url")
+    fi
+    cd $TARGET
+    info "build: $TARGET/main.cpp"
+    eval $CPP_BUILD_CMD main main.cpp
+    oj t -c ./main --ignore-spaces-and-newlines \
+        && oj s -y $URL main.cpp
+    cd ..
+}
+

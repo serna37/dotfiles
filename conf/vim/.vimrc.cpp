@@ -221,6 +221,33 @@ endf
 noremap <silent><Plug>(atcoder-fmt-cpp) :<C-u>cal <SID>atcoder_fmt_cpp()<CR>
 nnoremap <silent><Leader><Leader>F <Plug>(atcoder-fmt-cpp)
 
+" ==============================
+" 提出
+" ==============================
+fu! s:atcoder_submit() abort
+    " 書き捨ての場合
+    " submit z https://xxxx...
+    " コンテストフォルダの場合
+    " submit z
+    let target = expand('%')->split('/')[0]
+    let url = ""
+    " 書き捨ての場合はURLダウンロードしている
+    if g:contest_url != ""
+        let url = g:contest_url
+    endif
+    let cmd = "submit ".target." ".url."\<CR>\<C-e>h"
+
+    " debugと同様に右画面のターミナルで実行
+    if winnr('$') == 3 " 右端が3つ目のウィンドウであること
+        " 前回分のterminalがある場合は移動
+        cal feedkeys("\<C-w>l")
+    else
+        " ない場合は開く
+        exe "vert term ++cols=60"
+        cal feedkeys("\<C-w>l")
+    endif
+    cal feedkeys(cmd)
+endf
 noremap <silent><Plug>(atcoder-submit) :<C-u>cal <SID>atcoder_submit()<CR>
 nnoremap <silent><Leader>u <Plug>(atcoder-fmt)<Plug>(atcoder-submit)
 
