@@ -41,6 +41,7 @@ nnoremap <silent><Leader>a :<C-u>MainNext<CR>
 " ==============================
 " URLからテストケースをダウンロード
 " ==============================
+let g:contest_url = ""
 fu! s:atcoder_set_test_url() abort
     let task = s:ac_test.gettask()
     if task == "nodata" || len(task) != 1
@@ -49,17 +50,18 @@ fu! s:atcoder_set_test_url() abort
         echohl None
         retu
     endif
-    let contest_url = input('input URL>')
+    let g:contest_url = input('input URL>')
     if !glob('./'.task.'/test')->empty()
         cal system('cd '.task.'/ && rm -rf test')
     endif
-    cal system('cd '.task.'/ && oj d '.contest_url)
-    cal popup_notification(['DL Test Data By', contest_url], #{line: &lines})
+    cal system('cd '.task.'/ && oj d '.g:contest_url)
+    cal popup_notification(['DL Test Data By', g:contest_url], #{line: &lines})
 endf
 com! AtCoderSetTestUrl cal s:atcoder_set_test_url()
 
 " ==============================
 " 非同期でテスト結果をポップアップに表示
+" -> あまり使っていないので消してもいいかも
 " ==============================
 aug AC_TEST_COLOR
     au!
