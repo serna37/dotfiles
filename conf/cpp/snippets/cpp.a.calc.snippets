@@ -115,4 +115,16 @@ auto isKaibun = [](const string &s) -> bool {
 	return s == rev;
 };
 endsnippet
+snippet is_kakko "括弧判定" b
+auto isKakko = [](const string &s) -> bool {
+	int tmp = 0;
+	bool ok = true;
+	for (auto &&v : s) {
+		if (v == '(') ++tmp;
+		if (v == ')') --tmp;
+		if (tmp < 0) ok = false;
+	}
+	return ok and tmp == 0;
+};
+endsnippet
 
