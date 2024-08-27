@@ -24,18 +24,14 @@ endsnippet
 
 # zeta
 snippet algo_range_zeta "累積和" b
-/**
- * zeta
- */
+/* zeta */
 vector<${1:long long}> ${2:S}(${3:N} + 1); // Σ(0, i-1)
 for (int ${4:i} = 0; $4 < $3; ++$4) {
 	$2[$4 + 1] = $2[$4] + ${5:A}[$4];
 } // Σ[l, r) = S[r] - S[l]
 endsnippet
 snippet algo_range_zeta_diff2 "二項差の累積和" b
-/**
- * zeta diff
- */
+/* zeta diff */
 vector<${1:long long}> ${2:S}(${3:N} + 1); // Σ(0, i-1)
 for (int ${4:i} = 0; $4 < $3; ++$4) {
 	$2[$4 + 1] = $2[$4];
@@ -45,18 +41,14 @@ endsnippet
 
 # zeta rev
 snippet algo_range_zeta_rev "反転累積和" b
-/**
- * zeta rev
- */
+/* zeta rev */
 vector<${1:long long}> ${2:R}(${3:N} + 1); // Aiから右全部
 for (int ${4:i} = $3 - 1; $4 >= 0; --$4) {
 	$2[$4] = $2[$4 + 1] + ${5:A}[$4];
 } // Σ(0, i-1) + Σ(i, last) = S[i] + R[i]
 endsnippet
 snippet algo_range_zeta_rev_diff2 "二項差の反転累積和" b
-/**
- * zeta rev diff
- */
+/* zeta rev diff */
 vector<${1:long long}> ${2:R}(${3:N} + 1); // Aiから右全部
 for (int ${4:i} = $3 - 1; $4 >= 0; --$4) {
 	$2[$4] = $2[$4 + 1];
@@ -113,9 +105,7 @@ for (int x = 1; x <= szx; ++x) {
 endsnippet
 
 snippet algo_range_moebius "メビウス変換" b
-/**
- * moebius
- */
+/* moebius */
 vector<${1:int}> ${2:D}(${3:N-1});
 for (int i = 0; i < $3; ++i) {
 	$2[i] = ${4:A}[i + 1] - $4[i];
@@ -124,13 +114,14 @@ endsnippet
 
 # imos
 snippet algo_range_imos "imos" b
+/* imos */
 // 末端が配列外なら、操作不要
 // 加算[l, r) = 加算A[l], 逆算A[r]
 ${3:++}${1:A}[${2:l}];
 if ($4 < ${6:N}) ${5:--}$1[${4:r+1}];
 endsnippet
 snippet algo_range_imos_2D "2d imos" b
-// 2次元imos
+/* imos 2D */
 // A+1  A | -1  末端が配列外なら、操作不要
 // A    A |
 // -1￣￣ +1    包除

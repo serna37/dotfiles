@@ -7,13 +7,13 @@
 
 # マージテク
 snippet algo_seq_merge "merge" b
-// ${1:A}を${2:B}にマージテク
+/* ${1:A}を${2:B}にマージテク */
 if ($1.size() > $2.size()) swap($1, $2);
 for (auto &&v : $1) $2.${3:insert}(v);
 $1.clear();
 endsnippet
 snippet algo_seq_merge_map "merge map" b
-// ${1:mp[a]}を${2:mp[b]}にマージテク
+/* ${1:mp[a]}を${2:mp[b]}にマージテク */
 if ($1.size() > $2.size()) swap($1, $2);
 for (auto &&[k, v] : $1) $2[k] += v;
 $1.clear();

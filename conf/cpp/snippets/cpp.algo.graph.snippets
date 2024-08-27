@@ -29,7 +29,7 @@ while (!$2.empty()) {
 	}
 }
 
-// 経路復元
+/* 経路復元 */
 auto restore_route = [&](int goal) -> vector<int> {
 	// pth[v] := vからゴールまで辿る頂点
 	vector<int> pth = {goal}; // ゴールをセット

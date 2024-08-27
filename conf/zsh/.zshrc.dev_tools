@@ -146,8 +146,8 @@ function solve() {
         mkdir -p $SAND_DIR > /dev/null 2>&1
         cd $SAND_DIR
         dev_tools_cpp_setup_atcoder
-        mkdir a > /dev/null 2>&1
-        mkdir z > /dev/null 2>&1
+        mkdir -p a > /dev/null 2>&1
+        mkdir -p z > /dev/null 2>&1
         touch a/main.cpp z/main.cpp
         #\rm -rf a/test z/test
         v
