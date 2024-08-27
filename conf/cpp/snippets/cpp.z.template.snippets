@@ -1,7 +1,11 @@
 # =========================================================
 # template
 # =========================================================
-snippet fast_io_template "fast io template" b
+snippet www "fast io template" bA
+/**
+	author: serna37
+	generated: `date "+%Y-%m-%d %H:%M:%S"`
+*/
 #ifdef LOCAL
 #include <bits/debug.hpp>
 #else
@@ -9,16 +13,12 @@ snippet fast_io_template "fast io template" b
 #endif
 #include <bits/stdc++.h>
 using namespace std;
-${1}
 int main() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
-	${2}
+	${1}
 }
 endsnippet
-#snippet debug_include "debug include" b
-##include <bits/debug.hpp>
-#endsnippet
 snippet debug "debug" b
 debug(${1});
 endsnippet
