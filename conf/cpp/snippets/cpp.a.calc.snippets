@@ -71,13 +71,17 @@ snippet ceil2 "ceil2" i
 endsnippet
 
 snippet divceil "divceil" b
-// 負の場合0側へ丸めない
+/*
+ * 負の場合0側へ丸めない
+ */
 auto divCeil = []<class T>(T a, T b) -> T {
 	return a / b + (((a ^ b) > 0 and a % b != 0) ? 1 : 0);
 };
 endsnippet
 snippet divfloor "divfloor" b
-// 負の場合0側へ丸めない
+/*
+ * 負の場合0側へ丸めない
+ */
 auto divFloor = []<class T>(T a, T b) -> T {
 	return a / b - (((a ^ b) < 0 and a % b != 0) ? 1 : 0);
 };
@@ -101,6 +105,9 @@ for (int ${1:k} = 0; $1 < 4; ++$1) {
 }
 endsnippet
 snippet is_kaibun_int "回文かどうか判定" b
+/*
+ * 回文か判定
+ */
 auto isKaibun = [&](int n) -> bool {
 	string tmp = to_string(n);
 	string rev = tmp;
@@ -109,6 +116,9 @@ auto isKaibun = [&](int n) -> bool {
 };
 endsnippet
 snippet is_kaibun_str "回文かどうか判定" b
+/*
+ * 回文か判定
+ */
 auto isKaibun = [](const string &s) -> bool {
 	string rev = s;
 	reverse(rev.begin(), rev.end());
@@ -116,6 +126,9 @@ auto isKaibun = [](const string &s) -> bool {
 };
 endsnippet
 snippet is_kakko "括弧判定" b
+/*
+ * 良い括弧か判定
+ */
 auto isKakko = [](const string &s) -> bool {
 	int tmp = 0;
 	bool ok = true;
