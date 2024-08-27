@@ -5,13 +5,13 @@ snippet geo_rad "rad" b
 /**
  * 度数法 → 弧度法
  */
-auto rad = [](double d) -> double { return d * PI / 180; };
+auto rad = [&](double d) -> double { return d * PI / 180; };
 endsnippet
 snippet geo_deg "deg" b
 /**
  * 弧度法 → 度数法
  */
-auto deg = [](double r) -> double { return r * 180 / PI; };
+auto deg = [&](double r) -> double { return r * 180 / PI; };
 endsnippet
 
 snippet geo_area_triangle "geo area triangle" b
