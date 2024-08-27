@@ -258,17 +258,17 @@ function debug() {
     eval $CPP_BUILD_CMD main main.cpp
     info "exe stdin: test/sample-1.in"
     # 標準出力のみをファイルに保存
-    ./main < test/sample-1.in > tmp 2> /dev/null
-    # 画面に表示する
+    ./main < test/sample-1.in > res 2> /dev/null
+    # 画面に結果を表示するために再度実行
     ./main < test/sample-1.in
     info "answer: test/sample-1.out"
     cat test/sample-1.out
     # 標準出力のみを比較
-    if diff -q test/sample-1.out tmp > /dev/null; then
+    if diff -q test/sample-1.out res > /dev/null; then
         info "assert OK !!!"
         echo "===================================="
-        echo "==== oj t -c ./main ==========="
         echo "===================================="
+        echo ">> oj t -c ./main --ignore-spaces-and-newlines"
         if oj t -c ./main --ignore-spaces-and-newlines 2>/dev/null; then
             afplay /System/Library/Sounds/Hero.aiff
         fi
