@@ -256,6 +256,7 @@ function debug() {
     cd $TARGET
     info "build: $TARGET/main.cpp"
     eval $CPP_BUILD_CMD main main.cpp
+    eval $CPP_BUILD_CMD_SANITIZE sani main.cpp
     info "exe stdin: test/sample-1.in"
     # 標準出力のみをファイルに保存
     ./main < test/sample-1.in > res 2> /dev/null
@@ -267,8 +268,7 @@ function debug() {
     if diff -q test/sample-1.out res > /dev/null; then
         info "assert OK !!!"
         echo "===================================="
-        echo ">> sanitizer build & exe"
-        eval $CPP_BUILD_CMD_SANITIZE sani main.cpp
+        echo ">> sanitizer exe"
         ./sani < test/sample-1.in
         echo "===================================="
         echo ">> oj t -c ./main --ignore-spaces-and-newlines"

@@ -189,7 +189,7 @@ fu! s:atcoder_fmt() abort
     cal popup_notification(['⭐️ 圧縮&コピー完了⭐️'], #{line: &lines/2, col: &columns/3})
 endf
 noremap <silent><Plug>(atcoder-fmt) :<C-u>cal <SID>atcoder_fmt()<CR><Esc>
-com! FmtAtCoderCpp cal s:atcoder_fmt()
+nnoremap <silent><Leader><Leader>F <Plug>(atcoder-fmt)
 
 " ==============================
 " C++のロゴAAにコードフォーマットする
@@ -219,7 +219,7 @@ fu! s:atcoder_fmt_cpp() abort
     cal timer_start(1000, { -> popup_notification(['Format C++ AA'], #{line: &lines}) })
 endf
 noremap <silent><Plug>(atcoder-fmt-cpp) :<C-u>cal <SID>atcoder_fmt_cpp()<CR>
-nnoremap <silent><Leader><Leader>F <Plug>(atcoder-fmt-cpp)
+com! FmtAtCoderCppAALogo cal s:atcoder_fmt_cpp()
 
 " ==============================
 " 提出
