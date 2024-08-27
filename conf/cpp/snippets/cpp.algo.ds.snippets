@@ -17,15 +17,18 @@ vector<${2:int}> ${3:fwk}(sz + 1); // 1-indexed
 $2 tot = 0; // 合計
 endsnippet
 snippet algo_ds_fenwick_tree_build "fwk build" b
+/* BIT ビルド */
 for (int i = 1, f = i + (i & -i); i <= ${1:N}; ++i, f = i + (i & -i)) {
 	${2:fwk}[i] ${3:+}= ${4:A}[i - 1], tot $3= $4[i - 1];
 	if (f <= $1) $2[f] $3= $2[i];
 }
 endsnippet
 snippet algo_ds_fenwick_tree_act "fwk act" b
+/* BIT 1点更新 */
 for (int ${1:f} = ${2:1-idx}; $1 <= sz; $1 += $1 & -$1) ${3:fwk}[$1] ${4:+}= ${5:act_value}, tot $4= $5;
 endsnippet
 snippet algo_ds_fenwick_tree_prod "fwk prod" b
+/* BIT 区間取得 */
 for (int ${1:f} = ${2:1-idx}; $1; $1 -= $1 & -$1) ${3:ans} ${4:+}= ${5:fwk}[$1];
 endsnippet
 
@@ -43,10 +46,12 @@ auto op = [](Mono x, Mono y) -> Mono { return ${4:min}(x, y); }; // 二項演算
 vector<Mono> ${5:seg}(sz << 1, e);
 endsnippet
 snippet algo_ds_segment_tree_build "seg build" b
+/* セグ木をビルドする */
 for (int i = 0; i < ${1:N}; ++i) ${2:seg}[i + sz] = ${3:A}[i];
 for (int i = $1 - 1; i >= 0; --i) $2[i] = op($2[i << 1], $2[i << 1 | 1]);
 endsnippet
 snippet algo_ds_segment_tree_act "seg act" b
+/* セグ木 1点更新 */
 auto act = [&](int p, const Mono &x) {
 	${1:seg}[p += sz] = x; // 代入の場合
 	// p += sz, $1[p] = op($1[p], x); // 作用の場合
@@ -54,6 +59,7 @@ auto act = [&](int p, const Mono &x) {
 };
 endsnippet
 snippet algo_ds_segment_tree_prod "seg prod" b
+/* セグ木 区間取得 */
 auto prod = [&](int l, int r) {
 	Mono L = e, R = e;
 	for (l += sz, r += sz; l < r; l >>= 1, r >>= 1) {
@@ -73,19 +79,19 @@ Mono e = ${3:INF}; // 単位元
 auto op = [](Mono x, Mono y) -> Mono { return ${4:min}(x, y); }; // 二項演算
 vector<Mono> ${5:seg}(sz << 1, e);
 // =====================================
-// セグ木をビルドする
+/* セグ木をビルドする */
 auto build = [&]() {
 	for (int i = 0; i < $1; ++i) $5[i + sz] = ${6:A}[i];
 	for (int i = $1 - 1; i >= 0; --i) $5[i] = op($5[i << 1], $5[i << 1 | 1]);
 };
 build(); // ビルド実行
-// セグ木 1点更新
+/* セグ木 1点更新 */
 auto act = [&](int p, const Mono &x) {
 	$5[p += sz] = x; // 代入の場合
 	// p += sz, $5[p] = op($5[p], x); // 作用の場合
 	while (p >>= 1) $5[p] = op($5[p << 1], $5[p << 1 | 1]);
 };
-// セグ木 区間取得
+/* セグ木 区間取得 */
 auto prod = [&](int l, int r) {
 	Mono L = e, R = e;
 	for (l += sz, r += sz; l < r; l >>= 1, r >>= 1) {
@@ -108,6 +114,7 @@ vector<vector<int>> ${3:g}($2); // グループ本体
 for (int i = 0; i < $2; ++i) $1[i] = i, $3[i].push_back(i);
 endsnippet
 snippet algo_ds_union_find_merge "union find merge" b
+/* Union Find マージ */
 int ${4:X} = ${3:p}[${1:a}], ${5:Y} = $3[${2:b}]; // 代表値に変換
 if ($4 == $5) continue;
 if (${6:g}[$4].size() > $6[$5].size()) swap($4, $5); // マージテク
