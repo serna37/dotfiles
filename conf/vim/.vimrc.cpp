@@ -188,7 +188,8 @@ fu! s:atcoder_fmt() abort
     cal cursor(1, 1)
     cal popup_notification(['⭐️ 圧縮&コピー完了⭐️'], #{line: &lines/2, col: &columns/3})
 endf
-nnoremap <silent><Leader>u :<C-u>cal <SID>atcoder_fmt()<CR><Esc>
+noremap <silent><Plug>(atcoder-fmt) :<C-u>cal <SID>atcoder_fmt()<CR><Esc>
+com! FmtAtCoderCpp cal s:atcoder_fmt()
 
 " ==============================
 " C++のロゴAAにコードフォーマットする
@@ -219,4 +220,7 @@ fu! s:atcoder_fmt_cpp() abort
 endf
 noremap <silent><Plug>(atcoder-fmt-cpp) :<C-u>cal <SID>atcoder_fmt_cpp()<CR>
 nnoremap <silent><Leader><Leader>F <Plug>(atcoder-fmt-cpp)
+
+noremap <silent><Plug>(atcoder-submit) :<C-u>cal <SID>atcoder_submit()<CR>
+nnoremap <silent><Leader>u <Plug>(atcoder-fmt)<Plug>(atcoder-submit)
 
