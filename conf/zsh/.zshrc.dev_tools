@@ -208,7 +208,7 @@ export CPP_BUILD_CMD="g++ -D=LOCAL -std=c++20 \
 # -ftrapv 符号あり整数計算でover under flow
 # -fsanitize-undefined-trap-on-error 未定義サニタイザ
 # -fsanitize=address アドレスサニタイザ
-export CPP_BUILD_CMD_SANITIZE="g++ -D=LOCAL -std=c++20 \
+export CPP_BUILD_CMD_SANITIZE="g++ -std=c++20 \
 -I $HOME/git/dotfiles/conf/cpp \
 -Wall \
 -Wextra \
