@@ -77,13 +77,20 @@ ln -nfs ~/git/dotfiles/conf/zsh/.p10k.zsh ~/.p10k.zsh
 ln -nfs ~/git/dotfiles/.vimrc ~/.vimrc
 ln -nfs ~/git/dotfiles/.wezterm.lua ~/.wezterm.lua
 
-# font
+# font 三角のやつ
 cd ~/git
 git clone --depth 1 https://github.com/powerline/fonts.git
 cd fonts
 ./install.sh
 cd ..
 \rm -rf fonts
+
+# font icon系
+git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
+cd nerd-fonts
+./install.sh
+cd ..
+\rm -rf nerd-fonts
 
 # git
 if [ "$(uname)" = "Darwin" ]; then
