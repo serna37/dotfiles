@@ -294,11 +294,15 @@ function atcoder_submit() {
         # 書き捨ての場合
         URL=$2
     else
-        # コンテストの場合、jsonから自動でURL検出
+        # コンテストの場合、jsonからURL抽出
         URL=$(cat contest.acc.json | jq -r ".tasks.[] | select(.directory.path == \"$TARGET\") | .url")
     fi
     cd $TARGET
-    oj s -y $URL main.cpp
+    spin 'submit...' oj s -y --no-open $URL main.cpp
     cd ..
+    CONTEST_URL=$(echo $URL | sed -e 's/tasks.*//g')
+    echo "===================================="
+    echo "see: ${CONTEST_URL}submissions/me"
+    info "-- DONE --"
 }
 
