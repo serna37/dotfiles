@@ -246,7 +246,7 @@ function cpp_exe() {
 }
 
 # より高速なC++実行
-function debug() {
+function cpp_debug() {
     cd $1
     info "build: $1/main.cpp"
     eval $CPP_BUILD_CMD main main.cpp
@@ -281,7 +281,7 @@ function debug() {
 }
 
 # 提出コマンド
-function submit() {
+function atcoder_submit() {
     TARGET=$1
     if [ $# -eq 2 ]; then
         # 書き捨ての場合

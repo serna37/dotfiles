@@ -48,13 +48,13 @@ fu! s:atcoder_maincpp_next() abort
 
     " 次の問題を取得
     let all = Atcoder_maincpp_completion("", "", "")
-    echom all
     let idx = match(all, current)
     if idx + 1 < len(all)
-        exe "e ".all[idx + 1]."/main.cpp"
-        cal popup_notification(["next ".all[idx + 1]], #{line: &lines/4, col: &columns/2})
+        let w = all[idx + 1]
+        exe "e ".w."/main.cpp"
+        cal popup_notification(["next ".w], #{line: &lines/4, col: &columns/2})
     else
-        echom "last problem"
+        cal popup_notification(["last problem"], #{line: &lines/4, col: &columns/2})
     endif
 endf
 
@@ -172,7 +172,7 @@ com! TestAtCoderCpp cal s:ac_test_call()
 " C++のdebug結果見る用に、右画面にターミナル画面(floatでない)
 " ==============================
 fu s:atcoder_debug_window() abort
-    let debug_cmd = "\<C-l>debug ".expand("%:h")."\<CR>\<C-e>h"
+    let debug_cmd = "\<C-l>cpp_debug ".expand("%:h")."\<CR>\<C-e>h"
     " 右端が3つ目のウィンドウである前提
     " ない場合開く
     if winnr("$") != 3
@@ -244,11 +244,11 @@ com! FmtAtCoderCppAALogo cal s:atcoder_fmt_cpp()
 " 提出
 " ==============================
 fu! s:atcoder_submit() abort
-    " コンテストの場合: submit a
-    " 書き捨ての場合: submit z https://xxxx...
+    " コンテストの場合: atcoder_submit a
+    " 書き捨ての場合: atcoder_submit z https://xxxx...
     " ダウンロード済みURLがあれば書き捨て
     let url = g:contest_url == "" ? "" : g:contest_url
-    let cmd = "submit ".expand("%:h")." ".url."\<CR>\<C-e>h"
+    let cmd = "atcoder_submit ".expand("%:h")." ".url."\<CR>\<C-e>h"
 
     " debugと同様
     " 右端が3つ目のウィンドウである前提
