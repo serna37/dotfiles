@@ -112,7 +112,7 @@ nnoremap <Leader>x <Plug>(buf-close)
 let s:zen_lsp_watch_tid = -1
 fu! s:goyo_enter()
     colorscheme codedark
-    set number
+    "set number
     if &filetype =~ 'cpp'
         " LSPサーバが停止したときに自動で再起動
         let s:zen_lsp_watch_tid = timer_start(2000, { -> s:chkLSP() })
