@@ -250,7 +250,7 @@ function cpp_debug() {
     cd $1
     info "ビルド: $1/main.cpp"
     eval $CPP_BUILD_CMD main main.cpp
-    eval $CPP_BUILD_CMD_SANITIZE sani main.cpp
+    eval $CPP_BUILD_CMD_SANITIZE sani main.cpp > /dev/null 2>&1
 
     # 出力を確認
     info "ケース1を実行: test/sample-1.in"
@@ -258,24 +258,27 @@ function cpp_debug() {
     ./main < test/sample-1.in > res 2> /dev/null # 標準出力のみ保存
 
     # 標準出力を比較
+    ISOK=0
     info "期待値: test/sample-1.out"
     cat test/sample-1.out
     if diff -q test/sample-1.out res > /dev/null; then
-        info "ケース1: 出力一致"
+        info "結果: ✅出力一致"
+        ISOK=1
     else
-        error "ケース1: 出力不一致"
+        error "結果: ❌出力不一致"
         warn "テストのみの実行は、vimコマンド"
         warn "TestAtCoderCpp を実行して下さい。"
     fi
 
     # 緩いoj tがOKであればテスト結果を表示
-    if oj t --ignore-spaces-and-newlines -e 1e-6 -c ./main > /dev/null 2&>1; then
-        echo "===================================="
-        echo ">> アドレスサニタイザ エラー確認"
-        ./sani < test/sample-1.in 1> /dev/null # 標準エラーのみ表示
-        echo "===================================="
-        echo ">> 誤差1e-6でのテスト結果"
-        echo ">> oj t -e 1e-6 -c ./main"
+    if [ $ISOK -eq 1 ] || oj t --ignore-spaces-and-newlines -e 1e-6 -c ./main > /dev/null 2&>1; then
+        if ./sani < test/sample-1.in 1> /dev/null; then
+            info '[サニタイザ]: ✅アドレス違反なし'
+        else
+            warn '[サニタイザ]: ❌アドレス違反'
+            ./sani < test/sample-1.in 1> /dev/null # 標準エラーのみ表示
+        fi
+        info '[誤差1e-6でテスト] oj t -e 1e-6 -c ./main'
         echo "===================================="
         oj t -e 1e-6 -c ./main 2> /dev/null # debug情報(標準エラー)は非表示
     fi
