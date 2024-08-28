@@ -243,6 +243,7 @@ function cpp_exe() {
     else
         error "exit code:$res."
     fi
+    \rm _cpp_exe
 }
 
 # より高速なC++実行

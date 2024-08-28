@@ -9,7 +9,6 @@ __pycache__/
 # C++
 .clang-format
 compile_flags.txt
-_cpp_exe
 AA/
 
 # debugger
