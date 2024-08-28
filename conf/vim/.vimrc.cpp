@@ -1,39 +1,63 @@
 " ==============================
 " 問題番号のmain.cppを開く
 " ==============================
+" cppファイル一覧を取得
 fu! Atcoder_maincpp_completion(A, L, P) abort
     retu system("find . -name '*.cpp' | cut -d '/' -f 2 | sort -u")->split("\n")
 endf
+
+" 任意のcppファイルを開く
 fu! s:atcoder_maincpp_open() abort
     let w = input("input problem code >", "", "customlist,Atcoder_maincpp_completion")
     exe "e ".w."/main.cpp"
     cal s:atcoder_debug_on_save_start()
 endf
+
+" 次の問題のcppファイルを開く
 fu! s:atcoder_maincpp_next() abort
-    let all = Atcoder_maincpp_completion("", "", "")
-    if expand('%')->empty()
+    " バッファを開いていない = コンテスト最初
+    if expand("%")->empty()
+        if glob("contest.acc.json")->empty()
+            echom "[ERROR] Not a contest project."
+            retu
+        endif
         exe "e a/main.cpp"
         cal s:atcoder_debug_on_save_start()
+        cal popup_notification(["open a/main.cpp"], #{line: &lines/4, col: &columns/2})
         retu
     endif
-    let current = expand('%')->split('/')[0]
+
+    if expand("%:t") != "main.cpp"
+        echom "[ERROR] Not a main.cpp"
+        retu
+    endif
+
+    let current = expand("%:h")
+    cal s:atcoder_debug_on_save_start()
+
+    " バッファがz/main.cpp = 書き捨て
     if current == "z"
-        " クリップボードのURLを退避
-        let @a = @*
+        let res = s:atcoder_set_test_url()
+        if res == 0
+            retu
+        endif
         exe "%d"
-        let @* = @a
-        exe "AtCoderSetTestUrl"
-        cal s:atcoder_debug_on_save_start()
+        cal popup_notification(["next problem"], #{line: &lines/4, col: &columns/2})
         retu
     endif
+
+    " 次の問題を取得
+    let all = Atcoder_maincpp_completion("", "", "")
+    echom all
     let idx = match(all, current)
     if idx + 1 < len(all)
         exe "e ".all[idx + 1]."/main.cpp"
-        cal s:atcoder_debug_on_save_start()
+        cal popup_notification(["next ".all[idx + 1]], #{line: &lines/4, col: &columns/2})
     else
         echom "last problem"
     endif
 endf
+
 com! MainOpen cal s:atcoder_maincpp_open()
 com! MainNext cal s:atcoder_maincpp_next()
 nnoremap <silent><Leader>a :<C-u>MainNext<CR>
@@ -43,19 +67,25 @@ nnoremap <silent><Leader>a :<C-u>MainNext<CR>
 " ==============================
 let g:contest_url = ""
 fu! s:atcoder_set_test_url() abort
-    let task = s:ac_test.gettask()
-    if task == "nodata" || len(task) != 1
-        echohl AC_ALERT
-        echom "[ERROR] AtCoder Format Program Not Found. sample: 'a/main.cpp'"
-        echohl None
-        retu
+
+    if expand("%:t") != "main.cpp"
+        echom "[ERROR] Not a main.cpp"
+        retu 0
     endif
-    let g:contest_url = input('input URL>')
-    if !glob('./'.task.'/test')->empty()
-        cal system('cd '.task.'/ && rm -rf test')
+
+    let g:contest_url = input("input URL>")
+    if g:contest_url == ""
+        cal popup_notification(["cancel"], #{line: &lines})
+        retu 0
     endif
-    cal system('cd '.task.'/ && oj d '.g:contest_url)
-    cal popup_notification(['DL Test Data By', g:contest_url], #{line: &lines})
+
+    let current = expand("%:h")
+    if !glob("./".current."/test")->empty()
+        cal system("cd ".current."/ && rm -rf test")
+    endif
+    cal system("cd ".current."/ && oj d ".g:contest_url)
+    cal popup_notification(["DL Test Data :", g:contest_url], #{line: &lines})
+    retu 1
 endf
 com! AtCoderSetTestUrl cal s:atcoder_set_test_url()
 
@@ -142,21 +172,19 @@ com! TestAtCoderCpp cal s:ac_test_call()
 " C++のdebug結果見る用に、右画面にターミナル画面(floatでない)
 " ==============================
 fu s:atcoder_debug_window() abort
-    let debug_cmd = "\<C-l>debug ".expand('%')->split('/')[0]."\<CR>\<C-e>h"
-    if winnr('$') == 3 " 右端が3つ目のウィンドウであること
-        " 前回分のterminalがある場合は移動
-        cal feedkeys("\<C-w>l")
-    else
-        " ない場合は開く
+    let debug_cmd = "\<C-l>debug ".expand("%:h")."\<CR>\<C-e>h"
+    " 右端が3つ目のウィンドウである前提
+    " ない場合開く
+    if winnr("$") != 3
         exe "vert term ++cols=60"
-        cal feedkeys("\<C-w>l")
     endif
+    cal feedkeys("\<C-w>l")
     cal feedkeys(debug_cmd)
 endf
 com! DebugWindowAtCoderCpp cal s:atcoder_debug_window()
 
 " ==============================
-" ファイル保存時にdebug実行
+" ファイル保存時にdebug実行 ホットリロード
 " ==============================
 fu! s:atcoder_debug_on_save_start() abort
     aug debug_on_save
@@ -173,7 +201,7 @@ com! DebugOnSaveAtCoderCpp cal s:atcoder_debug_on_save_start()
 com! DebugOnSaveAtCoderCppEnd cal s:atcoder_debug_on_save_end()
 
 " ==============================
-" 提出用圧縮コピペ
+" 提出用の圧縮フォーマット
 " ==============================
 fu! s:atcoder_fmt() abort
     cal s:atcoder_debug_on_save_end()
@@ -181,12 +209,9 @@ fu! s:atcoder_fmt() abort
     " //から右を全て削除
     try | %s/\/\/.*/ /g | catch
     endtry
-    cal CocAction('format')
+    cal CocAction("format")
     w
     cal s:atcoder_debug_on_save_start()
-    %y
-    cal cursor(1, 1)
-    cal popup_notification(['⭐️ 圧縮&コピー完了⭐️'], #{line: &lines/2, col: &columns/3})
 endf
 noremap <silent><Plug>(atcoder-fmt) :<C-u>cal <SID>atcoder_fmt()<CR><Esc>
 nnoremap <silent><Leader><Leader>F <Plug>(atcoder-fmt)
@@ -195,15 +220,9 @@ nnoremap <silent><Leader><Leader>F <Plug>(atcoder-fmt)
 " C++のロゴAAにコードフォーマットする
 " ==============================
 fu! s:atcoder_fmt_cpp() abort
-    cal s:atcoder_debug_on_save_end()
     " コメントを全て削除+フォーマット
-    w | e!
-    try | %s/\/\/.*/ /g | catch
-    endtry
-    cal CocAction('format')
-    w
-    cal s:atcoder_debug_on_save_start()
-    cal cursor(1, 1)
+    cal s:atcoder_fmt()
+
     " C++のロゴAAにフォーマット
     let pg = "./AA/AAfmt.js"
     if glob(pg)->empty()
@@ -214,39 +233,33 @@ fu! s:atcoder_fmt_cpp() abort
     cal system("node ".pg." < ".bufname("%")." > ".tmp)
     cal system("cat ".tmp." > ".bufname("%"))
     cal system("rm ".tmp)
+
     " 全てヤンク
     cal timer_start(900, { -> execute("%y") })
-    cal timer_start(1000, { -> popup_notification(['Format C++ AA'], #{line: &lines}) })
+    cal timer_start(1000, { -> popup_notification(["Format C++ AA"], #{line: &lines/2, col: &columns/3}) })
 endf
-noremap <silent><Plug>(atcoder-fmt-cpp) :<C-u>cal <SID>atcoder_fmt_cpp()<CR>
 com! FmtAtCoderCppAALogo cal s:atcoder_fmt_cpp()
 
 " ==============================
 " 提出
 " ==============================
 fu! s:atcoder_submit() abort
-    " 書き捨ての場合
-    " submit z https://xxxx...
-    " コンテストフォルダの場合
-    " submit z
-    let target = expand('%')->split('/')[0]
-    let url = ""
-    " 書き捨ての場合はURLダウンロードしている
-    if g:contest_url != ""
-        let url = g:contest_url
-    endif
-    let cmd = "submit ".target." ".url."\<CR>\<C-e>h"
+    " コンテストの場合: submit a
+    " 書き捨ての場合: submit z https://xxxx...
+    " ダウンロード済みURLがあれば書き捨て
+    let url = g:contest_url == "" ? "" : g:contest_url
+    let cmd = "submit ".expand("%:h")." ".url."\<CR>\<C-e>h"
 
-    " debugと同様に右画面のターミナルで実行
-    if winnr('$') == 3 " 右端が3つ目のウィンドウであること
-        " 前回分のterminalがある場合は移動
-        cal feedkeys("\<C-w>l")
-    else
-        " ない場合は開く
+    " debugと同様
+    " 右端が3つ目のウィンドウである前提
+    " ない場合開く
+    if winnr("$") != 3
         exe "vert term ++cols=60"
-        cal feedkeys("\<C-w>l")
     endif
+    cal feedkeys("\<C-w>l")
     cal feedkeys(cmd)
+
+    cal popup_notification(["⭐️提出⭐️"], #{line: &lines/2, col: &columns/3})
 endf
 noremap <silent><Plug>(atcoder-submit) :<C-u>cal <SID>atcoder_submit()<CR>
 nnoremap <silent><Leader>u <Plug>(atcoder-fmt)<Plug>(atcoder-submit)

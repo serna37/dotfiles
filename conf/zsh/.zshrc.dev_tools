@@ -150,7 +150,7 @@ function solve() {
         mkdir -p z > /dev/null 2>&1
         touch a/main.cpp z/main.cpp
         #\rm -rf a/test z/test
-        v
+        v z/main.cpp
         return
     fi
 
@@ -246,41 +246,38 @@ function cpp_exe() {
 }
 
 # より高速なC++実行
-# z/main.cppをojでテストする場合はdebug
-# a/main.cppをojでテストする場合はdebug a
 function debug() {
-    TARGET=z
-    if [ $# -eq 1 ]; then
-        TARGET=$1
-    fi
-    cd $TARGET
-    info "build: $TARGET/main.cpp"
+    cd $1
+    info "build: $1/main.cpp"
     eval $CPP_BUILD_CMD main main.cpp
     eval $CPP_BUILD_CMD_SANITIZE sani main.cpp
+
     info "exe stdin: test/sample-1.in"
     # 標準出力のみをファイルに保存
     ./main < test/sample-1.in > res 2> /dev/null
     # 画面に結果を表示するために再度実行
     ./main < test/sample-1.in
+
     info "answer: test/sample-1.out"
     cat test/sample-1.out
+
     # 標準出力のみを比較
     if diff -q test/sample-1.out res > /dev/null; then
         info "assert OK !!!"
-        echo "===================================="
-        echo ">> sanitizer exe"
-        ./sani < test/sample-1.in
-        echo "===================================="
-        echo ">> oj t -c ./main --ignore-spaces-and-newlines"
-        if oj t -c ./main --ignore-spaces-and-newlines 2>/dev/null; then
-            #afplay /System/Library/Sounds/Hero.aiff
-            info "-- DONE --"
-        fi
     else
         error "assert NG !!!"
     fi
+
+    echo "===================================="
+    echo ">> sanitizer exe"
+    ./sani < test/sample-1.in
+    echo "===================================="
+    echo ">> oj t -c ./main"
+    oj t -c ./main 2> /dev/null
+    #afplay /System/Library/Sounds/Hero.aiff
     \rm main res sani
     cd ..
+    info "-- DONE --"
 }
 
 # 提出コマンド
@@ -294,10 +291,7 @@ function submit() {
         URL=$(cat contest.acc.json | jq -r ".tasks.[] | select(.directory.path == \"$TARGET\") | .url")
     fi
     cd $TARGET
-    info "build: $TARGET/main.cpp"
-    eval $CPP_BUILD_CMD main main.cpp
-    oj t -c ./main --ignore-spaces-and-newlines \
-        && oj s -y $URL main.cpp
+    oj s -y $URL main.cpp
     cd ..
 }
 
