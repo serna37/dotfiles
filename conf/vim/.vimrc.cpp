@@ -91,7 +91,6 @@ com! AtCoderSetTestUrl cal s:atcoder_set_test_url()
 
 " ==============================
 " 非同期でテスト結果をポップアップに表示
-" -> あまり使っていないので消してもいいかも
 " ==============================
 aug AC_TEST_COLOR
     au!
@@ -99,17 +98,6 @@ aug AC_TEST_COLOR
     au ColorScheme * hi AC_ALERT ctermfg=204
 aug END
 let s:ac_test = #{wid: -1, res: [], tid: -1}
-fu! s:ac_test.gettask() abort
-    let target_bufname = "nodata"
-    for wid in range(1, winnr('$'))
-        let bufname = bufname(winbufnr(wid))
-        if bufname =~ ".*\/main\.cpp"
-            let target_bufname = bufname
-            break
-        endif
-    endfor
-    retu split(target_bufname, '/')[-2]
-endf
 fu! s:ac_test.close() abort
         if self.wid != -1
         cal popup_close(self.wid)
@@ -118,33 +106,24 @@ fu! s:ac_test.close() abort
     endif
 endf
 fu! s:ac_test.exe() abort
-    " フォーマッタ+保存
-    "cal CocAction('format')
-    "w
     cal timer_stop(self.tid)
-    let task = s:ac_test.gettask()
-    if task == "nodata" || len(task) != 1
-        echohl AC_ALERT
-        echom "[ERROR] AtCoder Format Program Not Found. sample: 'a/main.cpp'"
-        echohl None
+    if expand("%:t") != "main.cpp"
+        echom "[ERROR] Not a main.cpp"
         retu
     endif
+    let current = expand("%:h")
     cal self.close()
-    let self.wid = popup_create(self.res, #{title: ' Test - '.task.' ',
-        \ zindex: -1,
-        \ scrollbar: 0,
-        \ fixed: 1,
+    let self.wid = popup_create(self.res, #{title: ' Test - '.current.' ',
+        \ scrollbar: 0, zindex: -1, fixed: 1,
         \ border: [], borderchars: ['─','│','─','│','╭','╮','╯','╰'], borderhighlight: ['AC_TEST_WIN'],
-        \ minwidth: 50, maxwidth: 50,
-        \ minheight: 40, maxheight: 40,
-        \ pos: 'topleft',
-        \ line: 40, col: &columns - 50,
+        \ minwidth: 50, maxwidth: 50, minheight: 40, maxheight: 40,
+        \ pos: 'topleft', line: 40, col: &columns - 50,
         \ })
     cal setbufvar(winbufnr(self.wid), '&filetype', 'log')
     cal matchadd('AC_TEST_WIN', 'SUCCESS',  16, -1, #{window: self.wid})
-    let cmd = "cd ".task
-    let cmd = cmd.' && '.$CPP_BUILD_CMD.' main main.cpp'
-    let cmd = cmd.' && oj t -c "./main"'
+    let cmd = "cd ".current
+    let cmd = cmd." && eval $CPP_BUILD_CMD main main.cpp"
+    let cmd = cmd." && oj t -e 1e-6 -c ./main"
     " out_cb: 標準出力、err_cb: 標準エラー
     " callback: 両方
     " debugの出力をstderrにしている
@@ -159,13 +138,6 @@ endf
 fu! s:ac_test_call() abort
     cal s:ac_test.exe()
 endf
-fu! s:ac_test_off() abort
-    cal s:ac_test.close()
-endf
-"noremap <silent><Plug>(atcoder-oj-test) :<C-u>cal <SID>ac_test_call()<CR>
-"noremap <silent><Plug>(atcoder-oj-test-off) :<C-u>cal <SID>ac_test_off()<CR>
-"nnoremap <silent><Leader>a <Plug>(atcoder-oj-test)
-"nnoremap <silent><Leader><Leader>a <Plug>(atcoder-oj-test-off)
 com! TestAtCoderCpp cal s:ac_test_call()
 
 " ==============================
