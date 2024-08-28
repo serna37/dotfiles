@@ -141,7 +141,7 @@ function dev_tools_cpp_setup_atcoder() {
 function solve() {
     _lazy_install_llvm
     # 書き捨てで解く
-    SAND_DIR="$HOME/work/sandbox"
+    SAND_DIR="$HOME/work/algo_practice"
     if [ $# -eq 0 ]; then
         mkdir -p $SAND_DIR > /dev/null 2>&1
         cd $SAND_DIR
@@ -160,7 +160,7 @@ function solve() {
         error 'contest code is not found.'
         return
     fi
-    AC_DIR="$HOME/git/contest"
+    AC_DIR="$HOME/work/atcoder_contest"
     mkdir -p $AC_DIR > /dev/null 2>&1
     cd $AC_DIR
     dev_tools_cpp_setup_atcoder
@@ -272,7 +272,7 @@ function cpp_debug() {
     fi
 
     # 緩いoj tがOKであればテスト結果を表示
-    if [ $ISOK -eq 1 ] || oj t --ignore-spaces-and-newlines -e 1e-6 -c ./main > /dev/null 2&>1; then
+    if [ $ISOK -eq 1 ] || oj t --ignore-spaces-and-newlines -e 1e-6 -c ./main > /dev/null 2>&1; then
         if ./sani < test/sample-1.in 1> /dev/null; then
             info '[サニタイザ]: ✅アドレス違反なし'
         else
