@@ -133,6 +133,10 @@ inline void _print(const char &v) {
 inline void _print(const string &v) {
     cerr << "\033[32m" << '"' << "\033[m" << v << "\033[32m" << '"' << "\033[m";
 }
+// 直接引数に入れたりとかした場合
+template <typename T> void _print(const T &v) {
+    cerr << v;
+}
 // =====================================
 // pair tuple3 tuple4
 // =====================================
@@ -208,14 +212,17 @@ template <typename T> void _print(const multiset<T> &v) {
 }
 template <typename T, typename U> void _print(const map<T, U> &v) {
     _print_b_start();
+    _print_LF();
     int i = 0;
     for (auto &&[k, x] : v) {
+        cerr << "  ";
         if (i++) _print_sep();
         _print_p_start();
         _print(k);
         _print_sep();
         _print(x);
         _print_p_end();
+        _print_LF();
     }
     _print_b_end();
 }
