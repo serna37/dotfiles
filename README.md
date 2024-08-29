@@ -1,4 +1,4 @@
-[![tag](https://img.shields.io/badge/tag-v9.4.2-green)](https://github.com/serna37/dotfiles/releases/tag/v9.4.2)
+[![tag](https://img.shields.io/badge/tag-v9.4.3-green)](https://github.com/serna37/dotfiles/releases/tag/v9.4.3)
 
 # dotfiles
 <a href="https://github.com/serna37/dotfiles/blob/master/install.sh">
