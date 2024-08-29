@@ -52,7 +52,10 @@ fu! s:atcoder_maincpp_next() abort
     if idx + 1 < len(all)
         let w = all[idx + 1]
         exe "e ".w."/main.cpp"
-        cal popup_notification(["next ".w], #{line: &lines/4, col: &columns/2})
+        cal popup_notification([w], #{line: &lines/4, col: &columns/2, time: 30000})
+        let cc = execute("pwd")->split("\n")[0]->split("/")[-1]
+        let next_url = "open https://atcoder.jp/contests/".cc."/tasks/".cc."_".w
+        cal system(next_url)
     else
         cal popup_notification(["last problem"], #{line: &lines/4, col: &columns/2})
     endif
