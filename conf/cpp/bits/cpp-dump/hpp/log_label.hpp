@@ -30,7 +30,7 @@ namespace log_label {
  * Default function assigned to cpp_dump::options::log_label_func.
  */
 inline std::string default_func(std::string_view, std::size_t, std::string_view) {
-  return "[dump] ";
+    return "\033[90m[debug]\033[m ";
 }
 
 /**
