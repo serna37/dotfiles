@@ -181,6 +181,9 @@ function solve() {
         info "touch file :\e[32m$v/main.cpp"
         touch "$v/main.cpp"
     done
+    # 順位表とa問題を開く
+    open "https://atcoder.jp/contests/$CONTEST_CODE/standings"
+    open "https://atcoder.jp/contests/$CONTEST_CODE/tasks/${CONTEST_CODE}_a"
     v
 }
 function _solve() { _values '' '[ 書き捨て]' 'abc[ AtCoderコンテスト番号]' }
