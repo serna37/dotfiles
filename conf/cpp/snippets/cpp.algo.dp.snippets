@@ -22,21 +22,21 @@ snippet algo_dp_cheat "dpのヒント" b
 endsnippet
 
 snippet algo_dp "dp" b
-// 値の型: ${1:long long}
-// 遷移数: ${2:N}
-// DP表の初期値: ${3:INF}
-// 2次元表の場合、横の長さ: ${4:M} = 番兵+1 sizeも+1
-// 最初の値: ${5:0 1} = 通り数なら1, 最小化なら0
+// =====================================
+
+// ⭐️ DPテーブル定義
+// 型: ${1:long long}
+// 遷移回数: ${2:N}
+// 2次元表の場合、横の長さ: ${3:M} : 番兵+1 sizeも+1
+// 表全体の初期値: ${4:INF}
+// dp[0]最初の値: ${5:0 1} : 通り数=1, 最適化=0
 
 // =====================================
-// 1次元DP
-//         ↱    ↴    ↴
-// ...  dp_i  dp_i+1  dp_i+2  ...
-
-//vector<$1> dp($2, $3);
-//dp[0] = $5;
+//1次元DP ↱    ↴    ↴
+//dp_i  dp_i+1  dp_i+2
+//vector<$1> dp($2, $4); dp[0] = $5;
 //for (int i = 0; i < $2; ++i) {
-//	for (int j = 1; j <= K; ++j) {
+//	for (int j = 1; j <= K; ++j) { // frog K
 //		if (i + j < N) {
 //			dp[i + j] = min(dp[i + j], dp[i] + cost);
 //		}
@@ -47,10 +47,10 @@ snippet algo_dp "dp" b
 /**
  * DP
  */
-vector<$1> def($4, $3); // 2次元DP swap
-auto dp = def, nx = dp;
-dp[0] = $5;
+vector<$1> def($3, $4); // 2次元DP swap
+auto dp = def, nx = dp; dp[0] = $5;
 for (int i = 0; i < $2; ++i, swap(dp, nx)) {
+	// ⭐️ 前行をコピーするかどうか
 	// - 選ばない: dp    緩和、通り数
 	// - 必ず選ぶ: def   初期化する
 	nx = dp;
@@ -59,28 +59,33 @@ for (int i = 0; i < $2; ++i, swap(dp, nx)) {
 	// ...  dp_j                  ...
 	//            ↘
 	// ...  nx_j  nx_j+X  nx_i+2  ...
-	// 横向きループ
-	for (int j = 0; j < $4; ++j) {
-		nx[j + X] = min(nx[j + X], dp[j] + cost);
+	// ⭐️ 横向きループ
+	for (int j = 0; j < $3; ++j) {
+		//nx[j + X] = min(nx[j + X], dp[j] + cost);
 		//nx[i + X] += dp[i];
 	}
 
-	// ... dp_j  dp_j+1  dp_j+2  ...
+	// ⭐️ 前の周の和を利用するなら累積和
+	// dp_j  dp_j+1  dp_j+2
 	//        ↘       ↘       ↘
-	//                          nx_j
+	//                   nx_j
 	// S := zeta dp
 	//for (int j = AA; j <= BB; ++j) {
 	//	nx[j] += S[j + 1];
 	//}
+
 }
 
 // =====================================
+// 🔥最後の値
 //cout << dp.back() << endl;
 //cout << (dp.back() == INF ? -1 : dp.back()) << endl;
+
+// 🔥min max
 //cout << *max_element(dp.begin(), dp.end()) << endl;
 //cout << *min_element(dp.begin(), dp.end()) << endl;
 
-// mod sum
+// 🔥mod sum
 //long long ans = 0;
 //for (auto &&v : dp) ans += v, ans %= MOD;
 //cout << ans << endl;
