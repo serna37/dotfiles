@@ -5,9 +5,7 @@
 
 # 整数・実数
 snippet algo_bisearch "整数二分探索" b
-/**
- * 整数二分探索
- */
+/* 整数二分探索 */
 auto ${1:test} = [&](${2:long long} x) -> bool {
 	// 最小化のバアイ
 	// oになる条件を記述
@@ -26,8 +24,7 @@ cout << $5 << endl; // 最小化
 //cout << $4 << endl; // 最大のとき
 endsnippet
 snippet algo_bisearch_real_numbers "実数二分探索" b
-/**
- * 実数二分探索
+/** 実数二分探索
  * doubleは桁数表現11bitを除き、52bit程度の精度
  */
 auto ${1:test} = [&](${2:double} x) -> bool {

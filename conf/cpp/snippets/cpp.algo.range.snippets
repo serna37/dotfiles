@@ -58,9 +58,7 @@ endsnippet
 
 # 2D
 snippet algo_range_zeta_2D "2次元累積和" b
-/**
- * zeta 2D
- */
+/* zeta 2D */
 vector<vector<${1:long long}>> ${2:S}(${3:H} + 1, vector<$1>(${4:W} + 1));
 // 横向き
 for (int i = 0; i < $3; ++i) {
@@ -80,9 +78,7 @@ endsnippet
 
 # 3D
 snippet algo_range_zeta_3D "3次元累積和" b
-/**
- * zeta 3D
- */
+/* zeta 3D */
 using sum = int;
 vector<vector<vector<sum>>> S;
 int szx = ${1:A}.size(), szy = $1[0].size(), szz = $1[0][0].size();

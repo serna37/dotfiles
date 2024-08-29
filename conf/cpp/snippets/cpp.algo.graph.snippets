@@ -6,9 +6,7 @@
 # - Topological Sort
 # =========================================================
 snippet algo_graph_dijkstra "dijkstra" b
-/**
- * Dijkstra
- */
+/* Dijkstra */
 using ${1:QT} = pair<long long, int>;
 priority_queue<$1, vector<$1>, greater<$1>> ${2:DQ};
 $2.emplace(0ll, ${3:0}); // 始点
@@ -41,9 +39,7 @@ auto restore_route = [&](int goal) -> vector<int> {
 cout << $4[$5 - 1] << endl;
 endsnippet
 snippet algo_graph_warshall_froyd "warshall froyd" b
-/**
- * Warshall Froyd
- */
+/* Warshall Froyd */
 vector<vector<long long>> ${1:dis}(${2:N}, vector<long long>($2, INF));
 // まずは当たり前のminコスト
 for (int i = 0; i < $2; ++i) {
@@ -72,9 +68,7 @@ for (int i = 0; i < $2; ++i) {
 }
 endsnippet
 snippet algo_graph_kruskal "kruskal" b
-/**
- * Kruskal
- */
+/* Kruskal */
 // cost, from, toの配列、無向グラフでも重複せず、1つずつ持つ
 // vector<tuple<long long, int, int>>
 sort(${1:E}.begin(), $1.end());
@@ -99,9 +93,7 @@ for (auto &&[cost, from, to] : $1) {
 if ((int)$4[$2[0]].size() < $3) total = INF; // 全域に達しない場合
 endsnippet
 snippet algo_graph_topological_sort "topological sort" b
-/**
- * Topological sort
- */
+/* Topological sort */
 vector<int> seen(${1:N}), sorted;
 auto dfs = [&](auto &f, int v) -> void {
 	seen[v] = 1;

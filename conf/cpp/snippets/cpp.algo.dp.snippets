@@ -44,9 +44,7 @@ snippet algo_dp "dp" b
 //}
 
 // =====================================
-/**
- * DP
- */
+/* DP */
 vector<$1> def($3, $4); // 2次元DP swap
 auto dp = def, nx = dp; dp[0] = $5;
 for (int i = 0; i < $2; ++i, swap(dp, nx)) {
@@ -92,11 +90,12 @@ for (int i = 0; i < $2; ++i, swap(dp, nx)) {
 endsnippet
 
 snippet algo_dp_seg "DP on segment tree" b
-// 値の型: ${1:long long}
-// 遷移数: ${2:N}
-// DP表の初期値: ${3:INF}
-// DP表の横の長さ: ${4:L+1} = 番兵+1
-// 最初の値: ${5:0 1} = 通り数なら1, 最小化なら0
+// ⭐️ DPテーブル定義
+// 型: ${1:long long}
+// 遷移回数: ${2:N}
+// 2次元表の場合、横の長さ: ${3:L+1} : 番兵+1 sizeも+1
+// 表全体の初期値: ${4:INF}
+// dp[0]最初の値: ${5:0 1} : 通り数=1, 最適化=0
 
 // セグ木DP
 algo_ds_segment_tree_ALL

@@ -9,9 +9,7 @@
 # FenwickTree
 # =========================================================
 snippet algo_ds_fenwick_tree "Fenwick Tree" b
-/**
- * Fecwick Tree
- */
+/* Fecwick Tree */
 int sz = ${1:N}; // 葉のサイズ
 vector<${2:int}> ${3:fwk}(sz + 1); // 1-indexed
 $2 tot = 0; // 合計
@@ -36,9 +34,7 @@ endsnippet
 # SegmentTree
 # =========================================================
 snippet algo_ds_segment_tree "Segment Tree" b
-/**
- * Segment Tree
- */
+/* Segment Tree */
 int sz = ${1:N}; // 葉のサイズ
 using Mono = ${2:int}; // モノイド型
 Mono e = ${3:INF}; // 単位元
@@ -70,9 +66,7 @@ auto prod = [&](int l, int r) {
 };
 endsnippet
 snippet algo_ds_segment_tree_ALL "seg ALL" b
-/**
- * Segment Tree
- */
+/* Segment Tree */
 int sz = ${1:N}; // 葉のサイズ
 using Mono = ${2:int}; // モノイド型
 Mono e = ${3:INF}; // 単位元
@@ -106,9 +100,7 @@ endsnippet
 # UnionFind
 # =========================================================
 snippet algo_ds_union_find "union find" b
-/**
- * Union Find
- */
+/* Union Find */
 vector<int> ${1:p}(${2:N}); // $1[x]でx所属グループの代表値
 vector<vector<int>> ${3:g}($2); // グループ本体
 for (int i = 0; i < $2; ++i) $1[i] = i, $3[i].push_back(i);

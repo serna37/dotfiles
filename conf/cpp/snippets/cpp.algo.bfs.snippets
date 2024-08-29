@@ -5,9 +5,7 @@
 # =========================================================
 
 snippet algo_bfs "bfs" b
-/**
- * BFS
- */
+/* BFS */
 queue<int> q;
 vector<int> dis(${1:N}, -1); // dis[v] := 始点からvまでの距離
 for (int i = 0; i < ${2:1}; ++i) {
@@ -28,9 +26,7 @@ while (!q.empty()) {
 endsnippet
 
 snippet algo_bfs_grid "bfs grid" b
-/**
- * BFSグリッド
- */
+/* BFSグリッド */
 queue<pair<int, int>> q;
 vector<vector<int>> dis(${1:H}, vector<int>(${2:W}, -1));
 q.push({${3:sy}, ${4:sx}});
