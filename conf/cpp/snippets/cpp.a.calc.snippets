@@ -39,6 +39,8 @@ endsnippet
 snippet cast "cast description" b
 string -> int, ll  : stoi() stoll()
 int, ll -> string  : to_string()
+int -> char        : +- '0' 値そのまま
+int -> char        : +'a' アルファベットに
 endsnippet
 
 snippet mod "mod" i
@@ -102,6 +104,12 @@ for (int ${1:k} = 0; $1 < 4; ++$1) {
 	}
 	if ($1 & 2) { // x x o o
 	}
+}
+endsnippet
+snippet alpha "アルファベット" b
+char ${1:alpha} = 'a';
+for (int ${2:i} = 0; $2 < 26; ++$2, $1 += 1) {
+	${3}
 }
 endsnippet
 snippet is_kaibun_int "回文かどうか判定" b
