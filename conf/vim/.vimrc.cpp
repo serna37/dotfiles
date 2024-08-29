@@ -231,7 +231,7 @@ fu! s:atcoder_submit() abort
     cal feedkeys("\<C-w>l")
     cal feedkeys(cmd)
 
-    cal popup_notification(["⭐️提出⭐️"], #{line: &lines/2, col: &columns/3})
+    cal popup_notification(["async submit", "⭐️", "go to next"], #{line: &lines/2, col: &columns/3})
 endf
 noremap <silent><Plug>(atcoder-submit) :<C-u>cal <SID>atcoder_submit()<CR>
 nnoremap <silent><Leader>u <Plug>(atcoder-fmt)<Plug>(atcoder-submit)
