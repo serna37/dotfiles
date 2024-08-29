@@ -2,15 +2,18 @@
 # geometry
 # =========================================================
 snippet geo_rad "rad" b
+// =====================================
 /* 度数法 → 弧度法 */
 auto rad = [&](double d) -> double { return d * PI / 180; };
 endsnippet
 snippet geo_deg "deg" b
+// =====================================
 /* 弧度法 → 度数法 */
 auto deg = [&](double r) -> double { return r * 180 / PI; };
 endsnippet
 
 snippet geo_area_triangle "geo area triangle" b
+// =====================================
 /** 三角形の面積
  * doubleは桁数表現11bitを除き、52bit程度の精度
  * 18桁使うなら2で割らずlong longで返すこと
@@ -20,6 +23,7 @@ auto area_triangle = []<class T>(T x1, T y1, T x2, T y2, T x3, T y3) -> double {
 };
 endsnippet
 snippet geo_area_square "geo area square" b
+// =====================================
 /** 四角形の面積
  * doubleは桁数表現11bitを除き、52bit程度の精度
  * 18桁使うなら2で割らずlong longで返すこと

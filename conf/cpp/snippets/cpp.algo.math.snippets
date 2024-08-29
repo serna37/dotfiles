@@ -7,6 +7,7 @@
 
 # mod
 snippet algo_math_mod_pow "二分累乗" b
+// =====================================
 /* 二分累乗 */
 auto modpow = [&](long long a, long long n) -> long long {
 	long long res = 1ll;
@@ -19,12 +20,14 @@ auto modpow = [&](long long a, long long n) -> long long {
 };
 endsnippet
 snippet algo_math_mod_inv "Fermatの小定理" b
+// =====================================
 /* Fermatの小定理 */
 auto modinv = [&](long long a) -> long long {
 	return modpow(a, MOD - 2);
 };
 endsnippet
 snippet algo_math_mod_factorial "階乗" b
+// =====================================
 /* mod階乗 */
 vector<long long> mf;
 auto modfact = [&](int x) -> long long {
@@ -35,6 +38,7 @@ auto modfact = [&](int x) -> long long {
 };
 endsnippet
 snippet algo_math_mod_combination "mod combination" b
+// =====================================
 algo_math_mod_pow
 algo_math_mod_inv
 algo_math_mod_factorial
@@ -46,6 +50,7 @@ endsnippet
 
 # 素数
 snippet algo_math_prime_fact "素因数分解" b
+// =====================================
 /* 素因数分解 */
 auto prime_fact = []<class T>(T N) -> map<T, int> {
 	map<T, int> P;
@@ -60,6 +65,7 @@ auto prime_fact = []<class T>(T N) -> map<T, int> {
 };
 endsnippet
 snippet algo_math_prime_test "素数判定" b
+// =====================================
 /* 素数判定 */
 auto prime_test = []<class T>(T N) -> bool {
 	if (N == 2) return true;
@@ -73,6 +79,7 @@ endsnippet
 
 # その他
 snippet algo_math_divisors "約数列挙" b
+// =====================================
 /* 約数列挙 */
 auto divisors = []<class T>(T a) -> vector<T> {
 	vector<T> res;
@@ -85,6 +92,7 @@ auto divisors = []<class T>(T a) -> vector<T> {
 };
 endsnippet
 snippet algo_math_digit_sum "桁和" b
+// =====================================
 /* 桁和 */
 auto digit_sum = [](int a, int N = 10) -> int {
 	int res = 0;
@@ -96,6 +104,7 @@ auto digit_sum = [](int a, int N = 10) -> int {
 };
 endsnippet
 snippet algo_math_base_convert "進数変換" b
+// =====================================
 /* 進数変換 */
 // fromとtoは10を超えないこと
 auto base_cvt = [](string a, int from, int to) -> string {
@@ -116,6 +125,7 @@ auto base_cvt = [](string a, int from, int to) -> string {
 };
 endsnippet
 snippet algo_math_combination "コンビネーション" b
+// =====================================
 /* コンビネーション */
 auto combination = [](int n, int k) -> long long {
 	if (k < 0 || n < k) return 0ll;
@@ -128,6 +138,7 @@ auto combination = [](int n, int k) -> long long {
 };
 endsnippet
 snippet algo_math_factorial "階乗" b
+// =====================================
 /* 階乗 */
 auto factorial = [](int N) -> long long {
 	long long res = 1;
@@ -136,6 +147,7 @@ auto factorial = [](int N) -> long long {
 };
 endsnippet
 snippet algo_math_square_free "平方因子除去" b
+// =====================================
 /* 平方因子除去 */
 auto square_free = [](int mx = 2e5) -> vector<int> {
 	vector<int> S(mx + 1);

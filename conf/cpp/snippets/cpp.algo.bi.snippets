@@ -5,6 +5,7 @@
 
 # 整数・実数
 snippet algo_bisearch "整数二分探索" b
+// =====================================
 /* 整数二分探索 */
 auto ${1:test} = [&](${2:long long} x) -> bool {
 	// 最小化のバアイ
@@ -23,7 +24,8 @@ while (abs($5 - $4) > 1) {
 cout << $5 << endl; // 最小化
 //cout << $4 << endl; // 最大のとき
 endsnippet
-snippet algo_bisearch_real_numbers "実数二分探索" b
+snippet algo_bisearch_real "実数二分探索" b
+// =====================================
 /** 実数二分探索
  * doubleは桁数表現11bitを除き、52bit程度の精度
  */
@@ -49,42 +51,50 @@ endsnippet
 
 # vector
 snippet algo_bisearch_vec_ika_upper "以下の個数" b
+// =====================================
 /* $3のうち、$4以下の個数  =  $4より大きい最左のidx */
 ${1:int} ${2:cnt} = upper_bound(${3:A}.begin(), $3.end(), ${4:x}) - $3.begin();
 endsnippet
 snippet algo_bisearch_vec_sita_lower "より下の個数" b
+// =====================================
 /* $3のうち、$4より下の個数  =  $4以上最左のidx */
 ${1:int} ${2:cnt} = lower_bound(${3:A}.begin(), $3.end(), ${4:x}) - $3.begin();
 endsnippet
 snippet algo_bisearch_vec_izyou "以上の個数" b
+// =====================================
 /* $3のうち、$4以上の個数 */
 ${1:int} ${2:cnt} = ${3:A}.end() - lower_bound($3.begin(), $3.end(), ${4:x});
 endsnippet
 snippet algo_bisearch_vec_ue "より上の個数" b
+// =====================================
 /* $3のうち、$4より大きい個数 */
 ${1:int} ${2:cnt} = ${3:A}.end() - upper_bound($3.begin(), $3.end(), ${4:x});
 endsnippet
 
 # set
 snippet algo_bisearch_set_ika "0, lim]" b
+// =====================================
 /* $2以下の最右 */
 auto itr = ${1:st}.upper_bound(${2:A});
 if (itr == $1.begin()) continue;
 int val = *--itr;
 endsnippet
 snippet algo_bisearch_set_sita "0, lim)" b
+// =====================================
 /* $2より下の最右 */
 auto itr = ${1:st}.lower_bound(${2:A});
 if (itr == $1.begin()) continue;
 int val = *--itr;
 endsnippet
 snippet algo_bisearch_set_izyou "[lim, N" b
+// =====================================
 /* $2以上の最左 */
 auto itr = ${1:st}.lower_bound(${2:A});
 if (itr == $1.end()) continue;
 int val = *itr;
 endsnippet
 snippet algo_bisearch_set_ue "(lim, N" b
+// =====================================
 /* $2より大きい最左 */
 auto itr = ${1:st}.upper_bound(${2:A});
 if (itr == $1.end()) continue;

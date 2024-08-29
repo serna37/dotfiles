@@ -7,6 +7,7 @@
 # =========================================================
 
 snippet algo_dfs_lambda "lambda recursive dfs" b
+// =====================================
 /* DFS */
 auto ${1:dfs} = [${2:&}](auto &f, ${3:const int &a}) -> ${4:void} {
 	// ベースケース
@@ -20,6 +21,7 @@ auto ${1:dfs} = [${2:&}](auto &f, ${3:const int &a}) -> ${4:void} {
 };
 endsnippet
 snippet algo_dfs_memo_rec "lambda recursive memo" b
+// =====================================
 /* DFS メモ化 */
 map<long long , long long >mp;
 auto ${1:rec} = [${2:&}](auto &f, ${3:const long long &a}) -> ${4:long long} {
@@ -34,6 +36,7 @@ auto ${1:rec} = [${2:&}](auto &f, ${3:const long long &a}) -> ${4:long long} {
 };
 endsnippet
 snippet algo_dfs_permutation "DFS順列" b
+// =====================================
 /* DFS順列 */
 vector<int> ${2:perm}(${1:N});
 auto ${3:dfs} = [&](auto &f, int order = 0) -> void {
@@ -51,6 +54,7 @@ auto ${3:dfs} = [&](auto &f, int order = 0) -> void {
 $3($3);
 endsnippet
 snippet algo_dfs_permutation_increase "DFS順列 単調増加" b
+// =====================================
 /** DFS 単調増加順列
  * 広義単調増加の組み合わせは N + M - 1 C M
  * $4 ~ $5 までの数で要素数${1:N}の数列を順列全探索
@@ -75,6 +79,7 @@ auto ${3:dfs} = [&](auto &f, int mi, int mx, int last = 0) -> void {
 $3($3, ${4:1}, ${5:M});
 endsnippet
 snippet algo_dfs_graph "dfs graph" b
+// =====================================
 // DFS O(N+M)
 //         o
 //       ↙︎↗︎  ↘︎
@@ -97,6 +102,7 @@ auto dfs = [&](auto &f, int v) -> void {
 dfs(dfs, ${3:0});
 endsnippet
 snippet algo_dfs_tree "dfs tree" b
+// =====================================
 // 木の深さDFS O(N+M)     depth
 //         o           ---- 0
 //       ↙︎↗︎  ↘︎

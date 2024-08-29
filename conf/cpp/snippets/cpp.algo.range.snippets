@@ -6,6 +6,7 @@
 # =========================================================
 
 snippet algo_range_syakutori "尺取法" b
+// =====================================
 // 尺取法 O(N)
 // 連続の和が$4以下である、最大長を求める
 // 1. lを固定し、できるだけrを増やす
@@ -24,6 +25,7 @@ endsnippet
 
 # zeta
 snippet algo_range_zeta "累積和" b
+// =====================================
 /* zeta */
 vector<${1:long long}> ${2:S}(${3:N} + 1); // Σ(0, i-1)
 for (int ${4:i} = 0; $4 < $3; ++$4) {
@@ -31,6 +33,7 @@ for (int ${4:i} = 0; $4 < $3; ++$4) {
 } // Σ[l, r) = S[r] - S[l]
 endsnippet
 snippet algo_range_zeta_diff2 "二項差の累積和" b
+// =====================================
 /* zeta diff */
 vector<${1:long long}> ${2:S}(${3:N} + 1); // Σ(0, i-1)
 for (int ${4:i} = 0; $4 < $3; ++$4) {
@@ -41,6 +44,7 @@ endsnippet
 
 # zeta rev
 snippet algo_range_zeta_rev "反転累積和" b
+// =====================================
 /* zeta rev */
 vector<${1:long long}> ${2:R}(${3:N} + 1); // Aiから右全部
 for (int ${4:i} = $3 - 1; $4 >= 0; --$4) {
@@ -48,6 +52,7 @@ for (int ${4:i} = $3 - 1; $4 >= 0; --$4) {
 } // Σ(0, i-1) + Σ(i, last) = S[i] + R[i]
 endsnippet
 snippet algo_range_zeta_rev_diff2 "二項差の反転累積和" b
+// =====================================
 /* zeta rev diff */
 vector<${1:long long}> ${2:R}(${3:N} + 1); // Aiから右全部
 for (int ${4:i} = $3 - 1; $4 >= 0; --$4) {
@@ -58,6 +63,7 @@ endsnippet
 
 # 2D
 snippet algo_range_zeta_2D "2次元累積和" b
+// =====================================
 /* zeta 2D */
 vector<vector<${1:long long}>> ${2:S}(${3:H} + 1, vector<$1>(${4:W} + 1));
 // 横向き
@@ -78,6 +84,7 @@ endsnippet
 
 # 3D
 snippet algo_range_zeta_3D "3次元累積和" b
+// =====================================
 /* zeta 3D */
 using sum = int;
 vector<vector<vector<sum>>> S;
@@ -101,6 +108,7 @@ for (int x = 1; x <= szx; ++x) {
 endsnippet
 
 snippet algo_range_moebius "メビウス変換" b
+// =====================================
 /* moebius */
 vector<${1:int}> ${2:D}(${3:N-1});
 for (int i = 0; i < $3; ++i) {
@@ -110,6 +118,7 @@ endsnippet
 
 # imos
 snippet algo_range_imos "imos" b
+// =====================================
 /* imos */
 // 末端が配列外なら、操作不要
 // 加算[l, r) = 加算A[l], 逆算A[r]
@@ -117,6 +126,7 @@ ${3:++}${1:A}[${2:l}];
 if ($4 < ${6:N}) ${5:--}$1[${4:r+1}];
 endsnippet
 snippet algo_range_imos_2D "2d imos" b
+// =====================================
 /* imos 2D */
 // A+1  A | -1  末端が配列外なら、操作不要
 // A    A |
