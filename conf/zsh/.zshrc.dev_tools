@@ -291,6 +291,9 @@ function cpp_debug() {
         spin 'test...' oj t -e 1e-6 -c ./main
         if [ $? -eq 0 ]; then
             info "結果: ✅OK"
+            # バックグラウンド実行はsleep 5 &
+            # PID表示を消す場合はsleep 5 &!
+            afplay /System/Library/Sounds/Hero.aiff &!
         else
             error "結果: ❌NG"
             echo "===================================="
@@ -299,8 +302,7 @@ function cpp_debug() {
         fi
     fi
 
-    #afplay /System/Library/Sounds/Hero.aiff
-    \rm main res sani
+    \rm main res sani #ビルド失敗時など、削除対象なしエラーが見えた方がわかりやすい
     cd ..
     info "-- DONE --"
 }
