@@ -45,6 +45,11 @@ using Mono = ${2:int}; // モノイド型
 Mono e = ${3:INF}; // 単位元
 auto op = [](Mono x, Mono y) -> Mono { return ${4:min}(x, y); }; // 二項演算
 vector<Mono> ${5:seg}(sz << 1, e);
+auto top = [&]() { return seg[1]; };
+auto at = [&](int i) { return seg[i + sz]; };
+auto getall = [&]() -> vector<Mono> {
+	return {seg.begin() + sz, seg.begin() + sz + sz};
+};
 endsnippet
 snippet algo_ds_segment_tree_build "seg build" b
 // =====================================
@@ -81,6 +86,11 @@ using Mono = ${2:int}; // モノイド型
 Mono e = ${3:INF}; // 単位元
 auto op = [](Mono x, Mono y) -> Mono { return ${4:min}(x, y); }; // 二項演算
 vector<Mono> ${5:seg}(sz << 1, e);
+auto top = [&]() { return seg[1]; };
+auto at = [&](int i) { return seg[i + sz]; };
+auto getall = [&]() -> vector<Mono> {
+	return {seg.begin() + sz, seg.begin() + sz + sz};
+};
 // =====================================
 /* セグ木をビルドする */
 auto build = [&]() {
