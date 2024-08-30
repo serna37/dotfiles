@@ -181,8 +181,8 @@ com! DebugOnSaveAtCoderCppEnd cal s:atcoder_debug_on_save_end()
 fu! s:atcoder_fmt() abort
     cal s:atcoder_debug_on_save_end()
     w | e!
-    " //から右を全て削除
-    try | %s/\/\/.*/ /g | catch
+    " //から右を全て削除(URLを除く)
+    try | %s/[^https:]\/\/.*/ /g | catch
     endtry
     cal CocAction("format")
     w
