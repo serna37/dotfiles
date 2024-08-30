@@ -276,13 +276,12 @@ template <typename T> void _print(const deque<T> &v) {
 // =====================================
 // base
 // =====================================
-template <typename T> void print(const T &v) {
+template <typename T> void print(const T &v, const string &name) {
+    cerr << "\033[90m[debug]\033[36m " << name << "\033[m => ";
     _print(v);
     _print_LF();
 }
-#define debug(...)                                                             \
-    cerr << "\033[90m[debug]\033[36m " << #__VA_ARGS__ << "\033[m => ",        \
-        print(__VA_ARGS__)
+#define debug(...) print(__VA_ARGS__, #__VA_ARGS__)
 // cpp_dump
 // https://zenn.dev/sassan/articles/19db660e4da0a4
 // #include "cpp-dump.hpp"
