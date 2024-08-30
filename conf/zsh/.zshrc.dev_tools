@@ -288,14 +288,20 @@ function cpp_debug() {
             ./sani < test/sample-1.in 1> /dev/null # 標準エラーのみ表示
         fi
         info '[誤差1e-6でテスト] oj t -e 1e-6 -c ./main'
-        echo "===================================="
-        oj t -e 1e-6 -c ./main 2> /dev/null # debug情報(標準エラー)は非表示
+        spin 'test...' oj t -e 1e-6 -c ./main
+        if [ $? -eq 0 ]; then
+            info "結果: ✅OK"
+        else
+            error "結果: ❌NG"
+            echo "===================================="
+            oj t -e 1e-6 -c ./main 2> /dev/null # debug情報(標準エラー)は非表示
+            echo "===================================="
+        fi
     fi
 
     #afplay /System/Library/Sounds/Hero.aiff
     \rm main res sani
     cd ..
-    echo "===================================="
     info "-- DONE --"
 }
 
