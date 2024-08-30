@@ -62,6 +62,7 @@ inline void _print_sep() {
 inline void _print_LF() {
     cerr << "\n";
 }
+const int DEBUG_LIMIT_LOOP = 20;
 // =====================================
 // 型が入れ子になっているか判定
 // =====================================
@@ -177,6 +178,10 @@ template <typename T> void _print(const vector<T> &v) {
     _print_a_start();
     if (isnested) _print_LF();
     for (int i = 0; i < static_cast<int>(v.size()); ++i) {
+        if (i == DEBUG_LIMIT_LOOP) {
+            cerr << "...and more " << v.size() - DEBUG_LIMIT_LOOP;
+            break;
+        }
         if (isnested) cerr << "  ";
         if (i) _print_sep();
         _print(v[i]);
@@ -190,6 +195,10 @@ template <typename T> void _print(const set<T> &v) {
     if (isnested) _print_LF();
     int i = 0;
     for (auto &&x : v) {
+        if (i == DEBUG_LIMIT_LOOP) {
+            cerr << "...and more " << v.size() - DEBUG_LIMIT_LOOP;
+            break;
+        }
         if (isnested) cerr << "  ";
         if (i++) _print_sep();
         _print(x);
@@ -203,6 +212,10 @@ template <typename T> void _print(const multiset<T> &v) {
     if (isnested) _print_LF();
     int i = 0;
     for (auto &&x : v) {
+        if (i == DEBUG_LIMIT_LOOP) {
+            cerr << "...and more " << v.size() - DEBUG_LIMIT_LOOP;
+            break;
+        }
         if (isnested) cerr << "  ";
         if (i++) _print_sep();
         _print(x);
@@ -215,6 +228,10 @@ template <typename T, typename U> void _print(const map<T, U> &v) {
     _print_LF();
     int i = 0;
     for (auto &&[k, x] : v) {
+        if (i == DEBUG_LIMIT_LOOP) {
+            cerr << "...and more " << v.size() - DEBUG_LIMIT_LOOP;
+            break;
+        }
         cerr << "  ";
         if (i++) _print_sep();
         _print_p_start();
@@ -234,6 +251,10 @@ template <typename T> void _print(const stack<T> &v) {
     _print_b_start();
     int i = 0;
     while (!x.empty()) {
+        if (i == DEBUG_LIMIT_LOOP) {
+            cerr << "...and more " << v.size() - DEBUG_LIMIT_LOOP;
+            break;
+        }
         if (i++) _print_sep();
         _print(x.top());
         x.pop();
@@ -245,6 +266,10 @@ template <typename T> void _print(const queue<T> &v) {
     _print_b_start();
     int i = 0;
     while (!x.empty()) {
+        if (i == DEBUG_LIMIT_LOOP) {
+            cerr << "...and more " << v.size() - DEBUG_LIMIT_LOOP;
+            break;
+        }
         if (i++) _print_sep();
         _print(x.front());
         x.pop();
@@ -256,6 +281,10 @@ template <typename T> void _print(const priority_queue<T> &v) {
     _print_b_start();
     int i = 0;
     while (!x.empty()) {
+        if (i == DEBUG_LIMIT_LOOP) {
+            cerr << "...and more " << v.size() - DEBUG_LIMIT_LOOP;
+            break;
+        }
         if (i++) _print_sep();
         _print(x.top());
         x.pop();
@@ -267,6 +296,10 @@ template <typename T> void _print(const deque<T> &v) {
     _print_a_start();
     int i = 0;
     while (!x.empty()) {
+        if (i == DEBUG_LIMIT_LOOP) {
+            cerr << "...and more " << v.size() - DEBUG_LIMIT_LOOP;
+            break;
+        }
         if (i++) _print_sep();
         _print(x.front());
         x.pop_front();
