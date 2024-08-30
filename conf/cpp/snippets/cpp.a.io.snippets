@@ -205,13 +205,16 @@ cout << (${1:ans} == ${2:INF} ? ${3:-1} : $1) << endl;
 endsnippet
 
 snippet cout_all "cout all" b
-int ${2:_} = 0;
-for (auto &&v : ${1:ans}) {
-	if ($2++) cout << " ";
-	cout << v;
-}
+for (auto &&v : ${1:ans}) cout << v << " ";
 cout << endl;
 endsnippet
+# XXX 最後の空白はジャッジでは判定OK, 出したくないなら以下
+#int ${2:_} = 0;
+#for (auto &&v : ${1:ans}) {
+#if ($2++) cout << " ";
+#cout << v;
+#}
+#cout << endl;
 snippet cout_grid "cout grid" b
 for (int ${1:i} = 0; $1 < ${2:H}; ++$1) {
 	for (int ${3:j} = 0; $3 < ${4:W}; ++$3) {

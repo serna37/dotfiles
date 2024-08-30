@@ -270,7 +270,7 @@ function cpp_debug() {
     ISOK=0
     info "期待値: test/sample-1.out"
     cat test/sample-1.out
-    if diff -q test/sample-1.out res > /dev/null; then
+    if diff -w test/sample-1.out res > /dev/null; then
         info "結果: ✅出力一致"
         ISOK=1
     else
