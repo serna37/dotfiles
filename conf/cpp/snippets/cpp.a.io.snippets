@@ -205,7 +205,9 @@ cout << (${1:ans} == ${2:INF} ? ${3:-1} : $1) << endl;
 endsnippet
 
 snippet cout_all "cout all" b
-for (auto &&v : ${1:ans}) cout << v << " ";
+for (auto &&v : ${1:ans}) {
+	cout << v << " ";
+}
 cout << endl;
 endsnippet
 # XXX 最後の空白はジャッジでは判定OK, 出したくないなら以下

@@ -54,7 +54,7 @@ snippet algo_math_prime_fact "素因数分解" b
 /* 素因数分解 */
 auto prime_fact = []<class T>(T N) -> map<T, int> {
 	map<T, int> P;
-	for (int i = 2; i * i <= N; ++i) {
+	for (T i = 2; i * i <= N; ++i) {
 		while (N % i == 0) {
 			++P[i];
 			N /= i;
