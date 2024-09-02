@@ -1,24 +1,25 @@
 # =========================================================
 # template
 # =========================================================
-snippet main "fast io template" b
+snippet main "main" b
 /** ฅ^>ω<^ฅ author: serna37
-	property: https://github.com/serna37
-	generated: `date "+%Y-%m-%d %H:%M:%S"`
-*/
+	generated: `date "+%Y-%m-%d %H:%M:%S"` */
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+	${1}
+}
+endsnippet
+snippet fast_io "fast io" b
+ios::sync_with_stdio(false);
+cin.tie(nullptr);
+endsnippet
+snippet debug_header "debug header" b
 #ifdef LOCAL
 #include <bits/debug.hpp>
 #else
 #define debug(...)
 #endif
-#include <bits/stdc++.h>
-using namespace std;
-#define int long long
-int32_t main() {
-	ios::sync_with_stdio(false);
-	cin.tie(nullptr);
-	${1}
-}
 endsnippet
 snippet debug "debug" b
 debug(${1});
