@@ -102,7 +102,14 @@ for (int ${1:k} = 0; $1 < 4; ++$1) {
 	}
 }
 endsnippet
+snippet 2beki "2beki" b
+/* 2べき丸め */
+int ${1:log} = 1ll;
+while ((1ll << $1) < ${2:check}) ++$1;
+int over_$2 = 1ll << $1;
+endsnippet
 snippet alpha "アルファベット" b
+/* アルファベットでループ */
 char ${1:alpha} = 'a';
 for (int ${2:i} = 0; $2 < 26; ++$2, $1 += 1) {
 	${3}
