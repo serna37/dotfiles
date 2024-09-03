@@ -24,7 +24,7 @@ snippet algo_dfs_memo_rec "lambda recursive memo" b
 // =====================================
 /* DFS メモ化 */
 map<long long , long long >mp;
-auto ${1:rec} = [${2:&}](auto &f, ${3:const long long &a}) -> ${4:long long} {
+auto ${1:f} = [${2:&}](auto &f, ${3:const long long &a}) -> ${4:long long} {
 	// ベースケース
 	if (a == 0) return 0;
 
