@@ -265,9 +265,7 @@ function cpp_debug() {
     info "ケース1を実行: test/sample-1.in"
     ./main < test/sample-1.in # debug情報(標準エラー)も画面に表示
     ./main < test/sample-1.in > res 2> /dev/null # 標準出力のみ保存
-    if [ -z "$res" ]; then;
-        echo '(empty)'
-    fi
+    echo '--- execute done ---'
 
     # 標準出力を比較
     ISOK=0
