@@ -280,18 +280,22 @@ function cpp_debug() {
         warn "TestAtCoderCpp を実行して下さい。"
     fi
 
-    # 緩いoj tがOKであればテスト結果を表示
+    # ケース1がOKまたは、緩いoj tがOKであればテストに続く
     if [ $ISOK -eq 1 ] || oj t --ignore-spaces-and-newlines -e 1e-6 -c ./main > /dev/null 2>&1; then
+        # サニタイザ付きで実行確認
         if ./sani < test/sample-1.in 1> /dev/null; then
             info '[サニタイザ]: ✅アドレス違反なし'
         else
             warn '[サニタイザ]: ❌アドレス違反'
             ./sani < test/sample-1.in 1> /dev/null # 標準エラーのみ表示
         fi
+        # ojでテスト
         info '[誤差1e-6でテスト] oj t -e 1e-6 -c ./main'
-        spin 'test...' oj t -e 1e-6 -c ./main
-        if [ $? -eq 0 ]; then
+        if spin 'test...' oj t -e 1e-6 -c ./main; then
             info "結果: ✅OK"
+            # 実行速度とメモリを表示
+            TMP=$(oj t -e 1e-6 -c ./main)
+            echo $TMP | tail -n 3
             # バックグラウンド実行はsleep 5 &
             # PID表示を消す場合はsleep 5 &!
             afplay /System/Library/Sounds/Hero.aiff &!
