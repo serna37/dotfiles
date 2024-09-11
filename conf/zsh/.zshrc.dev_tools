@@ -257,25 +257,25 @@ function cpp_exe() {
 # より高速なC++実行
 function cpp_debug() {
     cd $1
-    info "ビルド: $1/main.cpp"
+    info " >> ビルド: $1/main.cpp"
     eval $CPP_BUILD_CMD main main.cpp
     eval $CPP_BUILD_CMD_SANITIZE sani main.cpp > /dev/null 2>&1
 
     # 出力を確認
-    info "ケース1を実行: test/sample-1.in"
+    info " >> ケース1を実行: test/sample-1.in"
     ./main < test/sample-1.in # debug情報(標準エラー)も画面に表示
     ./main < test/sample-1.in > res 2> /dev/null # 標準出力のみ保存
     echo '--- execute done ---'
 
     # 標準出力を比較
     ISOK=0
-    info "期待値: test/sample-1.out"
+    info " >> 期待値: test/sample-1.out"
     cat test/sample-1.out
     if diff -w test/sample-1.out res > /dev/null; then
-        info "結果: ✅出力一致"
+        info "実行結果  : ✅出力一致"
         ISOK=1
     else
-        error "結果: ❌出力不一致"
+        error "実行結果  : ❌出力不一致"
         warn "テストのみの実行は、vimコマンド"
         warn "TestAtCoderCpp を実行して下さい。"
     fi
@@ -284,23 +284,26 @@ function cpp_debug() {
     if [ $ISOK -eq 1 ] || oj t --ignore-spaces-and-newlines -e 1e-6 -c ./main > /dev/null 2>&1; then
         # サニタイザ付きで実行確認
         if ./sani < test/sample-1.in 1> /dev/null; then
-            info '[サニタイザ]: ✅アドレス違反なし'
+            info 'サニタイザ: ✅アドレス違反なし'
         else
-            warn '[サニタイザ]: ❌アドレス違反'
+            warn 'サニタイザ: ❌アドレス違反'
             ./sani < test/sample-1.in 1> /dev/null # 標準エラーのみ表示
         fi
         # ojでテスト
-        info '[誤差1e-6でテスト] oj t -e 1e-6 -c ./main'
         if spin 'test...' oj t -e 1e-6 -c ./main; then
-            info "結果: ✅OK"
+            info "テスト結果: ✅OK"
             # 実行速度とメモリを表示
-            TMP=$(oj t -e 1e-6 -c ./main)
-            echo $TMP | tail -n 3
+            TMP=$(oj t -e 1e-6 -c ./main 2> /dev/null)
+            SEC=$(echo $TMP | tail -n 3 | head -n 1 | sed -e "s/.*slowest: \(.*\) sec.*/\1/g")
+            [ `echo "$SEC < 2" | bc` -eq 1 ] && info "実行速度  : ✅2sec未満" || warn "実行速度: ⚠️2sec超過"
+            MEM=$(echo $TMP | tail -n 2 | head -n 1 | sed -e "s/.*memory: \(.*\) MB.*/\1/g")
+            [ `echo "$MEM < 256" | bc` -eq 1 ] && info "使用メモリ: ✅256MB未満" || warn "使用メモリ: ⚠️256MB超過"
+            [ `echo "$MEM < 1024" | bc` -eq 1 ]&& info "使用メモリ: ✅1024MB未満" || warn "使用メモリ: ⚠️1024MB超過"
             # バックグラウンド実行はsleep 5 &
             # PID表示を消す場合はsleep 5 &!
             afplay /System/Library/Sounds/Hero.aiff &!
         else
-            error "結果: ❌NG"
+            error "テスト結果: ❌NG"
             echo "===================================="
             oj t -e 1e-6 -c ./main 2> /dev/null # debug情報(標準エラー)は非表示
             echo "===================================="
