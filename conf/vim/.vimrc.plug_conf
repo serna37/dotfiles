@@ -287,11 +287,11 @@ nnoremap <silent><Leader><Leader>l :<C-u>cal <SID>reloadBuffer()<CR><Esc>
 " SNIPモードを強制終了 (バッファ再読み込み)
 inoremap <silent><C-k> <Esc>:<C-u>w<CR>:e!<CR>zza
 
-" 保存時の自動フォーマット
-"aug fmt_cpp
-    "au!
-    "au BufWrite *.cpp :try | cal CocAction('format') | catch | endtry
-"aug END
+" C++のみ、保存時に自動フォーマット
+aug fmt_cpp
+    au!
+    au BufWrite *.cpp :try | cal CocAction('format') | catch | endtry
+aug END
 
 " puremourning/vimspector
 let g:vimspector_base_dir=$HOME.'/.vim/plugged/vimspector'
