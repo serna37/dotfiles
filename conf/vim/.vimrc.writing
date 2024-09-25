@@ -5,9 +5,9 @@
 " 依存スニペット展開用。トリガ文言を展開する
 fu! s:expandSnippet() abort
     cal feedkeys("A\<C-s>\<Esc>", 'x')
-    exe "DebugOnSaveAtCoderCppEnd"
-    w
-    exe "DebugOnSaveAtCoderCpp"
+    "exe "DebugOnSaveAtCoderCppEnd"
+    "w
+    "exe "DebugOnSaveAtCoderCpp"
 endf
 noremap <silent><Plug>(exp-snip) :<C-u>cal <SID>expandSnippet()<CR>
 nnoremap <silent><Leader>t <Plug>(exp-snip)
