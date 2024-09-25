@@ -25,6 +25,13 @@ function _lazy_install_yazi() {
     fi
 }
 
+function _lazy_install_delta() {
+    if not_has delta; then
+        printf "\e[32m[\e[34mINFO\e[32m] \e[34mINSTALL: delta\e[m\n"
+        brew install git-delta
+    fi
+}
+
 # veeso/termscp/termscp
 function _lazy_install_termscp() {
     if not_has termscp; then

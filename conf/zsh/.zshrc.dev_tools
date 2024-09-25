@@ -276,6 +276,8 @@ function cpp_debug() {
         ISOK=1
     else
         error "実行結果  : ❌出力不一致"
+        _lazy_install_delta
+        delta -s test/sample-1.out res
         warn "テストのみの実行は、vimコマンド"
         warn "TestAtCoderCpp を実行して下さい。"
     fi
