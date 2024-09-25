@@ -4,20 +4,20 @@
 snippet main "main" b
 /** ฅ^>ω<^ฅ author: serna37
 	generated: `date "+%Y-%m-%d %H:%M:%S"` */
+#ifdef LOCAL
+#include <bits/debug.hpp>
+#else
+#define debug(...)
+#endif
 #include <bits/stdc++.h>
 using namespace std;
 int main() {
 	${1}
 }
 endsnippet
-snippet main_debug "main" b
+snippet main_nodebug "main" b
 /** ฅ^>ω<^ฅ author: serna37
 	generated: `date "+%Y-%m-%d %H:%M:%S"` */
-#ifdef LOCAL
-#include <bits/debug.hpp>
-#else
-#define debug(...)
-#endif
 #include <bits/stdc++.h>
 using namespace std;
 int main() {
