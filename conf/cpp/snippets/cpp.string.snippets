@@ -5,6 +5,7 @@
 # - 左右0埋め
 # - 文字列検索(複数)
 # - split
+# - 文字列の区間取得
 # - ランレングス圧縮
 # - XXX Z-Algorithm
 # =========================================================
@@ -88,6 +89,18 @@ auto split = [](const string &S, const string &seps) -> vector<string> {
 		}
 	}
 	return res;
+};
+endsnippet
+snippet string_range "string range" b
+// =====================================
+/**
+ * 文字列の区間を取得
+ * @param S 元の文字列
+ * @param A 0-indexでAから
+ * @param B 0-indexでBまでを取得
+ */
+auto str_range = [&](const string &S, int A, int B) {
+	return S.substr(A, B - A + 1);
 };
 endsnippet
 snippet string_run_length "string run length" b
