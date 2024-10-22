@@ -172,7 +172,10 @@ nnoremap <silent><Leader>ng :CocCommand fzf-preview.MemoListGrep .<CR>
 "au QuickFixCmdPost *grep* cwindow
 fu! s:vimgrep() abort
     let w = input('[word]>>', expand('<cword>'))
-    execute('vimgrep /'.w.'/gj `git ls-files` | cw')
+    let dir = 'vimgrep /'.w.'/gj * | cw'
+    let git = 'vimgrep /'.w.'/gj `git ls-files` | cw'
+    let cmd = system('git rev-parse --is-inside-work-tree') =~ 'fatal' ? dir : git
+    execute(cmd)
 endf
 fu! s:fzfgrep() abort
     let w = input('[word]>>', expand('<cword>'))
