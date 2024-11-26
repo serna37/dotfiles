@@ -240,7 +240,7 @@ let g:coc_global_extensions = [
     \ 'coc-css',
     \ 'coc-tsserver',
     \ 'coc-clangd',
-    \ '@yaegassy/coc-pylsp',
+    \ 'coc-pyright',
     \ 'coc-rust-analyzer',
     \ 'coc-go',
     \ 'coc-java',
