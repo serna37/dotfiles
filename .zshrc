@@ -46,3 +46,6 @@ if [ "$(uname)" = "Linux" ]; then
     screenfetch
 fi
 
+info 'Favorit Commands'
+info 'v g l e zi'
+info 's d top c'
