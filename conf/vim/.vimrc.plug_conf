@@ -177,13 +177,20 @@ fu! s:vimgrep() abort
     let cmd = system('git rev-parse --is-inside-work-tree') =~ 'fatal' ? dir : git
     execute(cmd)
 endf
+fu! s:vimgrep_current() abort
+    let w = input('[word]>>', expand('<cword>'))
+    let cmd = 'vimgrep /'.w.'/gj % | cw'
+    execute(cmd)
+endf
 fu! s:fzfgrep() abort
     let w = input('[word]>>', expand('<cword>'))
     execute('CocCommand fzf-preview.ProjectGrep '.w)
 endf
 noremap <silent><Plug>(vim-grep) :<C-u>cal <SID>vimgrep()<CR>
+noremap <silent><Plug>(vim-grep-current) :<C-u>cal <SID>vimgrep_current()<CR>
 noremap <silent><Plug>(fzf-grep) :<C-u>cal <SID>fzfgrep()<CR>
 nnoremap <Leader>g <Plug>(vim-grep)
+nnoremap <Leader>G <Plug>(vim-grep-current)
 nnoremap <Leader><Leader>g <Plug>(fzf-grep)
 if !glob('~/.vim/plugged/coc.nvim')->empty()
     au DirChanged * cal execute('CocCommand explorer --no-focus --width 30')
