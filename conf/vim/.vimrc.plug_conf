@@ -196,6 +196,11 @@ if !glob('~/.vim/plugged/coc.nvim')->empty()
     au DirChanged * cal execute('CocCommand explorer --no-focus --width 30')
 endif
 
+" preservim/nerdtree
+let NERDTreeShowHidden=1
+nnoremap <Leader><Leader>e :NERDTreeToggle<CR>
+nnoremap <Leader>E :NERDTreeFind<CR>
+
 " =====================================================================
 " Reading
 " =====================================================================

@@ -38,9 +38,10 @@ Plug 'sheerun/vim-polyglot'
 Plug 'joshdick/onedark.vim'
 Plug 'tomasiser/vim-code-dark'
 
-" Filer
+" Filer / Explorer
 Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim'
+Plug 'preservim/nerdtree'
 
 " Git
 Plug 'tpope/vim-fugitive'
