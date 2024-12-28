@@ -171,19 +171,19 @@ nnoremap <silent><Leader>nn :CocCommand fzf-preview.MemoList<CR>
 nnoremap <silent><Leader>ng :CocCommand fzf-preview.MemoListGrep .<CR>
 "au QuickFixCmdPost *grep* cwindow
 fu! s:vimgrep() abort
-    let w = input('[word]>>', expand('<cword>'))
+    let w = input('vimgrep [word]>>', expand('<cword>'))
     let dir = 'vimgrep /'.w.'/gj * | cw'
     let git = 'vimgrep /'.w.'/gj `git ls-files` | cw'
     let cmd = system('git rev-parse --is-inside-work-tree') =~ 'fatal' ? dir : git
     execute(cmd)
 endf
 fu! s:vimgrep_current() abort
-    let w = input('[word]>>', expand('<cword>'))
+    let w = input('vimgrep currentfile [word]>>', expand('<cword>'))
     let cmd = 'vimgrep /'.w.'/gj % | cw'
     execute(cmd)
 endf
 fu! s:fzfgrep() abort
-    let w = input('[word]>>', expand('<cword>'))
+    let w = input('ripgrep [word]>>', expand('<cword>'))
     execute('CocCommand fzf-preview.ProjectGrep '.w)
 endf
 noremap <silent><Plug>(vim-grep) :<C-u>cal <SID>vimgrep()<CR>
