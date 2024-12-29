@@ -184,6 +184,7 @@ fu! s:vimgrep_current() abort
     if w == '' | echo "cancel!!" | return | endif
     let cmd = 'vimgrep /'.w.'/gj % | cw'
     execute(cmd)
+    cal popup_notification(["C-mで次のQuickfix"], #{line: &lines/2, col: &columns/3})
 endf
 fu! s:fzfgrep() abort
     let w = input('ripgrep [word]>>', expand('<cword>'))
