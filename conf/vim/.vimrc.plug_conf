@@ -169,16 +169,19 @@ nnoremap <silent><Leader>s :CocCommand fzf-preview.Lines<CR>
 nnoremap <silent><Leader>m :CocCommand fzf-preview.Bookmarks<CR>
 nnoremap <silent><Leader>nn :CocCommand fzf-preview.MemoList<CR>
 nnoremap <silent><Leader>ng :CocCommand fzf-preview.MemoListGrep .<CR>
-"au QuickFixCmdPost *grep* cwindow
+au QuickFixCmdPost *grep* cwindow
 fu! s:vimgrep() abort
     let w = input('vimgrep [word]>>', expand('<cword>'))
+    if w == '' | echo "cancel!!" | return | endif
     let dir = 'vimgrep /'.w.'/gj * | cw'
     let git = 'vimgrep /'.w.'/gj `git ls-files` | cw'
     let cmd = system('git rev-parse --is-inside-work-tree') =~ 'fatal' ? dir : git
     execute(cmd)
+    cal popup_notification(["C-mで次のQuickfix"], #{line: &lines/2, col: &columns/3})
 endf
 fu! s:vimgrep_current() abort
     let w = input('vimgrep currentfile [word]>>', expand('<cword>'))
+    if w == '' | echo "cancel!!" | return | endif
     let cmd = 'vimgrep /'.w.'/gj % | cw'
     execute(cmd)
 endf
@@ -189,6 +192,8 @@ endf
 noremap <silent><Plug>(vim-grep) :<C-u>cal <SID>vimgrep()<CR>
 noremap <silent><Plug>(vim-grep-current) :<C-u>cal <SID>vimgrep_current()<CR>
 noremap <silent><Plug>(fzf-grep) :<C-u>cal <SID>fzfgrep()<CR>
+" 次のQuickfix行
+nnoremap <C-m> :cn<CR>
 nnoremap <Leader>g <Plug>(vim-grep)
 nnoremap <Leader>G <Plug>(vim-grep-current)
 nnoremap <Leader><Leader>g <Plug>(fzf-grep)
