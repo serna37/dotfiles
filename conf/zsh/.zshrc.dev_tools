@@ -1,3 +1,5 @@
+# XXX この辺、基本的にzshで定義するより
+# リポジトリのREADMEに使うコマンド書いとけって感じする
 function dev_tools_logo_python() {
     printf "\e[33m\n"
     echo "               ........            "
@@ -138,6 +140,7 @@ function dev_tools_cpp_setup_atcoder() {
     spin 'pip install online-judge-tools' pip install online-judge-tools
 }
 
+# ここからしたはAtCoder用なので必要
 function solve() {
     _lazy_install_llvm
     # 書き捨てで解く

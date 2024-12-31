@@ -201,6 +201,7 @@ function _s() { _values '' 'ssh[ssh接続]' 'scp[scp接続]' }
 compdef _s s
 
 # forgeコマンドと補完
+# XXX 削除予定
 if not_has forge; then
     gh api -H "Accept: application/vnd.github.raw" -H "X-GitHub-Api-Version: 2022-11-28" "/repos/serna37/forge/contents/forge.sh?ref=main" > /usr/local/bin/forge && chmod +xw /usr/local/bin/forge
 fi
