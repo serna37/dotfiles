@@ -56,8 +56,8 @@ nnoremap <silent><Leader>q <Plug>(quickhl-manual-reset)<Plug>(clever-f-reset):no
 " yuttie/comfortable-motion.vim
 let g:comfortable_motion_no_default_key_mappings = 1
 let g:comfortable_motion_interval = 1000.0 / 60
-let g:comfortable_motion_friction = 70.0
-let g:comfortable_motion_air_drag = 5.0
+let g:comfortable_motion_friction = 60.0
+let g:comfortable_motion_air_drag = 3.0
 nnoremap <silent><C-f> :cal comfortable_motion#flick(200)<CR>
 nnoremap <silent><C-b> :cal comfortable_motion#flick(-200)<CR>
 
@@ -174,7 +174,7 @@ fu! s:vimgrep() abort
     let w = input('vimgrep [word]>>', expand('<cword>'))
     if w == '' | echo "cancel!!" | return | endif
     let dir = 'vimgrep /'.w.'/gj * | cw'
-    let git = 'vimgrep /'.w.'/gj `git ls-files` | cw'
+    let git = 'vimgrep /'.w.'/gj `{ git ls-files; git ls-files -o --exclude-standard; }` | cw'
     let cmd = system('git rev-parse --is-inside-work-tree') =~ 'fatal' ? dir : git
     execute(cmd)
     cal popup_notification(["C-mで次のQuickfix"], #{line: &lines/2, col: &columns/3})
