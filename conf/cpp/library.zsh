@@ -16,9 +16,6 @@ work_dir=__work
 cd $dotfiles_snippet_dir
 no_del=($(ls))
 
-if type genact > /dev/null 2>&1; then
-    genact -s 10 --exit-after-modules 1 -m botnet
-fi
 echo "===================================================="
 
 sleep 0.5
@@ -78,7 +75,4 @@ for v in $generated; do
 done
 
 echo "===================================================="
-if type genact > /dev/null 2>&1; then
-    genact -s 10 --exit-after-modules 1 -m bruteforce
-fi
 
