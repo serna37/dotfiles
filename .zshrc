@@ -121,6 +121,7 @@ info 'Load ~/.zshrc'
 _lazy_install fastfetch fastfetch
 fastfetch
 info '== Favorit Commands =='
-info 'v zi l e | g d s top c'
-info 'solve cpp_exe'
+info 'v zi l e | g d s top c | clock gif Azathoth'
+info 'solve | cpp_exe'
+info '======================'
 

@@ -147,17 +147,17 @@ function incremental_search_history() {
 zle -N incremental_search_history
 bindkey "^r" incremental_search_history
 
+# 時計
+function clock() {
+    _lazy_install tty-clock tty-clock
+    tty-clock
+}
+
 # Gif作成コマンド
 function gif() {
     _lazy_install ffmpeg ffmpeg
     _lazy_install gum gum
     ffmpeg -i $(ls -A | gum choose) -r 10 $(gum input --prompt 'e.g.) test.gif: ')
-}
-
-# 時計
-function clock() {
-    _lazy_install tty-clock tty-clock
-    tty-clock
 }
 
 # 入れたコマンドを全部消す
