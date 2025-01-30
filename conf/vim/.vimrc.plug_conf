@@ -1,19 +1,7 @@
 " Pluginの追加設定
-" =====================================================================
-" AI Copilot
-" =====================================================================
-" Exafunction/codeium.vim
-" !! auth needs to see
-" https://www.codeium.com/profile?response_type=token&redirect_uri=vim-show-auth-token&state=a&scope=openid%20profile%20email&redirect_parameters_type=query
-" !! Codeium Authコマンドで出るリンクからのクリックだと、画面表示幅の問題でフルパスに飛べないことがあるので注意
-let g:codeium_disable_bindings = 1
-inoremap <silent><C-n> <Cmd>call codeium#CycleCompletions(1)<CR>
-inoremap <silent><C-p> <Cmd>call codeium#CycleCompletions(-1)<CR>
-inoremap <script><silent><nowait><expr><C-i> codeium#Accept()
-"imap <silent><C-d> <Cmd>call codeium#Clear()<CR>
 
 " =====================================================================
-" Enhanced vim motion
+" 通常vimモーションの強化系
 " =====================================================================
 " easymotion/vim-easymotion
 let g:EasyMotion_do_mapping = 0
@@ -22,7 +10,7 @@ let g:EasyMotion_smartcase = 1
 let g:EasyMotion_disable_two_key_combo = 1
 nnoremap s <Plug>(clever-f-reset)<Plug>(easymotion-s2)
 nnoremap <Leader><Leader>s <Plug>(clever-f-reset)<Plug>(easymotion-sn)
-nnoremap <Leader><Leader>w <Plug>(easymotion-overwin-w)
+nnoremap <Leader>w <Plug>(easymotion-overwin-w)
 
 " haya14busa/vim-edgemotion
 nnoremap <C-j> <Plug>(edgemotion-j)<Plug>(anchor)
@@ -32,21 +20,6 @@ nnoremap <C-k> <Plug>(edgemotion-k)<Plug>(anchor)
 let g:clever_f_smart_case = 1
 let g:clever_f_timeout_ms = 1500
 let g:clever_f_highlight_timeout_ms = 1500
-aug cleaver_f
-    au!
-    au ColorScheme * hi CleverFDefaultLabel cterm=BOLD,underline ctermfg=40 ctermbg=0
-aug END
-
-" unblevable/quick-scope
-"aug quick_scope
-    "au!
-    "au ColorScheme * hi QuickScopePrimary ctermfg=204 cterm=BOLD
-    "au ColorScheme * hi QuickScopeSecondary ctermfg=81 cterm=BOLD
-"aug END
-nnoremap <silent><leader>w <Plug>(clever-f-reset):QuickScopeToggle<CR>
-
-" serna37/vim-fscope-around
-"let g:fscope_init_active = 0
 
 " t9md/vim-quickhl
 " haya14busa/vim-asterisk
@@ -54,17 +27,17 @@ nnoremap # <Plug>(asterisk-z*)<Plug>(quickhl-manual-this)
 nnoremap <silent><Leader>q <Plug>(quickhl-manual-reset)<Plug>(clever-f-reset):noh<CR>
 
 " yuttie/comfortable-motion.vim
+" ホバードキュメントのスクロール用に、デフォルトマップを無効化
 let g:comfortable_motion_no_default_key_mappings = 1
-let g:comfortable_motion_interval = 1000.0 / 60
-let g:comfortable_motion_friction = 60.0
-let g:comfortable_motion_air_drag = 3.0
-nnoremap <silent><C-f> :cal comfortable_motion#flick(200)<CR>
-nnoremap <silent><C-b> :cal comfortable_motion#flick(-200)<CR>
+nnoremap <silent><C-f> :<C-u>cal comfortable_motion#flick(200)<CR>
+nnoremap <silent><C-b> :<C-u>cal comfortable_motion#flick(-200)<CR>
 
 " voldikss/vim-floaterm
 set termwinkey=<C-e>
-tnoremap <C-w> <Esc><BS>
+" normalモードへ移行
 tnoremap <C-x> <C-w><S-n>
+" 単語削除
+tnoremap <C-w> <Esc><BS>
 tnoremap <silent><C-t> <C-\><C-n>:FloatermNew<CR>
 tnoremap <silent><S-Tab> <C-\><C-n>:FloatermNext<CR>
 let g:floaterm_keymap_toggle = '<F12>'
@@ -73,78 +46,44 @@ let g:floaterm_height = 1.2
 let g:floaterm_position = 'bottomright'
 
 " =====================================================================
-" Enhanced Visualization
+" 外観
 " =====================================================================
+" mhinz/vim-startify
+" ぼっちざろっく{{{
+let s:btr_logo = [
+    \'                                                                                                                                  dN',
+    \'                                                                                                  ..                             JMF',
+    \'                                                                                             ..gMMMM%                           JMF',
+    \'                                                                                           .MM9^ .MF                           (MF',
+    \'                                                                                  .(,      ("   .M#                  .g,      .MF',
+    \'                            .,  dN                                             gg,,M@          .M#                  .M#!      (M>',
+    \'                            JM} M#             .MNgg.                     .g,  ?M[ 7B         .MMg+gg,.           .MM"        ."',
+    \'                    ...gNMN,.Mb MN           .gMM9!                      .(MN,  .=           .MMM9=  ?MN,         (WN,      .MM ',
+    \'       jN-      ..gMMN#!     (Mp(M}       .+MMYMF                    ..kMMWM%               ,M#^       dN.          .WNJ,   JM',
+    \'       MM     .MM9^  dN,                 dNB^ (M%                   ?M"!  ,M\        .,               .M#   .&MMMN,    ?"   M#',
+    \'       MN            .MN#^                    dM:  ..(J-,                 ,B         .TM             .M#   ,M@  .MF',
+    \'       MN.       ..MMBMN_                     dN_.MM@"!?MN.   TMm     .a,                           (M@         MM^',
+    \'       MN.     .MM"  JMb....       ..        dMMM=     .Mb            ?HNgJ..,                   .MM^',
+    \'       dM{          -MMM#7"T""   .dN#TMo       ?      .MM^                 ?!                 +gM#=',
+    \'       (M]         .MN(N#       .M@  .MF              .MM^                                      ~',
+    \'       .MN          ?"""             MM!            .MMD',
+    \'        ?N[                                         7"',
+    \'         TMe',
+    \'          ?MN,',
+    \'            TMNg,'
+    \]
+"}}}
+let g:startify_custom_header = s:btr_logo
+
 " vim-airline/vim-airline
 let g:airline_theme = 'onedark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_highlighting_cache = 1
-fu! s:moveBuf(flg) abort
-    let current_id = ''
-    let buf_arr = []
-    for v in split(execute('ls'), '\n')->map({ _,v -> split(v, ' ')})
-        let x = copy(v)->filter({ _,v -> !empty(v) })
-        if stridx(x[1], 'F') == -1 && stridx(x[1], 'R') == -1
-            cal add(buf_arr, x[0])
-            if stridx(x[1], '%') != -1
-                let current_id = x[0]
-            endif
-        endif
-    endfor
-    let buf_idx = a:flg == 'next' ? match(buf_arr, current_id) + 1 : match(buf_arr, current_id) - 1
-    let buf_id = buf_idx == len(buf_arr) ? buf_arr[0] : buf_arr[buf_idx]
-    exe 'b '.buf_id
-endf
-fu! s:closeBuf() abort
-    let now_b = bufnr('%')
-    cal s:moveBuf('prev')
-    execute('bd ' . now_b)
-endf
-noremap <silent><Plug>(buf-prev) :<C-u>cal <SID>moveBuf('prev')<CR>
-noremap <silent><Plug>(buf-next) :<C-u>cal <SID>moveBuf('next')<CR>
-noremap <silent><Plug>(buf-close) :<C-u>cal <SID>closeBuf()<CR>
-nnoremap <C-n> <Plug>(buf-prev)
-nnoremap <C-p> <Plug>(buf-next)
-nnoremap <Leader>x <Plug>(buf-close)
 
 " junegunn/goyo.vim
-let s:zen_lsp_watch_tid = -1
-fu! s:goyo_enter()
-    colorscheme codedark
-    "set number
-    if &filetype =~ 'cpp'
-        " LSPサーバが停止したときに自動で再起動
-        let s:zen_lsp_watch_tid = timer_start(2000, { -> s:chkLSP() })
-        exe "DebugOnSaveAtCoderCppEnd"
-    endif
-endf
-
-fu! s:goyo_leave()
-    cal s:colorscheme_onedark()
-    if &filetype =~ 'cpp'
-        cal timer_stop(s:zen_lsp_watch_tid)
-        exe "DebugOnSaveAtCoderCpp"
-    endif
-endf
-
-" LSPサーバが停止したときに自動で再起動する関数
-let s:should_reboot_clangd = 0
-fu! s:chkLSP() abort
-    if g:coc_status =~ 'clangd: parsing includes, running Update'
-        if s:should_reboot_clangd == 1
-            let s:should_reboot_clangd = 0
-            "clangd: parsing includes, running Update
-            sil! exe 'CocRestart'
-            echom '[INFO] restart coc to reboot clangd.'
-        else
-            let s:should_reboot_clangd = 1
-        endif
-    endif
-endf
-
-au! User GoyoEnter nested cal <SID>goyo_enter()
-au! User GoyoLeave nested cal <SID>goyo_leave()
+au! User GoyoEnter nested set number | colorscheme codedark
+au! User GoyoLeave nested cal s:colorscheme_onedark()
 nnoremap <silent><Leader>z :Goyo<CR>
 
 " machakann/vim-highlightedyank
@@ -154,8 +93,36 @@ let g:highlightedyank_highlight_duration = 300
 nnoremap <silent><Leader> :WhichKey '<Space>'<CR>
 set timeoutlen=500
 
+" joshdick/onedark.vim
+fu! s:del_color() abort
+    aug onedark_comment
+        au!
+    aug END
+endf
+fu! s:colorscheme_onedark() abort
+    if !glob('~/.vim/plugged/onedark.vim')->empty()
+        aug onedark_comment
+            au!
+            " コメント色
+            au ColorScheme * hi Comment term=bold ctermfg=245 guifg=#5C6370
+            " 背景なし
+            au ColorScheme * hi Normal ctermbg=none
+            " 行番号
+            au ColorScheme * hi LineNr ctermfg=245
+            au ColorScheme * hi CursorLineNr ctermfg=245
+            " カーソル
+            au ColorScheme * hi CursorLine ctermbg=236
+            au ColorScheme * hi CursorColumn ctermbg=236
+            au ColorScheme * hi Visual ctermbg=240
+        aug END
+        colorscheme onedark
+        cal timer_start(2000, { -> s:del_color() })
+    endif
+endf
+cal s:colorscheme_onedark()
+
 " =====================================================================
-" Filer
+" ファイラ / エクスプローラ
 " =====================================================================
 " junegunn/fzf
 " junegunn/fzf.vim
@@ -169,46 +136,18 @@ nnoremap <silent><Leader>s :CocCommand fzf-preview.Lines<CR>
 nnoremap <silent><Leader>m :CocCommand fzf-preview.Bookmarks<CR>
 nnoremap <silent><Leader>nn :CocCommand fzf-preview.MemoList<CR>
 nnoremap <silent><Leader>ng :CocCommand fzf-preview.MemoListGrep .<CR>
-au QuickFixCmdPost *grep* cwindow
-fu! s:vimgrep() abort
-    let w = input('vimgrep [word]>>', expand('<cword>'))
-    if w == '' | echo "cancel!!" | return | endif
-    let dir = 'vimgrep /'.w.'/gj * | cw'
-    let git = 'vimgrep /'.w.'/gj `{ git ls-files; git ls-files -o --exclude-standard; }` | cw'
-    let cmd = system('git rev-parse --is-inside-work-tree') =~ 'fatal' ? dir : git
-    execute(cmd)
-    cal popup_notification(["C-mで次のQuickfix"], #{line: &lines/2, col: &columns/3})
-endf
-fu! s:vimgrep_current() abort
-    let w = input('vimgrep currentfile [word]>>', expand('<cword>'))
-    if w == '' | echo "cancel!!" | return | endif
-    let cmd = 'vimgrep /'.w.'/gj % | cw'
-    execute(cmd)
-    cal popup_notification(["C-mで次のQuickfix"], #{line: &lines/2, col: &columns/3})
-endf
+" プロジェクトgrep + fzf
 fu! s:fzfgrep() abort
     let w = input('ripgrep [word]>>', expand('<cword>'))
     execute('CocCommand fzf-preview.ProjectGrep '.w)
 endf
-noremap <silent><Plug>(vim-grep) :<C-u>cal <SID>vimgrep()<CR>
-noremap <silent><Plug>(vim-grep-current) :<C-u>cal <SID>vimgrep_current()<CR>
-noremap <silent><Plug>(fzf-grep) :<C-u>cal <SID>fzfgrep()<CR>
-" 次のQuickfix行
-nnoremap <C-m> :cn<CR>
-nnoremap <Leader>g <Plug>(vim-grep)
-nnoremap <Leader>G <Plug>(vim-grep-current)
-nnoremap <Leader><Leader>g <Plug>(fzf-grep)
+nnoremap <silent><Leader><Leader>g :<C-u>cal <SID>fzfgrep()<CR>
 if !glob('~/.vim/plugged/coc.nvim')->empty()
     au DirChanged * cal execute('CocCommand explorer --no-focus --width 30')
 endif
 
-" preservim/nerdtree
-let NERDTreeShowHidden=1
-nnoremap <Leader><Leader>e :NERDTreeToggle<CR>
-nnoremap <Leader>E :NERDTreeFind<CR>
-
 " =====================================================================
-" Reading
+" 視覚補助 可読性の強化
 " =====================================================================
 " junegunn/rainbow_parentheses.vim
 if !glob('~/.vim/plugged/rainbow_parentheses.vim')->empty()
@@ -227,14 +166,8 @@ aug indent_guide
     au ColorScheme * hi IndentGuidesEven ctermbg=103
 aug END
 
-" liuchengxu/vista.vim
-"let g:vista_sidebar_width = 15
-
-" wfxr/minimap.vim
-"let g:minimap_git_colors = 1
-
 " =====================================================================
-" Writing
+" 入力補完強化
 " =====================================================================
 " matze/vim-move
 let g:move_key_modifier_visualmode = 'C'
@@ -263,56 +196,57 @@ let g:coc_global_extensions = [
     \ 'coc-go',
     \ 'coc-java',
 \ ]
-let g:coc_snippet_next = '<Tab>'
-let g:coc_snippet_prev = '<S-Tab>'
-inoremap <C-s> <Plug>(coc-snippets-expand)
+
+" ホバー待機でハイライト
 if !glob('~/.vim/plugged/coc.nvim')->empty()
     au CursorHold * sil cal CocActionAsync('highlight')
 endif
 
-" 補完の選択
-inoremap <expr><CR> pumvisible() ? '<C-y>' : '<CR>'
-"inoremap <expr><Tab> pumvisible() ? '<C-n>' : '<C-t>'
-"inoremap <expr><S-Tab> pumvisible() ? '<C-p>' : '<S-Tab>'
+" TODO タブで空白入力されてしまう
+" cocからの補完の選択と展開
+inoremap <silent><expr><Tab> coc#pum#visible() ? coc#pum#next(1) : '<Tab>'
+inoremap <silent><expr><S-Tab> coc#pum#visible() ? coc#pum#prev(1) : '<S-Tab>'
+inoremap <silent><expr><CR> coc#pum#visible() ? coc#pum#confirm() : pumvisible() ? '<C-y>' : '<CR>'
 
-" cocからの補完の選択
-inoremap <silent><expr><CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
-inoremap <silent><expr><Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
-inoremap <silent><expr><S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
+" TODO タブで空白入力されてしまう
+" スニペットの選択と展開
+let g:coc_snippet_next = '<Tab>'
+let g:coc_snippet_prev = '<S-Tab>'
+inoremap <C-s> <Plug>(coc-snippets-expand)
 
-" IDE系 定義元 呼び出し エラー等
+" 現在行のトリガ文言をnormalモードで展開
+fu! s:expand_snippet() abort
+    cal feedkeys("A\<C-s>\<Esc>", 'x')
+endf
+nnoremap <silent><Leader>t :<C-u>cal <SID>expand_snippet()<CR>
+
+" IDE系
+" 定義元
 nnoremap <Leader>d <Plug>(coc-definition)
+" 参照元
 nnoremap <silent><Leader>r :CocCommand fzf-preview.CocReferences<CR>
-nnoremap <silent><Leader>o :CocCommand fzf-preview.CocOutline<CR>
-nnoremap <silent><Leader>? :cal CocAction('doHover')<CR>
+" リネーム
+nnoremap <silent><Leader>R <Plug>(coc-rename)
+" フォーマット
+nnoremap <silent><Leader>F :<C-u>cal CocActionAsync('format')<CR>
+" エラー移動
 nnoremap <Leader>, <plug>(coc-diagnostic-next)
 nnoremap <Leader>. <plug>(coc-diagnostic-prev)
-nnoremap <silent><Leader><S-F> :<C-u>cal CocActionAsync('format')<CR>
-nnoremap <silent><Leader><S-R> <Plug>(coc-rename)
-
-" ホバードキュメントスクロールを有効に
+" ホバードキュメント
+nnoremap <silent><Leader>? :cal CocAction('doHover')<CR>
+" ホバードキュメントのスクロール
 nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : comfortable_motion#flick(100)
 nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : comfortable_motion#flick(-100)
 
-" LSP再起動のため、バッファ再読み込み + coc再起動
-fu! s:reloadBuffer() abort
-    exe "DebugOnSaveAtCoderCppEnd"
+" バッファ再読み込み (LSP再起動)
+fu! s:reload_buffer() abort
     w
     e!
     echo 'Reload Buffer'
-    exe "DebugOnSaveAtCoderCpp"
 endf
-nnoremap <silent><Leader>l :<C-u>:CocRestart<CR><Esc>
-nnoremap <silent><Leader><Leader>l :<C-u>cal <SID>reloadBuffer()<CR><Esc>
-
-" SNIPモードを強制終了 (バッファ再読み込み)
-inoremap <silent><C-k> <Esc>:<C-u>w<CR>:e!<CR>zza
-
-" C++のみ、保存時に自動フォーマット
-aug fmt_cpp
-    au!
-    au BufWrite *.cpp :try | cal CocAction('format') | catch | endtry
-aug END
+nnoremap <silent><Leader>l :<C-u>cal <SID>reload_buffer()<CR><Esc>
+" cocサーバ再起動 これやるとCocExplorerが固まるのでお勧めしない
+nnoremap <silent><Leader><Leader>l :<C-u>:CocRestart<CR><Esc>
 
 " puremourning/vimspector
 let g:vimspector_base_dir=$HOME.'/.vim/plugged/vimspector'
@@ -325,99 +259,41 @@ let g:vimspector_sign_priority = {
     \'vimspectorPC':          999,
     \'vimspectorPCBP':        999,
     \ }
-" breakpoint toggle / clear all
+" ブレークポイント トグル
 nnoremap <F9> <Plug>VimspectorToggleBreakpoint
+" ブレークポイント 全消し
 nnoremap <S-F9> :<C-u>cal vimspector#ClearBreakpoints()<CR>
 
-" debug start / jump to next breakpoint
+" デバッグ開始/ 次のブレークポイントまで進む
 nnoremap <F5> <Plug>VimspectorContinue
-" exit debug mode
+" デバッグモード終了
 nnoremap <S-F5> :VimspectorReset<CR>
 
-" restart debug mode
+" 再度、あたまからデバッグ
 nnoremap <F4> <Plug>VimspectorRestart
 
-" step over
+" ステップオーバー
 nnoremap <F10> <Plug>VimspectorStepOver
 
-" step in / step out
+" ステップイン / ステップアウト
 nnoremap <F11> <Plug>VimspectorStepInto
 nnoremap <S-F11> <Plug>VimspectorStepOut
 
-" watch variable
+" カーソルの変数を監視登録
 nnoremap <F3> :cal execute('VimspectorWatch '.expand('<cword>'))<CR>
 
-" hover variable value
+" カーソルの変数の値を表示
 nnoremap <Leader>_ <Plug>VimspectorBalloonEval
 
 " =====================================================================
-" Util
+" その他
 " =====================================================================
-" segeljakt/vim-silicon
-"let g:silicon = {}
-"let g:silicon['output'] = '~/Desktop/tmp.png'
-
-" kristijanhusak/vim-carbon-now-sh
-nnoremap <Leader>S ggVG:CarbonNowSh<CR>
-
-" =====================================================================
-" Initiation, Art
-" =====================================================================
-" mhinz/vim-startify
-let s:start = #{}
-
-" ぼっちざろっく{{{
-let s:start.btr_logo = [
-    \'                                                                                                                                  dN',
-    \'                                                                                                  ..                             JMF',
-    \'                                                                                             ..gMMMM%                           JMF',
-    \'                                                                                           .MM9^ .MF                           (MF',
-    \'                                                                                  .(,      ("   .M#                  .g,      .MF',
-    \'                            .,  dN                                             gg,,M@          .M#                  .M#!      (M>',
-    \'                            JM} M#             .MNgg.                     .g,  ?M[ 7B         .MMg+gg,.           .MM"        ."',
-    \'                    ...gNMN,.Mb MN           .gMM9!                      .(MN,  .=           .MMM9=  ?MN,         (WN,      .MM ',
-    \'       jN-      ..gMMN#!     (Mp(M}       .+MMYMF                    ..kMMWM%               ,M#^       dN.          .WNJ,   JM',
-    \'       MM     .MM9^  dN,                 dNB^ (M%                   ?M"!  ,M\        .,               .M#   .&MMMN,    ?"   M#',
-    \'       MN            .MN#^                    dM:  ..(J-,                 ,B         .TM             .M#   ,M@  .MF',
-    \'       MN.       ..MMBMN_                     dN_.MM@"!?MN.   TMm     .a,                           (M@         MM^',
-    \'       MN.     .MM"  JMb....       ..        dMMM=     .Mb            ?HNgJ..,                   .MM^',
-    \'       dM{          -MMM#7"T""   .dN#TMo       ?      .MM^                 ?!                 +gM#=',
-    \'       (M]         .MN(N#       .M@  .MF              .MM^                                      ~',
-    \'       .MN          ?"""             MM!            .MMD',
-    \'        ?N[                                         7"',
-    \'         TMe',
-    \'          ?MN,',
-    \'            TMNg,'
-    \]
-"}}}
-
-let g:startify_custom_header = s:start.btr_logo
-
-" joshdick/onedark.vim
-fu! s:del_col() abort
-    aug onedark_comment
-        au!
-    aug END
-endf
-fu! s:colorscheme_onedark() abort
-    if !glob('~/.vim/plugged/onedark.vim')->empty()
-        aug onedark_comment
-            au!
-            " コメント色
-            au ColorScheme * hi Comment term=bold ctermfg=245 guifg=#5C6370
-            " 背景なし
-            au ColorScheme * hi Normal ctermbg=none
-            " 行番号
-            au ColorScheme * hi LineNr ctermfg=245
-            au ColorScheme * hi CursorLineNr ctermfg=245
-            " カーソル
-            au ColorScheme * hi CursorLine ctermbg=236
-            au ColorScheme * hi CursorColumn ctermbg=236
-            au ColorScheme * hi Visual ctermbg=240
-        aug END
-        colorscheme onedark
-        cal timer_start(2000, { -> s:del_col() })
-    endif
-endf
-cal s:colorscheme_onedark()
+" Exafunction/codeium.vim
+" 認証のために以下URLへのアクセスが必要
+" Codeium Authコマンドで出るリンクからのクリックだと、画面表示幅の問題でフルパスに飛べないことがあるので注意
+" https://www.codeium.com/profile?response_type=token&redirect_uri=vim-show-auth-token&state=a&scope=openid%20profile%20email&redirect_parameters_type=query
+let g:codeium_disable_bindings = 1
+inoremap <silent><C-n> <Cmd>call codeium#CycleCompletions(1)<CR>
+inoremap <silent><C-p> <Cmd>call codeium#CycleCompletions(-1)<CR>
+inoremap <script><silent><nowait><expr><C-i> codeium#Accept()
 
