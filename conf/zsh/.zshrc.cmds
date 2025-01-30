@@ -1,53 +1,12 @@
-# 情報ログ形式でecho
-# info 'Hello World!'
-# info 'test \e[33m yellw'  途中から色を変えることも可能
-function info() {
-    #echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m$1\e[m"
-    printf "\e[32m[\e[34mINFO\e[32m] \e[34m$1\e[m\n"
-}
-function warn() {
-    printf "\e[32m[\e[33mWARN\e[32m] \e[34m$1\e[m\n"
-}
-function error() {
-    printf "\e[32m[\e[31mERROR\e[32m] \e[34m$1\e[m\n"
-}
-
-# 確認ダイアログ越しにコマンド実行
-# confirm echo Hello World!
-function confirm() {
-    CMD=$@
-    _lazy_install gum
-    if type gum > /dev/null 2>&1; then
-        gum confirm && eval $CMD || info 'cancel'
-    else
-        if [ -n "$ZSH_VERSION" ]; then
-            read "input?Are you sure? (y/n):"
-        else
-            read -p "Are you sure? (y/n):" input
-        fi
-        if [ "$input" = "y" ]; then
-            eval $CMD
-        else
-            info "cancel"
-        fi
-    fi
-}
-
-# 標準出力を出さずに、ロード中spinを表示
-# spin 'loading...' sleep 3
-function spin() {
-    _lazy_install gum
-    gum spin --title "$1" -- "${@:2}"
-}
+# ====================================
+# ショートコマンド
+# ====================================
 
 # vim
 function v() {
-    _lazy_install fzf
-    _lazy_install_ripgrep
-    # deactivating vim-IDE-menu
-    #_lazy_install code-minimap
-    if [ ! -d ~/.vim/plugged ]; then
-        # vim-plugがない場合
+    _lazy_install fzf fzf
+    _lazy_install rg ripgrep
+    if [ ! -d ~/.vim/plugged ]; then # vim-plugがない場合いれる
         spin 'install vim-plug' \
             curl -fSsLo ~/.vim/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -58,12 +17,12 @@ function v() {
 }
 
 # zoxide
-# eza fzf bat
+# + eza fzf bat
 function _zoxide() {
-    _lazy_install zoxide
-    _lazy_install eza
-    _lazy_install fzf
-    _lazy_install bat
+    _lazy_install zoxide zoxide
+    _lazy_install eza eza
+    _lazy_install fzf fzf
+    _lazy_install bat bat
     eval "$(zoxide init zsh)"
     zi
 }
@@ -78,17 +37,10 @@ export _ZO_FZF_OPTS='
     --preview "([[ -e '{2..}/README.md' ]] && bat --color=always --style=numbers --line-range=:50 '{2..}/README.md') || eza --color=always --group-directories-first --oneline {2..}"
 '
 alias zi='_zoxide'
-alias zv='_zoxide && v'
 
-# terminal ctrl
-alias rm='rm -i'
-alias rmf='confirm rm -rf'
-alias re='exec $SHELL -l'
-alias q='exit'
-
-# ls
+# ls → eza
 function l() {
-    _lazy_install eza
+    _lazy_install eza eza
     if type eza > /dev/null 2>&1; then
         if [ "$(uname)" = "Darwin" ]; then
             eza -abghHliS --icons --git $@
@@ -104,7 +56,7 @@ function l() {
     fi
 }
 function tree() {
-    _lazy_install eza
+    _lazy_install eza eza
     if type eza > /dev/null 2>&1; then
         if [ "$(uname)" = "Darwin" ]; then
             eza -bghHliST --icons --git $@
@@ -116,54 +68,73 @@ function tree() {
     fi
 }
 
-# TUI
+# エクスプローラ
 function e() {
-    _lazy_install_yazi
+    _lazy_install yazi yazi
+    if [ ! -f ~/.config/yazi/yazi.toml ]; then
+        ln -nfs ~/git/dotfiles/conf/config/yazi.toml ~/.config/yazi/yazi.toml
+    fi
     yazi
 }
 
-function db() {
-    _lazy_install_gobang
-    if [ $# -eq 0 ]; then
-        gobang
-        return
-    fi
-    if [ "$1" = "edit_con" ]; then
-        cd ~/git/dotfiles && v conf/config/gobang/config.toml
-    fi
-}
-function _db() { _values '' '[DB接続]' 'edit_con[DB接続を編集]' }
-compdef _db db
-
+# Lazy Git
 function g() {
-    _lazy_install git
-    _lazy_install lazygit
+    _lazy_install lazygit lazygit
     lazygit
 }
 
+# Lazy Docker
 function d() {
-    _lazy_install lazydocker
+    _lazy_install lazydocker lazydocker
     CNT=$(ps aux | grep -c OrbStack)
     if [ $CNT -eq 1 ]; then
         info 'START OrbStack'
         open -g /Applications/OrbStack.app
         sleep 1
-        _lazy_install genact
+        _lazy_install genact genact
         genact -s 10 --exit-after-modules 1 -m botnet
         genact -s 10 --exit-after-modules 1 -m bruteforce
     fi
     lazydocker
 }
 
+# SSH / SCP 接続
+function s() {
+    _lazy_install gum gum
+    if [ "$1" = "ssh" ]; then
+        if [ ! -f ~/.ssh/known_hosts ]; then
+            ssh $(gum input --prompt 'target. e.g.) github.com: ')
+        else
+            ssh $(cat ~/.ssh/known_hosts | awk '{print $1}' | uniq | gum choose)
+        fi
+    fi
+    if [ "$1" = "scp" ]; then
+        _lazy_install termscp veeso/termscp/termscp
+        termscp
+    fi
+}
+function _s() { _values '' 'ssh[ssh接続]' 'scp[scp接続]' }
+compdef _s s
+
+# top → bottomを使用
 function top() {
-    _lazy_install_bottom
+    _lazy_install btm bottom
     btm --battery
 }
 
+# マトリックスアニメ
 function c() {
-    _lazy_install cmatrix
+    _lazy_install genact genact
+    genact -s 10 --exit-after-modules 1 -m botnet
+    genact -s 10 --exit-after-modules 1 -m bruteforce
+    _lazy_install cmatrix cmatrix
     cmatrix
 }
+
+
+# ====================================
+# 便利ツール
+# ====================================
 
 # バックiサーチをhistoryのfzfにする
 function incremental_search_history() {
@@ -176,62 +147,30 @@ function incremental_search_history() {
 zle -N incremental_search_history
 bindkey "^r" incremental_search_history
 
-# others
+# Gif作成コマンド
 function gif() {
-    _lazy_install ffmpeg
-    _lazy_install gum
+    _lazy_install ffmpeg ffmpeg
+    _lazy_install gum gum
     ffmpeg -i $(ls -A | gum choose) -r 10 $(gum input --prompt 'e.g.) test.gif: ')
 }
 
-function s() {
-    _lazy_install gum
-    if [ "$1" = "ssh" ]; then
-        if [ ! -f ~/.ssh/known_hosts ]; then
-            ssh $(gum input --prompt 'target. e.g.) github.com: ')
-        else
-            ssh $(cat ~/.ssh/known_hosts | awk '{print $1}' | uniq | gum choose)
-        fi
-    fi
-    if [ "$1" = "scp" ]; then
-        _lazy_install_termscp
-        termscp
-    fi
+# 時計
+function clock() {
+    _lazy_install tty-clock tty-clock
+    tty-clock
 }
-function _s() { _values '' 'ssh[ssh接続]' 'scp[scp接続]' }
-compdef _s s
 
-# forgeコマンドと補完
-# XXX 削除予定
-if not_has forge; then
-    gh api -H "Accept: application/vnd.github.raw" -H "X-GitHub-Api-Version: 2022-11-28" "/repos/serna37/forge/contents/forge.sh?ref=main" > /usr/local/bin/forge && chmod +xw /usr/local/bin/forge
-fi
-function _forge() {
-    local -a val
-    val=(
-      'gen[mksリポジトリ作成、初回デプロイ]'
-      'init-deploy[初回デプロイ]'
-      'run[ローカルコンテナ起動]'
-      'test[pytestとカバレッジ報告]'
-      'stop[ローカルコンテナ停止削除]'
-      '[venv+pipとvim起動]'
-      'release[develop -> release -> master]'
-      'upgrade[forgeを更新]'
-      '-h[help]'
-    )
-    _values '' $val
-}
-compdef _forge forge
-
+# 入れたコマンドを全部消す
 function Azathoth() {
-    _lazy_install gum
+    _lazy_install gum gum
     if ! gum confirm; then
         return
     fi
     brew list
     \rm -rf ~/.nvm
     \rm ~/.netrc
-    \rm /usr/local/bin/forge
-    DEL=(fastfetch screenfetch
+    # この辺を入れて使っているメモ代わり
+    DEL=(fastfetch
     zoxide fzf bat eza ripgrep
     lazygit lazydocker
     genact cmatrix tty-clock

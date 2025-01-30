@@ -1,51 +1,126 @@
+# ====================================
+# 共通コマンド
+# ====================================
+# 情報ログ形式でecho
+# info 'Hello World!'
+# info 'test \e[33m yellw'  途中から色を変えることも可能
+function info() {
+    #echo -e "\e[32m[\e[34mINFO\e[32m] \e[34m$1\e[m"
+    printf "\e[32m[\e[34mINFO\e[32m] \e[34m$1\e[m\n"
+}
+function warn() {
+    printf "\e[32m[\e[33mWARN\e[32m] \e[34m$1\e[m\n"
+}
+function error() {
+    printf "\e[32m[\e[31mERROR\e[32m] \e[34m$1\e[m\n"
+}
 
-# 使用時に必要なコマンドを入れる
-source ~/git/dotfiles/conf/zsh/.zshrc.lazyload
+# $1がなければ$2をインストール
+function _lazy_install() {
+    if ! type "$1" > /dev/null 2>&1; then
+        info "INSTALL: $1"
+        if [ "$(uname)" = "Darwin" ]; then
+            brew install $2
+        fi
+    fi
+}
 
-if [ "$(uname)" = "Darwin" ]; then
-    # brew
-    export PATH="$PATH:/opt/homebrew/bin/"
+# 標準出力を出さずに、ロード中spinを表示
+# spin 'loading...' sleep 3
+function spin() {
+    _lazy_install gum gum
+    gum spin --title "$1" -- "${@:2}"
+}
 
-    # Python
-    _lazy_install_python
-    export PATH="$PATH:/opt/homebrew/bin/python3"
-    alias python='python3'
-    alias pip='python -m pip'
+# zshの補完
+autoload -Uz compinit
+compinit
 
-    # nvm
-    _lazy_install_nvm
-    export NVM_DIR="$HOME/.nvm"
+# ====================================
+# ショートカットコマンド、便利ツール
+# ====================================
+source ~/git/dotfiles/conf/zsh/.zshrc.cmds
+
+# ====================================
+# パス追加
+# ====================================
+# brew
+export PATH="$PATH:/opt/homebrew/bin/"
+# Python
+export PATH="$PATH:/opt/homebrew/bin/python3"
+# nvm
+export NVM_DIR="$HOME/.nvm"
+
+# ====================================
+# プロンプト設定
+# ====================================
+HISTSIZE=1000
+SAVEHIST=1000
+setopt no_beep
+# シンタックスハイライト
+if [ ! -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    info 'INSTALL: zsh-syntax-highlighting'
+    brew install zsh-syntax-highlighting
+fi
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# 補完 →キーで補完する
+if [ ! -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    info 'INSTALL: zsh-autosuggestions'
+    brew install zsh-autosuggestions
+fi
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Git補完
+if [ ! -f /opt/homebrew/opt/zsh-git-prompt/zshrc.sh ]; then
+    info 'INSTALL: zsh-git-prompt'
+    brew install zsh-git-prompt
+fi
+source /opt/homebrew/opt/zsh-git-prompt/zshrc.sh
+eval "$(gh completion -s zsh)"
+# 外観
+if [ ! -f /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme ]; then
+    info 'INSTALL: powerlevel10k'
+    brew install powerlevel10k
+fi
+source /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
+# ====================================
+# 言語
+# ====================================
+# Python
+alias python='python3'
+alias pip='python -m pip'
+# Nodejsのためnvm (cocのためにvoltaでない)
+if [ ! -d $HOME/.nvm ]; then
+    info 'INSTALL: nvm'
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    nvm install stable --latest-npm
+    nvm alias default stable
 fi
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-if [ "$(uname)" = "Linux" ]; then
-    export SHELL=/bin/zsh
-    export PATH="$PATH:$HOME/.local/bin"
-    alias python='python3'
-fi
+# C++
+source ~/git/dotfiles/conf/zsh/.zshrc.cpp
 
-source ~/git/dotfiles/conf/zsh/.zshrc.dotfiles_conf
-source ~/git/dotfiles/conf/zsh/.zshrc.prompt
-source ~/git/dotfiles/conf/zsh/.zshrc.cmds
-source ~/git/dotfiles/conf/zsh/.zshrc.dev_tools
-source ~/git/dotfiles/conf/zsh/.zshrc.toolbox
-source ~/git/dotfiles/conf/zsh/.zshrc.hackbox
-source ~/git/dotfiles/conf/zsh/.zshrc.devbox
+# ====================================
+# ロード
+# ====================================
+# rmのセーフガード
+alias rm='rm -i'
+# shell再起動
+alias re='exec $SHELL -l'
+# exit
+alias q='exit'
 
 clear
 info 'Load ~/.zshrc'
-# TODO [WIP] 各所でやってるOS判定だけど、CentOS系もLinuxなので、aptなのかyumなのか判断つかない。
-# パッケージ管理コマンド自体で判断しようにもMacはapt、複雑なifになるかも?
-if [ "$(uname)" = "Darwin" ]; then
-    _lazy_install fastfetch
-    fastfetch
-fi
-if [ "$(uname)" = "Linux" ]; then
-    _lazy_install screenfetch
-    screenfetch
-fi
+_lazy_install fastfetch fastfetch
+fastfetch
+info '== Favorit Commands =='
+info 'v zi l e | g d s top c'
+info 'solve cpp_exe'
 
-info 'Favorit Commands'
-info 'v g l e zi'
-info 's d top c'

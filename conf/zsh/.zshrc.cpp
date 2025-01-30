@@ -1,98 +1,7 @@
-# XXX この辺、基本的にzshで定義するより
-# リポジトリのREADMEに使うコマンド書いとけって感じする
-function dev_tools_logo_python() {
-    printf "\e[33m\n"
-    echo "               ........            "
-    echo "            (MMMMMMMMMMMNJ         "
-    echo "           ,MF  MMMMMMMMMM]        "
-    echo "           ,MMNMMMMMMMMMMM]        "
-    echo "       ............MMMMMMM].....   "
-    echo "     JMMMMMMMMMMMMMMMMMMMM].==?=i. "
-    echo "    dMMMMMMMMMMMMMMMMMMMMM].?==??1 "
-    echo "   .MMMMMMMMMMMMMMMMMMMMMF ?=?===?_"
-    echo "   -MMMMMMMMB'7<<<<<<<<~.(?==??=?={"
-    echo "   ,MMMMMMM!.??=?=??=?????==?==?=?:"
-    echo "    MMMMMMF.==?=?=?=?==?==?=?=?=?v "
-    echo "    .WMMMMF.?==?=?==?=?==?=?=?==<  "
-    echo "      .7""=.=?=?==?________  _     "
-    echo "           .??==??=?=?=1?=:        "
-    echo "           .?=?=?==?=?  .?:        "
-    echo "            ~1?==?==??1+??         "
-    echo "                _!!!!~             "
-    printf "\e[m"
-}
-
-function dev_tools_python_localhost() {
-    _lazy_install gum
-    dev_tools_logo_python
-    printf "\e[32m\n"
-    echo "  _                       _  _                             _____    ______   ______   ______ ";
-    echo " | |                     | || |                  _        / ___ \  / __   | / __   | / __   | ";
-    echo " | |  ___    ____   ____ | || | _    ___    ___ | |_   _ ( (   ) )| | //| || | //| || | //| | ";
-    echo " | | / _ \  / ___) / _  || || || \  / _ \  /___)|  _) (_) > > < < | |// | || |// | || |// | | ";
-    echo " | || |_| |( (___ ( ( | || || | | || |_| ||___ || |__  _ ( (___) )|  /__| ||  /__| ||  /__| | ";
-    echo " |_| \___/  \____) \_||_||_||_| |_| \___/ (___/  \___)(_) \_____/  \_____/  \_____/  \_____/ ";
-    printf "\e[m"
-    info 'input port'
-    python -m http.server $(gum input --header='port' --value='8000')
-}
-
-function dev_tools_python_venv() {
-    dev_tools_logo_python
-    printf "\e[32m\n"
-    echo "  _   _   ____  ____   _   _ ";
-    echo " | | | | / _  )|  _ \ | | | | ";
-    echo "  \ V / ( (/ / | | | | \ V / ";
-    echo "   \_/   \____)|_| |_|  \_/ ";
-    printf "\e[m"
-    # vimspector debug設定を追加
-    cp -f ~/git/dotfiles/conf/vim/.vimspector.json .
-    spin 'Python venv activation' python -m venv venv
-    . venv/bin/activate
-}
-
-function dev_tools_logo_cpp() {
-    printf "\e[34m\n"
-    echo "            .(XyyS&,             "
-    echo "         .JyZZZZyZyyyn..         "
-    echo "     ..dyyZZyyyZZyZZyZyyk-.      "
-    echo "   .yyyZyZ0=!      _7XZZyyyW,    "
-    echo "   dZZZyZ=            ?yQgMH#    "
-    echo "   dyZyZ'    .dyyk.  .&HHHHH#    "
-    echo "   dZyyr    dyZyyXQMHH@4HHYM#    "
-    echo "   dZZy[   .yyQNMMHHHh,..&..K    "
-    echo "   dyZZn    ?MNNNNMDTMHHHHHH#    "
-    echo '   dyyZQa     ?""^     WMHHH#    '
-    echo "   zQNNNMN,          .MNMNMM#    "
-    echo '    THNMNNNMN&....(MNNNNMM#"     '
-    echo "       ?YMNNNNMNNNNNNMMY=        "
-    echo '          .TMNNNMNMM"            '
-    echo '              7"""`              '
-    printf "\e[m"
-}
-
-function dev_tools_cpp_setup() {
-    dev_tools_logo_cpp
-    printf "\e[32m\n"
-    echo "               _ ";
-    echo "   ___   ____ | |_   _   _  ____ ";
-    echo "  /___) / _  )|  _) | | | ||  _ \ ";
-    echo " |___ |( (/ / | |__ | |_| || | | | ";
-    echo " (___/  \____) \___) \____|| ||_/ ";
-    echo "                           |_| ";
-    printf "\e[m"
-    # gitignore
-    cp -f ~/git/dotfiles/conf/cpp/cpp_gitignore .gitignore
-    # LSP server用設定
-    cp -f ~/git/dotfiles/conf/cpp/.clang-format .
-    cp -f ~/git/dotfiles/conf/cpp/compile_flags.txt .
-    # vimspector debug設定を追加
-    cp -f ~/git/dotfiles/conf/vim/.vimspector.json .
-    # C++ロゴフォーマッタとAAを追加
-    cp -fR ~/git/dotfiles/conf/cpp/AA .
-}
-
-function dev_tools_logo_atcoder() {
+# ====================================
+# C++とAtCoder用設定
+# ====================================
+function _logo_atcoder() {
     echo '                                            .'
     echo '                                          .dN.'
     echo '                                       ..d@M#J#(,'
@@ -131,46 +40,68 @@ function dev_tools_logo_atcoder() {
     echo ""
 }
 
-function dev_tools_cpp_setup_atcoder() {
-    dev_tools_cpp_setup
-    dev_tools_python_venv
-    dev_tools_logo_atcoder
+# C++用設定、AtCoder用設定を導入
+function _setup_cpp_atcoder() {
+    # C++デバッガのlldbのためにllvmを導入
+    if [ ! -d /opt/homebrew/opt/llvm ]; then
+        info 'INSTALL: llvm'
+        brew install llvm
+    fi
+    # gitignore
+    cp -f ~/git/dotfiles/conf/cpp/cpp_gitignore .gitignore
+    # LSP用設定
+    cp -f ~/git/dotfiles/conf/cpp/.clang-format .
+    cp -f ~/git/dotfiles/conf/cpp/compile_flags.txt .
+    # vimspector デバッグ設定を追加
+    cp -f ~/git/dotfiles/conf/vim/.vimspector.json .
+    # C++ロゴフォーマッタとAAを追加
+    cp -fR ~/git/dotfiles/conf/cpp/AA .
+    # AtCoderロゴ
+    _logo_atcoder
+    # atcoder-cliを入れる
+    if ! type acc > /dev/null 2>&1; then
+        npm install -g atcoder-cli
+    fi
+    # 仮想環境
+    spin 'Python venv activation' python -m venv venv
+    . venv/bin/activate
+    # AtCoderテスト用ライブラリをインストール
     spin 'pip install --upgrade pip' pip install --upgrade pip
     spin 'pip install --upgrade setuptools' pip install --upgrade setuptools
     spin 'pip install online-judge-tools' pip install online-judge-tools
 }
 
-# ここからしたはAtCoder用なので必要
+# AtCoder用フォルダを開く
+# 書き捨てで解く: solve
+# AtCoderコンテスト: solve abc100
 function solve() {
-    _lazy_install_llvm
-    # 書き捨てで解く
+
+    # 書き捨てで解く場合
     SAND_DIR="$HOME/work/algo_practice"
     if [ $# -eq 0 ]; then
         mkdir -p $SAND_DIR > /dev/null 2>&1
         cd $SAND_DIR
-        dev_tools_cpp_setup_atcoder
+        _setup_cpp_atcoder
+        # a問題、z問題を作成
         mkdir -p a > /dev/null 2>&1
         mkdir -p z > /dev/null 2>&1
         touch a/main.cpp z/main.cpp
-        #\rm -rf a/test z/test
+        # z問題として開く
         v z/main.cpp
         return
     fi
 
-    # AtCoder コンテスト
+    # AtCoderコンテストの場合
     CONTEST_CODE=$1
-    if [ "$(acc contest $CONTEST_CODE)" = "" ]; then
-        error 'contest code is not found.'
-        return
-    fi
     AC_DIR="$HOME/work/atcoder_contest"
     mkdir -p $AC_DIR > /dev/null 2>&1
     cd $AC_DIR
-    dev_tools_cpp_setup_atcoder
-    # atcoder-cliとojのセットアップ
-    if ! type acc > /dev/null 2>&1; then
-        npm install -g atcoder-cli
+    _setup_cpp_atcoder
+    if [ "$(acc contest $CONTEST_CODE)" = "" ]; then
+        error "コンテストコード $CONTEST_CODE が正しくありません"
+        return
     fi
+    # atcoder-cliとojのセットアップ
     acc check-oj
     oj login https://atcoder.jp
     acc login
@@ -193,7 +124,11 @@ function _solve() { _values '' '[ 書き捨て]' 'abc[ AtCoderコンテス
 compdef _solve solve
 
 
-# C++ビルドコマンド
+# ====================================
+# C++の実行
+# ====================================
+
+# C++ビルドコマンド (ローカルのデバッグヘッダ用変数付き)
 # AtCoderでの指定: https://atcoder.jp/contests/APG4b/rules?lang=ja
 # -std=c++20 バージョン指定
 # -I includeパス
@@ -204,52 +139,57 @@ compdef _solve solve
 # -fconstexpr-depth=2147483647 コンパイル時の再帰回数
 export CPP_BUILD_CMD="g++ -D=LOCAL -std=c++20 \
 -I $HOME/git/dotfiles/conf/cpp \
--Wall \
--Wextra \
--mtune=native \
--march=native \
+-Wall -Wextra \
+-mtune=native -march=native \
 -fconstexpr-depth=2147483647 \
 -o "
 
+# C++ビルドコマンド (サニタイザ版)
 # -ftrapv 符号あり整数計算でover under flow
 # -fsanitize-undefined-trap-on-error 未定義サニタイザ
 # -fsanitize=address アドレスサニタイザ
 export CPP_BUILD_CMD_SANITIZE="g++ -std=c++20 \
 -I $HOME/git/dotfiles/conf/cpp \
--Wall \
--Wextra \
--mtune=native \
--march=native \
+-Wall -Wextra \
+-mtune=native -march=native \
 -fconstexpr-depth=2147483647 \
 -ftrapv \
 -fsanitize-undefined-trap-on-error \
 -fsanitize=address \
 -o "
 
+# C++ファイルを実行
 function cpp_exe() {
-    _lazy_install gum
-    _lazy_install_llvm
+    _lazy_install gum gum
+    # C++デバッガのlldbのためにllvmを導入
+    if [ ! -d /opt/homebrew/opt/llvm ]; then
+        info 'INSTALL: llvm'
+        brew install llvm
+    fi
+    # 実行ファイルを選択
     TARGET=$(find . -name '*.cpp' | gum choose)
+    # 通常起動 / サニタイズ起動 を選択
     RUN_MODE=$(gum choose "normal" "sanitize")
     CMD=$CPP_BUILD_CMD
     if [ $RUN_MODE = "sanitize" ]; then
         CMD=$CPP_BUILD_CMD_SANITIZE
     fi
+    # ビルドと実行
     echo "==================================="
     info "build :$TARGET processing..."
-    eval "$CMD _cpp_exe $TARGET 2>&1"
+    eval "$CMD _cpp_exec_tmpfile $TARGET 2>&1"
     info "build :$TARGET complete."
     echo "==================================="
     printf "\e[33m-----------------------------\e[m\n"
-    ./_cpp_exe
+    ./_cpp_exec_tmpfile
     res=$?
     printf "\e[33m-----------------------------\e[m\n"
     if [ $res -eq 0 ]; then
         info "exit code:$res"
     else
-        error "exit code:$res."
+        error "exit code:$res"
     fi
-    \rm _cpp_exe
+    \rm _cpp_exec_tmpfile
 }
 
 # ==============================================
@@ -258,6 +198,7 @@ function cpp_exe() {
 # vimスクリプト経由で呼び出すことを想定
 # ==============================================
 # より高速なC++実行
+# cpp_debug z のように実行
 function cpp_debug() {
     cd $1
     info " >> ビルド: $1/main.cpp"
@@ -265,24 +206,23 @@ function cpp_debug() {
     eval $CPP_BUILD_CMD_SANITIZE sani main.cpp > /dev/null 2>&1
 
     # 出力を確認
-    info " >> ケース1を実行: test/sample-1.in"
+    info " >> ケース1を実行"
     ./main < test/sample-1.in # debug情報(標準エラー)も画面に表示
     ./main < test/sample-1.in > res 2> /dev/null # 標準出力のみ保存
-    echo '--- execute done ---'
+    info " << 実行完了"
 
     # 標準出力を比較
     ISOK=0
-    info " >> 期待値: test/sample-1.out"
+    info " >> 期待値"
     cat test/sample-1.out
     if diff -w test/sample-1.out res > /dev/null; then
         info "実行結果  : ✅出力一致"
         ISOK=1
     else
         error "実行結果  : ❌出力不一致"
-        _lazy_install_delta
+        _lazy_install delta git-delta
         delta -s test/sample-1.out res
-        warn "テストのみの実行は、vimコマンド"
-        warn "TestAtCoderCpp を実行して下さい。"
+        warn "単純差分でないテストの実行はAtCoderTestPopup"
     fi
 
     # ケース1がOKまたは、緩いoj tがOKであればテストに続く
@@ -321,6 +261,8 @@ function cpp_debug() {
 }
 
 # 提出コマンド
+# 書き捨ての場合: atcoder_submit z https://xxxx...
+# コンテストの場合: atcoder_submit a
 function atcoder_submit() {
     TARGET=$1
     if [ $# -eq 2 ]; then
@@ -328,6 +270,7 @@ function atcoder_submit() {
         URL=$2
     else
         # コンテストの場合、jsonからURL抽出
+        _lazy_install jq jq
         URL=$(cat contest.acc.json | jq -r ".tasks.[] | select(.directory.path == \"$TARGET\") | .url")
     fi
     cd $TARGET
