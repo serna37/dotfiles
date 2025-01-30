@@ -121,11 +121,5 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
   }
 end)
 
-
-
-
-
-
 return config
-
 

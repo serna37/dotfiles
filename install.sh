@@ -1,83 +1,72 @@
 #!/bin/bash
 
-# いったん不要と判断
-#sshs
-#postgresql@14
-#rust
-#go
-#java11
-if [ "$(uname)" = "Darwin" ]; then
-    # ===============================
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    export PATH="$PATH:/opt/homebrew/bin/"
-    REPOS=(vim git gh mas sqlite)
-    for v in ${REPOS[@]}; do
-        brew reinstall $v
-        wait $!
-    done
-    CASK_REPOS=(wezterm orbstack maccy keycastr)
-    for v in ${CASK_REPOS[@]}; do
-        brew reinstall --cask $v
-        wait $!
-    done
-    MAS_IDS=(
-    1429033973 # RunCat
-    1187652334 # Fuwari
-    )
-    for v in ${MAS_IDS[p]}; do
-        mas install $v
-        wait $!
-    done
-# ===============================
-else
-# ===============================
-    repos=(zoxide fzf bat ripgrep screenfetch
-    python3 python3-venv pip clangd sqlite3)
-    for v in ${repos[@]}; do
-        apt install -y $v
-        wait $!
-    done
-    # node
-    apt install -y nodejs npm
-    npm install n -g
-    n lts
-    n latest
-    apt purge -y nodejs npm
-    # eza
-    sudo apt install -y gpg
-    mkdir -p /etc/apt/keyrings
-    wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
-    echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
-    sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
-    sudo apt update
-    sudo apt install -y eza
-    # batcat -> bat
-    mkdir -p ~/.local/bin
-    ln -nfs /usr/bin/batcat ~/.local/bin/bat
-    # gum
-    sudo mkdir -p /etc/apt/keyrings
-    curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
-    echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
-    sudo apt update && sudo apt install -y gum
-    # oh-my-zsh
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    git clone https://github.com/zsh-users/zsh-autosuggestions /root/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting /root/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-    # デフォルトのshellをzshに
-    chsh -s /bin/zsh
-    export SHELL=/bin/zsh
-    # ===============================
-fi
+# Homebrewを入れる
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+export PATH="$PATH:/opt/homebrew/bin/"
 
-# dotfiles
-mkdir -p ~/git && cd ~/git
+# 必要なコマンド等を入れる
+REPOS=(vim git gh mas python3 sqlite)
+for v in ${REPOS[@]}; do
+    brew reinstall $v
+    wait $!
+done
+
+# 必要なアプリをCL版で入れる
+CASK_REPOS=(wezterm orbstack maccy keycastr)
+for v in ${CASK_REPOS[@]}; do
+    brew reinstall --cask $v
+    wait $!
+done
+
+# 必要なGUIアプリを入れる
+MAS_IDS=(
+1429033973 # RunCat
+1187652334 # Fuwari
+)
+for v in ${MAS_IDS[p]}; do
+    mas install $v
+    wait $!
+done
+
+# 1回だけ必要な作業
+
+# dotfilesのファイルをリンク
+mkdir -p ~/git
+cd ~/git
 git clone https://github.com/serna37/dotfiles
 ln -nfs ~/git/dotfiles/.zshrc ~/.zshrc
 ln -nfs ~/git/dotfiles/conf/zsh/.p10k.zsh ~/.p10k.zsh
 ln -nfs ~/git/dotfiles/.vimrc ~/.vimrc
 ln -nfs ~/git/dotfiles/.wezterm.lua ~/.wezterm.lua
+if [ ! -L ~/.ssh/config ]; then
+    # ssh接続設定
+    mkdir -p ~/.ssh > /dev/null 2>&1
+    ln -nfs ~/git/dotfiles/conf/ssh/config ~/.ssh/config
+fi
+if [ ! -f ~/.vim/after/plugin/common-settings.vim ]; then
+    # vim コメント行から改行した際、次の行をコメントにしない設定
+    mkdir -p ~/.vim/after/plugin > /dev/null 2>&1
+    cp ~/git/dotfiles/conf/vim/common-settings.vim ~/.vim/after/plugin/
+fi
+if [ ! -L ~/.vim/coc-settings.json ]; then
+    # coc用設定
+    mkdir -p ~/.vim > /dev/null 2>&1
+    ln -nfs ~/git/dotfiles/conf/vim/coc-settings.json ~/.vim/coc-settings.json
+fi
+if [ ! -d ~/.vim/UltiSnips ]; then
+    # snippets
+    mkdir -p ~/.vim/UltiSnips > /dev/null 2>&1
+    ln -nfs ~/git/dotfiles/conf/cpp/snippets/* ~/.vim/UltiSnips/
+    zsh ~/git/dotfiles/conf/cpp/library.zsh
+    # TODO library更新時、新規ファイルのリンクがない
+    ln -nfs ~/git/dotfiles/conf/snippets/* ~/.vim/UltiSnips/
+fi
+if [ ! -L ~/.gitconfig ]; then
+    # gitconfig
+    ln -nfs ~/git/dotfiles/.gitconfig ~/.gitconfig
+fi
 
-# font 三角のやつ
+# fontを入れる 三角のやつ
 cd ~/git
 git clone --depth 1 https://github.com/powerline/fonts.git
 cd fonts
@@ -85,26 +74,25 @@ cd fonts
 cd ..
 \rm -rf fonts
 
-# font icon系
+# fontを入れる icon系
 git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
 cd nerd-fonts
 ./install.sh
 cd ..
 \rm -rf nerd-fonts
 
-# git
-if [ "$(uname)" = "Darwin" ]; then
-    # 最初だけ認証が必要
-    # OSキーチェーンに保存する
-    git config --global credential.helper osxkeychain
-    # git config --global credential.helper store
-    # git config --global credential.helper store --file ファイルパス
+# gitの認証設定 最初だけ認証が必要です
+# OSキーチェーンに保存する
+git config --global credential.helper osxkeychain
+# git config --global credential.helper store
+# git config --global credential.helper store --file ファイルパス
 
-    # gh
-    if ! gh auth status > /dev/null 2>&1; then
-        gh auth login
-    fi
+# ghを設定
+if ! gh auth status > /dev/null 2>&1; then
+    gh auth login
 fi
 
+
+# shell再起動
 exec $SHELL -l
 

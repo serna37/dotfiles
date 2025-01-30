@@ -15,7 +15,6 @@
 ## Installation
 - このレポジトリでの設定を適用する(Macの場合Homebrewを導入します)
 - lazyinstall式を採用しており、初期投入以外のコマンドは、必要な時にinstallされます
-- コマンド等の追加時は[.zshrc.lazyload](https://github.com/serna37/dotfiles/blob/master/conf/zsh/.zshrc.lazyload)を改修
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/serna37/dotfiles/master/install.sh)"
 ```
