@@ -178,7 +178,6 @@ call plug#end()
 "            \ 'coc-rust-analyzer', 'coc-go', 'coc-java',
 "            \ ]
 "nnoremap <silent><Space>d <Plug>(coc-definition)
-"nnoremap <silent><Space>r :CocCommand fzf-preview.CocReferences<CR>
 "nnoremap <silent><Space>r <Plug>(coc-references)
 "nnoremap <silent><Space>R <Plug>(coc-rename)
 "nnoremap <silent><Space>F :<C-u>cal CocActionAsync('format')<CR>
@@ -198,23 +197,15 @@ call plug#end()
 "            \'vimspectorPC':          999,
 "            \'vimspectorPCBP':        999,
 "            \ }
-" ブレークポイント
 "nnoremap <F9> <Plug>VimspectorToggleBreakpoint
 "nnoremap <S-F9> :<C-u>cal vimspector#ClearBreakpoints()<CR>
-" デバッグ開始 / 次のブレークポイントまで進む
 "nnoremap <F5> <Plug>VimspectorContinue
-" デバッグモード終了
 "nnoremap <S-F5> :VimspectorReset<CR>
-" 再度、あたまからデバッグ
 "nnoremap <F4> <Plug>VimspectorRestart
-" ステップオーバー
 "nnoremap <F10> <Plug>VimspectorStepOver
-" ステップイン / ステップアウト
 "nnoremap <F11> <Plug>VimspectorStepInto
 "nnoremap <S-F11> <Plug>VimspectorStepOut
-" カーソルの変数を監視登録
-"nnoremap <F3> :cal execute('VimspectorWatch '.expand('<cword>'))<CR>
-" カーソルの変数の値を表示
+"nnoremap <F3> :<C-u>cal execute('VimspectorWatch '.expand('<cword>'))<CR>
 "nnoremap <Space>_ <Plug>VimspectorBalloonEval
 
 " codium認証のために以下URLへのアクセス
@@ -223,8 +214,4 @@ call plug#end()
 "inoremap <silent><C-n> <Cmd>cal codeium#CycleCompletions(1)<CR>
 "inoremap <silent><C-p> <Cmd>cal codeium#CycleCompletions(-1)<CR>
 "inoremap <script><silent><nowait><expr><C-i> codeium#Accept()
-
-
-
-
 
