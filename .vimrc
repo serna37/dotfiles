@@ -174,10 +174,6 @@ colorscheme habamax
 call plug#begin()
 "Plug 'joshdick/onedark.vim'
 "Plug 'sheerun/vim-polyglot'
-" TODO けしたい
-"Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
-" TODO けしたい
-"Plug 'junegunn/fzf.vim'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'puremourning/vimspector'
 "Plug 'Exafunction/codeium.vim'
