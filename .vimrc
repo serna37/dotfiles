@@ -89,6 +89,7 @@ fu! s:netrw_open() abort
     endif
 endf
 nnoremap <silent><Space>f :<C-u>cal <SID>fzf()<CR>
+au ColorScheme * hi FzfCurLine ctermfg=235 ctermbg=114
 fu! s:fzf()
     let g:fzf_query = []
     let g:fzf_files = system(system('git status')=~'fatal' ? "find . -type f" : "git ls-files")->split('\n')
@@ -98,7 +99,6 @@ fu! s:fzf()
     let g:fzf_q_wid = popup_create("", #{title: "fzf", zindex: 100, line: 15, col: 50, minwidth: 50, maxwidth: 50, minheight: 1, maxheight: 1, border:[], borderchars: ['─','│','─','│','╭','╮','╯','╰'], mapping: 0, filter: function('s:fzf_filter')})
     let g:match_id = matchaddpos('FzfCurLine', [[g:fzf_cur + 1]], 10, -1, {'window': g:fzf_wid})
 endf
-au ColorScheme * hi FzfCurLine ctermfg=235 ctermbg=114
 fu! s:fzf_filter(winid, key)
     if a:key == "\<CR>"
         cal popup_close(g:fzf_q_wid)
