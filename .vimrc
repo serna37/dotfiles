@@ -20,11 +20,10 @@ inoremap <expr><BS> match(["()", "[]", "{}", "``","''", '""'], getline('.')[col(
 nnoremap vv ^v$h
 au TextYankPost * cal s:hl_yank()
 fu! s:hl_yank() abort
-    let t = join(v:event.regcontents, "\n")
     if v:event.operator !=# 'y' || v:event.regtype !=# 'v' || len(v:event.regcontents) != 1 | retu | endif
     let word = v:event.regcontents[0]
-    let id = matchaddpos('IncSearch', [[line('.'), match(getline('.'), escape(word, '\')) + 1, strlen(word)]])
-    cal timer_start(300, {-> matchdelete(id)})
+    let tid = matchaddpos('IncSearch', [[line('.'), match(getline('.'), escape(word, '\')) + 1, strlen(word)]])
+    cal timer_start(300, {-> matchdelete(tid)})
 endf
 
 
@@ -61,8 +60,8 @@ fu! s:fmode(vec)
     if exists('w:fmatch') && w:fmatch != -1 | sil! cal matchdelete(w:fmatch) | let w:fmatch = -1 | endif
     let w:fmatch = matchadd('FChar', '\%' . line('.') . 'l' . w:char, 100)
     exe "normal! ".(a:vec == 1 ? "f" : "F").w:char
-    if exists('s:fid') && s:fid != -1 | call timer_stop(s:fid) | endif
-    let s:fid = timer_start(1000, { -> execute("let w:fmode = 0 | sil! cal matchdelete(w:fmatch)") })
+    if exists('g:fmode_tid') && g:fmode_tid != -1 | cal timer_stop(g:fmode_tid) | endif
+    let g:fmode_tid = timer_start(1000, { -> execute("let w:fmode = 0 | sil! cal matchdelete(w:fmatch)") })
 endf
 
 
@@ -75,53 +74,58 @@ nnoremap <silent>cn :<C-u>cn<CR>
 nnoremap <silent>cp :<C-u>cp<CR>
 nnoremap <silent><Space>e :<C-u>cal <SID>toggle_netrw()<CR>
 fu! s:toggle_netrw()
-    let winids = getwininfo()->filter("has_key(v:val.variables, 'netrw_liststyle')")->map('v:val.winid')
-    if empty(winids) | exe 'topleft vertical 30new | Explore'
-    else | for id in winids | sil! cal win_execute(id, 'close') | endfor
+    let wids = getwininfo()->filter("has_key(v:val.variables, 'netrw_liststyle')")->map('v:val.winid')
+    if empty(wids) | exe 'topleft vertical 30new | Explore'
+    else | for wid in wids | sil! cal win_execute(wid, 'close') | endfor
     endif
 endf
 au FileType netrw nnoremap <buffer>o :<C-u>cal <SID>netrw_open()<CR>
 fu! s:netrw_open() abort
-    let filepath = fnamemodify(getline('.'), ':p')
-    if isdirectory(filepath) | exe 'Explore '.fnameescape(filepath)
-    else
+    let path = fnamemodify(getline('.'), ':p')
+    if isdirectory(path) | exe 'Explore '.fnameescape(path) | else
         if winnr() < winnr('$') | exe 'wincmd l'
         else | exe 'rightbelow vs' | exe 'vertical resize '.(&columns - 30)
-        endif
-        exe 'e '.fnameescape(filepath)
+        endif | exe 'e '.fnameescape(path)
     endif
 endf
-" TODO ファイラほしい fzf的なの
 nnoremap <silent><Space>f :<C-u>cal <SID>fzf()<CR>
-let s:enter_wd = []
-let s:enter_id = -1
-let s:list_id = -1
-let s:files = []
 fu! s:fzf()
-    let s:files = system(system('git status')=~'fatal' ? "find . -type f" : "git ls-files")->split('\n')
-    let list_id = popup_create(s:files[0:30], #{title: "result", zindex: 99})
-    let s:enter_id = popup_create('>>', #{zindex: 100, line: &lines, col: &columns*-1, mapping: 0, filter: function('s:fzf_filter')})
-    cal win_execute(s:enter_id, "mapclear <buffer>") | echo ''
-    "cal popup_setoptions(s:enter_id, #{zindex: 100})
-    "cal popup_setoptions(list_id, #{zindex: 99})
+    let g:fzf_query = []
+    let g:fzf_files = system(system('git status')=~'fatal' ? "find . -type f" : "git ls-files")->split('\n')
+    let g:fzf_matches = g:fzf_files[0:29]
+    let g:fzf_cur = 0
+    let g:fzf_wid = popup_create(g:fzf_files[0:29], #{title: "", zindex: 99, line: 18, col: 50, minwidth: 50, maxwidth: 50, minheight: 30, maxheight: 30, border:[], borderchars: ['─','│','─','│','╭','╮','╯','╰']})
+    let g:fzf_q_wid = popup_create("", #{title: "fzf", zindex: 100, line: 15, col: 50, minwidth: 50, maxwidth: 50, minheight: 1, maxheight: 1, border:[], borderchars: ['─','│','─','│','╭','╮','╯','╰'], mapping: 0, filter: function('s:fzf_filter')})
+    let g:match_id = matchaddpos('FzfCurLine', [[g:fzf_cur + 1]], 10, -1, {'window': g:fzf_wid})
 endf
+au ColorScheme * hi FzfCurLine ctermfg=235 ctermbg=114
 fu! s:fzf_filter(winid, key)
     if a:key == "\<CR>"
-        cal popup_close(s:enter_id)
+        cal popup_close(g:fzf_q_wid)
+        cal popup_close(g:fzf_wid)
+        exe "e ".g:fzf_matches[g:fzf_cur]
         retu 1
-    endif
-    if a:key == "\<BS>" && !empty(s:enter_wd)
-        cal remove(s:enter_wd, -1)
+    elseif a:key == "\<ESC>"
+        cal popup_close(g:fzf_q_wid)
+        cal popup_close(g:fzf_wid)
+        retu 1
+    elseif a:key == "\<C-j>"
+        let g:fzf_cur = (g:fzf_cur + 1) % len(g:fzf_matches)
+    elseif a:key == "\<C-k>"
+        let g:fzf_cur = (g:fzf_cur - 1 + len(g:fzf_matches)) % len(g:fzf_matches)
+    elseif a:key == "\<BS>"
+        if !empty(g:fzf_query) | cal remove(g:fzf_query, -1) | endif
     elseif a:key == "\<C-w>"
-        let s:enter_wd = []
+        let g:fzf_query = []
     else
-        cal add(s:enter_wd, a:key)
+        cal add(g:fzf_query, a:key)
     endif
-    let res = empty(s:enter_wd) ? s:files : matchfuzzy(s:files, join(s:enter_wd, ''))[0:30]
-    cal popup_settext(s:enter_id, '>>'.join(s:enter_wd, ''))
-    call popup_settext(s:list_id, join(res, ""))
-    " TODO 絞ったリストの描画更新
-    " TODO リストから選択する
+    let g:fzf_matches = empty(g:fzf_query) ? g:fzf_files[0:29] : matchfuzzy(g:fzf_files, join(g:fzf_query, ''))[0:29]
+    if len(g:fzf_matches)-1 < g:fzf_cur | let g:fzf_cur = 0 | endif
+    if g:match_id != -1 | sil! cal matchdelete(g:match_id, g:fzf_wid) | endif
+    let g:match_id = matchaddpos('FzfCurLine', [[g:fzf_cur + 1]], 10, -1, {'window': g:fzf_wid})
+    cal popup_settext(g:fzf_q_wid, join(g:fzf_query, ''))
+    cal popup_settext(g:fzf_wid, g:fzf_matches)
     retu 1
 endf
 
@@ -133,27 +137,25 @@ tnoremap <silent><C-n> <C-e>N
 
 
 " 外観
-au ColorScheme * hi User1 cterm=bold ctermfg=7 ctermbg=4
-au ColorScheme * hi User2 cterm=bold ctermfg=2 ctermbg=0
-au ColorScheme * hi User3 cterm=bold ctermfg=0 ctermbg=5
-au ColorScheme * hi User4 cterm=bold ctermfg=7 ctermbg=56
-au ColorScheme * hi User5 cterm=bold ctermfg=7 ctermbg=5
-let ff_table = {'dos' : 'CRLF', 'unix' : 'LF', 'mac' : 'CR'}
+au ColorScheme * hi User1 cterm=bold ctermfg=235 ctermbg=39
+au ColorScheme * hi User2 cterm=bold ctermfg=235 ctermbg=114
+au ColorScheme * hi User3 cterm=bold ctermfg=235 ctermbg=204
+au ColorScheme * hi User4 cterm=bold ctermfg=235 ctermbg=180
+au ColorScheme * hi User5 cterm=bold ctermfg=235 ctermbg=170
+let LF = {'dos': 'CRLF', 'unix': 'LF', 'mac': 'CR'}
 fu! SetStatusLine()
     let dict = {'i': '1* INSERT', 'n': '2* NORMAL', 'R': '3* REPLACE', 'c': '4* COMMAND', 't': '4* TERMIAL', 'v': '5* VISUAL', 'V': '5* VISUAL', "\<C-v>": '5* VISUAL'}
     let mode = match(keys(dict), mode()) != -1 ? dict[mode()] : '5* SP'
-    retu '%' . mode . ' %* %<%F%m%r%h%w%=%2* %p%% %l/%L %02v | %{&filetype} | %{&fenc!=""?&fenc:&enc} | %{ff_table[&ff]} %*'
+    retu '%'.mode.' %* %<%F%m%r%h%w%=%2* %p%% %l/%L %02v | %{&filetype} | %{&fenc!=""?&fenc:&enc} | %{LF[&ff]} %*'
 endf
 set statusline=%!SetStatusLine()
 fu! SetTabLine()
     let s=''
-    let c=bufnr('%')
     for b in range(1,bufnr('$'))
         if bufexists(b)&&buflisted(b)
-            let n=bufname(b)
-            let n=empty(n)?'[No Name]':fnamemodify(n,':t')
-            let modified = getbufvar(b, '&modified') ? '*' : ''
-            let s.=(b==c?'%#TabLineSel#':'%#TabLine#').'%'.b.'T '.n.modified.' '
+            let n = empty(bufname(b)) ? '[No Name]' : fnamemodify(bufname(b),':t')
+            let m = getbufvar(b, '&modified') ? '*' : ''
+            let s.=(b==bufnr('%')?'%#TabLineSel#':'%#TabLine#').'%'.b.'T '.n.m.' '
         endif
     endfor
     retu s.'%#TabLineFill#'
