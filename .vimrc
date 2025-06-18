@@ -50,7 +50,7 @@ au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "norm g`\"" | 
 au ColorScheme * hi WordStart cterm=bold
 au CursorMoved,CursorMovedI * cal <SID>hl_scope()
 fu! s:hl_scope()
-    if exists('w:fscope') && w:fscope != -1 | silent! cal matchdelete(w:fscope) | let w:fscope = -1 | endif
+    if exists('w:fscope') && w:fscope != -1 | sil! cal matchdelete(w:fscope) | let w:fscope = -1 | endif
     let w:fscope = matchadd('WordStart', '\%' . line('.') . 'l\(\<\w\)', 99)
 endf
 nnoremap <silent>f :<C-u>cal <SID>fmode(1)<CR>
@@ -58,11 +58,11 @@ nnoremap <silent>F :<C-u>cal <SID>fmode(0)<CR>
 au ColorScheme * hi FChar ctermfg=155 cterm=bold,underline
 fu! s:fmode(vec)
     if !exists('w:fmode') || w:fmode == 0 | let w:fmode = 1 | let w:char = nr2char(getchar()) | endif
-    if exists('w:fmatch') && w:fmatch != -1 | silent! cal matchdelete(w:fmatch) | let w:fmatch = -1 | endif
+    if exists('w:fmatch') && w:fmatch != -1 | sil! cal matchdelete(w:fmatch) | let w:fmatch = -1 | endif
     let w:fmatch = matchadd('FChar', '\%' . line('.') . 'l' . w:char, 100)
     exe "normal! ".(a:vec == 1 ? "f" : "F").w:char
     if exists('s:fid') && s:fid != -1 | call timer_stop(s:fid) | endif
-    let s:fid = timer_start(1000, { -> execute("let w:fmode = 0 | silent! cal matchdelete(w:fmatch)") })
+    let s:fid = timer_start(1000, { -> execute("let w:fmode = 0 | sil! cal matchdelete(w:fmatch)") })
 endf
 
 
@@ -77,7 +77,7 @@ nnoremap <silent><Space>e :<C-u>cal <SID>toggle_netrw()<CR>
 fu! s:toggle_netrw()
     let winids = getwininfo()->filter("has_key(v:val.variables, 'netrw_liststyle')")->map('v:val.winid')
     if empty(winids) | exe 'topleft vertical 30new | Explore'
-    else | for id in winids | silent! cal win_execute(id, 'close') | endfor
+    else | for id in winids | sil! cal win_execute(id, 'close') | endfor
     endif
 endf
 au FileType netrw nnoremap <buffer>o :<C-u>cal <SID>netrw_open()<CR>
@@ -93,15 +93,36 @@ fu! s:netrw_open() abort
 endf
 " TODO ファイラほしい fzf的なの
 nnoremap <silent><Space>f :<C-u>cal <SID>fzf()<CR>
+let s:enter_wd = []
+let s:enter_id = -1
+let s:list_id = -1
+let s:files = []
 fu! s:fzf()
-    echo "ファイラまだ"
-    retu
-    " git status ~= 'fatal'
-    if system('git status')=~'fatal'
-        ""echo ls
-    else
-        ""echo git ls-files
+    let s:files = system(system('git status')=~'fatal' ? "find . -type f" : "git ls-files")->split('\n')
+    let list_id = popup_create(s:files[0:30], #{title: "result", zindex: 99})
+    let s:enter_id = popup_create('>>', #{zindex: 100, line: &lines, col: &columns*-1, mapping: 0, filter: function('s:fzf_filter')})
+    cal win_execute(s:enter_id, "mapclear <buffer>") | echo ''
+    "cal popup_setoptions(s:enter_id, #{zindex: 100})
+    "cal popup_setoptions(list_id, #{zindex: 99})
+endf
+fu! s:fzf_filter(winid, key)
+    if a:key == "\<CR>"
+        cal popup_close(s:enter_id)
+        retu 1
     endif
+    if a:key == "\<BS>" && !empty(s:enter_wd)
+        cal remove(s:enter_wd, -1)
+    elseif a:key == "\<C-w>"
+        let s:enter_wd = []
+    else
+        cal add(s:enter_wd, a:key)
+    endif
+    let res = empty(s:enter_wd) ? s:files : matchfuzzy(s:files, join(s:enter_wd, ''))[0:30]
+    cal popup_settext(s:enter_id, '>>'.join(s:enter_wd, ''))
+    call popup_settext(s:list_id, join(res, ""))
+    " TODO 絞ったリストの描画更新
+    " TODO リストから選択する
+    retu 1
 endf
 
 
