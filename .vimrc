@@ -91,34 +91,26 @@ endf
 nnoremap <silent><Space>f :<C-u>cal <SID>fzf()<CR>
 au ColorScheme * hi FzfCurLine ctermfg=235 ctermbg=114
 fu! s:fzf()
-    let g:fzf_query = []
+    let g:fzf_query = [] | let g:fzf_cur = 0
     let g:fzf_files = system(system('git status')=~'fatal' ? "find . -type f" : "git ls-files")->split('\n')
     let g:fzf_matches = g:fzf_files[0:29]
-    let g:fzf_cur = 0
     let g:fzf_wid = popup_create(g:fzf_files[0:29], #{title: "", zindex: 99, line: 18, col: 50, minwidth: 50, maxwidth: 50, minheight: 30, maxheight: 30, border:[], borderchars: ['─','│','─','│','╭','╮','╯','╰']})
     let g:fzf_q_wid = popup_create("", #{title: "fzf", zindex: 100, line: 15, col: 50, minwidth: 50, maxwidth: 50, minheight: 1, maxheight: 1, border:[], borderchars: ['─','│','─','│','╭','╮','╯','╰'], mapping: 0, filter: function('s:fzf_filter')})
     let g:match_id = matchaddpos('FzfCurLine', [[g:fzf_cur + 1]], 10, -1, {'window': g:fzf_wid})
 endf
 fu! s:fzf_filter(winid, key)
     if a:key == "\<CR>"
-        cal popup_close(g:fzf_q_wid)
-        cal popup_close(g:fzf_wid)
+        cal popup_close(g:fzf_q_wid) | cal popup_close(g:fzf_wid)
         exe "e ".g:fzf_matches[g:fzf_cur]
         retu 1
     elseif a:key == "\<ESC>"
-        cal popup_close(g:fzf_q_wid)
-        cal popup_close(g:fzf_wid)
+        cal popup_close(g:fzf_q_wid) | cal popup_close(g:fzf_wid)
         retu 1
-    elseif a:key == "\<C-j>"
-        let g:fzf_cur = (g:fzf_cur + 1) % len(g:fzf_matches)
-    elseif a:key == "\<C-k>"
-        let g:fzf_cur = (g:fzf_cur - 1 + len(g:fzf_matches)) % len(g:fzf_matches)
-    elseif a:key == "\<BS>"
-        if !empty(g:fzf_query) | cal remove(g:fzf_query, -1) | endif
-    elseif a:key == "\<C-w>"
-        let g:fzf_query = []
-    else
-        cal add(g:fzf_query, a:key)
+    elseif a:key == "\<C-j>" | let g:fzf_cur = (g:fzf_cur + 1) % len(g:fzf_matches)
+    elseif a:key == "\<C-k>" | let g:fzf_cur = (g:fzf_cur - 1 + len(g:fzf_matches)) % len(g:fzf_matches)
+    elseif a:key == "\<BS>" | if !empty(g:fzf_query) | cal remove(g:fzf_query, -1) | endif
+    elseif a:key == "\<C-w>" | let g:fzf_query = []
+    else | cal add(g:fzf_query, a:key)
     endif
     let g:fzf_matches = empty(g:fzf_query) ? g:fzf_files[0:29] : matchfuzzy(g:fzf_files, join(g:fzf_query, ''))[0:29]
     if len(g:fzf_matches)-1 < g:fzf_cur | let g:fzf_cur = 0 | endif
