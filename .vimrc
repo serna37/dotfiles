@@ -94,8 +94,8 @@ fu! s:fzf()
     let g:fzf_query = [] | let g:fzf_cur = 0
     let g:fzf_files = system(system('git status')=~'fatal' ? "find . -type f" : "git ls-files")->split('\n')
     let g:fzf_matches = g:fzf_files[0:29]
-    let g:fzf_wid = popup_create(g:fzf_files[0:29], #{title: "", zindex: 99, line: 18, col: 50, minwidth: 50, maxwidth: 50, minheight: 30, maxheight: 30, border:[], borderchars: ['─','│','─','│','╭','╮','╯','╰']})
-    let g:fzf_q_wid = popup_create("", #{title: "fzf", zindex: 100, line: 15, col: 50, minwidth: 50, maxwidth: 50, minheight: 1, maxheight: 1, border:[], borderchars: ['─','│','─','│','╭','╮','╯','╰'], mapping: 0, filter: function('s:fzf_filter')})
+    let g:fzf_wid = popup_create(g:fzf_files[0:29], #{title: "", zindex: 99, line: 18, col: 50, minwidth: 100, maxwidth: 100, minheight: 30, maxheight: 30, border:[], borderchars: ['─','│','─','│','╭','╮','╯','╰']})
+    let g:fzf_q_wid = popup_create("", #{title: "fzf", zindex: 100, line: 15, col: 50, minwidth: 100, maxwidth: 100, minheight: 1, maxheight: 1, border:[], borderchars: ['─','│','─','│','╭','╮','╯','╰'], mapping: 0, filter: function('s:fzf_filter')})
     let g:match_id = matchaddpos('FzfCurLine', [[g:fzf_cur + 1]], 10, -1, {'window': g:fzf_wid})
 endf
 fu! s:fzf_filter(winid, key)
