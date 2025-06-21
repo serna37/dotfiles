@@ -124,8 +124,9 @@ endf
 
 " ターミナル
 set termwinkey=<C-e>
-nnoremap <silent><Space>t :<C-u>rightbelow vertical terminal ++cols=60<CR>
 tnoremap <silent><C-n> <C-e>N
+nnoremap <silent><Space>t :<C-u>cal popup_create(term_start([&shell],#{hidden:1,term_finish:'close'}),#{border:[],minwidth:winwidth(0)/2,minheight:&lines/2})<CR>
+nnoremap <silent><Space><Space>t :<C-u>rightbelow vertical terminal ++cols=60<CR>
 
 
 " 外観
