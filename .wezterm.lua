@@ -22,8 +22,8 @@ config.font = wezterm.font("Droid Sans Mono for Powerline", {weight="Medium", st
 config.font_size = 12
 
 -- ウィンドウ
-config.initial_cols = 200
-config.initial_rows = 60
+config.initial_cols = 150
+config.initial_rows = 50
 
 -- バックスラッシュ
 config.keys = {
