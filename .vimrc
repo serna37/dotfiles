@@ -18,6 +18,7 @@ inoremap <expr>] getline('.')[col('.')-1] == "]" ? "\<right>" : "]"
 inoremap <expr>} getline('.')[col('.')-1] == "}" ? "\<right>" : "}"
 inoremap <expr><BS> match(["()", "[]", "{}", "``","''", '""'], getline('.')[col('.')-2:col('.')-1]) >=0 ? "\<right>\<BS>\<BS>" : "\<BS>"
 nnoremap vv ^v$h
+" TODO 消して良いかも
 au TextYankPost * cal s:hl_yank()
 fu! s:hl_yank() abort
     if v:event.operator !=# 'y' || v:event.regtype !=# 'v' || len(v:event.regcontents) != 1 | retu | endif
@@ -45,13 +46,9 @@ endf
 nnoremap <silent><C-n> :<C-u>bp<CR>
 nnoremap <silent><C-p> :<C-u>bn<CR>
 nnoremap <silent><Space>x :<C-u>bd<CR>
-au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "norm g`\"" | endif
-au ColorScheme * hi WordStart cterm=bold
-au CursorMoved,CursorMovedI * cal <SID>hl_scope()
-fu! s:hl_scope()
-    if exists('w:fscope') && w:fscope != -1 | sil! cal matchdelete(w:fscope) | let w:fscope = -1 | endif
-    let w:fscope = matchadd('WordStart', '\%' . line('.') . 'l\(\<\w\)', 99)
-endf
+au BufRead * if line("'\"")>0&&line("'\"")<=line("$")|exe "norm g`\""|endif
+au ColorScheme * hi FC cterm=bold
+au CursorMoved,CursorMovedI * if exists('w:f')&&w:f!=-1|sil! cal matchdelete(w:f)|let w:f=-1|endif|let w:f=matchadd('FC','\%'.line('.').'l\(\<\w\)',99)
 nnoremap <silent>f :<C-u>cal <SID>fmode(1)<CR>
 nnoremap <silent>F :<C-u>cal <SID>fmode(0)<CR>
 au ColorScheme * hi FChar ctermfg=155 cterm=bold,underline
@@ -79,6 +76,7 @@ fu! s:toggle_netrw()
     else | for wid in wids | sil! cal win_execute(wid, 'close') | endfor
     endif
 endf
+" TODO 消して良いかも
 au FileType netrw nnoremap <buffer>o :<C-u>cal <SID>netrw_open()<CR>
 fu! s:netrw_open() abort
     let path = fnamemodify(getline('.'), ':p')
@@ -88,6 +86,7 @@ fu! s:netrw_open() abort
         endif | exe 'e '.fnameescape(path)
     endif
 endf
+" TODO FZFいいんだけど、リファクタして圧縮したい
 nnoremap <silent><Space>f :<C-u>cal <SID>fzf()<CR>
 au ColorScheme * hi FzfCurLine ctermfg=235 ctermbg=114
 fu! s:fzf()
@@ -106,10 +105,11 @@ fu! s:fzf_filter(winid, key)
     elseif a:key == "\<ESC>"
         cal popup_close(g:fzf_q_wid) | cal popup_close(g:fzf_wid)
         retu 1
-    elseif a:key == "\<C-j>" | let g:fzf_cur = (g:fzf_cur + 1) % len(g:fzf_matches)
-    elseif a:key == "\<C-k>" | let g:fzf_cur = (g:fzf_cur - 1 + len(g:fzf_matches)) % len(g:fzf_matches)
+    elseif a:key == "\<C-n>" | let g:fzf_cur = (g:fzf_cur + 1) % len(g:fzf_matches)
+    elseif a:key == "\<C-p>" | let g:fzf_cur = (g:fzf_cur - 1 + len(g:fzf_matches)) % len(g:fzf_matches)
     elseif a:key == "\<BS>" | if !empty(g:fzf_query) | cal remove(g:fzf_query, -1) | endif
     elseif a:key == "\<C-w>" | let g:fzf_query = []
+    elseif strtrans(a:key) == "<80><fd>`" | retu 1 " noop (for polyglot bug adhoc)
     else | cal add(g:fzf_query, a:key)
     endif
     let g:fzf_matches = empty(g:fzf_query) ? g:fzf_files[0:29] : matchfuzzy(g:fzf_files, join(g:fzf_query, ''))[0:29]
@@ -125,8 +125,8 @@ endf
 " ターミナル
 set termwinkey=<C-e>
 tnoremap <silent><C-n> <C-e>N
-nnoremap <silent><Space>t :<C-u>cal popup_create(term_start([&shell],#{hidden:1,term_finish:'close'}),#{border:[],minwidth:winwidth(0)/2,minheight:&lines/2})<CR>
-nnoremap <silent><Space><Space>t :<C-u>rightbelow vertical terminal ++cols=60<CR>
+noremap <silent><Space>t :<C-u>cal popup_create(term_start([&shell],#{hidden:1,term_finish:'close'}),#{border:[],minwidth:winwidth(0)/2,minheight:&lines/2})<CR>
+" TODO ターミナル、もうちょいなんとかしたい
 
 
 " 外観
@@ -161,17 +161,31 @@ au ColorScheme * hi Visual ctermbg=240
 colorscheme habamax
 
 
+" TODO polyglotとone-darkも最低限でコピペしてプラグイン無くしたい
+
 
 " 高機能(プラグイン) vim-plug導入コマンド
 "curl -fSsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim -c "PlugInstall"
-call plug#begin()
-"Plug 'joshdick/onedark.vim'
-"Plug 'sheerun/vim-polyglot'
+cal plug#begin()
+Plug 'joshdick/onedark.vim'
+Plug 'sheerun/vim-polyglot'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'sidorares/node-vim-debugger'
+"Plug 'eliba2/vim-node-inspect'
 "Plug 'puremourning/vimspector'
 "Plug 'Exafunction/codeium.vim'
-call plug#end()
-"if !glob('~/.vim/plugged/onedark.vim')->empty() | colorscheme onedark | endif
+cal plug#end()
+if !glob('~/.vim/plugged/onedark.vim')->empty()|colorscheme onedark|endif
+
+" TODO XXX いまできないこと
+" - 定義元検索がgdや検索
+" - 呼び出し元検索がgrep
+" - リネームが置換
+" - フォーマットがインデントのみで言語無視
+" - Lint診断がない
+" - ステップ実行デバッグできない
+" - ドキュメントホバーが見られない
+
 "let g:coc_global_extensions = ['coc-snippets', 'coc-explorer',
 "            \ 'coc-vimlsp', 'coc-sh', 'coc-json',
 "            \ 'coc-sql', 'coc-html', 'coc-css', 'coc-tsserver',
@@ -181,7 +195,7 @@ call plug#end()
 "nnoremap <silent><Space>d <Plug>(coc-definition)
 "nnoremap <silent><Space>r <Plug>(coc-references)
 "nnoremap <silent><Space>R <Plug>(coc-rename)
-"nnoremap <silent><Space>F :<C-u>cal CocActionAsync('format')<CR>
+"nnoremap <silent><Space>F <Plug>(coc-format)
 "nnoremap <silent><Space>, <Plug>(coc-diagnostic-next)
 "nnoremap <silent><Space>. <Plug>(coc-diagnostic-prev)
 "nnoremap <silent><Space>? :cal CocAction('doHover')<CR>
@@ -189,6 +203,10 @@ call plug#end()
 "nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : <C-u>
 "nnoremap <silent><Space>l :<C-u>w<CR>:e!<CR>:echo 'Reload Buffer'<CR><Esc>
 "let g:vimspector_base_dir=$HOME.'/.vim/plugged/vimspector'
+"let g:vimspector_install_gadgets = ["vscode-js-debug"]
+"let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
+"let g:vimspector_log_file = '$HOME/vimspector.log'
+"let g:vimspector_log_level = 'TRACE'
 "let g:vimspector_sign_priority = {
 "            \'vimspectorBP':          99,
 "            \'vimspectorBPCond':      99,
@@ -212,7 +230,5 @@ call plug#end()
 " codium認証のために以下URLへのアクセス
 "https://www.codeium.com/profile?response_type=token&redirect_uri=vim-show-auth-token&state=a&scope=openid%20profile%20email&redirect_parameters_type=query
 "let g:codeium_disable_bindings = 1
-"inoremap <silent><C-n> <Cmd>cal codeium#CycleCompletions(1)<CR>
-"inoremap <silent><C-p> <Cmd>cal codeium#CycleCompletions(-1)<CR>
 "inoremap <script><silent><nowait><expr><C-i> codeium#Accept()
 
