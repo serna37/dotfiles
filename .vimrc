@@ -178,13 +178,13 @@ cal plug#end()
 if !glob('~/.vim/plugged/onedark.vim')->empty()|colorscheme onedark|endif
 
 " TODO XXX いまできないこと
-" - 定義元検索がgdや検索
-" - 呼び出し元検索がgrep
-" - リネームが置換
-" - フォーマットがインデントのみで言語無視
-" - Lint診断がない
-" - ステップ実行デバッグできない
-" - ドキュメントホバーが見られない
+" - (できなくはない)定義元検索がgdや検索
+" - (できなくはない)呼び出し元検索がgrep
+" - (できなくはないが、現場では無理)リネームが置換
+" - (できなくはないが、現場では無理)フォーマットがインデントのみで言語無視
+" - [!! できない]Lint診断がない
+" - [!! できない]ステップ実行デバッグできない
+" - <いらんかなぁ>ドキュメントホバーが見られない
 
 "let g:coc_global_extensions = ['coc-snippets', 'coc-explorer',
 "            \ 'coc-vimlsp', 'coc-sh', 'coc-json',
