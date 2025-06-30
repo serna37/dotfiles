@@ -48,11 +48,13 @@ if [ ! -f ~/.vim/after/plugin/common-settings.vim ]; then
     mkdir -p ~/.vim/after/plugin > /dev/null 2>&1
     cp ~/git/dotfiles/conf/vim/common-settings.vim ~/.vim/after/plugin/
 fi
+# TODO けすかも
 if [ ! -L ~/.vim/coc-settings.json ]; then
     # coc用設定
     mkdir -p ~/.vim > /dev/null 2>&1
     ln -nfs ~/git/dotfiles/conf/vim/coc-settings.json ~/.vim/coc-settings.json
 fi
+# TODO けすかも
 if [ ! -d ~/.vim/UltiSnips ]; then
     # snippets
     mkdir -p ~/.vim/UltiSnips > /dev/null 2>&1
