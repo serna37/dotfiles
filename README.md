@@ -22,12 +22,11 @@
 ## 軽量版
 依存のない設定ファイルを用意しています
 - [軽量版zshrc](https://github.com/serna37/dotfiles/blob/master/conf/light/.zshrc.light)
-- [軽量版vimrc](https://github.com/serna37/dotfiles/blob/master/conf/light/.vimrc.light)
+- [軽量版vimrc(古い、本体vimrcでよい)](https://github.com/serna37/dotfiles/blob/master/conf/light/.vimrc.light)
 
 ## 一時コピペ用
 - zsh
 ```zsh
-alias v='vim'
 alias l='ls -AFlihrt --color=auto'
 alias tree="pwd;find . | sort | sed '1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'"
 alias rm='rm -i'
@@ -35,11 +34,11 @@ alias q='exit'
 ```
 - vim
 ```vim
-syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase smartcase shortmess-=S noswapfile nobackup noundofile fileformat=unix fileencoding=utf8 clipboard+=unnamed list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+set fileformat=unix fileencoding=utf8 noswapfile nobackup noundofile hidden autoread clipboard+=unnamed background=dark title showcmd list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:% number relativenumber signcolumn=yes scrolloff=5 cursorline cursorcolumn ruler laststatus=2 showtabline=2 notitle splitright virtualedit=all whichwrap=b,s,h,l,<,>,[,],~ backspace=indent,eol,start showmatch matchtime=3 autoindent smartindent smarttab shiftwidth=4 tabstop=4 expandtab wildmenu wildchar=<Tab> wildmode=full complete=.,w,b,u,U,k,kspell,s,i,d,t completeopt=menuone,noinsert,preview,popup incsearch hlsearch ignorecase smartcase shortmess-=S belloff=all ttyfast regexpengine=0 foldmethod=marker foldlevel=1 | let &titleold=getcwd() | syntax on | filetype plugin on | au QuickFixCmdPost *grep* cwindow
 ```
 
 ## 関連
-- [serna37/library](https://github.com/serna37/library)を導入します
+- (古い) [serna37/library](https://github.com/serna37/library)を導入します
 - 主に[Terminal Trove](https://terminaltrove.com/)からコマンドを選んでいます
 
 ## dotfiles構成
@@ -53,8 +52,8 @@ syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase 
 ├── conf/
 │   ├── config/   : ~/.config配下のファイル
 │   ├── cpp/      : C++用設定ファイル デバッグ、フォーマット設定等
-│   ├── devbox/   : 自作Devコンテナ用設定ファイル
-│   ├── snippets/ : 雑多スニペットファイル
+│   ├── devbox/   : (削除)自作Devコンテナ用設定ファイル
+│   ├── snippets/ : (古い)雑多スニペットファイル
 │   ├── ssh/      : ssh用設定ファイル
 │   ├── vim/      : vim用設定ファイル
 │   └── zsh/      : zsh用設定ファイル
@@ -64,7 +63,7 @@ syntax on | set number laststatus=2 showtabline=2 incsearch hlsearch ignorecase 
 ├── .wezterm.lua  : wezterm設定
 ├── .zshrc        : zsh設定
 │
-└── install.sh    : OSで分岐するインストーラ
+└── install.sh    : インストーラ
 ```
 
 ---
