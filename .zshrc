@@ -1,3 +1,6 @@
+clear
+echo -e "\e[34m[LOAD] START ~/.zshrc\e[m"
+
 # ====================================
 # 環境設定
 # ====================================
@@ -151,6 +154,12 @@ function top() {
     btm --battery
 }
 
+# fastfetch
+function os() {
+    type fastfetch > /dev/null 2>&1 || brew install fastfetch
+    fastfetch
+}
+
 # ハック+マトリックスのアニメ
 function c() {
     type genact > /dev/null 2>&1 || brew install genact
@@ -217,10 +226,7 @@ function Azathoth() {
 # ロード
 # ====================================
 
-clear
-type fastfetch > /dev/null 2>&1 || brew install fastfetch
-fastfetch
-echo '== Enhanced  Commands =='
-echo 'zi l tree e | g d s top c | clock gif Azathoth'
-echo '======================'
+echo -e "\e[33m>> Enhanced  Commands\e[m"
+echo -e "\e[32m   zi l tree e \e[33m|\e[32m g d s top \e[33m|\e[32m os c clock gif \e[33m|\e[32m Azathoth\e[m"
+echo -e "\e[34m[LOAD] DONE ~/.zshrc\e[m"
 
