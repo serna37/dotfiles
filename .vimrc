@@ -18,14 +18,6 @@ inoremap <expr>] getline('.')[col('.')-1] == "]" ? "\<right>" : "]"
 inoremap <expr>} getline('.')[col('.')-1] == "}" ? "\<right>" : "}"
 inoremap <expr><BS> match(["()", "[]", "{}", "``","''", '""'], getline('.')[col('.')-2:col('.')-1]) >=0 ? "\<right>\<BS>\<BS>" : "\<BS>"
 nnoremap vv ^v$h
-" TODO 消して良いかも
-au TextYankPost * cal s:hl_yank()
-fu! s:hl_yank() abort
-    if v:event.operator !=# 'y' || v:event.regtype !=# 'v' || len(v:event.regcontents) != 1 | retu | endif
-    let word = v:event.regcontents[0]
-    let tid = matchaddpos('IncSearch', [[line('.'), match(getline('.'), escape(word, '\')) + 1, strlen(word)]])
-    cal timer_start(300, {-> matchdelete(tid)})
-endf
 
 
 " 移動
