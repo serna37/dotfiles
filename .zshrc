@@ -104,8 +104,10 @@ function tree() {
 # エクスプローラ
 function e() {
     type yazi > /dev/null 2>&1 || brew install yazi
-    if [ ! -f ~/.config/yazi/yazi.toml ]; then
-        ln -nfs ~/git/dotfiles/conf/config/yazi.toml ~/.config/yazi/yazi.toml
+    if [ ! -e ~/.config/yazi/yazi.toml ]; then
+        mkdir -p ~/.config/yazi
+        echo "[manager]" > ~/.config/yazi/yazi.toml
+        echo "show_hidden = true" >> ~/.config/yazi/yazi.toml
     fi
     yazi
 }
