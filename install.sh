@@ -5,7 +5,7 @@
 export PATH="$PATH:/opt/homebrew/bin/"
 
 # 必要なコマンド等を入れる
-REPOS=(vim git gh mas python3 sqlite)
+REPOS=(vim git mas python3 sqlite)
 for v in ${REPOS[@]}; do
     brew reinstall $v
     wait $!
@@ -39,20 +39,6 @@ ln -nfs ~/git/dotfiles/.zshrc ~/.zshrc
 ln -nfs ~/git/dotfiles/conf/zsh/.p10k.zsh ~/.p10k.zsh
 ln -nfs ~/git/dotfiles/.vimrc ~/.vimrc
 
-# TODO ここもechoで作りたいかも
-if [ ! -L ~/.ssh/config ]; then
-    # ssh接続設定
-    mkdir -p ~/.ssh > /dev/null 2>&1
-    ln -nfs ~/git/dotfiles/conf/ssh/config ~/.ssh/config
-fi
-
-# TODO ここは少ないので、ファイルでなくechoで良いかなぁ
-if [ ! -f ~/.vim/after/plugin/common-settings.vim ]; then
-    # vim コメント行から改行した際、次の行をコメントにしない設定
-    mkdir -p ~/.vim/after/plugin > /dev/null 2>&1
-    cp ~/git/dotfiles/conf/vim/common-settings.vim ~/.vim/after/plugin/
-fi
-
 # TODO けすかも
 if [ ! -L ~/.vim/coc-settings.json ]; then
     # coc用設定
@@ -70,12 +56,6 @@ if [ ! -d ~/.vim/UltiSnips ]; then
     ln -nfs ~/git/dotfiles/conf/snippets/* ~/.vim/UltiSnips/
 fi
 
-# TODO echoでいいかなぁ
-if [ ! -L ~/.gitconfig ]; then
-    # gitconfig
-    ln -nfs ~/git/dotfiles/.gitconfig ~/.gitconfig
-fi
-
 # fontを入れる 三角のやつ
 cd ~/git
 git clone --depth 1 https://github.com/powerline/fonts.git
@@ -91,18 +71,11 @@ cd nerd-fonts
 cd ..
 \rm -rf nerd-fonts
 
-# gitの認証設定 最初だけ認証が必要です
+# gitの認証設定 最初だけ認証が必要
 # OSキーチェーンに保存する
 git config --global credential.helper osxkeychain
 # git config --global credential.helper store
 # git config --global credential.helper store --file ファイルパス
-
-# TODO ghぜんぜん使わなくなったし、いらないかも...
-# ghを設定
-if ! gh auth status > /dev/null 2>&1; then
-    gh auth login
-fi
-
 
 # shell再起動
 exec $SHELL -l

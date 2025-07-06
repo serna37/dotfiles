@@ -4,6 +4,7 @@ echo -e "\e[34m[ LOAD START ] ~/.zshrc\e[m"
 
 # ====================================
 # 環境設定
+# Nodejs, Python
 # ====================================
 # brew
 export PATH="$PATH:/opt/homebrew/bin/"
@@ -51,14 +52,6 @@ if [ ! -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; the
 fi
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# Git補完
-#if [ ! -f /opt/homebrew/opt/zsh-git-prompt/zshrc.sh ]; then
-#    echo -e "\e[34m [INFO] install zsh-git-prompt\e[m"
-#    brew install zsh-git-prompt
-#fi
-#source /opt/homebrew/opt/zsh-git-prompt/zshrc.sh
-#eval "$(gh completion -s zsh)"
-
 # 外観
 if [ ! -f /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme ]; then
     echo -e "\e[34m [INFO] install powerlevel10k\e[m"
@@ -78,6 +71,12 @@ alias rm='rm -i'
 alias re='exec $SHELL -l'
 # exit
 alias q='exit'
+
+# vim コメント行から改行した際、次の行をコメントにしない設定
+mkdir -p ~/.vim/after/plugin
+cat << "EOF" > ~/.vim/after/plugin/common-settings.vim
+au FileType * setlocal formatoptions-=ro
+EOF
 
 # zoxide
 # + eza fzf bat
@@ -99,37 +98,38 @@ export _ZO_FZF_OPTS='
 '
 alias z='_zoxide'
 
-# ls → eza
+# eza (ls -AFGlihrt --color=auto)
 function l() {
     type eza > /dev/null 2>&1 || brew install eza
     eza -abghHliS --icons --git $@
-    # ls -AFGlihrt --color=auto $@
 }
 
-#function tree() {
-#    type eza > /dev/null 2>&1 || brew install eza
-#    eza -bghHliST --icons --git $@
-#    # pwd;find . | sort | sed '1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'
-#}
-
-# エクスプローラ
+# yazi エクスプローラ
+mkdir -p ~/.config/yazi
+cat << "EOF" > ~/.config/yazi/yazi.toml
+[manager]
+show_hidden = true
+EOF
 function e() {
     type yazi > /dev/null 2>&1 || brew install yazi
-    if [ ! -e ~/.config/yazi/yazi.toml ]; then
-        mkdir -p ~/.config/yazi
-        echo "[manager]" > ~/.config/yazi/yazi.toml
-        echo "show_hidden = true" >> ~/.config/yazi/yazi.toml
-    fi
     yazi
 }
 
-# Lazy Git
+# lazygit + git設定
+cat << "EOF" > ~/.gitconfig
+[user]
+    name = さーな
+    email = 37serna37serna37serna@gmail.com
+
+[credential]
+    helper = osxkeychain
+EOF
 function g() {
     type lazygit > /dev/null 2>&1 || brew install lazygit
     lazygit
 }
 
-# Lazy Docker
+# lazydocker + orbstack起動
 function d() {
     type lazydocker > /dev/null 2>&1 || brew install lazydocker
     CNT=$(ps aux | grep -c OrbStack)
@@ -143,7 +143,24 @@ function d() {
     lazydocker
 }
 
-# SSH / SCP 接続
+# ssh / termscp 接続 + 接続設定
+mkdir -p ~/.ssh
+cat << "EOF" > ~/.ssh/config
+# Added by OrbStack
+# This only works if it's at the top of ssh_config (before any Host blocks).
+Include ~/.orbstack/ssh/config
+
+Host *
+  # SSH接続を10倍速くする
+  # https://qiita.com/suin/items/1708dc78fc412297f885
+  ControlMaster auto
+  ControlPath ~/.ssh/mux-%r@%h:%p
+  ControlPersist 4h
+  # パスフレーズの保存と複合
+  # https://qiita.com/kaino5454/items/98dcf3a996f2074e0074
+  AddKeysToAgent yes
+  UseKeychain yes
+EOF
 function s() {
     if [ "$1" = "ssh" ]; then
         type gum > /dev/null 2>&1 || brew install gum
@@ -181,17 +198,6 @@ function c() {
     type cmatrix > /dev/null 2>&1 || brew install cmatrix
     cmatrix
 }
-
-# バックiサーチをhistoryのfzfにする
-#function incremental_search_history() {
-#    type fzf > /dev/null 2>&1 || brew install fzf
-#    selected=`history -E 0 | fzf --tac --height 75% --reverse --margin=0,1 | cut -b 24-`
-#    BUFFER=`[ ${#selected} -gt 0 ] && echo $selected || echo $BUFFER`
-#    CURSOR=${#BUFFER}
-#    zle redisplay
-#}
-#zle -N incremental_search_history
-#bindkey "^r" incremental_search_history
 
 # 時計
 function clock() {
