@@ -1,5 +1,6 @@
 clear
-echo -e "\e[34m[LOAD] START ~/.zshrc\e[m"
+echo -e "\e[34m-------------------------------------------------------------------\e[m"
+echo -e "\e[34m[ LOAD START ] ~/.zshrc\e[m"
 
 # ====================================
 # 環境設定
@@ -11,8 +12,10 @@ export PATH="$PATH:/opt/homebrew/bin/python3"
 alias python='python3'
 alias pip='python -m pip'
 # nvm
+# TODO ここに記述をしたくないので、別の管理コマンドにしたい
 export NVM_DIR="$HOME/.nvm"
 if [ ! -d $HOME/.nvm ]; then
+    echo -e "\e[34m [INFO] install nvm\e[m"
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -29,27 +32,36 @@ fi
 # zshの補完
 autoload -Uz compinit
 compinit
+
 HISTSIZE=1000
 SAVEHIST=1000
 setopt no_beep
+
 # シンタックスハイライト
 if [ ! -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    echo -e "\e[34m [INFO] install zsh-syntax-highlighting\e[m"
     brew install zsh-syntax-highlighting
 fi
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 # コマンド補完 →キーで補完する
 if [ ! -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    echo -e "\e[34m [INFO] install zsh-autosuggestions\e[m"
     brew install zsh-autosuggestions
 fi
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # Git補完
-if [ ! -f /opt/homebrew/opt/zsh-git-prompt/zshrc.sh ]; then
-    brew install zsh-git-prompt
-fi
-source /opt/homebrew/opt/zsh-git-prompt/zshrc.sh
-eval "$(gh completion -s zsh)"
+#if [ ! -f /opt/homebrew/opt/zsh-git-prompt/zshrc.sh ]; then
+#    echo -e "\e[34m [INFO] install zsh-git-prompt\e[m"
+#    brew install zsh-git-prompt
+#fi
+#source /opt/homebrew/opt/zsh-git-prompt/zshrc.sh
+#eval "$(gh completion -s zsh)"
+
 # 外観
 if [ ! -f /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme ]; then
+    echo -e "\e[34m [INFO] install powerlevel10k\e[m"
     brew install powerlevel10k
 fi
 source /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme
@@ -79,15 +91,13 @@ function _zoxide() {
 }
 export _ZO_FZF_OPTS='
     --no-sort --height 75% --reverse --margin=0,1 --exit-0 --select-1
-    --bind ctrl-f:page-down,ctrl-b:page-up
-    --bind pgdn:preview-page-down,pgup:preview-page-up
     --prompt="❯ "
     --color bg+:#262626,fg+:#dadada,hl:#f09479,hl+:#f09479
     --color border:#303030,info:#cfcfb0,header:#80a0ff,spinner:#36c692
     --color prompt:#87afff,pointer:#ff5189,marker:#f09479
     --preview "([[ -e '{2..}/README.md' ]] && bat --color=always --style=numbers --line-range=:50 '{2..}/README.md') || eza --color=always --group-directories-first --oneline {2..}"
 '
-alias zi='_zoxide'
+alias z='_zoxide'
 
 # ls → eza
 function l() {
@@ -95,11 +105,12 @@ function l() {
     eza -abghHliS --icons --git $@
     # ls -AFGlihrt --color=auto $@
 }
-function tree() {
-    type eza > /dev/null 2>&1 || brew install eza
-    eza -bghHliST --icons --git $@
-    # pwd;find . | sort | sed '1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'
-}
+
+#function tree() {
+#    type eza > /dev/null 2>&1 || brew install eza
+#    eza -bghHliST --icons --git $@
+#    # pwd;find . | sort | sed '1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'
+#}
 
 # エクスプローラ
 function e() {
@@ -134,8 +145,8 @@ function d() {
 
 # SSH / SCP 接続
 function s() {
-    type gum > /dev/null 2>&1 || brew install gum
     if [ "$1" = "ssh" ]; then
+        type gum > /dev/null 2>&1 || brew install gum
         if [ ! -f ~/.ssh/known_hosts ]; then
             ssh $(gum input --prompt 'target. e.g.) github.com: ')
         else
@@ -172,15 +183,15 @@ function c() {
 }
 
 # バックiサーチをhistoryのfzfにする
-function incremental_search_history() {
-    type fzf > /dev/null 2>&1 || brew install fzf
-    selected=`history -E 0 | fzf --tac --height 75% --reverse --margin=0,1 | cut -b 24-`
-    BUFFER=`[ ${#selected} -gt 0 ] && echo $selected || echo $BUFFER`
-    CURSOR=${#BUFFER}
-    zle redisplay
-}
-zle -N incremental_search_history
-bindkey "^r" incremental_search_history
+#function incremental_search_history() {
+#    type fzf > /dev/null 2>&1 || brew install fzf
+#    selected=`history -E 0 | fzf --tac --height 75% --reverse --margin=0,1 | cut -b 24-`
+#    BUFFER=`[ ${#selected} -gt 0 ] && echo $selected || echo $BUFFER`
+#    CURSOR=${#BUFFER}
+#    zle redisplay
+#}
+#zle -N incremental_search_history
+#bindkey "^r" incremental_search_history
 
 # 時計
 function clock() {
@@ -224,11 +235,8 @@ function Azathoth() {
 }
 
 
-# ====================================
-# ロード
-# ====================================
-
-echo -e "\e[33m>> Enhanced  Commands\e[m"
-echo -e "\e[32m   zi l tree e \e[33m|\e[32m g d s top \e[33m|\e[32m os c clock gif \e[33m|\e[32m Azathoth\e[m"
-echo -e "\e[34m[LOAD] DONE ~/.zshrc\e[m"
+echo -e "\e[34m>> Enhanced  Commands\e[m"
+echo -e "   \e[35m(file) \e[32mz l e \e[35m(tool)\e[33m g d s top \e[35m(visual)\e[36m os c clock gif \e[35m(oblivion)\e[31m Azathoth\e[m"
+echo -e "\e[34m[ LOAD  DONE ] ~/.zshrc\e[m"
+echo -e "\e[34m-------------------------------------------------------------------\e[m"
 
