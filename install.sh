@@ -34,26 +34,32 @@ done
 mkdir -p ~/git
 cd ~/git
 git clone https://github.com/serna37/dotfiles
+ln -nfs ~/git/dotfiles/.wezterm.lua ~/.wezterm.lua
 ln -nfs ~/git/dotfiles/.zshrc ~/.zshrc
 ln -nfs ~/git/dotfiles/conf/zsh/.p10k.zsh ~/.p10k.zsh
 ln -nfs ~/git/dotfiles/.vimrc ~/.vimrc
-ln -nfs ~/git/dotfiles/.wezterm.lua ~/.wezterm.lua
+
+# TODO ここもechoで作りたいかも
 if [ ! -L ~/.ssh/config ]; then
     # ssh接続設定
     mkdir -p ~/.ssh > /dev/null 2>&1
     ln -nfs ~/git/dotfiles/conf/ssh/config ~/.ssh/config
 fi
+
+# TODO ここは少ないので、ファイルでなくechoで良いかなぁ
 if [ ! -f ~/.vim/after/plugin/common-settings.vim ]; then
     # vim コメント行から改行した際、次の行をコメントにしない設定
     mkdir -p ~/.vim/after/plugin > /dev/null 2>&1
     cp ~/git/dotfiles/conf/vim/common-settings.vim ~/.vim/after/plugin/
 fi
+
 # TODO けすかも
 if [ ! -L ~/.vim/coc-settings.json ]; then
     # coc用設定
     mkdir -p ~/.vim > /dev/null 2>&1
     ln -nfs ~/git/dotfiles/conf/vim/coc-settings.json ~/.vim/coc-settings.json
 fi
+
 # TODO けすかも
 if [ ! -d ~/.vim/UltiSnips ]; then
     # snippets
@@ -63,6 +69,8 @@ if [ ! -d ~/.vim/UltiSnips ]; then
     # TODO library更新時、新規ファイルのリンクがない
     ln -nfs ~/git/dotfiles/conf/snippets/* ~/.vim/UltiSnips/
 fi
+
+# TODO echoでいいかなぁ
 if [ ! -L ~/.gitconfig ]; then
     # gitconfig
     ln -nfs ~/git/dotfiles/.gitconfig ~/.gitconfig
@@ -89,6 +97,7 @@ git config --global credential.helper osxkeychain
 # git config --global credential.helper store
 # git config --global credential.helper store --file ファイルパス
 
+# TODO ghぜんぜん使わなくなったし、いらないかも...
 # ghを設定
 if ! gh auth status > /dev/null 2>&1; then
     gh auth login
