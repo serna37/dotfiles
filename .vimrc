@@ -52,6 +52,7 @@ fu! s:fmode(vec)
     if exists('g:fmode_tid') && g:fmode_tid != -1 | cal timer_stop(g:fmode_tid) | endif
     let g:fmode_tid = timer_start(1000, { -> execute("let w:fmode = 0 | sil! cal matchdelete(w:fmatch)") })
 endf
+" TODO easymotionいれよう！
 
 
 " 検索
