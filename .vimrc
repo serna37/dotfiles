@@ -161,13 +161,6 @@ au ColorScheme * hi Keyword ctermfg=170
 au ColorScheme * hi Statement ctermfg=170
 au ColorScheme * hi Type ctermfg=180
 colorscheme habamax
-
-
-" TODO polyglotとone-darkも最低限でコピペしてプラグイン無くしたい
-" - 数字、予約後は元のvimでOK
-" - 記号に色が欲しい
-" - 関数に色が欲しい
-
 au BufEnter * syn match GlobalOperator "+\|-\|\*\|/\|%\|\^\|<\|>\|&\||\|=\|?\|:"
 au BufEnter * hi link GlobalOperator Operator
 au BufEnter * syn match GlobalComment "//.*$\|/\*.*$"
@@ -180,15 +173,15 @@ au BufEnter * hi link GlobalSymbol Type
 " 高機能(プラグイン) vim-plug導入コマンド
 "curl -fSsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim -c "PlugInstall"
 cal plug#begin()
-Plug 'joshdick/onedark.vim'
-Plug 'sheerun/vim-polyglot'
+"Plug 'joshdick/onedark.vim'
+"Plug 'sheerun/vim-polyglot'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'sidorares/node-vim-debugger'
 "Plug 'eliba2/vim-node-inspect'
 "Plug 'puremourning/vimspector'
 "Plug 'Exafunction/codeium.vim'
 cal plug#end()
-if !glob('~/.vim/plugged/onedark.vim')->empty()|colorscheme onedark|endif
+"if !glob('~/.vim/plugged/onedark.vim')->empty()|colorscheme onedark|endif
 
 " TODO XXX いまできないこと
 " - (できなくはない)定義元検索がgdや検索
