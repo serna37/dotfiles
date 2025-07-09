@@ -168,6 +168,14 @@ colorscheme habamax
 " - 記号に色が欲しい
 " - 関数に色が欲しい
 
+au BufEnter * syn match GlobalOperator "+\|-\|\*\|/\|%\|\^\|<\|>\|&\||\|=\|?\|:"
+au BufEnter * hi link GlobalOperator Operator
+au BufEnter * syn match GlobalComment "//.*$\|/\*.*$"
+au BufEnter * hi link GlobalComment Comment
+au BufEnter * syn match GlobalFunctionCall "\<\h\w*\>\s*("me=e-1 containedin=ALLBUT
+au BufEnter * hi link GlobalFunctionCall Function
+au BufEnter * syn match GlobalSymbol "console\|Math\|JSON"
+au BufEnter * hi link GlobalSymbol Type
 
 " 高機能(プラグイン) vim-plug導入コマンド
 "curl -fSsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim -c "PlugInstall"
