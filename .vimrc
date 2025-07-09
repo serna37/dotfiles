@@ -151,6 +151,15 @@ au ColorScheme * hi Comment ctermfg=245 term=bold
 au ColorScheme * hi Normal ctermbg=none
 au ColorScheme * hi LineNr ctermfg=245
 au ColorScheme * hi Visual cterm=reverse ctermfg=240 ctermbg=235
+au ColorScheme * hi Todo ctermfg=170 term=standout
+au ColorScheme * hi String ctermfg=114
+au ColorScheme * hi Number ctermfg=173
+au ColorScheme * hi Boolean ctermfg=173
+au ColorScheme * hi Function ctermfg=39
+au ColorScheme * hi Operator ctermfg=170
+au ColorScheme * hi Keyword ctermfg=170
+au ColorScheme * hi Statement ctermfg=170
+au ColorScheme * hi Type ctermfg=180
 colorscheme habamax
 
 
