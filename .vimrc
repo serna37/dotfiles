@@ -282,7 +282,7 @@ au ColorScheme * hi Keyword ctermfg=170
 au ColorScheme * hi Statement ctermfg=170
 au ColorScheme * hi Type ctermfg=180
 colorscheme habamax
-au BufEnter * syn match GlobalOperator "+\|-\|\*\|/\|%\|\^\|<\|>\|&\||\|=\|?\|:"
+au BufEnter * syn match GlobalOperator "+\|-\|\*\|/\|%\|\^\|<\|>\|&\||\|=\|?\|:\|!\|\~"
 au BufEnter * hi link GlobalOperator Operator
 au BufEnter * syn match GlobalComment "//.*$\|/\*.*$"
 au BufEnter * hi link GlobalComment Comment
@@ -291,18 +291,18 @@ au BufEnter * hi link GlobalFunctionCall Function
 au BufEnter * syn match GlobalSymbol "console\|Math\|JSON"
 au BufEnter * hi link GlobalSymbol Type
 
+" TODO //コメント中のTODOが光らない
+" TODO コメント中、文字列中でもfunc()がひかる
+
 " 高機能(プラグイン) vim-plug導入コマンド
 "curl -fSsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim -c "PlugInstall"
 cal plug#begin()
-"Plug 'joshdick/onedark.vim'
-"Plug 'sheerun/vim-polyglot'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'sidorares/node-vim-debugger'
 "Plug 'eliba2/vim-node-inspect'
 "Plug 'puremourning/vimspector'
 "Plug 'Exafunction/codeium.vim'
 cal plug#end()
-"if !glob('~/.vim/plugged/onedark.vim')->empty()|colorscheme onedark|endif
 
 " TODO XXX いまできないこと
 " - (できなくはない)定義元検索がgdや検索
