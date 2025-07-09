@@ -4,9 +4,9 @@ echo -e "\e[34m[ LOAD START ] ~/.zshrc\e[m"
 
 # ====================================
 # 環境設定
-# Nodejs, Python
+# Homebrew, Nodejs, Python
 # ====================================
-# brew
+# Homebrew
 export PATH="$PATH:/opt/homebrew/bin/"
 # Python
 export PATH="$PATH:/opt/homebrew/bin/python3"
@@ -98,12 +98,6 @@ export _ZO_FZF_OPTS='
 '
 alias z='_zoxide'
 
-# eza (ls -AFGlihrt --color=auto)
-function l() {
-    type eza > /dev/null 2>&1 || brew install eza
-    eza -abghHliS --icons --git $@
-}
-
 # yazi エクスプローラ
 mkdir -p ~/.config/yazi
 cat << "EOF" > ~/.config/yazi/yazi.toml
@@ -113,6 +107,12 @@ EOF
 function e() {
     type yazi > /dev/null 2>&1 || brew install yazi
     yazi
+}
+
+# eza (ls -AFGlihrt --color=auto)
+function l() {
+    type eza > /dev/null 2>&1 || brew install eza
+    eza -abghHliS --icons --git $@
 }
 
 # lazygit + git設定
@@ -223,16 +223,15 @@ function Azathoth() {
     \rm -rf ~/.nvm
     \rm ~/.netrc
     # この辺を入れて使っているメモ代わり
-    DEL=(fastfetch
-    zoxide fzf bat eza ripgrep
+    DEL=(gum
+    zoxide fzf bat eza yazi
     lazygit lazydocker
-    genact cmatrix tty-clock
-    yazi gobang termscp gum
-    ffmpeg jq
+    termscp
     bottom
-    nmap gobuster
-    zsh-syntax-highlighting zsh-autosuggestions
-    zsh-git-prompt powerlevel10k
+    fastfetch genact cmatrix tty-clock
+    ffmpeg
+    zsh-syntax-highlighting zsh-autosuggestions powerlevel10k
+    jq nmap gobuster
     )
     for v in ${DEL[@]}; do
         brew uninstall $v
@@ -242,7 +241,7 @@ function Azathoth() {
 
 
 echo -e "\e[34m>> Enhanced  Commands\e[m"
-echo -e "   \e[35m(file) \e[32mz l e \e[35m(tool)\e[33m g d s top \e[35m(visual)\e[36m os c clock gif \e[35m(oblivion)\e[31m Azathoth\e[m"
+echo -e "   \e[35m(file) \e[32mz e l \e[35m(tool)\e[33m g d s \e[35m(visual)\e[36m top os c clock gif \e[35m(oblivion)\e[31m Azathoth\e[m"
 echo -e "\e[34m[ LOAD  DONE ] ~/.zshrc\e[m"
 echo -e "\e[34m-------------------------------------------------------------------\e[m"
 
