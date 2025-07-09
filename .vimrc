@@ -61,6 +61,7 @@ nnoremap <silent><Space>q :<C-u>noh<CR>
 nnoremap <silent><Space>g :<C-u>exe "vim /".expand("<cword>")."/gj ".(system('git status')=~'fatal'?'** **/.':join(split(system('git ls-files'))))<CR>:echo "Quickfix移動:cn cp"<CR>
 nnoremap <silent>cn :<C-u>cn<CR>
 nnoremap <silent>cp :<C-u>cp<CR>
+" TODO これも、Explorerコマンドで、全画面でもういいかなぁ
 nnoremap <silent><Space>e :<C-u>cal <SID>toggle_netrw()<CR>
 fu! s:toggle_netrw()
     let wids = getwininfo()->filter("has_key(v:val.variables, 'netrw_liststyle')")->map('v:val.winid')
