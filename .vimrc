@@ -155,6 +155,9 @@ colorscheme habamax
 
 
 " TODO polyglotとone-darkも最低限でコピペしてプラグイン無くしたい
+" - 数字、予約後は元のvimでOK
+" - 記号に色が欲しい
+" - 関数に色が欲しい
 
 
 " 高機能(プラグイン) vim-plug導入コマンド
