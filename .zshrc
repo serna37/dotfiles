@@ -11,7 +11,7 @@ export PATH="$PATH:/opt/homebrew/bin/"
 # Python
 export PATH="$PATH:/opt/homebrew/bin/python3"
 alias python='python3'
-alias pip='python -m pip'
+alias pip='python3 -m pip'
 # nvm
 # TODO ここに記述をしたくないので、別の管理コマンドにしたい
 export NVM_DIR="$HOME/.nvm"
