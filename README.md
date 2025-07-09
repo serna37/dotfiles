@@ -13,16 +13,19 @@
 </a>
 
 ## Installation
-- このレポジトリでの設定を適用する(Macの場合Homebrewを導入します)
+- このレポジトリでの設定ファイルをシンボリックリンクします
 - lazyinstall式を採用しており、初期投入以外のコマンドは、必要な時にinstallされます
+- zshrc中で、必要に応じて設定ファイルが作成されます
+
+まずはHomebrewを導入します(sudo権限承認が必要です)
+```shell
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
+
+本レポのinstall.shを実行します
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/serna37/dotfiles/master/install.sh)"
 ```
-
-## 軽量版
-依存のない設定ファイルを用意しています
-- [軽量版zshrc](https://github.com/serna37/dotfiles/blob/master/conf/light/.zshrc.light)
-- [軽量版vimrc(古い、本体vimrcでよい)](https://github.com/serna37/dotfiles/blob/master/conf/light/.vimrc.light)
 
 ## 一時コピペ用
 - zsh
@@ -38,7 +41,7 @@ set fileformat=unix fileencoding=utf8 noswapfile nobackup noundofile hidden auto
 ```
 
 ## 関連
-- (古い) [serna37/library](https://github.com/serna37/library)を導入します
+- (古い、未メンテ) [serna37/library](https://github.com/serna37/library)を導入します
 - 主に[Terminal Trove](https://terminaltrove.com/)からコマンドを選んでいます
 
 ## dotfiles構成
@@ -50,15 +53,11 @@ set fileformat=unix fileencoding=utf8 noswapfile nobackup noundofile hidden auto
 ```
 .
 ├── conf/
-│   ├── config/   : ~/.config配下のファイル
 │   ├── cpp/      : C++用設定ファイル デバッグ、フォーマット設定等
-│   ├── devbox/   : (削除)自作Devコンテナ用設定ファイル
-│   ├── snippets/ : (古い)雑多スニペットファイル
-│   ├── ssh/      : ssh用設定ファイル
-│   ├── vim/      : vim用設定ファイル
-│   └── zsh/      : zsh用設定ファイル
+│   ├── snippets/ : (削除予定)雑多スニペットファイル
+│   ├── vim/      : (削除予定)vim用設定ファイル
+│   └── zsh/      : (メンテ要: cpp系をcppに移動しフォルダ削除)zsh用設定ファイル
 │
-├── .gitconfig    : git設定
 ├── .vimrc        : vim設定
 ├── .wezterm.lua  : wezterm設定
 ├── .zshrc        : zsh設定

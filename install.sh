@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Homebrewを入れる
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+# Homebrewのパス追加
 export PATH="$PATH:/opt/homebrew/bin/"
 
 # 必要なコマンド等を入れる
@@ -30,10 +29,12 @@ done
 
 # 1回だけ必要な作業
 
-# dotfilesのファイルをリンク
+# 本リポジトリをクローンする
 mkdir -p ~/git
 cd ~/git
 git clone https://github.com/serna37/dotfiles
+
+# dotfilesのファイルをリンク
 ln -nfs ~/git/dotfiles/.wezterm.lua ~/.wezterm.lua
 ln -nfs ~/git/dotfiles/.zshrc ~/.zshrc
 ln -nfs ~/git/dotfiles/conf/zsh/.p10k.zsh ~/.p10k.zsh
@@ -76,6 +77,12 @@ cd ..
 git config --global credential.helper osxkeychain
 # git config --global credential.helper store
 # git config --global credential.helper store --file ファイルパス
+
+
+# Finderのキルを有効化するコマンド
+defaults write com.apple.Finder QuitMenuItem -boolean true
+# Finderが.DS_sotreを作らないようにするコマンド
+defaults write com.apple.desktopservices DSDontWriteNetworkStores True
 
 # shell再起動
 exec $SHELL -l
