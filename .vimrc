@@ -61,24 +61,6 @@ nnoremap <silent><Space>q :<C-u>noh<CR>
 nnoremap <silent><Space>g :<C-u>exe "vim /".expand("<cword>")."/gj ".(system('git status')=~'fatal'?'** **/.':join(split(system('git ls-files'))))<CR>:echo "Quickfix移動:cn cp"<CR>
 nnoremap <silent>cn :<C-u>cn<CR>
 nnoremap <silent>cp :<C-u>cp<CR>
-" TODO これも、Explorerコマンドで、全画面でもういいかなぁ
-nnoremap <silent><Space>e :<C-u>cal <SID>toggle_netrw()<CR>
-fu! s:toggle_netrw()
-    let wids = getwininfo()->filter("has_key(v:val.variables, 'netrw_liststyle')")->map('v:val.winid')
-    if empty(wids) | exe 'topleft vertical 30new | Explore'
-    else | for wid in wids | sil! cal win_execute(wid, 'close') | endfor
-    endif
-endf
-" TODO 消して良いかも
-au FileType netrw nnoremap <buffer>o :<C-u>cal <SID>netrw_open()<CR>
-fu! s:netrw_open() abort
-    let path = fnamemodify(getline('.'), ':p')
-    if isdirectory(path) | exe 'Explore '.fnameescape(path) | else
-        if winnr() < winnr('$') | exe 'wincmd l'
-        else | exe 'rightbelow vs' | exe 'vertical resize '.(&columns - 30)
-        endif | exe 'e '.fnameescape(path)
-    endif
-endf
 " TODO FZFいいんだけど、リファクタして圧縮したい
 nnoremap <silent><Space>f :<C-u>cal <SID>fzf()<CR>
 au ColorScheme * hi FzfCurLine ctermfg=235 ctermbg=114
@@ -118,8 +100,6 @@ endf
 " ターミナル
 set termwinkey=<C-e>
 tnoremap <silent><C-n> <C-e>N
-noremap <silent><Space>t :<C-u>cal popup_create(term_start([&shell],#{hidden:1,term_finish:'close'}),#{border:[],minwidth:winwidth(0)/2,minheight:&lines/2})<CR>
-" TODO ターミナル、もうちょいなんとかしたい
 
 
 " 外観
