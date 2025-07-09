@@ -147,10 +147,10 @@ fu! SetTabLine()
     retu s.'%#TabLineFill#'
 endf
 set tabline=%!SetTabLine()
-au ColorScheme * hi Comment term=bold ctermfg=245
+au ColorScheme * hi Comment ctermfg=245 term=bold
 au ColorScheme * hi Normal ctermbg=none
 au ColorScheme * hi LineNr ctermfg=245
-au ColorScheme * hi Visual ctermbg=240
+au ColorScheme * hi Visual cterm=reverse ctermfg=240 ctermbg=235
 colorscheme habamax
 
 
