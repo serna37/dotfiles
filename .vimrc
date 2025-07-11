@@ -21,9 +21,10 @@ nnoremap vv ^v$h
 fu! s:autocomplete()
     if pumvisible()|retu|endif
     let prev_str=(slice(getline('.'),0,charcol('.')-1)..v:char)->substitute('.*[^[:keyword:]]','','')
-    if strchars(prev_str)<2|retu|endif|cal feedkeys("\<c-n>",'ni')
+    if strchars(prev_str)<2|retu|endif|cal feedkeys("\<C-n>",'ni')
 endf
 au InsertCharPre * cal <SID>autocomplete()
+inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 
 
 " 移動
