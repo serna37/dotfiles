@@ -178,6 +178,12 @@ function s() {
 function _s() { _values '' 'ssh[ssh接続]' 'scp[scp接続]' }
 compdef _s s
 
+# lazysql
+function db() {
+    type lazysql > /dev/null 2>&1 || brew install lazysql
+    lazysql
+}
+
 # top → bottomを使用
 function top() {
     type btm > /dev/null 2>&1 || brew install bottom
@@ -241,7 +247,7 @@ function Azathoth() {
 
 
 echo -e "\e[34m>> Enhanced  Commands\e[m"
-echo -e "   \e[35m(file) \e[32mz e l \e[35m(tool)\e[33m g d s \e[35m(visual)\e[36m top os c clock gif \e[35m(oblivion)\e[31m Azathoth\e[m"
+echo -e "   \e[35m(file) \e[32mz e l \e[35m(tool)\e[33m g d s db \e[35m(visual)\e[36m top os c clock gif \e[35m(oblivion)\e[31m Azathoth\e[m"
 echo -e "\e[34m[ LOAD  DONE ] ~/.zshrc\e[m"
 echo -e "\e[34m-------------------------------------------------------------------\e[m"
 
