@@ -231,7 +231,7 @@ function Azathoth() {
     # この辺を入れて使っているメモ代わり
     DEL=(gum
     zoxide fzf bat eza yazi
-    lazygit lazydocker
+    lazygit lazydocker lazysql
     termscp
     bottom
     fastfetch genact cmatrix tty-clock
