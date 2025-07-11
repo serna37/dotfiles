@@ -190,8 +190,7 @@ endf
 
 
 " ターミナル
-set termwinkey=<C-e>
-set splitbelow
+set splitbelow termwinkey=<C-e>
 tnoremap <silent><C-n> <C-e>N
 
 
