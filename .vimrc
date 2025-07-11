@@ -25,6 +25,8 @@ fu! s:autocomplete()
 endf
 au InsertCharPre * cal <SID>autocomplete()
 inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 
 " 移動
@@ -60,6 +62,7 @@ fu! s:fmode(vector)
     let g:fmode_tid=timer_start(1000,{->execute("let w:fmode=0|sil! cal matchdelete(w:fmatch)")})
 endf
 
+" TODO リファクタ
 nnoremap <silent>s :<C-u>cal <SID>emotion()<CR>
 let s:emotion_keypos=[]|let s:emotion_klen=1|let g:emotion_keys = ['s','w','a','d','j','k','h','l']
 let s:emotion_popid=0
@@ -187,6 +190,7 @@ fu! s:fzf_filter(winid, key)
     cal popup_settext(g:fzf_q_wid,join(g:fzf_query,''))|cal popup_settext(g:fzf_wid,g:fzf_matches)
     retu 1
 endf
+" TODO ファイルヒストリの検索したいかも
 
 
 " ターミナル
@@ -246,21 +250,25 @@ au BufEnter * hi link GlobalSymbol Type
 
 " 高機能(プラグイン) vim-plug導入コマンド
 "curl -fSsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim -c "PlugInstall"
-cal plug#begin()
+""cal plug#begin()
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'sidorares/node-vim-debugger'
 "Plug 'eliba2/vim-node-inspect'
 "Plug 'puremourning/vimspector'
 "Plug 'Exafunction/codeium.vim'
-cal plug#end()
+""cal plug#end()
+
+" TODO lint診断
+
+" TODO ステップ実行デバッグ
 
 " TODO XXX いまできないこと
+" - [!! できない]Lint診断がない
+" - [!! できない]ステップ実行デバッグできない
 " - (できなくはない)定義元検索がgdや検索
 " - (できなくはない)呼び出し元検索がgrep
 " - (できなくはないが、現場では無理)リネームが置換
 " - (できなくはないが、現場では無理)フォーマットがインデントのみで言語無視
-" - [!! できない]Lint診断がない
-" - [!! できない]ステップ実行デバッグできない
 " - <いらんかなぁ>ドキュメントホバーが見られない
 
 "let g:coc_global_extensions = ['coc-snippets', 'coc-explorer',
