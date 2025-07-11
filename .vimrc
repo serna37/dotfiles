@@ -19,9 +19,9 @@ inoremap <expr>} getline('.')[col('.')-1] == "}" ? "\<right>" : "}"
 inoremap <expr><BS> match(["()", "[]", "{}", "``","''", '""'], getline('.')[col('.')-2:col('.')-1]) >=0 ? "\<right>\<BS>\<BS>" : "\<BS>"
 nnoremap vv ^v$h
 fu! s:autocomplete()
-  if pumvisible()|retu|endif
-  let prev_str=(slice(getline('.'),0,charcol('.')-1)..v:char)->substitute('.*[^[:keyword:]]','','')
-  if strchars(prev_str)<2|retu|endif|cal feedkeys("\<c-n>",'ni')
+    if pumvisible()|retu|endif
+    let prev_str=(slice(getline('.'),0,charcol('.')-1)..v:char)->substitute('.*[^[:keyword:]]','','')
+    if strchars(prev_str)<2|retu|endif|cal feedkeys("\<c-n>",'ni')
 endf
 au InsertCharPre * cal <SID>autocomplete()
 
