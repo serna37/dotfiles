@@ -1,5 +1,5 @@
 " 共通
-set fileformat=unix fileencoding=utf8 noswapfile nobackup noundofile hidden autoread clipboard+=unnamed background=dark title showcmd list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:% number relativenumber signcolumn=yes scrolloff=5 cursorline cursorcolumn ruler laststatus=2 showtabline=2 notitle splitright virtualedit=all whichwrap=b,s,h,l,<,>,[,],~ backspace=indent,eol,start showmatch matchtime=3 autoindent smartindent smarttab shiftwidth=4 tabstop=4 expandtab wildmenu wildchar=<Tab> wildmode=full complete=.,w,b,u,U,k,kspell,s,i,d,t completeopt=menuone,noinsert,preview,popup incsearch hlsearch ignorecase smartcase shortmess-=S belloff=all ttyfast regexpengine=0 foldmethod=marker foldlevel=1 | let &titleold=getcwd() | syntax on | filetype plugin on | au QuickFixCmdPost *grep* cwindow
+set fileformat=unix fileencoding=utf8 noswapfile nobackup noundofile hidden autoread clipboard+=unnamed background=dark title showcmd list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:% number relativenumber signcolumn=yes scrolloff=5 cursorline cursorcolumn ruler laststatus=2 showtabline=2 notitle splitright virtualedit=all whichwrap=b,s,h,l,<,>,[,],~ backspace=indent,eol,start showmatch matchtime=3 autoindent smartindent smarttab shiftwidth=4 tabstop=4 expandtab wildmenu wildchar=<Tab> wildmode=full complete=.,w,b,u,U,k,kspell,s,i,d,t completeopt=menuone,noinsert,noselect,preview,popup incsearch hlsearch ignorecase smartcase shortmess-=S belloff=all ttyfast regexpengine=0 foldmethod=marker foldlevel=1 | let &titleold=getcwd() | syntax on | filetype plugin on | au QuickFixCmdPost *grep* cwindow
 
 
 " 編集
@@ -18,6 +18,12 @@ inoremap <expr>] getline('.')[col('.')-1] == "]" ? "\<right>" : "]"
 inoremap <expr>} getline('.')[col('.')-1] == "}" ? "\<right>" : "}"
 inoremap <expr><BS> match(["()", "[]", "{}", "``","''", '""'], getline('.')[col('.')-2:col('.')-1]) >=0 ? "\<right>\<BS>\<BS>" : "\<BS>"
 nnoremap vv ^v$h
+fu! s:autocomplete()
+  if pumvisible()|retu|endif
+  let prev_str=(slice(getline('.'),0,charcol('.')-1)..v:char)->substitute('.*[^[:keyword:]]','','')
+  if strchars(prev_str)<2|retu|endif|cal feedkeys("\<c-n>",'ni')
+endf
+au InsertCharPre * cal <SID>autocomplete()
 
 
 " 移動
