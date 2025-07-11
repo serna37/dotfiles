@@ -1,5 +1,5 @@
 " 共通
-set fileformat=unix fileencoding=utf8 noswapfile nobackup noundofile hidden autoread clipboard+=unnamed background=dark title showcmd list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:% number relativenumber signcolumn=yes scrolloff=5 cursorline cursorcolumn ruler laststatus=2 showtabline=2 notitle splitright virtualedit=all whichwrap=b,s,h,l,<,>,[,],~ backspace=indent,eol,start showmatch matchtime=3 autoindent smartindent smarttab shiftwidth=4 tabstop=4 expandtab wildmenu wildchar=<Tab> wildmode=full complete=.,w,b,u,U,k,kspell,s,i,d,t completeopt=menuone,noinsert,noselect,preview,popup incsearch hlsearch ignorecase smartcase shortmess-=S belloff=all ttyfast regexpengine=0 foldmethod=marker foldlevel=1 | let &titleold=getcwd() | syntax on | filetype plugin on | au QuickFixCmdPost *grep* cwindow
+set fileformat=unix fileencoding=utf8 noswapfile nobackup noundofile hidden autoread clipboard+=unnamed background=dark title showcmd list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:% number relativenumber signcolumn=yes scrolloff=5 cursorline cursorcolumn ruler laststatus=2 showtabline=2 notitle splitright virtualedit=all whichwrap=b,s,h,l,<,>,[,],~ backspace=indent,eol,start showmatch matchtime=3 autoindent smartindent smarttab cindent shiftwidth=4 tabstop=4 expandtab wildmenu wildchar=<Tab> wildmode=full complete=.,w,b,u,U,k,kspell,s,i,d,t completeopt=menuone,noinsert,noselect,preview,popup incsearch hlsearch ignorecase smartcase shortmess-=S belloff=all ttyfast regexpengine=0 foldmethod=marker foldlevel=1 | let &titleold=getcwd() | syntax on | filetype plugin on | au QuickFixCmdPost *grep* cwindow
 
 
 " 編集
@@ -26,7 +26,13 @@ endf
 au InsertCharPre * cal <SID>autocomplete()
 inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
+fu! s:indent()
+    if pumvisible()|retu "\<C-y>"|endif
+    if getline(".")[col(".")-1]=="}"&&getline(".")[col(".")-2]=="{"
+        retu "\n    \n\<up>\<right>\<right>\<right>\<right>"
+    else|retu "\n"|endif
+endf
+inoremap <silent><expr><CR> <SID>indent()
 
 
 " 移動
@@ -165,12 +171,11 @@ nnoremap <silent><Space>q :<C-u>noh<CR>
 nnoremap <silent><Space>g :<C-u>exe "vim /".expand("<cword>")."/gj ".(system('git status')=~'fatal'?'** **/.':join(split(system('git ls-files'))))<CR>:echo "Quickfix移動:cn cp"<CR>
 nnoremap <silent>cn :<C-u>cn<CR>
 nnoremap <silent>cp :<C-u>cp<CR>
-nnoremap <silent><Space>f :<C-u>cal <SID>fzf()<CR>
+nnoremap <silent><Space>f :<C-u>cal <SID>fzf(system(system('git status')=~'fatal'?"find . -type f":"git ls-files")->split('\n'))<CR>
+nnoremap <silent><Space>h :<C-u>cal <SID>fzf(execute('ol')->split('\n')->map({_,v->split(v,': ')[1]}))<CR>
 au ColorScheme * hi FzfCurLine ctermfg=235 ctermbg=114
-fu! s:fzf()
-    let g:fzf_query=[]|let g:fzf_cur=0
-    let g:fzf_files=system(system('git status')=~'fatal'?"find . -type f":"git ls-files")->split('\n')
-    let g:fzf_matches=g:fzf_files[0:29]
+fu! s:fzf(files)
+    let g:fzf_query=[]|let g:fzf_cur=0|let g:fzf_files=a:files|let g:fzf_matches=g:fzf_files[0:29]
     let g:fzf_wid=popup_create(g:fzf_files[0:29],#{title:"",zindex:99,line:18,col:50,minwidth:100,maxwidth:100,minheight:30,maxheight:30,border:[],borderchars:['─','│','─','│','╭','╮','╯','╰']})
     let g:fzf_q_wid=popup_create("",#{title:"fzf",zindex:100,line:15,col:50,minwidth:100,maxwidth:100,minheight:1,maxheight:1,border:[],borderchars:['─','│','─','│','╭','╮','╯','╰'],mapping:0,filter:function('s:fzf_filter')})
     let g:match_id=matchaddpos('FzfCurLine',[[g:fzf_cur+1]],10,-1,{'window':g:fzf_wid})
@@ -190,7 +195,6 @@ fu! s:fzf_filter(winid, key)
     cal popup_settext(g:fzf_q_wid,join(g:fzf_query,''))|cal popup_settext(g:fzf_wid,g:fzf_matches)
     retu 1
 endf
-" TODO ファイルヒストリの検索したいかも
 
 
 " ターミナル
@@ -249,7 +253,7 @@ au BufEnter * hi link GlobalSymbol Type
 
 
 " 高機能(プラグイン) vim-plug導入コマンド
-"curl -fSsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim -c "PlugInstall"
+"curl -fSsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim -c "PlugInstall
 ""cal plug#begin()
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'sidorares/node-vim-debugger'
