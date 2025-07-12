@@ -242,6 +242,8 @@ au ColorScheme * hi Type ctermfg=180
 colorscheme habamax
 au BufEnter * syn match GlobalOperator "+\|-\|\*\|/\|%\|\^\|<\|>\|&\||\|=\|?\|:\|!\|\~"
 au BufEnter * hi link GlobalOperator Operator
+au BufEnter * syn match GlobalNumber "[0-9]\+n\|[0-9]\+l"
+au BufEnter * hi link GlobalNumber Number
 au BufEnter * syn match GlobalFunctionCall "\<\h\w*\>\s*("me=e-1 containedin=ALLBUT,GlobalComment
 au BufEnter * hi link GlobalFunctionCall Function
 au BufEnter * syn match GlobalComment "//.*$\|/\*.*$"
