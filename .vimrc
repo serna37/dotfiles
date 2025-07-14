@@ -250,7 +250,7 @@ au BufEnter * syn match GlobalComment "//.*$\|/\*.*$"
 au BufEnter * hi link GlobalComment Comment
 au BufEnter * syn match GlobalTodo "TODO\|XXX\|FIXME" containedin=GlobalComment
 au BufEnter * hi link GlobalTodo Todo
-au BufEnter * syn match GlobalSymbol "length\|console\|Math\|JSON"
+au BufEnter * syn match GlobalSymbol "length\|console\|BigInt\|Math\|JSON"
 au BufEnter * hi link GlobalSymbol Type
 
 
