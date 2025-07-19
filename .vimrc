@@ -85,74 +85,22 @@ endf
 au CursorMoved,CursorMovedI * cal <SID>cursorHi()
 nnoremap <silent><Space>f :<C-u>cal <SID>fzf(system(system('git status')=~'fatal'?"find . -type f":"git ls-files")->split('\n'))<CR>
 nnoremap <silent><Space>h :<C-u>cal <SID>fzf(execute('ol')->split('\n')->map({_,v->split(v,': ')[1]}))<CR>
-au ColorScheme * hi FzfCurLine ctermfg=235 ctermbg=114
 fu! s:fzf(files)
-    let g:fzf_query=[]|let g:fzf_cur=0|let g:fzf_files=a:files|let g:fzf_matches=g:fzf_files[0:29]
-    let g:fzf_wid=popup_create(g:fzf_files[0:29],#{title:"",zindex:99,line:18,col:50,minwidth:100,maxwidth:100,minheight:30,maxheight:30,border:[],borderchars:['─','│','─','│','╭','╮','╯','╰']})
-    let g:fzf_q_wid=popup_create("",#{title:"fzf",zindex:100,line:15,col:50,minwidth:100,maxwidth:100,minheight:1,maxheight:1,border:[],borderchars:['─','│','─','│','╭','╮','╯','╰'],mapping:0,filter:function('s:fzf_filter')})
-    let g:match_id=matchaddpos('FzfCurLine',[[g:fzf_cur+1]],10,-1,{'window':g:fzf_wid})
-endf
-fu! s:fzf_filter(winid, key)
-    if a:key=="\<CR>"|cal popup_clear()|exe "e ".g:fzf_matches[g:fzf_cur]|retu 1
-    elseif a:key=="\<ESC>"|cal popup_clear()|retu 1
-    elseif a:key=="\<C-n>"|let g:fzf_cur=(g:fzf_cur+1)%len(g:fzf_matches)
-    elseif a:key=="\<C-p>"|let g:fzf_cur=(g:fzf_cur-1+len(g:fzf_matches))%len(g:fzf_matches)
-    elseif a:key=="\<BS>"|if !empty(g:fzf_query)|cal remove(g:fzf_query,-1)|endif
-    elseif a:key=="\<C-w>"|let g:fzf_query=[]
-    else|cal add(g:fzf_query,a:key)|endif
-    let g:fzf_matches=empty(g:fzf_query)?g:fzf_files[0:29]:matchfuzzy(g:fzf_files,join(g:fzf_query,''))[0:29]
-    if len(g:fzf_matches)-1<g:fzf_cur|let g:fzf_cur=0|endif
-    if g:match_id!=-1|sil! cal matchdelete(g:match_id,g:fzf_wid)|endif
-    let g:match_id=matchaddpos('FzfCurLine',[[g:fzf_cur+1]],10,-1,{'window':g:fzf_wid})
-    cal popup_settext(g:fzf_q_wid,join(g:fzf_query,''))
-    cal popup_settext(g:fzf_wid,g:fzf_matches)
-endf
-
-" TODO popupが使えないことを考慮して、quickfixに流せないか検討してみる
-fu! GetQuickfixWindowId()
-    for win_info in getwininfo()
-        if getbufvar(win_info.bufnr,'&filetype')=='qf'
-            retu win_info.winid
-        endif
-    endfor
-    retu -1
-endf
-
-fu! Test()
-    " TODO 引数で受け取る
-    let g:fzf_files=execute('ol')->split('\n')->map({_,v->split(v,': ')[1]})
-    copen
-    sil! bo 1new
+    hi QuickFixLine ctermfg=109 ctermbg=none|hi CursorLine ctermbg=240
+    copen|let tmp=&errorformat|let &errorformat='%f'|cgetexpr a:files|sil! bo 1new
     setl buftype=nofile bufhidden=wipe nobuflisted modifiable nonumber norelativenumber nocursorline nocursorcolumn signcolumn=no statusline=%%
-    let query=""|cal setline(1,"> ".query)|redraw
+    let t=""|cal setline(1,"> ".t)|redraw
     while 1
         let w=nr2char(getchar())
-        if w=="\<CR>"
-            q
-            " TODO quickfixでCR
-            cclose
-            break
-        elseif w=="\<ESC>"
-            " TODO 閉じて、quickfixも閉じる
-            break
-        elseif w=="\<C-n>"
-            " TODO quickfix上で下にj
-            let qf_win_id = GetQuickfixWindowId()
-            echom qf_win_id
-            cal win_execute(qf_win_id, "normal! j")
-            echom "C-n"
-        elseif w=="\<C-p>"
-            " TODO quickfix上で上にk
-            echom "C-p"
-        elseif w=="\<C-w>"||w=="\<C-u>"|let query=""
-        else
-            let query=query.w
-            let g:fzf_matches=query==""?g:fzf_files:matchfuzzy(g:fzf_files,query)
-            let tmp=&errorformat|let &errorformat='%f'|cgetexpr g:fzf_matches|let &errorformat=tmp
-        endif
-        cal setline(1,"> ".query)|redraw
-    endwhile
-endf
+        if w=="\<CR>"|q|cal win_execute(getwininfo()->filter({v->v["quickfix"]})[0]["winid"],"norm! \<CR>")|cclose|break
+        elseif w=="\<ESC>"|q|cclose|break
+        elseif w=="\<C-n>"|cal win_execute(getwininfo()->filter({v->v["quickfix"]})[0]["winid"],"norm! j")
+        elseif w=="\<C-p>"|cal win_execute(getwininfo()->filter({v->v["quickfix"]})[0]["winid"],"norm! k")
+        elseif w=="\<C-w>"||w=="\<C-u>"|let t=""|cgetexpr t==""?a:files:matchfuzzy(a:files,t)
+        else|let t=t.w|cgetexpr t==""?a:files:matchfuzzy(a:files,t)
+        endif|cal setline(1,"> ".t)|redraw
+    endwhile|let &errorformat=tmp|colorscheme torte|sil! colorscheme habamax|e!
+endf " quickfixから移動した後、BufEnterが効かずsyntaxhighlightつかないのでe!する
 
 " ターミナル
 set splitbelow termwinkey=<C-e>
@@ -196,8 +144,7 @@ au ColorScheme * hi Operator ctermfg=170
 au ColorScheme * hi Keyword ctermfg=170
 au ColorScheme * hi Statement ctermfg=170
 au ColorScheme * hi Type ctermfg=180
-colorscheme torte
-sil! colorscheme habamax
+colorscheme torte|sil! colorscheme habamax
 au BufEnter *.js syn match GlobalOperator "+\|-\|\*\|/\|%\|\^\|<\|>\|&\||\|=\|?\|:\|!\|\~"
 au BufEnter *.js hi link GlobalOperator Operator
 au BufEnter *.js syn match GlobalNumber "[0-9]\+n\|[0-9]\+l"
