@@ -1,0 +1,124 @@
+# mise用の設定ファイル
+# ~/.config/mise/config.toml
+
+[tools]
+node = "24"
+
+
+# 一瞬で呼び出したい
+# yazi
+# eza
+# zoxide
+# lazygit
+# -> zshrcで関数を作成
+
+[tasks.test]
+run="echo ok"
+
+[tasks.lazydocker]
+description="Dockerの操作"
+run="""
+type lazydocker > /dev/null 2>&1 || brew install lazydocker
+CNT=$(ps aux | grep -c OrbStack)
+if [ $CNT -eq 1 ]; then
+    open -g /Applications/OrbStack.app
+    sleep 1
+    type genact > /dev/null 2>&1 || brew install genact
+    genact -s 10 --exit-after-modules 1 -m botnet
+    genact -s 10 --exit-after-modules 1 -m bruteforce
+fi
+lazydocker
+"""
+
+[tasks.lazysql]
+description="RDBMS操作"
+run="""
+type lazysql > /dev/null 2>&1 || brew install lazysql
+lazysql
+"""
+
+[tasks.ssh]
+description="SSH接続"
+run="""
+type gum > /dev/null 2>&1 || brew install gum
+if [ ! -f ~/.ssh/known_hosts ]; then
+    ssh $(gum input --prompt 'target. e.g.) github.com: ')
+else
+    ssh $(cat ~/.ssh/known_hosts | awk '{print $1}' | uniq | gum choose)
+fi
+"""
+
+[tasks.scp]
+description="SCP接続"
+run="""
+type termscp > /dev/null 2>&1 || brew install veeso/termscp/termscp
+termscp
+"""
+
+[tasks.top]
+description="PCの稼働状況"
+run="""
+type btm > /dev/null 2>&1 || brew install bottom
+btm --battery
+"""
+
+[tasks.ffmpeg]
+description="Gifの作成"
+run="""
+type ffmpeg > /dev/null 2>&1 || brew install ffmpeg
+type gum > /dev/null 2>&1 || brew install gum
+ffmpeg -i $(ls -A | gum choose) -r 10 $(gum input --prompt 'e.g.) test.gif: ')
+"""
+
+[tasks.fastfetch]
+description="OS情報"
+run="""
+type fastfetch > /dev/null 2>&1 || brew install fastfetch
+fastfetch
+"""
+
+[tasks.animation]
+description="アニメーション"
+run="""
+type genact > /dev/null 2>&1 || brew install genact
+genact -s 10 --exit-after-modules 1 -m botnet
+genact -s 10 --exit-after-modules 1 -m bruteforce
+type cmatrix > /dev/null 2>&1 || brew install cmatrix
+cmatrix
+"""
+
+[tasks.clock]
+description="時計"
+run="""
+type tty-clock > /dev/null 2>&1 || brew install tty-clock
+tty-clock
+"""
+
+[tasks.Azathoth]
+description="いれたコマンドを全て削除"
+run="""
+type gum > /dev/null 2>&1 || brew install gum
+if ! gum confirm; then
+    return
+fi
+gum spin --title "delete all installed brew" -- sleep 3
+brew list
+\rm -rf ~/.nvm
+\rm ~/.netrc
+# この辺を入れて使っているメモ代わり
+DEL=(gum
+zoxide fzf bat eza yazi
+lazygit lazydocker lazysql
+termscp
+bottom
+fastfetch genact cmatrix tty-clock
+ffmpeg
+zsh-syntax-highlighting zsh-autosuggestions powerlevel10k
+jq nmap gobuster
+)
+for v in ${DEL[@]}; do
+    brew uninstall $v
+done
+exec $SHELL -l
+"""
+
