@@ -5,18 +5,15 @@
 node = "24"
 
 
-# 一瞬で呼び出したい
-# yazi
-# eza
-# zoxide
-# lazygit
-# -> zshrcで関数を作成
+[env]
+_.path = [
+  "/opt/homebrew/bin",
+  "/opt/homebrew/bin/python3"
+]
 
-[tasks.test]
-run="echo ok"
 
 [tasks.lazydocker]
-description="Dockerの操作"
+description="Docker操作"
 run="""
 type lazydocker > /dev/null 2>&1 || brew install lazydocker
 CNT=$(ps aux | grep -c OrbStack)
@@ -94,31 +91,14 @@ type tty-clock > /dev/null 2>&1 || brew install tty-clock
 tty-clock
 """
 
-[tasks.Azathoth]
-description="いれたコマンドを全て削除"
-run="""
-type gum > /dev/null 2>&1 || brew install gum
-if ! gum confirm; then
-    return
-fi
-gum spin --title "delete all installed brew" -- sleep 3
-brew list
-\rm -rf ~/.nvm
-\rm ~/.netrc
-# この辺を入れて使っているメモ代わり
-DEL=(gum
-zoxide fzf bat eza yazi
-lazygit lazydocker lazysql
-termscp
-bottom
-fastfetch genact cmatrix tty-clock
-ffmpeg
-zsh-syntax-highlighting zsh-autosuggestions powerlevel10k
-jq nmap gobuster
-)
-for v in ${DEL[@]}; do
-    brew uninstall $v
-done
-exec $SHELL -l
-"""
+# 入れているbrewのメモ
+#gum
+#zoxide fzf bat eza yazi
+#lazygit lazydocker lazysql
+#termscp
+#bottom
+#fastfetch genact cmatrix tty-clock
+#ffmpeg
+#zsh-syntax-highlighting zsh-autosuggestions powerlevel10k
+#jq nmap gobuster
 
