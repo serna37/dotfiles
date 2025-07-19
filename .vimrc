@@ -18,12 +18,7 @@ inoremap <expr>] getline('.')[col('.')-1] == "]" ? "\<right>" : "]"
 inoremap <expr>} getline('.')[col('.')-1] == "}" ? "\<right>" : "}"
 inoremap <expr><BS> (len(getline('.'))>=col('.')&&match(["()", "[]", "{}", "``","''", '""'], getline('.')[col('.')-2:col('.')-1])!=-1)?(col('.')>1?"\<right>\<BS>\<BS>":"\<BS>"):"\<BS>"
 nnoremap vv ^v$h
-fu! s:autocomplete()
-    if pumvisible()|retu|endif
-    let prev_str=(slice(getline('.'),0,charcol('.')-1)..v:char)->substitute('.*[^[:keyword:]]','','')
-    if strchars(prev_str)<2|retu|endif|cal feedkeys("\<C-n>",'ni')
-endf
-au InsertCharPre * cal <SID>autocomplete()
+au InsertCharPre * if !pumvisible()|cal feedkeys("\<C-n>","ni")|endif
 inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 fu! s:indent()
