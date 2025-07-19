@@ -234,19 +234,20 @@ au ColorScheme * hi Operator ctermfg=170
 au ColorScheme * hi Keyword ctermfg=170
 au ColorScheme * hi Statement ctermfg=170
 au ColorScheme * hi Type ctermfg=180
-colorscheme habamax
-au BufEnter * syn match GlobalOperator "+\|-\|\*\|/\|%\|\^\|<\|>\|&\||\|=\|?\|:\|!\|\~"
-au BufEnter * hi link GlobalOperator Operator
-au BufEnter * syn match GlobalNumber "[0-9]\+n\|[0-9]\+l"
-au BufEnter * hi link GlobalNumber Number
-au BufEnter * syn match GlobalFunctionCall "\<\h\w*\>\s*("me=e-1 containedin=ALLBUT,GlobalComment
-au BufEnter * hi link GlobalFunctionCall Function
-au BufEnter * syn match GlobalComment "//.*$\|/\*.*$"
-au BufEnter * hi link GlobalComment Comment
-au BufEnter * syn match GlobalTodo "TODO\|XXX\|FIXME" containedin=GlobalComment
-au BufEnter * hi link GlobalTodo Todo
-au BufEnter * syn match GlobalSymbol "length\|console\|BigInt\|Math\|JSON"
-au BufEnter * hi link GlobalSymbol Type
+colorscheme torte
+sil! colorscheme habamax
+au BufEnter *.js syn match GlobalOperator "+\|-\|\*\|/\|%\|\^\|<\|>\|&\||\|=\|?\|:\|!\|\~"
+au BufEnter *.js hi link GlobalOperator Operator
+au BufEnter *.js syn match GlobalNumber "[0-9]\+n\|[0-9]\+l"
+au BufEnter *.js hi link GlobalNumber Number
+au BufEnter *.js syn match GlobalFunctionCall "\<\h\w*\>\s*("me=e-1 containedin=ALLBUT,GlobalComment
+au BufEnter *.js hi link GlobalFunctionCall Function
+au BufEnter *.js syn match GlobalComment "//.*$\|/\*.*$"
+au BufEnter *.js hi link GlobalComment Comment
+au BufEnter *.js syn match GlobalTodo "TODO\|XXX\|FIXME" containedin=GlobalComment
+au BufEnter *.js hi link GlobalTodo Todo
+au BufEnter *.js syn match GlobalSymbol "length\|console\|BigInt\|Math\|JSON"
+au BufEnter *.js hi link GlobalSymbol Type
 
 
 " 高機能(プラグイン) vim-plug導入コマンド
