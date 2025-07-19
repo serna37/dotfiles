@@ -61,6 +61,7 @@ set fileformat=unix fileencoding=utf8 noswapfile nobackup noundofile hidden auto
 ├── .vimrc        : vim設定
 ├── .wezterm.lua  : wezterm設定
 ├── .zshrc        : zsh設定
+├── config.toml   : mise設定(ツールバージョン・環境変数・カスタムコマンド)
 │
 └── install.sh    : インストーラ
 ```
