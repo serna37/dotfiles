@@ -1,5 +1,5 @@
 " 共通
-set fileformat=unix fileencoding=utf8 noswapfile nobackup noundofile hidden autoread clipboard+=unnamed background=dark title showcmd list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:% number relativenumber signcolumn=yes scrolloff=5 cursorline cursorcolumn ruler laststatus=2 showtabline=2 notitle splitright virtualedit=all whichwrap=b,s,h,l,<,>,[,],~ backspace=indent,eol,start showmatch matchtime=3 autoindent smarttab shiftwidth=4 tabstop=4 expandtab wildmenu wildchar=<Tab> wildmode=full complete=.,w,b,u,U,k,kspell,s,i,d,t completeopt=menuone,noinsert,preview incsearch hlsearch ignorecase smartcase shortmess-=S belloff=all ttyfast regexpengine=0 foldmethod=marker foldlevel=1 | let &titleold=getcwd() | syntax on | filetype plugin on | au QuickFixCmdPost *grep* cwindow
+set fileformat=unix fileencoding=utf8 noswapfile nobackup noundofile hidden autoread clipboard+=unnamed background=dark title showcmd list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:% number relativenumber signcolumn=yes scrolloff=5 cursorline cursorcolumn ruler laststatus=2 showtabline=2 notitle splitright virtualedit=all whichwrap=b,s,h,l,<,>,[,],~ backspace=indent,eol,start showmatch matchtime=3 autoindent smarttab shiftwidth=4 tabstop=4 expandtab wildmenu wildchar=<Tab> wildmode=full complete=.,w,b,u,U,k,kspell,s,i,d,t completeopt=menuone,noinsert,preview incsearch hlsearch ignorecase smartcase shortmess-=S belloff=all ttyfast regexpengine=0 foldmethod=marker foldlevel=1|let &titleold=getcwd()|syntax on|filetype plugin on|au QuickFixCmdPost *grep* cwindow
 
 
 " 編集
@@ -18,21 +18,10 @@ inoremap <expr>] getline('.')[col('.')-1] == "]" ? "\<right>" : "]"
 inoremap <expr>} getline('.')[col('.')-1] == "}" ? "\<right>" : "}"
 inoremap <expr><BS> (len(getline('.'))>=col('.')&&match(["()", "[]", "{}", "``","''", '""'], getline('.')[col('.')-2:col('.')-1])!=-1)?(col('.')>1?"\<right>\<BS>\<BS>":"\<BS>"):"\<BS>"
 nnoremap vv ^v$h
-fu! s:autocomplete()
-    if pumvisible()|retu|endif
-    if strchars((slice(getline('.'),0,charcol('.')-1)..v:char)->substitute('.*[^[:keyword:]]','',''))<2|retu|endif
-    cal feedkeys("\<C-n>",'ni')
-endf
-au InsertCharPre * cal <SID>autocomplete()
+au InsertCharPre * if !pumvisible()&&strchars((slice(getline('.'),0,charcol('.')-1)..v:char)->substitute('.*[^[:keyword:]]','',''))>1|cal feedkeys("\<C-n>",'ni')|endif
 inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-fu! s:indent()
-    if pumvisible()|retu "\<C-y>"|endif
-    if getline(".")[col(".")-1]=="}"&&getline(".")[col(".")-2]=="{"
-        retu "\<CR>\<CR>\<up>    "
-    else|retu "\<CR>"|endif
-endf
-inoremap <silent><expr><CR> <SID>indent()
+inoremap <silent><expr><CR> pumvisible()?"\<C-y>":getline(".")[col(".")-1]=="}"&&getline(".")[col(".")-2]=="{"?"\<CR>\<CR>\<up>    ":"\<CR>"
 
 
 " 移動
@@ -77,12 +66,7 @@ nnoremap <silent><Space>g :<C-u>exe "vim /".expand("<cword>")."/gj ".(system('gi
 nnoremap <silent>cn :<C-u>cn<CR>
 nnoremap <silent>cp :<C-u>cp<CR>
 au ColorScheme * hi CW ctermfg=none ctermbg=239
-fu! s:cursorHi()
-    if exists('w:w')&&w:w!=-1|sil! cal matchdelete(w:w)|let w:w=-1|endif
-    if exists('g:cw_tid')&&g:cw_tid!=-1|cal timer_stop(g:cw_tid)|endif
-    let g:cw_tid=timer_start(2000,{->execute("let w:w=matchadd('CW',expand('<cword>'),-1)")})
-endf
-au CursorMoved,CursorMovedI * cal <SID>cursorHi()
+au CursorMoved,CursorMovedI * if exists('w:w')&&w:w!=-1|sil! cal matchdelete(w:w)|let w:w=-1|endif|if exists('g:cw_tid')&&g:cw_tid!=-1|cal timer_stop(g:cw_tid)|endif|let g:cw_tid=timer_start(2000,{->execute("let w:w=matchadd('CW',expand('<cword>'),-1)")})
 nnoremap <silent><Space>f :<C-u>cal <SID>fzf(system(system('git status')=~'fatal'?"find . -type f":"git ls-files")->split('\n'))<CR>
 nnoremap <silent><Space>h :<C-u>cal <SID>fzf(execute('ol')->split('\n')->map({_,v->split(v,': ')[1]}))<CR>
 fu! s:fzf(files)
