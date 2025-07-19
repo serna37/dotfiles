@@ -18,7 +18,12 @@ inoremap <expr>] getline('.')[col('.')-1] == "]" ? "\<right>" : "]"
 inoremap <expr>} getline('.')[col('.')-1] == "}" ? "\<right>" : "}"
 inoremap <expr><BS> (len(getline('.'))>=col('.')&&match(["()", "[]", "{}", "``","''", '""'], getline('.')[col('.')-2:col('.')-1])!=-1)?(col('.')>1?"\<right>\<BS>\<BS>":"\<BS>"):"\<BS>"
 nnoremap vv ^v$h
-au InsertCharPre * if !pumvisible()|cal feedkeys("\<C-n>","ni")|endif
+fu! s:autocomplete()
+    if pumvisible()|retu|endif
+    if strchars((slice(getline('.'),0,charcol('.')-1)..v:char)->substitute('.*[^[:keyword:]]','',''))<2|retu|endif
+    cal feedkeys("\<C-n>",'ni')
+endf
+au InsertCharPre * cal <SID>autocomplete()
 inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 fu! s:indent()
@@ -49,11 +54,11 @@ nnoremap <silent><C-n> :<C-u>bp<CR>
 nnoremap <silent><C-p> :<C-u>bn<CR>
 nnoremap <silent><Space>x :<C-u>bd<CR>
 au BufRead * if line("'\"")>0&&line("'\"")<=line("$")|exe "norm g`\""|endif
-au ColorScheme * hi FC cterm=bold
+au ColorScheme * hi FC cterm=bold,underline
 au CursorMoved,CursorMovedI * if exists('w:f')&&w:f!=-1|sil! cal matchdelete(w:f)|let w:f=-1|endif|let w:f=matchadd('FC','\%'.line('.').'l\(\<\w\)',99)
 nnoremap <silent>f :<C-u>cal <SID>fmode(1)<CR>
 nnoremap <silent>F :<C-u>cal <SID>fmode(0)<CR>
-au ColorScheme * hi FChar ctermfg=155 cterm=bold,underline
+au ColorScheme * hi FChar ctermfg=155 ctermbg=240 cterm=bold,underline
 fu! s:fmode(vector)
     if !exists('w:fmode')||w:fmode==0|let w:fmode=1|let w:char=nr2char(getchar())| endif
     if exists('w:fmatch')&&w:fmatch!=-1|sil! cal matchdelete(w:fmatch)|let w:fmatch=-1|endif
@@ -63,117 +68,33 @@ fu! s:fmode(vector)
     let g:fmode_tid=timer_start(1000,{->execute("let w:fmode=0|sil! cal matchdelete(w:fmatch)")})
 endf
 
-" TODO リファクタ
-nnoremap <silent>s :<C-u>cal <SID>emotion()<CR>
-let s:emotion_keypos=[]|let s:emotion_klen=1|let g:emotion_keys = ['s','w','a','d','j','k','h','l']
-let s:emotion_popid=0
-fu! s:emotion()
-    let c1=nr2char(getchar())
-    let s:emotion_keypos=[]|let wininfo=[]|let tarcnt=0|let rn=line('w0')|let crn=line('.')|let s:emotion_klen=1
-    for l in getline('w0', 'w$')
-        if l !~ '^[ -~]\+$' | let rn+=1 | continue | endif
-        let chars = [] | let ofst = 0
-        while ofst != -1
-            let st = matchstrpos(l, '\<.', ofst) | let ofst = matchstrpos(l, '.\>', ofst)[2]
-            if st[0] != '' && st[0] ==# c1 | cal add(chars, st[2]) | endif
-        endwhile
-        if !empty(chars) | cal add(wininfo, #{row: rn, col: chars}) | endif
-        let tarcnt = tarcnt+len(chars) | let rn+=1
-    endfor
-    if tarcnt==0 | retu | endif
-    while tarcnt > pow(len(g:emotion_keys), s:emotion_klen) | let s:emotion_klen+=1 | endwhile
-    let keyOrder = range(1, s:emotion_klen)->map({->0})
-    for r in sort(deepcopy(wininfo), { x,y -> abs(x.row-crn) - abs(y.row-crn) })
-        let tmp = []
-        for col in r.col
-            cal add(tmp, #{key: copy(keyOrder)->map({i,v->g:emotion_keys[v]})->join(''), pos: col})
-            let keyOrder = s:incrementNOrder(len(g:emotion_keys)-1, keyOrder)
-        endfor
-        cal add(s:emotion_keypos, #{row: r.row, col: tmp})
-    endfor
-    for rn in range(line('w0'), line('w$')) | cal matchaddpos('EmotionBase', [rn], 200) | endfor
-    cal s:emotion_draw(s:emotion_keypos) | cal popup_close(s:emotion_popid)
-    let s:emotion_popid = popup_create('e-motion', #{line: &lines, col: &columns*-1, mapping: 0, filter: function('s:emotion_char_enter')})
-    cal win_execute(s:emotion_popid, "mapclear <buffer>") | echo ''
-endf
-fu! s:incrementNOrder(nOrder, keyOrder)
-    if len(a:keyOrder) == 1 | retu [a:keyOrder[0]+1] | endif
-    let tmp = [] | let overflow = 0
-    for idx in reverse(range(0, len(a:keyOrder)-1))
-        if idx == len(a:keyOrder)-1
-            cal insert(tmp, a:keyOrder[idx] == a:nOrder ? 0 : a:keyOrder[idx]+1)
-            if tmp[0] == 0 | let overflow = 1 | endif | continue
-        endif
-        if overflow
-            cal insert(tmp, a:keyOrder[idx] == a:nOrder ? 0 : a:keyOrder[idx]+1)
-            let overflow = a:keyOrder[idx] == a:nOrder ? 1 : 0
-        else
-            cal insert(tmp, a:keyOrder[idx])
-        endif
-    endfor
-    retu tmp
-endf
-au ColorScheme * hi EmotionBase ctermfg=59
-au ColorScheme * hi EmotionWip ctermfg=166 cterm=bold
-au ColorScheme * hi EmotionFin ctermfg=196 cterm=bold
-fu! s:hiResetAll(group_name)
-    cal getmatches()->filter({ _,v -> v.group == a:group_name })->map('execute("cal matchdelete(v:val.id)")')
-endf
-fu! s:emotion_draw(keypos)
-    cal s:hiResetAll('EmotionFin') | cal s:hiResetAll('EmotionWip')
-    let hlpos_wip = [] | let hlpos_fin = []
-    for r in a:keypos | let line = getline(r.row)
-        for c in r.col
-            let colidx = c.pos-1 | let view_keystroke = c.key[:0] | let offset = colidx-1
-            cal add(hlpos_fin, [r.row, c.pos])
-            if len(c.key)>=2
-                let view_keystroke = c.key[:1]
-                cal add(hlpos_wip, [r.row, c.pos, 2])
-            endif
-            let line = colidx == 0
-                        \ ? view_keystroke.line[len(view_keystroke):]
-                        \ : line[0:offset].view_keystroke.line[colidx+len(view_keystroke):]
-        endfor
-        cal setline(r.row, line)
-    endfor
-    for t in hlpos_fin | cal matchaddpos('EmotionFin', [t], 201) | endfor
-    for t in hlpos_wip | cal matchaddpos('EmotionWip', [t], 202) | endfor
-endf
-fu! s:emotion_char_enter(winid, key)
-    if g:emotion_keys->index(a:key) == -1
-        cal popup_close(s:emotion_popid) | let p = getpos('.') | u | cal cursor(p[1],p[2])
-        cal s:hiResetAll('EmotionFin') | cal s:hiResetAll('EmotionWip') | cal s:hiResetAll('EmotionBase')
-        echohl Special | echo 'e-motion: go out' | echohl None | retu 1
-    endif
-    let tmp = s:emotion_keypos->deepcopy()->map({ _,r -> #{row: r.row,
-                \col: r.col->filter({_,v->v.key[0]==a:key})->map({_,v->#{key: v.key[1:], pos: v.pos}})} })
-                \->filter({_,v->!empty(v.col)})
-    if empty(tmp) | retu 1 | else | let s:emotion_keypos = tmp | endif
-    if len(s:emotion_keypos) == 1 && len(s:emotion_keypos[0].col) == 1
-        cal popup_close(s:emotion_popid) | u | cal cursor(s:emotion_keypos[0].row, s:emotion_keypos[0].col[0].pos)
-        cal s:hiResetAll('EmotionFin') | cal s:hiResetAll('EmotionWip') | cal s:hiResetAll('EmotionBase')
-        echohl Special | echo 'e-motion: finish' | echohl None | retu 1
-    endif
-    let p = getpos('.') | u | cal cursor(p[1],p[2]) | echo '' | cal s:emotion_draw(s:emotion_keypos)
-    retu 1
-endf
-
 
 " 検索
-nnoremap # *N
+nnoremap # *Nzz
 au ColorScheme * hi Search cterm=bold ctermfg=16 ctermbg=153
 nnoremap <silent><Space>q :<C-u>noh<CR>
 nnoremap <silent><Space>g :<C-u>exe "vim /".expand("<cword>")."/gj ".(system('git status')=~'fatal'?'** **/.':join(split(system('git ls-files'))))<CR>:echo "Quickfix移動:cn cp"<CR>
 nnoremap <silent>cn :<C-u>cn<CR>
 nnoremap <silent>cp :<C-u>cp<CR>
+au ColorScheme * hi CW ctermfg=none ctermbg=238
+fu! s:cursorHighlight()
+    let w:w=matchadd('CW','\<\V'.escape(expand('<cword>'),'.*^$/\[]').'\>',-1)
+endf
+fu! s:cursorHi()
+    if exists('w:w')&&w:w!=-1|sil! cal matchdelete(w:w)|let w:w=-1|endif
+    if exists('g:cw_itd')&&g:cw_itd!=-1|cal timer_stop(g:cw_itd)|endif
+    let g:cw_itd=timer_start(2000,{->execute("cal s:cursorHighlight()")})
+endf
+au CursorMoved,CursorMovedI * cal <SID>cursorHi()
 nnoremap <silent><Space>f :<C-u>cal <SID>fzf(system(system('git status')=~'fatal'?"find . -type f":"git ls-files")->split('\n'))<CR>
 nnoremap <silent><Space>h :<C-u>cal <SID>fzf(execute('ol')->split('\n')->map({_,v->split(v,': ')[1]}))<CR>
 au ColorScheme * hi FzfCurLine ctermfg=235 ctermbg=114
+" TODO popupが使えないことを考慮して、quickfixに流せないか検討してみる
 fu! s:fzf(files)
     let g:fzf_query=[]|let g:fzf_cur=0|let g:fzf_files=a:files|let g:fzf_matches=g:fzf_files[0:29]
-    let g:fzf_wid=popup_create(g:fzf_files[0:29],#{title:"",zindex:99,line:18,col:50,minwidth:100,maxwidth:100,minheight:30,maxheight:30,border:[],borderchars:['─','│','─','│','╭','╮','╯','╰']})
+    "let g:fzf_wid=popup_create(g:fzf_files[0:29],#{title:"",zindex:99,line:18,col:50,minwidth:100,maxwidth:100,minheight:30,maxheight:30,border:[],borderchars:['─','│','─','│','╭','╮','╯','╰']})
     let g:fzf_q_wid=popup_create("",#{title:"fzf",zindex:100,line:15,col:50,minwidth:100,maxwidth:100,minheight:1,maxheight:1,border:[],borderchars:['─','│','─','│','╭','╮','╯','╰'],mapping:0,filter:function('s:fzf_filter')})
-    let g:match_id=matchaddpos('FzfCurLine',[[g:fzf_cur+1]],10,-1,{'window':g:fzf_wid})
+    "let g:match_id=matchaddpos('FzfCurLine',[[g:fzf_cur+1]],10,-1,{'window':g:fzf_wid})
 endf
 fu! s:fzf_filter(winid, key)
     if a:key=="\<CR>"|cal popup_clear()|exe "e ".g:fzf_matches[g:fzf_cur]|retu 1
@@ -185,9 +106,14 @@ fu! s:fzf_filter(winid, key)
     else|cal add(g:fzf_query,a:key)|endif
     let g:fzf_matches=empty(g:fzf_query)?g:fzf_files[0:29]:matchfuzzy(g:fzf_files,join(g:fzf_query,''))[0:29]
     if len(g:fzf_matches)-1<g:fzf_cur|let g:fzf_cur=0|endif
-    if g:match_id!=-1|sil! cal matchdelete(g:match_id,g:fzf_wid)|endif
-    let g:match_id=matchaddpos('FzfCurLine',[[g:fzf_cur+1]],10,-1,{'window':g:fzf_wid})
-    cal popup_settext(g:fzf_q_wid,join(g:fzf_query,''))|cal popup_settext(g:fzf_wid,g:fzf_matches)
+    "if g:match_id!=-1|sil! cal matchdelete(g:match_id,g:fzf_wid)|endif
+    "let g:match_id=matchaddpos('FzfCurLine',[[g:fzf_cur+1]],10,-1,{'window':g:fzf_wid})
+    cal popup_settext(g:fzf_q_wid,join(g:fzf_query,''))
+    "cal popup_settext(g:fzf_wid,g:fzf_matches)
+    let tmp = &errorformat
+    let &errorformat = '%f'
+    cgetexpr g:fzf_matches | cw
+    let &errorformat = tmp
     retu 1
 endf
 
