@@ -36,10 +36,6 @@ alias re='exec $SHELL -l'
 # exit
 alias q='exit'
 
-# python3を使う
-alias python='python3'
-alias pip='python3 -m pip'
-
 # miseで入れたツールのパスを通す
 eval "$(mise activate zsh)"
 alias dev='mise run'

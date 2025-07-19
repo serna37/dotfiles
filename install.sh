@@ -4,7 +4,7 @@
 export PATH="$PATH:/opt/homebrew/bin/"
 
 # 必要なコマンド等を入れる
-REPOS=(vim git mise mas python3 sqlite)
+REPOS=(vim git mise mas sqlite)
 for v in ${REPOS[@]}; do
     brew reinstall $v
     wait $!
@@ -43,21 +43,21 @@ mkdir -p ~/.config/mise
 ln -nfs ~/git/dotfiles/config.toml ~/.config/mise/config.toml
 
 # TODO けすかも
-if [ ! -L ~/.vim/coc-settings.json ]; then
-    # coc用設定
-    mkdir -p ~/.vim > /dev/null 2>&1
-    ln -nfs ~/git/dotfiles/conf/vim/coc-settings.json ~/.vim/coc-settings.json
-fi
+#if [ ! -L ~/.vim/coc-settings.json ]; then
+#    # coc用設定
+#    mkdir -p ~/.vim > /dev/null 2>&1
+#    ln -nfs ~/git/dotfiles/conf/vim/coc-settings.json ~/.vim/coc-settings.json
+#fi
 
 # TODO けすかも
-if [ ! -d ~/.vim/UltiSnips ]; then
-    # snippets
-    mkdir -p ~/.vim/UltiSnips > /dev/null 2>&1
-    ln -nfs ~/git/dotfiles/conf/cpp/snippets/* ~/.vim/UltiSnips/
-    zsh ~/git/dotfiles/conf/cpp/library.zsh
-    # TODO library更新時、新規ファイルのリンクがない
-    ln -nfs ~/git/dotfiles/conf/snippets/* ~/.vim/UltiSnips/
-fi
+#if [ ! -d ~/.vim/UltiSnips ]; then
+#    # snippets
+#    mkdir -p ~/.vim/UltiSnips > /dev/null 2>&1
+#    ln -nfs ~/git/dotfiles/conf/cpp/snippets/* ~/.vim/UltiSnips/
+#    zsh ~/git/dotfiles/conf/cpp/library.zsh
+#    # TODO library更新時、新規ファイルのリンクがない
+#    ln -nfs ~/git/dotfiles/conf/snippets/* ~/.vim/UltiSnips/
+#fi
 
 # fontを入れる 三角のやつ
 cd ~/git

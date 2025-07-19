@@ -3,14 +3,20 @@
 
 [tools]
 node = "24"
+python = "3"
 
 
 [env]
 _.path = [
   "/opt/homebrew/bin",
-  "/opt/homebrew/bin/python3"
 ]
 
+
+[tasks.tool-install]
+description="mise経由でツールを入れます"
+run="""
+mise install
+"""
 
 [tasks.lazydocker]
 description="Docker操作"
