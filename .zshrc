@@ -1,31 +1,4 @@
 clear
-echo -e "\e[34m-------------------------------------------------------------------\e[m"
-echo -e "\e[34m[ LOAD START ] ~/.zshrc\e[m"
-
-# ====================================
-# 環境設定
-# Homebrew, Nodejs, Python
-# ====================================
-# Homebrew
-export PATH="$PATH:/opt/homebrew/bin/"
-# Python
-export PATH="$PATH:/opt/homebrew/bin/python3"
-alias python='python3'
-alias pip='python3 -m pip'
-# nvm
-# TODO ここに記述をしたくないので、別の管理コマンドにしたい
-export NVM_DIR="$HOME/.nvm"
-if [ ! -d $HOME/.nvm ]; then
-    echo -e "\e[34m [INFO] install nvm\e[m"
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-    nvm install stable --latest-npm
-    nvm alias default stable
-fi
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 
 # ====================================
 # プロンプト設定
@@ -40,21 +13,18 @@ setopt no_beep
 
 # シンタックスハイライト
 if [ ! -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    echo -e "\e[34m [INFO] install zsh-syntax-highlighting\e[m"
     brew install zsh-syntax-highlighting
 fi
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # コマンド補完 →キーで補完する
 if [ ! -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-    echo -e "\e[34m [INFO] install zsh-autosuggestions\e[m"
     brew install zsh-autosuggestions
 fi
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # 外観
 if [ ! -f /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme ]; then
-    echo -e "\e[34m [INFO] install powerlevel10k\e[m"
     brew install powerlevel10k
 fi
 source /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme
@@ -72,11 +42,13 @@ alias re='exec $SHELL -l'
 # exit
 alias q='exit'
 
-# vim コメント行から改行した際、次の行をコメントにしない設定
-mkdir -p ~/.vim/after/plugin
-cat << "EOF" > ~/.vim/after/plugin/common-settings.vim
-au FileType * setlocal formatoptions-=ro
-EOF
+# python3を使う
+alias python='python3'
+alias pip='python3 -m pip'
+
+# miseで入れたツールのパスを通す
+eval "$(mise activate zsh)"
+alias dev='mise run'
 
 # zoxide
 # + eza fzf bat
@@ -98,12 +70,7 @@ export _ZO_FZF_OPTS='
 '
 alias z='_zoxide'
 
-# yazi エクスプローラ
-mkdir -p ~/.config/yazi
-cat << "EOF" > ~/.config/yazi/yazi.toml
-[manager]
-show_hidden = true
-EOF
+# yazi
 function e() {
     type yazi > /dev/null 2>&1 || brew install yazi
     yazi
@@ -115,8 +82,31 @@ function l() {
     eza -abghHliS --icons --git $@
 }
 
-# lazygit + git設定
-cat << "EOF" > ~/.gitconfig
+# lazygit
+function g() {
+    type lazygit > /dev/null 2>&1 || brew install lazygit
+    lazygit
+}
+
+# ====================================
+# 設定ファイルの書き出し
+# ====================================
+
+# vim コメント行から改行した際、次の行をコメントにしない設定
+mkdir -p ~/.vim/after/plugin
+cat - << "EOF" > ~/.vim/after/plugin/common-settings.vim
+au FileType * setlocal formatoptions-=ro
+EOF
+
+# yaziの設定
+mkdir -p ~/.config/yazi
+cat - << "EOF" > ~/.config/yazi/yazi.toml
+[manager]
+show_hidden = true
+EOF
+
+# git設定
+cat - << "EOF" > ~/.gitconfig
 [user]
     name = さーな
     email = 37serna37serna37serna@gmail.com
@@ -124,28 +114,10 @@ cat << "EOF" > ~/.gitconfig
 [credential]
     helper = osxkeychain
 EOF
-function g() {
-    type lazygit > /dev/null 2>&1 || brew install lazygit
-    lazygit
-}
 
-# lazydocker + orbstack起動
-function d() {
-    type lazydocker > /dev/null 2>&1 || brew install lazydocker
-    CNT=$(ps aux | grep -c OrbStack)
-    if [ $CNT -eq 1 ]; then
-        open -g /Applications/OrbStack.app
-        sleep 1
-        type genact > /dev/null 2>&1 || brew install genact
-        genact -s 10 --exit-after-modules 1 -m botnet
-        genact -s 10 --exit-after-modules 1 -m bruteforce
-    fi
-    lazydocker
-}
-
-# ssh / termscp 接続 + 接続設定
+# ssh接続設定
 mkdir -p ~/.ssh
-cat << "EOF" > ~/.ssh/config
+cat - << "EOF" > ~/.ssh/config
 # Added by OrbStack
 # This only works if it's at the top of ssh_config (before any Host blocks).
 Include ~/.orbstack/ssh/config
@@ -161,93 +133,6 @@ Host *
   AddKeysToAgent yes
   UseKeychain yes
 EOF
-function s() {
-    if [ "$1" = "ssh" ]; then
-        type gum > /dev/null 2>&1 || brew install gum
-        if [ ! -f ~/.ssh/known_hosts ]; then
-            ssh $(gum input --prompt 'target. e.g.) github.com: ')
-        else
-            ssh $(cat ~/.ssh/known_hosts | awk '{print $1}' | uniq | gum choose)
-        fi
-    fi
-    if [ "$1" = "scp" ]; then
-        type termscp > /dev/null 2>&1 || brew install veeso/termscp/termscp
-        termscp
-    fi
-}
-function _s() { _values '' 'ssh[ssh接続]' 'scp[scp接続]' }
-compdef _s s
 
-# lazysql
-function db() {
-    type lazysql > /dev/null 2>&1 || brew install lazysql
-    lazysql
-}
-
-# top → bottomを使用
-function top() {
-    type btm > /dev/null 2>&1 || brew install bottom
-    btm --battery
-}
-
-# fastfetch
-function os() {
-    type fastfetch > /dev/null 2>&1 || brew install fastfetch
-    fastfetch
-}
-
-# ハック+マトリックスのアニメ
-function c() {
-    type genact > /dev/null 2>&1 || brew install genact
-    genact -s 10 --exit-after-modules 1 -m botnet
-    genact -s 10 --exit-after-modules 1 -m bruteforce
-    type cmatrix > /dev/null 2>&1 || brew install cmatrix
-    cmatrix
-}
-
-# 時計
-function clock() {
-    type tty-clock > /dev/null 2>&1 || brew install tty-clock
-    tty-clock
-}
-
-# Gif作成コマンド
-function gif() {
-    type ffmpeg > /dev/null 2>&1 || brew install ffmpeg
-    type gum > /dev/null 2>&1 || brew install gum
-    ffmpeg -i $(ls -A | gum choose) -r 10 $(gum input --prompt 'e.g.) test.gif: ')
-}
-
-# 入れたコマンドを全部消す
-function Azathoth() {
-    type gum > /dev/null 2>&1 || brew install gum
-    if ! gum confirm; then
-        return
-    fi
-    gum spin --title "delete all installed brew" -- sleep 3
-    brew list
-    \rm -rf ~/.nvm
-    \rm ~/.netrc
-    # この辺を入れて使っているメモ代わり
-    DEL=(gum
-    zoxide fzf bat eza yazi
-    lazygit lazydocker lazysql
-    termscp
-    bottom
-    fastfetch genact cmatrix tty-clock
-    ffmpeg
-    zsh-syntax-highlighting zsh-autosuggestions powerlevel10k
-    jq nmap gobuster
-    )
-    for v in ${DEL[@]}; do
-        brew uninstall $v
-    done
-    exec $SHELL -l
-}
-
-
-echo -e "\e[34m>> Enhanced  Commands\e[m"
-echo -e "   \e[35m(file) \e[32mz e l \e[35m(tool)\e[33m g d s db \e[35m(visual)\e[36m top os c clock gif \e[35m(oblivion)\e[31m Azathoth\e[m"
-echo -e "\e[34m[ LOAD  DONE ] ~/.zshrc\e[m"
-echo -e "\e[34m-------------------------------------------------------------------\e[m"
+echo -e "\e[34mCommands \e[35m(file)\e[32m z e l \e[35m(tool)\e[33m g dev\e[m"
 
