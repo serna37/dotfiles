@@ -92,10 +92,10 @@ fu! s:fzf(files)
     let t=""|cal setline(1,"> ".t)|redraw
     while 1
         let w=nr2char(getchar())
-        if w=="\<CR>"|q|cal win_execute(getwininfo()->filter({v->v["quickfix"]})[0]["winid"],"norm! \<CR>")|cclose|break
+        if w=="\<CR>"|q|cal win_execute(getwininfo()->filter({i,v->v.quickfix})[0].winid,"norm! \<CR>")|cclose|break
         elseif w=="\<ESC>"|q|cclose|break
-        elseif w=="\<C-n>"|cal win_execute(getwininfo()->filter({v->v["quickfix"]})[0]["winid"],"norm! j")
-        elseif w=="\<C-p>"|cal win_execute(getwininfo()->filter({v->v["quickfix"]})[0]["winid"],"norm! k")
+        elseif w=="\<C-n>"|cal win_execute(getwininfo()->filter({i,v->v.quickfix})[0].winid,"norm! j")
+        elseif w=="\<C-p>"|cal win_execute(getwininfo()->filter({i,v->v.quickfix})[0].winid,"norm! k")
         elseif w=="\<C-w>"||w=="\<C-u>"|let t=""|cgetexpr t==""?a:files:matchfuzzy(a:files,t)
         else|let t=t.w|cgetexpr t==""?a:files:matchfuzzy(a:files,t)
         endif|cal setline(1,"> ".t)|redraw
