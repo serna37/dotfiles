@@ -88,7 +88,13 @@ cmatrix
 description="時計"
 run="""
 type tty-clock > /dev/null 2>&1 || brew install tty-clock
-tty-clock
+tty-clock -sSx
+"""
+
+[tasks.dummy]
+description="なにもしない。やっぱやめたいだけ。"
+run="""
+:
 """
 
 # 入れているbrewのメモ
