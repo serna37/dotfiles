@@ -86,6 +86,7 @@ fu! s:fzf(files)
     endwhile|let &errorformat=tmp|colorscheme torte|sil! colorscheme habamax|e!
 endf " quickfixから移動した後、BufEnterが効かずsyntaxhighlightつかないのでe!する
 
+
 " ターミナル
 set splitbelow termwinkey=<C-e>
 tnoremap <silent><C-n> <C-e>N
