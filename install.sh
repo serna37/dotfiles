@@ -84,7 +84,11 @@ git config --global credential.helper osxkeychain
 # Finderのキルを有効化するコマンド
 defaults write com.apple.Finder QuitMenuItem -boolean true
 # Finderが.DS_sotreを作らないようにするコマンド
-defaults write com.apple.desktopservices DSDontWriteNetworkStores True
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+# デフォルトで隠しファイルを表示する
+defaults write com.apple.finder AppleShowAllFiles -bool true
+
 
 # shell再起動
 exec $SHELL -l

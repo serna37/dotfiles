@@ -17,7 +17,12 @@
 - lazyinstall式を採用しており、初期投入以外のコマンドは、必要な時にinstallされます
 - zshrc中で、必要に応じて設定ファイルが作成されます
 
-まずはHomebrewを導入します(sudo権限承認が必要です)
+まずは`Command Line Tools`を導入します
+```shell
+xcode-select --install
+```
+
+続いてHomebrewを導入します(sudo権限承認が必要です)
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
@@ -28,16 +33,17 @@
 ```
 
 ## 一時コピペ用
-- zsh
-```zsh
+- shell
+```shell
 alias l='ls -AFlihrt --color=auto'
 alias tree="pwd;find . | sort | sed '1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'"
 alias rm='rm -i'
+alias re='exec $SHELL -l'
 alias q='exit'
 ```
 - vim
 ```vim
-set fileformat=unix fileencoding=utf8 noswapfile nobackup noundofile hidden autoread clipboard+=unnamed background=dark title showcmd list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:% number relativenumber signcolumn=yes scrolloff=5 cursorline cursorcolumn ruler laststatus=2 showtabline=2 notitle splitright virtualedit=all whichwrap=b,s,h,l,<,>,[,],~ backspace=indent,eol,start showmatch matchtime=3 autoindent smartindent smarttab shiftwidth=4 tabstop=4 expandtab wildmenu wildchar=<Tab> wildmode=full complete=.,w,b,u,U,k,kspell,s,i,d,t completeopt=menuone,noinsert,preview,popup incsearch hlsearch ignorecase smartcase shortmess-=S belloff=all ttyfast regexpengine=0 foldmethod=marker foldlevel=1 | let &titleold=getcwd() | syntax on | filetype plugin on | au QuickFixCmdPost *grep* cwindow
+set fileformat=unix fileencoding=utf8 noswapfile nobackup noundofile hidden autoread clipboard+=unnamed background=dark showcmd list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:% number relativenumber signcolumn=yes scrolloff=5 cursorline cursorcolumn ruler laststatus=2 showtabline=2 notitle splitright virtualedit=all whichwrap=b,s,h,l,<,>,[,],~ backspace=indent,eol,start showmatch matchtime=3 autoindent smarttab shiftwidth=4 tabstop=4 expandtab wildmenu wildchar=<Tab> wildmode=full complete=.,w,b,u,U,k,kspell,s,i,d,t completeopt=menuone,noinsert,preview incsearch hlsearch ignorecase smartcase shortmess-=S belloff=all ttyfast regexpengine=0 foldmethod=marker foldlevel=1|let &titleold=getcwd()|syntax on|filetype plugin on|au QuickFixCmdPost *grep* cwindow
 ```
 
 ## 関連
@@ -70,12 +76,4 @@ set fileformat=unix fileencoding=utf8 noswapfile nobackup noundofile hidden auto
 
 > [!Note]
 > - コードの署名: [参考](https://blog.symdon.info/posts/1610113408/)
-> - Finderのキルを有効化するコマンド
-> ```
-> defaults write com.apple.Finder QuitMenuItem -boolean true
-> ```
-> - Finderが`.DS_sotre`を作らないようにするコマンド
-> ```
-> defaults write com.apple.desktopservices DSDontWriteNetworkStores True
-> ```
 
