@@ -4,7 +4,7 @@
 export PATH="$PATH:/opt/homebrew/bin/"
 
 # 必要なコマンド等を入れる
-REPOS=(vim git mise mas sqlite)
+REPOS=(vim git mas sqlite)
 for v in ${REPOS[@]}; do
     brew reinstall $v
     wait $!

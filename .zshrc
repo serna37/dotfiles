@@ -3,13 +3,13 @@ clear
 # ====================================
 # プロンプト設定
 # ====================================
-# zshの補完
-autoload -Uz compinit
-compinit
-
 HISTSIZE=1000
 SAVEHIST=1000
 setopt no_beep
+
+# zshの補完
+autoload -Uz compinit
+compinit
 
 # シンタックスハイライト
 [[ ! -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && brew install zsh-syntax-highlighting
@@ -29,54 +29,28 @@ source /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-the
 # カスタムコマンド・ツール
 # ====================================
 
-# rmのセーフガード
+eval "$(zoxide init zsh)"
+eval "$(mise activate zsh)"
+
+export _ZO_FZF_OPTS='
+--no-sort --height 75% --reverse --margin=0,1 --exit-0 --select-1
+--prompt="❯ "
+--color bg+:#262626,fg+:#dadada,hl:#f09479,hl+:#f09479
+--color border:#303030,info:#cfcfb0,header:#80a0ff,spinner:#36c692
+--color prompt:#87afff,pointer:#ff5189,marker:#f09479
+--preview "([[ -e '{2..}/README.md' ]] && bat --color=always --style=numbers --line-range=:50 '{2..}/README.md') || eza --color=always --group-directories-first --oneline {2..}"
+'
+
+alias z='type zoxide > /dev/null 2>&1 || brew install zoxide; type eza > /dev/null 2>&1 || brew install eza; type fzf > /dev/null 2>&1 || brew install fzf; type bat > /dev/null 2>&1 || brew install bat; zi'
+alias e="type yazi > /dev/null 2>&1 || brew install yazi; yazi"
+alias l="type eza > /dev/null 2>&1 || brew install eza; eza -abghHliS --icons --git"
+alias g="type lazygit > /dev/null 2>&1 || brew install lazygit; lazygit"
+alias dev="type mise > /dev/null 2>&1 || brew install mise; mise run"
+
 alias rm='rm -i'
-# shell再起動
 alias re='exec $SHELL -l'
-# exit
 alias q='exit'
 
-# miseで入れたツールのパスを通す
-eval "$(mise activate zsh)"
-alias dev='mise run'
-
-# zoxide
-# + eza fzf bat
-function _zoxide() {
-    type zoxide > /dev/null 2>&1 || brew install zoxide
-    type eza > /dev/null 2>&1 || brew install eza
-    type fzf > /dev/null 2>&1 || brew install fzf
-    type bat > /dev/null 2>&1 || brew install bat
-    eval "$(zoxide init zsh)"
-    zi
-}
-export _ZO_FZF_OPTS='
-    --no-sort --height 75% --reverse --margin=0,1 --exit-0 --select-1
-    --prompt="❯ "
-    --color bg+:#262626,fg+:#dadada,hl:#f09479,hl+:#f09479
-    --color border:#303030,info:#cfcfb0,header:#80a0ff,spinner:#36c692
-    --color prompt:#87afff,pointer:#ff5189,marker:#f09479
-    --preview "([[ -e '{2..}/README.md' ]] && bat --color=always --style=numbers --line-range=:50 '{2..}/README.md') || eza --color=always --group-directories-first --oneline {2..}"
-'
-alias z='_zoxide'
-
-# yazi
-function e() {
-    type yazi > /dev/null 2>&1 || brew install yazi
-    yazi
-}
-
-# eza (ls -AFGlihrt --color=auto)
-function l() {
-    type eza > /dev/null 2>&1 || brew install eza
-    eza -abghHliS --icons --git $@
-}
-
-# lazygit
-function g() {
-    type lazygit > /dev/null 2>&1 || brew install lazygit
-    lazygit
-}
 
 # ====================================
 # 設定ファイルの書き出し
@@ -124,5 +98,5 @@ Host *
   UseKeychain yes
 EOF
 
-echo -e "\e[34mCommands \e[35m(file)\e[32m z e l \e[35m(tool)\e[33m g dev\e[m"
+echo -e "\e[34mCommands:\e[32m z e l g dev\e[m"
 
