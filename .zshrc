@@ -29,8 +29,8 @@ source /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-the
 # カスタムコマンド・ツール
 # ====================================
 
-eval "$(zoxide init zsh)"
-eval "$(mise activate zsh)"
+type zoxide > /dev/null && eval "$(zoxide init zsh)"
+type mise > /dev/null && eval "$(mise activate zsh)"
 
 export _ZO_FZF_OPTS='
 --no-sort --height 75% --reverse --margin=0,1 --exit-0 --select-1
@@ -41,11 +41,11 @@ export _ZO_FZF_OPTS='
 --preview "([[ -e '{2..}/README.md' ]] && bat --color=always --style=numbers --line-range=:50 '{2..}/README.md') || eza --color=always --group-directories-first --oneline {2..}"
 '
 
-alias z='type zoxide > /dev/null 2>&1 || brew install zoxide; type eza > /dev/null 2>&1 || brew install eza; type fzf > /dev/null 2>&1 || brew install fzf; type bat > /dev/null 2>&1 || brew install bat; zi'
-alias e="type yazi > /dev/null 2>&1 || brew install yazi; yazi"
-alias l="type eza > /dev/null 2>&1 || brew install eza; eza -abghHliS --icons --git"
-alias g="type lazygit > /dev/null 2>&1 || brew install lazygit; lazygit"
-alias dev="type mise > /dev/null 2>&1 || brew install mise; mise run"
+alias z='type zoxide > /dev/null 2>&1 || brew install zoxide; eval "$(zoxide init zsh)"; type eza > /dev/null 2>&1 || brew install eza; type fzf > /dev/null 2>&1 || brew install fzf; type bat > /dev/null 2>&1 || brew install bat; zi'
+alias e='type yazi > /dev/null 2>&1 || brew install yazi; yazi'
+alias l='type eza > /dev/null 2>&1 || brew install eza; eza -abghHliS --icons --git'
+alias g='type lazygit > /dev/null 2>&1 || brew install lazygit; lazygit'
+alias dev='type mise > /dev/null 2>&1 || brew install mise; eval "$(mise activate zsh)"; mise run'
 
 alias rm='rm -i'
 alias re='exec $SHELL -l'
