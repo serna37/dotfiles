@@ -17,6 +17,10 @@
 - lazyinstall式を採用しており、初期投入以外のコマンドは、必要な時にinstallされます
 - zshrc中で、必要に応じて設定ファイルが作成されます
 
+> [!Note]
+> 以下でchromeも入れるので、最初の環境構築時は
+> 手打ちでコマンド実行でもOK
+
 まずは`Command Line Tools`を導入します
 ```shell
 xcode-select --install
