@@ -65,6 +65,13 @@ type btm > /dev/null 2>&1 || brew install bottom
 btm --battery
 """
 
+[tasks.df]
+description="ディスク容量の管理"
+run="""
+type duf > /dev/null 2>&1 || brew install duf
+duf --all
+"""
+
 [tasks.ffmpeg]
 description="Gifの作成"
 run="""
