@@ -18,6 +18,12 @@ run="""
 mise install
 """
 
+[tasks.chrome]
+description="Chromeを開く"
+run="""
+open '/Applications/Google Chrome.app'
+"""
+
 [tasks.lazydocker]
 description="Docker操作"
 run="""
