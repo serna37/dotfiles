@@ -27,6 +27,7 @@ open -a 'Google Chrome.app'
 [tasks.app]
 description="AppをFZFで開く"
 run="""
+type fzf > /dev/null 2>&1 || brew install fzf
 open -a "$(ls /Applications | fzf)"
 """
 
@@ -122,14 +123,26 @@ run="""
 :
 """
 
+[tasks.Azathoth]
+description="全てのコマンドを破壊"
 # 入れているbrewのメモ
-#gum
-#zoxide fzf bat eza yazi
-#lazygit lazydocker lazysql
-#termscp
-#bottom
-#fastfetch genact cmatrix tty-clock
-#ffmpeg
-#zsh-syntax-highlighting zsh-autosuggestions powerlevel10k
-#jq nmap gobuster
+run="""
+type gum > /dev/null 2>&1 || brew install gum
+if ! gum confirm; then
+    return
+fi
+brew list
+DEL=(
+mise gum zoxide fzf bat eza yazi
+lazygit lazydocker lazysql
+termscp bottom duf ffmpeg
+fastfetch genact cmatrix tty-clock
+zsh-syntax-highlighting zsh-autosuggestions powerlevel10k
+jq nmap gobuster
+)
+for v in ${DEL[@]}; do
+    brew uninstall $v 2>/dev/null
+done
+"""
+
 
