@@ -71,6 +71,14 @@ type termscp > /dev/null 2>&1 || brew install veeso/termscp/termscp
 termscp
 """
 
+# TODO なんか起動できない
+[tasks.termshark]
+description="WiresharkのTUI"
+run="""
+type termshark > /dev/null 2>&1 || brew install termshark
+termshark
+"""
+
 [tasks.hwatch]
 description="watchコマンド"
 run="""
