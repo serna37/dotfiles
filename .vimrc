@@ -31,10 +31,10 @@ nnoremap <Tab> 5j
 nnoremap <S-Tab> 5k
 vnoremap <Tab> 5j
 vnoremap <S-Tab> 5k
-nnoremap <silent><C-u> :<C-u>cal <SID>scroll(0, 25)<CR>
-nnoremap <silent><C-d> :<C-u>cal <SID>scroll(1, 25)<CR>
-nnoremap <silent><C-b> :<C-u>cal <SID>scroll(0, 15)<CR>
-nnoremap <silent><C-f> :<C-u>cal <SID>scroll(1, 15)<CR>
+nnoremap <silent><C-u> :<C-u>cal <SID>scroll(0,25)<CR>
+nnoremap <silent><C-d> :<C-u>cal <SID>scroll(1,25)<CR>
+nnoremap <silent><C-b> :<C-u>cal <SID>scroll(0,15)<CR>
+nnoremap <silent><C-f> :<C-u>cal <SID>scroll(1,15)<CR>
 fu! s:scroll(vector,delta)
     let tid=timer_start(a:delta,{->feedkeys(a:vector?"\<C-e>":"\<C-y>")},{'repeat':-1})
     cal timer_start(600,{->timer_stop(tid)})
@@ -56,8 +56,42 @@ fu! s:fmode(vector)
     if exists('g:fmode_tid')&&g:fmode_tid!=-1|cal timer_stop(g:fmode_tid)|endif
     let g:fmode_tid=timer_start(1000,{->execute("let w:fmode=0|sil! cal matchdelete(w:fmatch)")})
 endf
-" TODO emotion
-source ~/git/dotfiles/emotion.vim
+
+
+" emotion
+" TODO ちょいちょいハイライトされない、移動先がずれる、視差が大きい
+nnoremap s :<C-u>cal <SID>emotion()<CR>
+let s:keys=['s','w','a','d','j','k','h','l']|let s:all_combinations=[]
+fu! s:gen_comb(str,k,M)" keysでM桁の文字列を全組み合わせ作る
+    if a:k==a:M|cal add(s:all_combinations,a:str)|retu|endif" 桁満たした
+    for ch in s:keys|cal s:gen_comb(a:str.ch,a:k+1,a:M)|endfor" keysの各要素を今のに追加して再帰
+endf
+fu! s:emotion()
+    echohl User3|echom 'emotion'|echohl None|hi Wip ctermfg=166 cterm=bold
+    let [c1,c2]=[nr2char(getchar()),nr2char(getchar())]" 入力を2文字とる
+    let [sl,el,cl,cc,ctx]=[line('w0'),line('w$'),line('.'),col('.'),getline('w0','w$')]
+    sil! exe 'e emotion'|setl buftype=nofile bufhidden=wipe nobuflisted" 偽のバッファを作る
+    cal setline(1,range(1,el))|cal setline(sl,ctx)|cal cursor(sl+5,cc)|norm! zt|cal cursor(cl,cc)
+    hi Base ctermfg=59|cal matchadd('Base','.',100)|redraw
+    let pos=[]|for i in range(len(ctx))|let offset=0
+        while 1|let m=matchstrpos(ctx[i],'\c\<'.c1.c2,offset)
+            if empty(m[0])|break|endif|cal add(pos,#{line:i,col:m[1],key:''})" m[1] はマッチした開始列
+            let offset=m[1]+1|endwhile|endfor
+    let len=1|while pow(len(s:keys),len)<len(pos)|let len+=1|endwhile" 必要な桁数を知る
+    let s:all_combinations=[]|cal s:gen_comb("",0,len)" 各posのキーを作る
+    for i in range(len(pos))|let pos[i].key=s:all_combinations[i]|endfor
+    for v in range(1,len)|let tmp=deepcopy(ctx)" キーの桁数分だけ
+        for v in pos|let tmp[v.line]=strpart(tmp[v.line],0,v.col).(v.key).strpart(tmp[v.line],v.col+len(v.key))|endfor
+        cal getmatches()->filter({_,v->match(['Wip'],v.group)!=-1})->map({_,v->matchdelete(v.id)})
+        for v in pos|cal matchaddpos('Wip',[[v.line+1,v.col+1,len(v.key)]],105)|endfor
+        cal setline(sl,tmp)|redraw" キーマップ表示とハイライトしバッファを更新
+        let w=nr2char(getchar())" 入力でposを絞りkeyを更新
+        let pos=filter(pos,{_,v->v.key=~'^'.w})->map({_,v->#{line:v.line,col:v.col,key:strpart(v.key,1)}})
+    endfor
+    b #|cal getmatches()->filter({_,v->match(['Wip','Base'],v.group)!=-1})->map({_,v->matchdelete(v.id)})
+    if !empty(pos)|cal cursor(pos[0].line+1,pos[0].col+1)|endif" バッファ閉じて、カーソル移動
+    echohl User1|echom 'emotion: fin'|echohl None" ハイライトとcursorは1-indexed
+endf
 
 
 " 検索
