@@ -71,6 +71,14 @@ type termscp > /dev/null 2>&1 || brew install veeso/termscp/termscp
 termscp
 """
 
+[tasks.hwatch]
+description="watchコマンド"
+run="""
+type hwatch > /dev/null 2>&1 || brew install hwatch
+echo 'use like'
+echo '$ hwatch ls -l'
+"""
+
 [tasks.top]
 description="PCの稼働状況"
 run="""
