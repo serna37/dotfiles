@@ -18,6 +18,7 @@ inoremap <expr>] getline('.')[col('.')-1] == "]" ? "\<right>" : "]"
 inoremap <expr>} getline('.')[col('.')-1] == "}" ? "\<right>" : "}"
 inoremap <expr><BS> (len(getline('.'))>=col('.')&&match(["()", "[]", "{}", "``","''", '""'], getline('.')[col('.')-2:col('.')-1])!=-1)?(col('.')>1?"\<right>\<BS>\<BS>":"\<BS>"):"\<BS>"
 nnoremap vv ^v$h
+" TODO これのせいで、ドットリピート時ciw後に3行下にいく
 au InsertCharPre * if !pumvisible()&&strchars((slice(getline('.'),0,charcol('.')-1)..v:char)->substitute('.*[^[:keyword:]]','',''))>1|cal feedkeys("\<C-n>",'ni')|endif
 inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
