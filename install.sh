@@ -11,7 +11,7 @@ for v in ${REPOS[@]}; do
 done
 
 # 必要なアプリをCL版で入れる
-CASK_REPOS=(google-chrome wezterm orbstack maccy keycastr)
+CASK_REPOS=(google-chrome wezterm orbstack maccy keycastr another-redis-desktop-manager)
 for v in ${CASK_REPOS[@]}; do
     brew reinstall --cask $v
     wait $!

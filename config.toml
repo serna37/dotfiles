@@ -18,6 +18,9 @@ run="""
 mise install
 """
 
+# =======================
+# Macのアプリ開く系
+# =======================
 [tasks.chrome]
 description="Chromeを開く"
 run="""
@@ -29,6 +32,22 @@ description="AppをFZFで開く"
 run="""
 type fzf > /dev/null 2>&1 || brew install fzf
 open -a "$(ls /Applications | fzf)"
+"""
+
+# =======================
+# 開発系
+# =======================
+[tasks.docker-compose-run]
+description="DockerCompose起動"
+run="""
+docker compose up -d --build --remove-orphans
+docker image prune -f
+"""
+
+[tasks.docker-compose-down]
+description="DockerCompose終了"
+run="""
+docker compose down --rmi all
 """
 
 [tasks.lazydocker]
@@ -118,6 +137,9 @@ type gum > /dev/null 2>&1 || brew install gum
 ffmpeg -i $(ls -A | gum choose) -r 10 $(gum input --prompt 'e.g.) test.gif: ')
 """
 
+# =======================
+# GUI系
+# =======================
 [tasks.fastfetch]
 description="OS情報"
 run="""
