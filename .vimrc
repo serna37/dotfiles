@@ -183,13 +183,13 @@ au BufEnter *.js hi link GlobalSymbol Type
 
 " 高機能(プラグイン) vim-plug導入コマンド
 "curl -fSsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim -c "PlugInstall
-""cal plug#begin()
+cal plug#begin()
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'sidorares/node-vim-debugger'
 "Plug 'eliba2/vim-node-inspect'
 "Plug 'puremourning/vimspector'
-"Plug 'Exafunction/codeium.vim'
-""cal plug#end()
+Plug 'Exafunction/codeium.vim'
+cal plug#end()
 
 " TODO lint診断
 
@@ -247,6 +247,6 @@ au BufEnter *.js hi link GlobalSymbol Type
 
 " codium認証のために以下URLへのアクセス
 "https://www.codeium.com/profile?response_type=token&redirect_uri=vim-show-auth-token&state=a&scope=openid%20profile%20email&redirect_parameters_type=query
-"let g:codeium_disable_bindings = 1
-"inoremap <script><silent><nowait><expr><C-i> codeium#Accept()
+let g:codeium_disable_bindings = 1
+inoremap <script><silent><nowait><expr><C-i> codeium#Accept()
 
