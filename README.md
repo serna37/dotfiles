@@ -51,7 +51,6 @@ set fileformat=unix fileencoding=utf8 noswapfile nobackup noundofile hidden auto
 ```
 
 ## 関連
-- (古い、未メンテ) [serna37/library](https://github.com/serna37/library)を導入します
 - 主に[Terminal Trove](https://terminaltrove.com/)からコマンドを選んでいます
 
 ## dotfiles構成
