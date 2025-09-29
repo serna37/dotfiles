@@ -43,11 +43,11 @@ mkdir -p ~/.config/mise
 ln -nfs ~/git/dotfiles/config.toml ~/.config/mise/config.toml
 
 # TODO けすかも
-#if [ ! -L ~/.vim/coc-settings.json ]; then
-#    # coc用設定
-#    mkdir -p ~/.vim > /dev/null 2>&1
-#    ln -nfs ~/git/dotfiles/conf/vim/coc-settings.json ~/.vim/coc-settings.json
-#fi
+if [ ! -L ~/.vim/coc-settings.json ]; then
+    # coc用設定
+    mkdir -p ~/.vim > /dev/null 2>&1
+    ln -nfs ~/git/dotfiles/conf/vim/coc-settings.json ~/.vim/coc-settings.json
+fi
 
 # TODO けすかも
 #if [ ! -d ~/.vim/UltiSnips ]; then
