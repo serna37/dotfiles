@@ -34,7 +34,6 @@ nnoremap <silent><C-p> :<C-u>bn<CR>
 nnoremap <silent><Space>x :<C-u>bd<CR>
 au BufRead * if line("'\"")>0&&line("'\"")<=line("$")|exe "norm g`\""|endif
 au ColorScheme * hi Search cterm=bold ctermfg=16 ctermbg=153
-nnoremap # <Plug>(asterisk-z*)
 nnoremap <silent><Space>q :<C-u>noh<CR>
 nnoremap <silent><Space>g :<C-u>exe "vim /".expand("<cword>")."/gj ".(system('git status')=~'fatal'?'** **/.':join(split(system('git ls-files'))))<CR>:echo "Quickfix移動:cn cp"<CR>
 nnoremap <silent>cn :<C-u>cn<CR>
@@ -43,6 +42,7 @@ set splitbelow termwinkey=<C-e>
 
 
 " プラグインの設定
+nnoremap # <Plug>(asterisk-z*)
 let g:move_key_modifier_visualmode = 'C'
 let g:airline#extensions#tabline#enabled = 1
 if !glob('~/.vim/plugged/onedark.vim')->empty()
@@ -56,18 +56,26 @@ if !glob('~/.vim/plugged/onedark.vim')->empty()
         au ColorScheme * hi LineNr ctermfg=245
         au ColorScheme * hi CursorLineNr ctermfg=245
         " カーソル
-        au ColorScheme * hi CursorLine ctermbg=236
-        au ColorScheme * hi CursorColumn ctermbg=236
         au ColorScheme * hi Visual ctermbg=240
     aug END
     colorscheme onedark
 endif
-let g:coc_global_extensions = ['coc-explorer',
-            \ 'coc-vimlsp', 'coc-sh', 'coc-json',
-            \ 'coc-sql', 'coc-html', 'coc-css', 'coc-tsserver',
-            \ 'coc-clangd', 'coc-pyright',
-            \ 'coc-rust-analyzer', 'coc-go', 'coc-java',
-            \ ]
+let g:coc_global_extensions = [
+\ 'coc-explorer',
+\ 'coc-fzf-preview',
+"\ 'coc-vimlsp',
+"\ 'coc-sh',
+"\ 'coc-json',
+"\ 'coc-sql',
+"\ 'coc-html',
+"\ 'coc-css',
+"\ 'coc-tsserver',
+"\ 'coc-clangd',
+"\ 'coc-pyright',
+"\ 'coc-rust-analyzer',
+"\ 'coc-go',
+"\ 'coc-java',
+\ ]
 nnoremap <silent><Space>e :CocCommand explorer --width 30<CR>
 nnoremap <silent><Space>f :cal execute('CocCommand fzf-preview.'.(system('git rev-parse --is-inside-work-tree') =~ 'fatal'?'DirectoryFiles':'ProjectFiles'))<CR>
 nnoremap <silent><Space>d <Plug>(coc-definition)
