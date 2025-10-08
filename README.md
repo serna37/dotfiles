@@ -18,8 +18,8 @@
 - zshrc中で、必要に応じて設定ファイルが作成されます
 
 > [!Note]
-> 以下でchromeも入れるので、最初の環境構築時は
-> 手打ちでコマンド実行でもOK
+> ChromeはPC初期化時点で手動で入れる
+> その他の必要なアプリはinstall.shで入れる
 
 まずは`Command Line Tools`を導入します
 ```shell
