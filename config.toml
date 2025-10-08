@@ -13,7 +13,7 @@ _.path = [
 
 
 [tasks.tool-install]
-description="mise経由でツールを入れます"
+description="mise経由でツール(言語)を入れます"
 run="""
 mise install
 """
