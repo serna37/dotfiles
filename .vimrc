@@ -13,6 +13,7 @@ Plug 'unblevable/quick-scope'
 Plug 'haya14busa/vim-asterisk'
 Plug 'vim-airline/vim-airline'
 Plug 'joshdick/onedark.vim'
+Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Exafunction/codeium.vim'
