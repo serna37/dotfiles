@@ -36,6 +36,14 @@ xcode-select --install
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/serna37/dotfiles/master/install.sh)"
 ```
 
+必要に応じてvimのためのコマンドを実行
+```sh
+# vim-plugを入れる
+curl -fSsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim -c "PlugInstall
+# codium認証のために以下URLへのアクセス
+https://www.codeium.com/profile?response_type=token&redirect_uri=vim-show-auth-token&state=a&scope=openid%20profile%20email&redirect_parameters_type=query
+```
+
 ## 一時コピペ用
 - shell
 ```shell
