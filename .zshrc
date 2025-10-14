@@ -62,6 +62,21 @@ cat - << "EOF" > ~/.vim/after/plugin/common-settings.vim
 au FileType * setlocal formatoptions-=ro
 EOF
 
+# vim coc.json
+cat - << "EOF" > ~/.vim/coc-settings.json
+{
+    "snippets.priority": 10000,
+    "explorer.icon.enableNerdfont": true,
+    "explorer.file.showHiddenFiles": true,
+    "inlayHint.enable": false,
+    "clangd.arguments": [
+        "--header-insertion=never"
+    ],
+    "python.formatting.provider": "yapf",
+    "snippets.ultisnips.pythonPrompt": false
+}
+EOF
+
 # yaziの設定
 mkdir -p ~/.config/yazi
 cat - << "EOF" > ~/.config/yazi/yazi.toml
