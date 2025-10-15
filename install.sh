@@ -11,7 +11,12 @@ for v in ${REPOS[@]}; do
 done
 
 # 必要なアプリをCL版で入れる
-CASK_REPOS=(wezterm orbstack maccy keycastr dbeaver-community another-redis-desktop-manager)
+CASK_REPOS=(
+wezterm orbstack
+maccy keycastr
+google-drive
+dbeaver-community another-redis-desktop-manager
+)
 for v in ${CASK_REPOS[@]}; do
     brew reinstall --cask $v
     wait $!
