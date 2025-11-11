@@ -11,6 +11,7 @@ Plug 'yuttie/comfortable-motion.vim'
 Plug 'rhysd/clever-f.vim'
 Plug 'unblevable/quick-scope'
 Plug 'haya14busa/vim-asterisk'
+Plug 'junegunn/goyo.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'joshdick/onedark.vim'
 Plug 'airblade/vim-gitgutter'
@@ -44,6 +45,18 @@ set splitbelow termwinkey=<C-e>
 
 " プラグインの設定
 nnoremap # <Plug>(asterisk-z*)
+let g:zen_mode = 0
+fu! GoyoEnter()
+    if g:zen_mode
+        let g:zen_mode = 0
+        exe 'Goyo!'
+        retu
+    endif
+    exe 'Goyo'
+    set number
+    setlocal statusline=%*\ %<%F%m%r%h%w%=%2*\ %p%%\ %l/%L\ %02v\ %*<CR>
+endf
+nnoremap <silent><Space>z :<C-u>cal GoyoEnter()<CR>
 let g:move_key_modifier_visualmode = 'C'
 let g:airline#extensions#tabline#enabled = 1
 if !glob('~/.vim/plugged/onedark.vim')->empty()
