@@ -52,6 +52,7 @@ fu! GoyoEnter()
         exe 'Goyo!'
         retu
     endif
+    let g:zen_mode = 1
     exe 'Goyo'
     set number
     setlocal statusline=%*\ %<%F%m%r%h%w%=%2*\ %p%%\ %l/%L\ %02v\ %*<CR>
@@ -59,6 +60,7 @@ endf
 nnoremap <silent><Space>z :<C-u>cal GoyoEnter()<CR>
 let g:move_key_modifier_visualmode = 'C'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
 if !glob('~/.vim/plugged/onedark.vim')->empty()
     aug onedark_comment
         au!
