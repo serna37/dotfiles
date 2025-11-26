@@ -3,7 +3,7 @@
 
 [tools]
 node = "24"
-python = "3"
+python = "3.11"
 
 
 [env]
