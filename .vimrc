@@ -37,7 +37,12 @@ nnoremap <silent><Space>x :<C-u>bd<CR>
 au BufRead * if line("'\"")>0&&line("'\"")<=line("$")|exe "norm g`\""|endif
 au ColorScheme * hi Search cterm=bold ctermfg=16 ctermbg=153
 nnoremap <silent><Space>q :<C-u>noh<CR>
-nnoremap <silent><Space>g :<C-u>exe "vim /".expand("<cword>")."/gj ".(system('git status')=~'fatal'?'** **/.':join(split(system('git ls-files'))))<CR>:echo "Quickfix移動:cn cp"<CR>
+nnoremap <silent><Space>g :<C-u>cal <SID>grep()<CR>
+fu! s:grep()
+    let tmp = input('grep> ', expand("<cword>"))
+    exe "vim /".tmp."/gj ".(system('git status')=~'fatal'?'** **/.':join(split(system('git ls-files'))))
+    echo "Quickfix移動:cn cp"
+endf
 nnoremap <silent>cn :<C-u>cn<CR>
 nnoremap <silent>cp :<C-u>cp<CR>
 set splitbelow termwinkey=<C-e>
@@ -45,19 +50,12 @@ set splitbelow termwinkey=<C-e>
 
 " プラグインの設定
 nnoremap # <Plug>(asterisk-z*)
-let g:zen_mode = 0
-fu! GoyoEnter()
-    if g:zen_mode
-        let g:zen_mode = 0
-        exe 'Goyo!'
-        retu
-    endif
-    let g:zen_mode = 1
-    exe 'Goyo'
+nnoremap <silent><Space>z :<C-u>Goyo<CR>
+au User GoyoEnter nested cal <SID>goyo_enter()
+fu! s:goyo_enter()
     set number
     setlocal statusline=%*\ %<%F%m%r%h%w%=%2*\ %p%%\ %l/%L\ %02v\ %*<CR>
 endf
-nnoremap <silent><Space>z :<C-u>cal GoyoEnter()<CR>
 let g:move_key_modifier_visualmode = 'C'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
