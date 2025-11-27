@@ -18,7 +18,8 @@ config.colors = {
 }
 
 -- フォント
-config.font = wezterm.font("Droid Sans Mono for Powerline", {weight="Medium", stretch="Normal", style="Normal"})
+-- config.font = wezterm.font("Droid Sans Mono for Powerline", {weight="Medium", stretch="Normal", style="Normal"})
+config.font = wezterm.font("NotoSansMono Nerd Font Mono", {weight="Medium", stretch="Normal", style="Normal"})
 config.font_size = 13
 
 -- ウィンドウ
