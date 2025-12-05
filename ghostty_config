@@ -1,0 +1,13 @@
+theme = Atom One Dark
+window-height = 50
+window-width = 180
+window-padding-x = 20
+window-padding-y = 5
+window-padding-balance = true
+window-theme = ghostty
+background-opacity = 0.85
+background-blur-radius = 20
+macos-titlebar-style = transparent
+shell-integration-features = no-cursor
+cursor-style = block
+

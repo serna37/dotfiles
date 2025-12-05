@@ -4,7 +4,7 @@
 export PATH="$PATH:/opt/homebrew/bin/"
 
 # 必要なコマンド等を入れる
-REPOS=(vim git mas sqlite)
+REPOS=(vim neovim git mas sqlite)
 for v in ${REPOS[@]}; do
     brew reinstall $v
     wait $!
@@ -12,9 +12,9 @@ done
 
 # 必要なアプリをCL版で入れる
 CASK_REPOS=(
-wezterm orbstack
-maccy keycastr
-google-drive
+ghostty wezterm
+orbstack
+maccy keycastr google-drive
 dbeaver-community another-redis-desktop-manager
 )
 for v in ${CASK_REPOS[@]}; do
@@ -40,6 +40,8 @@ cd ~/git
 git clone https://github.com/serna37/dotfiles
 
 # dotfilesのファイルをリンク
+mkdir -p ~/.config/ghostty
+ln -nfs ~/git/dotfiles/ghostty_config ~/.config/ghostty/config
 ln -nfs ~/git/dotfiles/.wezterm.lua ~/.wezterm.lua
 ln -nfs ~/git/dotfiles/.zshrc ~/.zshrc
 ln -nfs ~/git/dotfiles/conf/zsh/.p10k.zsh ~/.p10k.zsh
