@@ -101,6 +101,7 @@ fu! SetTabLine()
     retu s.'%#TabLineFill#'
 endf
 set tabline=%!SetTabLine()
+colorscheme desert
 ```
 
 ## 関連
