@@ -42,10 +42,12 @@ git clone https://github.com/serna37/dotfiles
 # dotfilesのファイルをリンク
 mkdir -p ~/.config/ghostty
 ln -nfs ~/git/dotfiles/ghostty_config ~/.config/ghostty/config
-ln -nfs ~/git/dotfiles/.wezterm.lua ~/.wezterm.lua
+#ln -nfs ~/git/dotfiles/.wezterm.lua ~/.wezterm.lua
 ln -nfs ~/git/dotfiles/.zshrc ~/.zshrc
 ln -nfs ~/git/dotfiles/.p10k.zsh ~/.p10k.zsh
 ln -nfs ~/git/dotfiles/.vimrc ~/.vimrc
+#mkdir -p ~/.config/nvim
+#ln -nfs ~/git/dotfiles/neovim.lua ~/.config/nvim/init.lua
 mkdir -p ~/.config/mise
 ln -nfs ~/git/dotfiles/config.toml ~/.config/mise/config.toml
 
