@@ -91,6 +91,11 @@ let g:coc_global_extensions = [
 "\ 'coc-go',
 "\ 'coc-java',
 \ ]
+aug coc_explorer_auto_open
+  au!
+  " バッファが空の場合（ファイルを開かずにVimを起動した場合）にエクスプローラーを開く
+  au VimEnter * CocCommand explorer --no-focus --width 30
+aug END
 nnoremap <silent><Space>e :CocCommand explorer --width 30<CR>
 nnoremap <silent><Space>f :cal execute('CocCommand fzf-preview.'.(system('git rev-parse --is-inside-work-tree') =~ 'fatal'?'DirectoryFiles':'ProjectFiles'))<CR>
 nnoremap <silent><Space>d <Plug>(coc-definition)
