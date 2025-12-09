@@ -135,18 +135,9 @@ colorscheme torte|sil! colorscheme habamax
 " プラグイン
 " ==================================
 " 有効化
-let g:plugin_enabled = 0
-fu! s:togglePluginMode()
-    let g:plugin_enabled = !g:plugin_enabled
-    cal s:plugin_excute()
-endf
-nnoremap <silent><Space><Space><Space> :<C-u>cal <SID>togglePluginMode()<CR>
+nnoremap <silent><Space><Space><Space> :<C-u>cal <SID>plugin_excute()<CR>
 
 fu! s:plugin_excute()
-    if !g:plugin_enabled
-        retu
-    endif
-
     " vim-plug導入コマンド
     "curl -fSsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim -c "PlugInstall
     cal plug#begin()
@@ -253,3 +244,9 @@ fu! s:plugin_excute()
     inoremap <script><silent><nowait><expr><C-i> codeium#Accept()
 
 endf
+
+" 環境変数を見て、初回から実行
+if expand("$VIM_PLUGIN_ENABLE")
+    cal s:plugin_excute()
+endif
+

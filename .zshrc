@@ -52,6 +52,8 @@ alias rm='rm -i'
 alias re='exec $SHELL -l'
 alias q='exit'
 
+alias v='export VIM_PLUGIN_ENABLE=1 && vim'
+
 
 # ====================================
 # 設定ファイルの書き出し
