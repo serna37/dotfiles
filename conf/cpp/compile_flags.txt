@@ -1,6 +1,5 @@
 -std=c++20
 -I/Users/serna37/git/dotfiles/conf/cpp/
--I/root/git/dotfiles/conf/cpp/
 -Wall
 -Wextra
 -Wshadow
