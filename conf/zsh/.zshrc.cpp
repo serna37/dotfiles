@@ -1,127 +1,49 @@
 # ====================================
 # C++とAtCoder用設定
 # ====================================
-function _logo_atcoder() {
-    echo '                                            .'
-    echo '                                          .dN.'
-    echo '                                       ..d@M#J#(,'
-    echo '                                    vRMPMJNd#dbMG#(F'
-    echo '                          (O.  U6..  WJNdPMJFMdFdb#`  .JU` .Zo'
-    echo '                       .. +NM=(TB5.-^.BMDNdJbEddMd ,n.?T@3?MNm  ..'
-    echo '                      .mg@_J~/?`.a-XNxvMMW9""TWMMF.NHa._ ?_,S.Tmg|'
-    echo '                   .Js ,3,`..-XNHMT"= ...d"5Y"X+.. ?"8MNHHa.. (,b uZ..'
-    echo '                  J"17"((dNMMB"^ ..JTYGJ7"^  ?"T&JT9QJ..?"TMNNHa,?727N'
-    echo '                  .7    T"^..JT"GJv"=`             ?"4JJT9a.,?T"`  .7!'
-    echo '                          M~JY"!     ....<.Zj+,(...     .7Ta_M'
-    echo '              .JWkkWa,    d-F     .+;.ge.ga&.aa,ua+.g,     ,}#    .(Wkkkn,'
-    echo '             .W9AaeVY=-.. J;b   .XH3dHHtdHHDJHHH(HHH(WH,   J(F  ..?T4agdTH-'
-    echo '              6XkkkH=!    ,]d  .HHtdHHH.HHHbJHHH[WHHH(HHL  k.]    _7HkkkHJ:'
-    echo '              JqkP?H_      N(; TYY?YYY9(YYYD?YYYt7YYY\YY9 .Fd!     .WPjqqh'
-    echo '              .mmmH,``      d/b WHHJHH@NJHHH@dHHHFdHHHtHH#`.1#       `(dqqq]'
-    echo '             ,gmmgghJQQVb  ,bq.,YY%7YYY(YYY$?YYY^TYYY(YY^ K.]  JUQmAJmmmmg%'
-    echo '              ggggggggh,R   H,]  T#mTNNbWNN#dNN#(NN@(N@! .t#   d(Jgggggggg:'
-    echo '             .@@@@@#"_JK4,  ,bX.   ?i,1g,jge.g2+g2i,?`   K.t  .ZW&,7W@@@@@h.'
-    echo '         `..H@@@@@P   7 .H`  W/b        .^."?^(!        -1#   W, ?   T@@@@@Ma,`'
-    echo '         dH@HHHM"       U\   .N,L        ..            .$d    .B`     ."MHHH@HN.'
-    echo '    ....JMHHHHH@              ,N(p      .dH.d"77h.    .$J\              dHHHHHMU....'
-    echo '   ` WHH#,7MHHM{               ,N,h     d^.W,        .^J^               .MHHM"_d#HN.'
-    echo '    ,jH#Mo .MMW:                .W,4,  J\   Ta.-Y` .J(#                 .HMM- .M#MF!'
-    echo '      .MN/ d@?M+                  7e(h.           .3.F                  .MDd# (MML`'
-    echo '      .M4%  ?H, 7a,                .S,7a.       .Y.#^                .,"`.d=  ,PWe'
-    echo '     .! ?     dN .N,                 (N,7a.   .Y(d=                 .d! d@     4 .!'
-    echo '              .W` .!                   ?H,?GJ".d"                    ^  B'
-    echo '                                         (SJ.#='
-    echo '                        J             ....            .M:'
-    echo '                       JUb     .   .#    (\            M~'
-    echo '                      .\.M;  .W@"` M}       .y7"m. .J"7M~ .v74e ,M7B'
-    echo '                     .F  ,N.  J]   M]       M)  JF M_  M~ d-     M`'
-    echo '                    .W,  .db, Jh.   Th...J\ /N..Y` ?N-.Ma.-M&.> .M-'
-    echo ""
-    echo ""
-}
+function solve() {
+    type gum > /dev/null 2>&1 || brew install gum
+    DIR_NAME=$(gum input --header "フォルダ名" --value "$HOME/sandbox_algo")
+    CONTEST_CODE=$(gum input --header "コンテストコード" --value "abcXXX")
+    mkdir -p $DIR_NAME
+    cd $DIR_NAME
 
-# C++用設定、AtCoder用設定を導入
-function _setup_cpp_atcoder() {
-    # C++デバッガのlldbのためにllvmを導入
-    if [ ! -d /opt/homebrew/opt/llvm ]; then
-        info 'INSTALL: llvm'
-        brew install llvm
-    fi
-    # gitignore
-    cp -f ~/git/dotfiles/conf/cpp/cpp_gitignore .gitignore
     # LSP用設定
     cp -f ~/git/dotfiles/conf/cpp/.clang-format .
     cp -f ~/git/dotfiles/conf/cpp/compile_flags.txt .
-    # vimspector デバッグ設定を追加
-    cp -f ~/git/dotfiles/conf/vim/.vimspector.json .
-    # C++ロゴフォーマッタとAAを追加
-    cp -fR ~/git/dotfiles/conf/cpp/AA .
-    # AtCoderロゴ
-    _logo_atcoder
+    # C++デバッガのlldbのためにllvmを導入
+    [[ ! -d /opt/homebrew/opt/llvm ]] && brew install llvm
     # atcoder-cliを入れる
-    if ! type acc > /dev/null 2>&1; then
-        npm install -g atcoder-cli
-    fi
+    type acc > /dev/null 2>&1 || npm install -g atcoder-cli
     # 仮想環境
-    spin 'Python venv activation' python -m venv venv
+    gum spin --title "Python venv activation" -- python -m venv venv
     . venv/bin/activate
     # AtCoderテスト用ライブラリをインストール
-    spin 'pip install --upgrade pip' pip install --upgrade pip
-    spin 'pip install --upgrade setuptools' pip install --upgrade setuptools
-    spin 'pip install online-judge-tools' pip install online-judge-tools
-}
+    gum spin --title "pip install --upgrade pip" -- pip install --upgrade pip
+    gum spin --title "pip install --upgrade setuptools" -- pip install --upgrade setuptools
+    gum spin --title "pip install online-judge-tools" -- pip install online-judge-tools
 
-# AtCoder用フォルダを開く
-# 書き捨てで解く: solve
-# AtCoderコンテスト: solve abc100
-function solve() {
-
-    # 書き捨てで解く場合
-    SAND_DIR="$HOME/work/algo_practice"
-    if [ $# -eq 0 ]; then
-        mkdir -p $SAND_DIR > /dev/null 2>&1
-        cd $SAND_DIR
-        _setup_cpp_atcoder
-        # a問題、z問題を作成
-        mkdir -p a > /dev/null 2>&1
-        mkdir -p z > /dev/null 2>&1
-        touch a/main.cpp z/main.cpp
-        # z問題として開く
-        v z/main.cpp
-        return
-    fi
-
-    # AtCoderコンテストの場合
-    CONTEST_CODE=$1
-    AC_DIR="$HOME/work/atcoder_contest"
-    mkdir -p $AC_DIR > /dev/null 2>&1
-    cd $AC_DIR
-    _setup_cpp_atcoder
-    if [ "$(acc contest $CONTEST_CODE)" = "" ]; then
-        error "コンテストコード $CONTEST_CODE が正しくありません"
-        return
-    fi
     # atcoder-cliとojのセットアップ
-    acc check-oj
-    oj login https://atcoder.jp
-    acc login
-    acc config default-task-choice all
-    acc config default-test-dirname-format test
-    acc new $CONTEST_CODE
-    cd $CONTEST_CODE
+    gum spin --title "check acc check-oj" -- acc check-oj
+    gum spin --title "oj login" -- oj login https://atcoder.jp
+    gum spin --title "acc config..." -- acc config default-task-choice all
+    gum spin --title "acc config..." -- acc config default-test-dirname-format test
+    if [ $CONTEST_CODE = "abcXXX" ]; then
+        echo " >> 書き捨てフォルダ"
+        mkdir -p "$CONTEST_CODE/a"
+        mkdir -p "$CONTEST_CODE/z"
+    else
+        echo " >> コンテスト $CONTEST_CODE フォルダ"
+        acc new $CONTEST_CODE
+    fi
     # main.cppを作成
+    cd $CONTEST_CODE
     dirs=(`find . -type d -maxdepth 1 | grep / | cut -d '/' -f 2`)
     for v in ${dirs[@]}; do
-        info "touch file :\e[32m$v/main.cpp"
         touch "$v/main.cpp"
     done
-    # 順位表とa問題を開く
-    open "https://atcoder.jp/contests/$CONTEST_CODE/standings"
-    open "https://atcoder.jp/contests/$CONTEST_CODE/tasks/${CONTEST_CODE}_a"
-    v
+    cd $DIR_NAME
 }
-function _solve() { _values '' '[ 書き捨て]' 'abc[ AtCoderコンテスト番号]' }
-compdef _solve solve
 
 
 # ====================================
@@ -159,36 +81,23 @@ export CPP_BUILD_CMD_SANITIZE="g++ -std=c++20 \
 -o "
 
 # C++ファイルを実行
-function cpp_exe() {
-    _lazy_install gum gum
+function cppexe() {
+    type gum > /dev/null 2>&1 || brew install gum
     # C++デバッガのlldbのためにllvmを導入
-    if [ ! -d /opt/homebrew/opt/llvm ]; then
-        info 'INSTALL: llvm'
-        brew install llvm
-    fi
+    [[ ! -d /opt/homebrew/opt/llvm ]] && brew install llvm
+
     # 実行ファイルを選択
-    TARGET=$(find . -name '*.cpp' | gum choose)
+    TARGET=$(find . -name '*.cpp' | gum filter --limit=1 --fuzzy)
     # 通常起動 / サニタイズ起動 を選択
     RUN_MODE=$(gum choose "normal" "sanitize")
     CMD=$CPP_BUILD_CMD
-    if [ $RUN_MODE = "sanitize" ]; then
-        CMD=$CPP_BUILD_CMD_SANITIZE
-    fi
+    [ $RUN_MODE = "sanitize" ] && CMD=$CPP_BUILD_CMD_SANITIZE
+
     # ビルドと実行
-    echo "==================================="
-    info "build :$TARGET processing..."
-    eval "$CMD _cpp_exec_tmpfile $TARGET 2>&1"
-    info "build :$TARGET complete."
-    echo "==================================="
-    printf "\e[33m-----------------------------\e[m\n"
+    gum spin --title "running..." -- zsh -c "$CMD _cpp_exec_tmpfile $TARGET 2>&1"
     ./_cpp_exec_tmpfile
     res=$?
-    printf "\e[33m-----------------------------\e[m\n"
-    if [ $res -eq 0 ]; then
-        info "exit code:$res"
-    else
-        error "exit code:$res"
-    fi
+    echo " == exit code: $res =="
     \rm _cpp_exec_tmpfile
 }
 
