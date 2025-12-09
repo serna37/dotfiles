@@ -148,6 +148,7 @@ fu! s:plugin_excute()
     Plug 'vim-airline/vim-airline'
     Plug 'joshdick/onedark.vim'
     Plug 'sheerun/vim-polyglot'
+    Plug 'bronson/vim-trailing-whitespace'
     Plug 'airblade/vim-gitgutter'
     Plug 'junegunn/fzf'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
