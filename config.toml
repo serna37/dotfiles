@@ -21,12 +21,6 @@ mise install
 # =======================
 # Macのアプリ開く系
 # =======================
-[tasks.chrome]
-description="Chromeを開く"
-run="""
-open -a 'Google Chrome.app'
-"""
-
 [tasks.app]
 description="AppをFZFで開く"
 run="""
