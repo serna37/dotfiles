@@ -68,6 +68,10 @@ endf
 nnoremap <silent>cn :<C-u>cn<CR>
 nnoremap <silent>cp :<C-u>cp<CR>
 " ファイラ
+let g:netrw_altv = 0 " 左にエクスプローラを開く
+let g:netrw_liststyle = 3  " ファイルをツリー表示にする
+let g:netrw_browse_split = 4 " 開いた時、空きバッファで開く
+nnoremap <silent><Space>e :<C-u>25Ve<CR>
 nnoremap <silent><Space>f :<C-u>cal <SID>fzf(system(system('git status')=~'fatal'?"find . -type f":"git ls-files")->split('\n'))<CR>
 nnoremap <silent><Space>h :<C-u>cal <SID>fzf(execute('ol')->split('\n')->map({_,v->split(v,': ')[1]}))<CR>
 fu! s:fzf(files)
