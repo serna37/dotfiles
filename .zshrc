@@ -41,7 +41,7 @@ export _ZO_FZF_OPTS='
 --preview "([[ -e '{2..}/README.md' ]] && bat --color=always --style=numbers --line-range=:50 '{2..}/README.md') || eza --color=always --group-directories-first --oneline {2..}"
 '
 
-alias f='TMP=$(fzf --preview "bat --style=numbers --color=always {}" --preview-window=right:50%);vim $TMP'
+alias f='TMP=$(fzf --preview "bat --style=numbers --color=always {}" --preview-window=right:50%);v $TMP'
 alias z='type zoxide > /dev/null 2>&1 || brew install zoxide; eval "$(zoxide init zsh)"; type eza > /dev/null 2>&1 || brew install eza; type fzf > /dev/null 2>&1 || brew install fzf; type bat > /dev/null 2>&1 || brew install bat; zi'
 alias e='type yazi > /dev/null 2>&1 || brew install yazi; yazi'
 alias l='type eza > /dev/null 2>&1 || brew install eza; eza -abghHliS --icons --git'
@@ -55,6 +55,7 @@ alias q='exit'
 alias vim='export VIM_PLUGIN_ENABLE=0 && \vim'
 alias v='export VIM_PLUGIN_ENABLE=1 && \vim'
 
+source  ~/git/dotfiles/conf/zsh/.zshrc.cpp
 
 # ====================================
 # 設定ファイルの書き出し
@@ -117,5 +118,5 @@ Host *
   UseKeychain yes
 EOF
 
-echo -e "\e[34mCommands:\e[32m f z e l g dev\e[m"
+echo -e "\e[34mCommands:\e[32m v f   z e l   g dev\e[m   \e[34mC++:\e[32m solve cppexe\e[m"
 
