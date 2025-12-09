@@ -116,6 +116,7 @@ Host *
   UseKeychain yes
 EOF
 
+
 # ====================================
 # C++とAtCoder用設定
 # ====================================
@@ -158,7 +159,9 @@ function solve() {
     cd $CONTEST_CODE
     dirs=(`find . -type d -maxdepth 1 | grep / | cut -d '/' -f 2`)
     for v in ${dirs[@]}; do
-        touch "$v/main.cpp"
+        if [ ! -f "$v/main.cpp" ]; then
+            cp -f ~/git/dotfiles/conf/cpp/template.cpp "$v/main.cpp"
+        fi
     done
     cd $DIR_NAME
 }
@@ -220,5 +223,8 @@ function cppexe() {
 }
 
 
+# ====================================
+# 主要コマンドの表記
+# ====================================
 echo -e "\e[34mCommands:\e[32m v f   z e l   g dev\e[m   \e[34mC++:\e[32m solve cppexe\e[m"
 
