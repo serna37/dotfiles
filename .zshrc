@@ -52,7 +52,8 @@ alias rm='rm -i'
 alias re='exec $SHELL -l'
 alias q='exit'
 
-alias v='export VIM_PLUGIN_ENABLE=1 && vim'
+alias vim='export VIM_PLUGIN_ENABLE=0 && \vim'
+alias v='export VIM_PLUGIN_ENABLE=1 && \vim'
 
 
 # ====================================
