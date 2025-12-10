@@ -181,7 +181,7 @@ function solve() {
 # -march=native マシン最適化
 # -fconstexpr-depth=2147483647 コンパイル時の再帰回数
 export CPP_BUILD_CMD="g++ -D=LOCAL -std=c++20 \
--I $HOME/git/dotfiles/conf/cpp \
+-I $HOME/git/library-cpp \
 -Wall -Wextra \
 -mtune=native -march=native \
 -fconstexpr-depth=2147483647 \
@@ -192,7 +192,7 @@ export CPP_BUILD_CMD="g++ -D=LOCAL -std=c++20 \
 # -fsanitize-undefined-trap-on-error 未定義サニタイザ
 # -fsanitize=address アドレスサニタイザ
 export CPP_BUILD_CMD_SANITIZE="g++ -std=c++20 \
--I $HOME/git/dotfiles/conf/cpp \
+-I $HOME/git/library-cpp \
 -Wall -Wextra \
 -mtune=native -march=native \
 -fconstexpr-depth=2147483647 \
