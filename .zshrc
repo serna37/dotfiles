@@ -128,8 +128,8 @@ function solve() {
     cd $DIR_NAME
 
     # LSP用設定
-    cp -f ~/git/dotfiles/conf/cpp/.clang-format .
-    cp -f ~/git/dotfiles/conf/cpp/compile_flags.txt .
+    cp -f ~/git/library-cpp/.clang-format .
+    cp -f ~/git/library-cpp/compile_flags.txt .
     # C++デバッガのlldbのためにllvmを導入
     [[ ! -d /opt/homebrew/opt/llvm ]] && brew install llvm
     # atcoder-cliを入れる
@@ -160,7 +160,7 @@ function solve() {
     dirs=(`find . -type d -maxdepth 1 | grep / | cut -d '/' -f 2`)
     for v in ${dirs[@]}; do
         if [ ! -f "$v/main.cpp" ]; then
-            cp -f ~/git/dotfiles/conf/cpp/template.cpp "$v/main.cpp"
+            cp -f ~/git/library-cpp/template/template.cpp "$v/main.cpp"
         fi
     done
     cd $DIR_NAME
