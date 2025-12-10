@@ -216,8 +216,8 @@ fu! s:plugin_excute()
     nnoremap <silent><Space>? :cal CocAction('doHover')<CR>
     nnoremap <silent><Space>l :<C-u>w<CR>:e!<CR>:echo 'Reload Buffer'<CR><Esc>
 
-    inoremap <silent><expr><Tab> coc#pum#visible() ? coc#pum#next(1) : '<Tab>'
-    inoremap <silent><expr><S-Tab> coc#pum#visible() ? coc#pum#prev(1) : '<S-Tab>'
+    inoremap <silent><expr><C-j> coc#pum#visible() ? coc#pum#next(1) : '<C-j>'
+    inoremap <silent><expr><C-k> coc#pum#visible() ? coc#pum#prev(1) : '<C-k>'
     inoremap <silent><expr><CR> coc#pum#visible() ? coc#pum#confirm() : pumvisible() ? '<C-y>' : '<CR>'
 
     "let g:vimspector_base_dir=$HOME.'/.vim/plugged/vimspector'
