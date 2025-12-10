@@ -141,6 +141,7 @@ function solve() {
     gum spin --title "pip install --upgrade pip" -- pip install --upgrade pip
     gum spin --title "pip install --upgrade setuptools" -- pip install --upgrade setuptools
     gum spin --title "pip install online-judge-tools" -- pip install online-judge-tools
+    gum spin --title "pip install online-judge-verify-helper" -- pip install online-judge-verify-helper
 
     # atcoder-cliとojのセットアップ
     gum spin --title "check acc check-oj" -- acc check-oj
