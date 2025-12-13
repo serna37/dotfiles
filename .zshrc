@@ -225,9 +225,26 @@ function cppexe() {
     \rm _cpp_exec_tmpfile
 }
 
+function cppbundle() {
+    PWD=$(pwd)
+    if [[ ! -e "$HOME/git/library-cpp/bundler/build/cpp-bundler" ]]; then
+        echo "C++バンドラをビルドします"
+        cd ~/git/library-cpp/bundler
+        make build
+        cd $PWD
+    fi
+    # 対象ファイルを選択
+    type gum > /dev/null 2>&1 || brew install gum
+    TARGET=$(find . -name '*.cpp' | gum filter --limit=1 --fuzzy)
+    # includeファイルをバンドルする
+    ~/git/library-cpp/bundler/build/cpp-bundler -I ~/git/library-cpp $TARGET > ./bundle.cpp
+    # 展開されたうち、#line 1 /Users/serna37/git/... という行を削除する
+    sed -i '' '/^#line/d' ./bundle.cpp
+}
+
 
 # ====================================
 # 主要コマンドの表記
 # ====================================
-echo -e "\e[34mCommands:\e[32m v z e l g dev\e[m   \e[34mC++:\e[32m solve cppexe\e[m"
+echo -e "\e[34mCommands:\e[32m v z e l g dev\e[m   \e[34mC++:\e[32m solve cppexe cppbundle\e[m"
 
