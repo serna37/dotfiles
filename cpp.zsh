@@ -9,6 +9,7 @@ function solve() {
     type gum > /dev/null 2>&1 || brew install gum
     CMD=$(gum filter --limit 1 \
         _cpp_ac_create_pj \
+        _cpp_ac_DL_testcase \
         _cpp_ac_exe \
         _cpp_ac_bundle \
     )
@@ -120,6 +121,26 @@ function _cpp_ac_exe() {
     echo " == [INFO] exit code: $res =="
     \rm _cpp_exec_tmpfile
 }
+
+# ====================================
+# テスト・提出
+# ====================================
+
+# テストケースをダウンロード
+function _cpp_ac_DL_testcase() {
+    echo "AtCoderテストケースをダウンロード"
+    # 現在、コンテストフォルダに居ること
+    # ~/xx/abcXXX
+    # 問題フォルダ一覧を取得 a z
+    LIST=$(find . -type d -maxdepth 1 | grep / | cut -d '/' -f 2)
+    TARGET=$(echo $LIST | gum filter --limit=1 --fuzzy)
+    # テストフォルダを削除
+    cd $TARGET
+    \rm -rf test
+    URL=$(gum input --placeholder "問題URLを入力")
+    oj d $URL
+}
+
 
 # C++ファイルのincludeライブラリをバンドル
 function _cpp_ac_bundle() {
