@@ -166,7 +166,6 @@ function solve() {
             cp -f ~/git/library-cpp/template/template.cpp "$v/main.cpp"
         fi
     done
-    cd $DIR_NAME
 }
 
 
