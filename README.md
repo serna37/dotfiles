@@ -77,6 +77,7 @@ alias q='exit'
 ├── .vimrc        : vim設定
 ├── .zshrc        : zsh設定
 ├── config.toml   : mise設定(ツールバージョン・環境変数・カスタムコマンド)
+├── cpp.zsh       : C++向けカスタムコマンド
 ├── ghostty_config: Ghosttyターミナル設定
 └── install.sh    : インストーラ
 ```
