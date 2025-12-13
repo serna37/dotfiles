@@ -8,8 +8,9 @@
 function solve() {
     type gum > /dev/null 2>&1 || brew install gum
     CMD=$(gum filter --limit 1 \
-        _cpp_ac_create_pj \
-        _cpp_ac_DL_testcase \
+        _cpp_ac_pj \
+        _cpp_ac_DL \
+        _cpp_ac_test \
         _cpp_ac_exe \
         _cpp_ac_bundle \
     )
@@ -17,7 +18,7 @@ function solve() {
 }
 
 # AtCoder用プロジェクト作成
-function _cpp_ac_create_pj() {
+function _cpp_ac_pj() {
     echo "AtCoder用プロジェクト作成"
     type gum > /dev/null 2>&1 || brew install gum
     DIR_NAME=$(gum input --header "フォルダ名" --value "$HOME/sandbox_algo")
@@ -127,7 +128,7 @@ function _cpp_ac_exe() {
 # ====================================
 
 # テストケースをダウンロード
-function _cpp_ac_DL_testcase() {
+function _cpp_ac_DL() {
     echo "AtCoderテストケースをダウンロード"
     # 現在、コンテストフォルダに居ること
     # ~/xx/abcXXX
@@ -139,6 +140,75 @@ function _cpp_ac_DL_testcase() {
     \rm -rf test
     URL=$(gum input --placeholder "問題URLを入力")
     oj d $URL
+}
+
+
+# ローカルでテストケース実行
+function _cpp_ac_test() {
+    echo "AtCoderローカルテスト"
+    # 現在、コンテストフォルダに居ること
+    # ~/xx/abcXXX
+    # 問題フォルダ一覧を取得 a z
+    LIST=$(find . -type d -maxdepth 1 | grep / | cut -d '/' -f 2)
+    TARGET=$(echo $LIST | gum filter --limit=1 --fuzzy)
+    cd $TARGET
+    echo " >> ビルド: $TARGET/main.cpp"
+    eval $CPP_BUILD_CMD main main.cpp
+    eval $CPP_BUILD_CMD_SANITIZE sani main.cpp > /dev/null 2>&1
+
+    # 出力を確認
+    echo " >> ケース1を実行"
+    ./main < test/sample-1.in # debug情報(標準エラー)も画面に表示
+    ./main < test/sample-1.in > res 2> /dev/null # 標準出力のみ保存
+    echo " << 実行完了"
+
+    # 標準出力を比較
+    ISOK=0
+    echo " >> 期待値"
+    cat test/sample-1.out
+    if diff -w test/sample-1.out res > /dev/null; then
+        echo "実行結果  : ✅出力一致"
+        ISOK=1
+    else
+        echo "実行結果  : ❌出力不一致"
+        type delta > /dev/null 2>&1 || brew install git-delta
+        delta -s test/sample-1.out res
+        echo "単純差分でないテストの実行はAtCoderTestPopup"
+    fi
+
+    # ケース1がOKまたは、緩いoj tがOKであればテストに続く
+    if [ $ISOK -eq 1 ] || oj t --ignore-spaces-and-newlines -e 1e-6 -c ./main > /dev/null 2>&1; then
+        # サニタイザ付きで実行確認
+        if ./sani < test/sample-1.in 1> /dev/null; then
+            echo 'サニタイザ: ✅アドレス違反なし'
+        else
+            echo 'サニタイザ: ❌アドレス違反'
+            ./sani < test/sample-1.in 1> /dev/null # 標準エラーのみ表示
+        fi
+        # ojでテスト
+        if gum spin --title "test..." -- oj t -e 1e-6 -c ./main; then
+            echo "テスト結果: ✅OK"
+            # 実行速度とメモリを表示
+            TMP=$(oj t -e 1e-6 -c ./main 2> /dev/null)
+            SEC=$(echo $TMP | tail -n 3 | head -n 1 | sed -e "s/.*slowest: \(.*\) sec.*/\1/g")
+            [ `echo "$SEC < 2" | bc` -eq 1 ] && echo "実行速度  : ✅2sec未満" || echo "実行速度: ⚠️2sec超過"
+            MEM=$(echo $TMP | tail -n 2 | head -n 1 | sed -e "s/.*memory: \(.*\) MB.*/\1/g")
+            [ `echo "$MEM < 256" | bc` -eq 1 ] && echo "使用メモリ: ✅256MB未満" || echo "使用メモリ: ⚠️256MB超過"
+            [ `echo "$MEM < 1024" | bc` -eq 1 ]&& echo "使用メモリ: ✅1024MB未満" || echo "使用メモリ: ⚠️1024MB超過"
+            # バックグラウンド実行はsleep 5 &
+            # PID表示を消す場合はsleep 5 &!
+            afplay /System/Library/Sounds/Hero.aiff &!
+        else
+            echo "テスト結果: ❌NG"
+            echo "===================================="
+            oj t -e 1e-6 -c ./main 2> /dev/null # debug情報(標準エラー)は非表示
+            echo "===================================="
+        fi
+    fi
+
+    \rm main res sani #ビルド失敗時など、削除対象なしエラーが見えた方がわかりやすい
+    cd ..
+    echo "-- DONE --"
 }
 
 
