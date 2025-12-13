@@ -225,6 +225,7 @@ function cppexe() {
     \rm _cpp_exec_tmpfile
 }
 
+# C++ファイルのincludeライブラリをバンドル
 function cppbundle() {
     PWD=$(pwd)
     if [[ ! -e "$HOME/git/library-cpp/bundler/build/cpp-bundler" ]]; then
@@ -240,6 +241,13 @@ function cppbundle() {
     ~/git/library-cpp/bundler/build/cpp-bundler -I ~/git/library-cpp $TARGET > ./bundle.cpp
     # 展開されたうち、#line 1 /Users/serna37/git/... という行を削除する
     sed -i '' '/^#line/d' ./bundle.cpp
+
+    cat ./bundle.cpp | pbcopy
+    gum style \
+        --foreground 212 --border-foreground 212 --border double \
+        --align center --width 50 --margin "1 2" --padding "2 4" \
+        "./bundle.cppを作成しました" \
+        "クリップボードにコピーしました"
 }
 
 
