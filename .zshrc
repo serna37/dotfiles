@@ -217,10 +217,11 @@ function cppexe() {
     [ $RUN_MODE = "sanitize" ] && CMD=$CPP_BUILD_CMD_SANITIZE
 
     # ビルドと実行
-    gum spin --title "running..." -- zsh -c "$CMD _cpp_exec_tmpfile $TARGET 2>&1"
+    gum spin --title "building..." -- zsh -c "$CMD _cpp_exec_tmpfile $TARGET 2>&1"
+    echo " == [INFO] exe: $TARGET =="
     ./_cpp_exec_tmpfile
     res=$?
-    echo " == exit code: $res =="
+    echo " == [INFO] exit code: $res =="
     \rm _cpp_exec_tmpfile
 }
 
