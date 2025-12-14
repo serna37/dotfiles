@@ -57,6 +57,7 @@ alias q='exit'
 
 
 ## 関連
+- C++関連では[このライブラリ](https://github.com/serna37/library-cpp)を使用します
 - 主に[Terminal Trove](https://terminaltrove.com/)からコマンドを選んでいます
 
 
