@@ -18,6 +18,7 @@ inoremap <expr>) getline('.')[col('.')-1] == ")" ? "\<right>" : ")"
 inoremap <expr>] getline('.')[col('.')-1] == "]" ? "\<right>" : "]"
 inoremap <expr>} getline('.')[col('.')-1] == "}" ? "\<right>" : "}"
 inoremap <expr><BS> (len(getline('.'))>=col('.')&&match(["()", "[]", "{}", "``","''", '""'], getline('.')[col('.')-2:col('.')-1])!=-1)?(col('.')>1?"\<right>\<BS>\<BS>":"\<BS>"):"\<BS>"
+inoremap {<CR> {}<left><CR><Esc>O
 
 " ==================================
 " 移動系
