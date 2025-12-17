@@ -172,7 +172,6 @@ function _cpp_ac_test() {
         echo "実行結果  : ❌出力不一致"
         type delta > /dev/null 2>&1 || brew install git-delta
         delta -s test/sample-1.out res
-        echo "単純差分でないテストの実行はAtCoderTestPopup"
     fi
 
     # ケース1がOKまたは、緩いoj tがOKであればテストに続く
