@@ -206,8 +206,8 @@ fu! s:plugin_excute()
     "\ 'coc-java',
     \ ]
     aug coc_explorer_auto_open
-      au!
-      au VimEnter * CocCommand explorer --no-focus --width 30
+        au!
+        au VimEnter * CocCommand explorer --no-focus --width 30
     aug END
     nnoremap <silent><Space>e :CocCommand explorer --width 30<CR>
     nnoremap <silent><Space>f :cal execute('CocCommand fzf-preview.'.(system('git rev-parse --is-inside-work-tree') =~ 'fatal'?'DirectoryFiles':'ProjectFiles'))<CR>
