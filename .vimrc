@@ -50,6 +50,7 @@ nnoremap <silent><Space>x :<C-u>bd<CR>
 au BufRead * if line("'\"")>0&&line("'\"")<=line("$")|exe "norm g`\""|endif
 " ターミナル
 set splitbelow termwinkey=<C-e>
+nnoremap <silent><Space>t :<C-u>ter ++rows=15<CR>
 
 " ==================================
 " 検索系
