@@ -223,6 +223,8 @@ fu! s:plugin_excute()
     inoremap <silent><expr><C-j> coc#pum#visible() ? coc#pum#next(1) : '<C-j>'
     inoremap <silent><expr><C-k> coc#pum#visible() ? coc#pum#prev(1) : '<C-k>'
     inoremap <silent><expr><CR> coc#pum#visible() ? coc#pum#confirm() : pumvisible() ? '<C-y>' : '<CR>'
+    let g:coc_snippet_next = '<Tab>'
+    let g:coc_snippet_prev = '<S-Tab>'
 
     "let g:vimspector_base_dir=$HOME.'/.vim/plugged/vimspector'
     "let g:vimspector_install_gadgets = ["vscode-js-debug"]
