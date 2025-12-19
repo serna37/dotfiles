@@ -121,10 +121,10 @@ function _cpp_ac_exe() {
         \rm _cpp_exec_tmpfile
         return 1
     fi
-    echo " == [INFO] exe: $TARGET =="
+    echo "\e[34m == [INFO] exe: $TARGET ==\e[m"
     ./_cpp_exec_tmpfile
     res=$?
-    echo " == [INFO] exit code: $res =="
+    echo "\e[34m == [INFO] exit code: $res ==\e[m"
     \rm _cpp_exec_tmpfile
 }
 
@@ -166,20 +166,20 @@ function _cpp_ac_test() {
     fi
 
     # 出力を確認
-    echo " >> ケース1を実行"
+    echo "\e[34m >> ケース1を実行\e[m"
     ./main < test/sample-1.in # debug情報(標準エラー)も画面に表示
     ./main < test/sample-1.in > res 2> /dev/null # 標準出力のみ保存
-    echo " << 実行完了"
+    echo "\e[34m << 実行完了\e[m"
 
     # 標準出力を比較
     ISOK=0
-    echo " >> 期待値"
+    echo "\e[34m >> 期待値\e[m"
     cat test/sample-1.out
     if diff -w test/sample-1.out res > /dev/null; then
-        echo "実行結果  : ✅出力一致"
+        echo "\e[32m実行結果  : ✅出力一致\e[m"
         ISOK=1
     else
-        echo "実行結果  : ❌出力不一致"
+        echo "\e[31m実行結果  : ❌出力不一致\e[m"
         type delta > /dev/null 2>&1 || brew install git-delta
         delta -s test/sample-1.out res
     fi
@@ -188,26 +188,26 @@ function _cpp_ac_test() {
     if [ $ISOK -eq 1 ] || oj t --ignore-spaces-and-newlines -e 1e-6 -c ./main > /dev/null 2>&1; then
         # サニタイザ付きで実行確認
         if ./sani < test/sample-1.in 1> /dev/null; then
-            echo 'サニタイザ: ✅アドレス違反なし'
+            echo "\e[32mサニタイザ: ✅アドレス違反なし\e[m"
         else
-            echo 'サニタイザ: ❌アドレス違反'
+            echo "\e[31mサニタイザ: ❌アドレス違反\e[m"
             ./sani < test/sample-1.in 1> /dev/null # 標準エラーのみ表示
         fi
         # ojでテスト
         if gum spin --title "test..." -- oj t -e 1e-6 -c ./main; then
-            echo "テスト結果: ✅OK"
+            echo "\e[32mテスト結果: ✅OK\e[m"
             # 実行速度とメモリを表示
             TMP=$(oj t -e 1e-6 -c ./main 2> /dev/null)
             SEC=$(echo $TMP | tail -n 3 | head -n 1 | sed -e "s/.*slowest: \(.*\) sec.*/\1/g")
-            [ `echo "$SEC < 2" | bc` -eq 1 ] && echo "実行速度  : ✅2sec未満" || echo "実行速度: ⚠️2sec超過"
+            [ `echo "$SEC < 2" | bc` -eq 1 ] && echo "\e[32m実行速度  : ✅2sec未満\e[m" || echo "\e[31m実行速度: ⚠️2sec超過\e[m"
             MEM=$(echo $TMP | tail -n 2 | head -n 1 | sed -e "s/.*memory: \(.*\) MB.*/\1/g")
-            [ `echo "$MEM < 256" | bc` -eq 1 ] && echo "使用メモリ: ✅256MB未満" || echo "使用メモリ: ⚠️256MB超過"
-            [ `echo "$MEM < 1024" | bc` -eq 1 ]&& echo "使用メモリ: ✅1024MB未満" || echo "使用メモリ: ⚠️1024MB超過"
+            [ `echo "$MEM < 256" | bc` -eq 1 ] && echo "\e[32m使用メモリ: ✅256MB未満\e[m" || echo "\e[31m使用メモリ: ⚠️256MB超過\e[m"
+            [ `echo "$MEM < 1024" | bc` -eq 1 ]&& echo "\e[32m使用メモリ: ✅1024MB未満\e[m" || echo "\e[31m使用メモリ: ⚠️1024MB超過\e[m"
             # バックグラウンド実行はsleep 5 &
             # PID表示を消す場合はsleep 5 &!
             afplay /System/Library/Sounds/Hero.aiff &!
         else
-            echo "テスト結果: ❌NG"
+            echo "\e[31mテスト結果: ❌NG\e[m"
             echo "===================================="
             oj t -e 1e-6 -c ./main 2> /dev/null # debug情報(標準エラー)は非表示
             echo "===================================="
@@ -216,7 +216,7 @@ function _cpp_ac_test() {
 
     \rm main res sani #ビルド失敗時など、削除対象なしエラーが見えた方がわかりやすい
     cd ..
-    echo "-- DONE --"
+    echo "\e[34m-- DONE --\e[m"
 }
 
 
