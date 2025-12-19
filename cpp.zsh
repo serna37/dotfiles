@@ -115,7 +115,12 @@ function _cpp_ac_exe() {
     [ $RUN_MODE = "sanitize" ] && CMD=$CPP_BUILD_CMD_SANITIZE
 
     # ビルドと実行
-    gum spin --title "building..." -- zsh -c "$CMD _cpp_exec_tmpfile $TARGET 2>&1"
+    gum spin --title "building..." -- zsh -c "$CMD _cpp_exec_tmpfile $TARGET"
+    if [ ! -f "_cpp_exec_tmpfile" ]; then
+        eval $CMD _cpp_exec_tmpfile $TARGET
+        \rm _cpp_exec_tmpfile
+        return 1
+    fi
     echo " == [INFO] exe: $TARGET =="
     ./_cpp_exec_tmpfile
     res=$?
@@ -154,6 +159,11 @@ function _cpp_ac_test() {
     cd $TARGET
     gum spin --title "building..." -- zsh -c "$CPP_BUILD_CMD main main.cpp"
     gum spin --title "building..." -- zsh -c "$CPP_BUILD_CMD_SANITIZE sani main.cpp > /dev/null 2>&1"
+    if [ ! -f "main" ]; then
+        eval $CMD main $TARGET
+        \rm main sani
+        return 1
+    fi
 
     # 出力を確認
     echo " >> ケース1を実行"
