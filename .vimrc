@@ -184,6 +184,8 @@ fu! s:plugin_excute()
             au ColorScheme * hi CursorLineNr ctermfg=245
             " カーソル
             au ColorScheme * hi Visual ctermbg=230
+            " 補完のマッチ行
+            au ColorScheme * hi PmenuSel ctermfg=236 ctermbg=60
         aug END
         colorscheme onedark
     endif
