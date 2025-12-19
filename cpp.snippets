@@ -1,0 +1,80 @@
+snippet func "function" b
+/* ${1:solve} */
+${2:void} ${3:func}(${4:int n}) {
+	${5}
+}
+endsnippet
+snippet lambda "function lambda" b
+/* ${1:solve} */
+auto ${2:f} = [${3:&}](const ${4:char} & ${5:ch}) ${6:-> void} {
+	${7}
+};
+endsnippet
+
+# =========================================================
+# while
+# =========================================================
+snippet while "while" b
+while (${1:Q--}) {
+	${2}
+	break;// TODO
+}
+endsnippet
+snippet while_increment "while ++" b
+while (${1:i} < ${2:N} and ${3:condition}) ++$1;
+if ($1 < $2) ${4:some}
+endsnippet
+
+# =========================================================
+# for
+# =========================================================
+snippet forv "for vector set" b
+for (${1:auto} &&${2:v} : ${3:st}) {
+	${4}
+}
+endsnippet
+snippet form "for map" b
+for (auto &&[${1:k}, ${2:v}] : ${3:mp}) {
+	${4}
+}
+endsnippet
+snippet fori "for i" b
+for (int ${1:i} = ${2:0}; $1 <${3:N}; ++$1) {
+	${4}
+}
+endsnippet
+snippet forj "for j" b
+for (int ${1:j} = ${2:0}; $1 <${3:N}; ++$1) {
+	${4}
+}
+endsnippet
+snippet fork "for k" b
+for (int ${1:k} = ${2:0}; $1 <${3:N}; ++$1) {
+	${4}
+}
+endsnippet
+snippet forij2 "for ij 2 loop" b
+for (int ${1:i} = ${2:0}; $1 <${3:H}; ++$1) {
+	for (int ${4:j} = ${5:0}; $4 <${6:W}; ++$4) {
+		${7}
+	}
+}
+endsnippet
+snippet fori_re "for i reverse" b
+// 反転
+for (int ${1:i} = ${2:N-1}; $1 >=${3:0}; --$1) {
+	${4}
+}
+endsnippet
+snippet fori_range "for i range loop" b
+// $3を$4個ずつ
+for (int ${1:i} = ${2:0}; $1 <${3:N} - ${4:M} + 1; ++$1) {
+	${5}
+}
+endsnippet
+snippet fori_sqrt "for i sqrt" b
+for (${1:long long} ${2:i} = ${3:0}; ${4:$2*$2} <= ${5:N}; ++$2) {
+	${6}
+}
+endsnippet
+

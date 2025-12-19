@@ -82,6 +82,9 @@ cat - << "EOF" > ~/.vim/coc-settings.json
 }
 EOF
 
+# vim coc-snippets cpp
+ln -nfs ~/git/dotfiles/cpp.snippets ~/.config/coc/ultisnips/cpp.snippets
+
 # yaziの設定
 mkdir -p ~/.config/yazi
 cat - << "EOF" > ~/.config/yazi/yazi.toml

@@ -192,6 +192,7 @@ fu! s:plugin_excute()
     let g:coc_global_extensions = [
     \ 'coc-explorer',
     \ 'coc-fzf-preview',
+    \ 'coc-snippets',
     "\ 'coc-vimlsp',
     "\ 'coc-sh',
     "\ 'coc-json',
