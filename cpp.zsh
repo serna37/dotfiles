@@ -115,7 +115,7 @@ function _cpp_ac_exe() {
     [ $RUN_MODE = "sanitize" ] && CMD=$CPP_BUILD_CMD_SANITIZE
 
     # ビルドと実行
-    gum spin --title "building..." -- zsh -c "$CMD _cpp_exec_tmpfile $TARGET"
+    gum spin --title "build..." -- zsh -c "$CMD _cpp_exec_tmpfile $TARGET"
     if [ ! -f "_cpp_exec_tmpfile" ]; then
         eval $CMD _cpp_exec_tmpfile $TARGET
         \rm _cpp_exec_tmpfile
@@ -157,8 +157,8 @@ function _cpp_ac_test() {
     LIST=$(find . -type d -maxdepth 1 | grep / | cut -d '/' -f 2)
     TARGET=$(echo $LIST | gum filter --limit=1 --fuzzy)
     cd $TARGET
-    gum spin --title "building..." -- zsh -c "$CPP_BUILD_CMD main main.cpp"
-    gum spin --title "building..." -- zsh -c "$CPP_BUILD_CMD_SANITIZE sani main.cpp > /dev/null 2>&1"
+    gum spin --title "build..." -- zsh -c "$CPP_BUILD_CMD main main.cpp"
+    gum spin --title "build..." -- zsh -c "$CPP_BUILD_CMD_SANITIZE sani main.cpp > /dev/null 2>&1"
     if [ ! -f "main" ]; then
         eval $CMD main $TARGET
         \rm main sani
