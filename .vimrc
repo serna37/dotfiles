@@ -7,6 +7,9 @@ set fileformat=unix fileencoding=utf8 noswapfile nobackup noundofile hidden auto
 " ブロック移動
 vnoremap <C-j> "zx"zp`[V`]
 vnoremap <C-k> "zx<Up>"zP`[V`]
+" 行末セミコロン
+inoremap ;; <Esc>A;
+inoremap ;<CR> <Esc>A;<CR>
 " ペア文字
 inoremap ( ()<left>
 inoremap [ []<left>
