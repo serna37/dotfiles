@@ -145,6 +145,7 @@ function _cpp_ac_DL() {
     \rm -rf test
     URL=$(gum input --placeholder "問題URLを入力")
     oj d $URL
+    cd ..
 }
 
 
