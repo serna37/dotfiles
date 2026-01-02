@@ -1,3 +1,25 @@
+snippet main "main" b
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+template <typename T> istream &operator>>(istream &s, vector<T> &v) {
+	for (auto &&e : v) s >> e;
+	return s;
+}
+template <typename T> ostream &operator<<(ostream &s, const vector<T> &v) {
+	int i = 0;
+	for (auto &&e : v) s << (i++ ? " " : "") << e;
+	return s;
+}
+template <typename T> void print(const T &v) {
+	cout << v << endl;
+}
+signed main() {
+	cin.tie(0)->sync_with_stdio(0);
+	cout << fixed << setprecision(20);
+	${1}
+}
+endsnippet
 snippet solve "solve" b
 #include "template/template.hpp"
 // #include "template/lib.hpp"
