@@ -223,6 +223,14 @@ fu! s:plugin_excute()
     nnoremap <silent><Space>. <Plug>(coc-diagnostic-prev)
     nnoremap <silent><Space>? :cal CocAction('doHover')<CR>
     nnoremap <silent><Space>l :<C-u>w<CR>:e!<CR>:echo 'Reload Buffer'<CR><Esc>
+    " .cppは保存時にフォーマットしてから保存
+    aug fmt_cpp
+        au!
+        au BufWrite *.cpp :try | cal CocAction('format') | catch | endtry
+    aug END
+
+
+
 
     inoremap <silent><expr><C-j> coc#pum#visible() ? coc#pum#next(1) : '<C-j>'
     inoremap <silent><expr><C-k> coc#pum#visible() ? coc#pum#prev(1) : '<C-k>'
