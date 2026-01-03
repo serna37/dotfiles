@@ -19,7 +19,7 @@ function solve() {
 
 # AtCoder用プロジェクト作成
 function _cpp_ac_pj() {
-    echo "AtCoder用プロジェクト作成"
+    echo "\e[34mAtCoder用プロジェクト作成\e[m"
     type gum > /dev/null 2>&1 || brew install gum
     DIR_NAME=$(gum input --header "フォルダ名" --value "$HOME/sandbox_algo")
     CONTEST_CODE=$(gum input --header "コンテストコード" --value "abcXXX")
@@ -48,11 +48,11 @@ function _cpp_ac_pj() {
     gum spin --title "acc config..." -- acc config default-task-choice all
     gum spin --title "acc config..." -- acc config default-test-dirname-format test
     if [ $CONTEST_CODE = "abcXXX" ]; then
-        echo " >> 書き捨てフォルダ"
+        echo "\e[34m >> 書き捨てフォルダ\e[m"
         mkdir -p "$CONTEST_CODE/a"
         mkdir -p "$CONTEST_CODE/z"
     else
-        echo " >> コンテスト $CONTEST_CODE フォルダ"
+        echo "\e[34m >> コンテスト $CONTEST_CODE フォルダ\e[m"
         acc new $CONTEST_CODE
     fi
     # main.cppを作成
@@ -102,7 +102,7 @@ export CPP_BUILD_CMD_SANITIZE="g++ -std=c++20 \
 
 # C++ファイルを実行
 function _cpp_ac_exe() {
-    echo "C++実行"
+    echo "\e[34m C++実行 - サニタイズを選択する場合は引数を指定\e[m"
     type gum > /dev/null 2>&1 || brew install gum
     # C++デバッガのlldbのためにllvmを導入
     [[ ! -d /opt/homebrew/opt/llvm ]] && brew install llvm
@@ -134,7 +134,7 @@ function _cpp_ac_exe() {
 
 # テストケースをダウンロード
 function _cpp_ac_DL() {
-    echo "AtCoderテストケースをダウンロード"
+    echo "\e[34mAtCoderテストケースをダウンロード\e[m"
     # 現在、コンテストフォルダに居ること
     # ~/xx/abcXXX
     # 問題フォルダ一覧を取得 a z
@@ -151,7 +151,7 @@ function _cpp_ac_DL() {
 
 # ローカルでテストケース実行
 function _cpp_ac_test() {
-    echo "AtCoderローカルテスト"
+    echo "\e[34mAtCoderローカルテスト\e[m"
     # 現在、コンテストフォルダに居ること
     # ~/xx/abcXXX
     # 問題フォルダ一覧を取得 a z
@@ -223,10 +223,10 @@ function _cpp_ac_test() {
 
 # C++ファイルのincludeライブラリをバンドル
 function _cpp_ac_bundle() {
-    echo "C++バンドル"
+    echo "\e[34mC++バンドル\e[m"
     PWD=$(pwd)
     if [[ ! -e "$HOME/git/library-cpp/bundler/build/cpp-bundler" ]]; then
-        echo "C++バンドラをビルドします"
+        echo "\e[34mC++バンドラをビルドします\e[m"
         cd ~/git/library-cpp/bundler
         make build
         cd $PWD
