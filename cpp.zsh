@@ -14,7 +14,7 @@ function solve() {
         _cpp_ac_exe \
         _cpp_ac_bundle \
     )
-    eval $CMD
+    eval $CMD $1
 }
 
 # AtCoder用プロジェクト作成
@@ -110,7 +110,11 @@ function _cpp_ac_exe() {
     # 実行ファイルを選択
     TARGET=$(find . -name '*.cpp' | gum filter --limit=1 --fuzzy)
     # 通常起動 / サニタイズ起動 を選択
-    RUN_MODE=$(gum choose "normal" "sanitize")
+    if [ -z $1 ]; then
+        RUN_MODE="normal"
+    else
+        RUN_MODE=$(gum choose "normal" "sanitize")
+    fi
     CMD=$CPP_BUILD_CMD
     [ $RUN_MODE = "sanitize" ] && CMD=$CPP_BUILD_CMD_SANITIZE
 
