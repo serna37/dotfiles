@@ -60,7 +60,8 @@ function _cpp_ac_pj() {
     dirs=(`find . -type d -maxdepth 1 | grep / | cut -d '/' -f 2`)
     for v in ${dirs[@]}; do
         if [ ! -f "$v/main.cpp" ]; then
-            cp -f ~/git/library-cpp/main.cpp "$v/main.cpp"
+            #cp -f ~/git/library-cpp/main.cpp "$v/main.cpp"
+            touch "$v/main.cpp"
         fi
     done
 }
