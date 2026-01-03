@@ -222,6 +222,10 @@ function _cpp_ac_test() {
     \rm main res sani #ビルド失敗時など、削除対象なしエラーが見えた方がわかりやすい
     cd ..
     echo "\e[34m-- DONE --\e[m"
+    if [ $ISOK -eq 1 ]; then
+        gum spin --title "program bundle..." -- sleep 1.5
+        _cpp_ac_bundle
+    fi
 }
 
 
