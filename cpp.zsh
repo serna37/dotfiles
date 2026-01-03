@@ -8,11 +8,11 @@
 function solve() {
     type gum > /dev/null 2>&1 || brew install gum
     CMD=$(gum filter --limit 1 \
-        _cpp_ac_pj \
+        _cpp_ac_exe \
         _cpp_ac_DL \
         _cpp_ac_test \
-        _cpp_ac_exe \
         _cpp_ac_bundle \
+        _cpp_ac_pj \
     )
     eval $CMD $1
 }
