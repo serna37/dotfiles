@@ -39,36 +39,14 @@ for (int ${1:i} = ${2:0}; $1 <${3:N} - ${4:M} + 1; ++$1) {
 endsnippet
 
 
-snippet main_A "main function" b
+snippet main "main function" b
 #include <bits/stdc++.h>
 using namespace std;
 int main() {
 	${1}
 }
 endsnippet
-snippet main_B "main and others" b
-#include <bits/stdc++.h>
-using namespace std;
-#define int long long
-template <typename T> istream &operator>>(istream &s, vector<T> &v) {
-	for (auto &&e : v) s >> e;
-	return s;
-}
-template <typename T> ostream &operator<<(ostream &s, const vector<T> &v) {
-	int i = 0;
-	for (auto &&e : v) s << (i++ ? " " : "") << e;
-	return s;
-}
-template <typename T> void print(const T &v) {
-	cout << v << endl;
-}
-signed main() {
-	cin.tie(0)->sync_with_stdio(0);
-	cout << fixed << setprecision(20);
-	${1}
-}
-endsnippet
-snippet main_C "main template for solve" b
+snippet solve "solve template with library" b
 #include "template/template.hpp"
 /**
  * @brief 🍪🧸🐾
