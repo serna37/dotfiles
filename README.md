@@ -1,4 +1,4 @@
-[![tag](https://img.shields.io/badge/tag-v9.5.0-green)](https://github.com/serna37/dotfiles/releases/tag/v9.5.0)
+[![tag](https://img.shields.io/badge/tag-v10.0.0-green)](https://github.com/serna37/dotfiles/releases/tag/v10.0.0)
 
 # dotfiles
 <a href="https://github.com/serna37/dotfiles/blob/master/install.sh">
@@ -69,15 +69,14 @@ alias q='exit'
 
 ```
 .
-├── conf/
-│   ├── cpp/      : (移行中)C++用設定ファイル デバッグ、フォーマット設定等
-│   ├── vim/      : (削除予定)vim用設定ファイル
-│   └── zsh/      : (削除済み)(メンテ要: cpp系をcppに移動しフォルダ削除)zsh用設定ファイル
+├── bk/
+│   └── **        : すぐ参照したい、過去のファイル
 │
 ├── .p10k.zsh     : zsh 外観設定
 ├── .vimrc        : vim設定
 ├── .zshrc        : zsh設定
 ├── config.toml   : mise設定(ツールバージョン・環境変数・カスタムコマンド)
+├── cpp.snippets  : C++向けスニペット
 ├── cpp.zsh       : C++向けカスタムコマンド
 ├── ghostty_config: Ghosttyターミナル設定
 └── install.sh    : インストーラ
