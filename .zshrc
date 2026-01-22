@@ -93,6 +93,7 @@ show_hidden = true
 EOF
 
 # git設定
+git config --global fetch.prune true
 cat - << "EOF" > ~/.gitconfig
 [user]
     name = さーな
