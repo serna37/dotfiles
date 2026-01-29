@@ -27,8 +27,8 @@ function _cpp_ac_pj() {
     cd $DIR_NAME
 
     # LSP用設定
-    cp -f ~/git/library-cpp/.clang-format .
-    cp -f ~/git/library-cpp/compile_flags.txt .
+    cp -f $GIT_REPO_ROOT/library-cpp/.clang-format .
+    cp -f $GIT_REPO_ROOT/library-cpp/compile_flags.txt .
     # C++デバッガのlldbのためにllvmを導入
     [[ ! -d /opt/homebrew/opt/llvm ]] && brew install llvm
     # atcoder-cliを入れる
@@ -81,7 +81,7 @@ function _cpp_ac_pj() {
 # -march=native マシン最適化
 # -fconstexpr-depth=2147483647 コンパイル時の再帰回数
 export CPP_BUILD_CMD="g++ -D=LOCAL -std=c++23 \
--I $HOME/git/library-cpp \
+-I $GIT_REPO_ROOT/library-cpp \
 -Wall -Wextra \
 -mtune=native -march=native \
 -fconstexpr-depth=2147483647 \
@@ -92,7 +92,7 @@ export CPP_BUILD_CMD="g++ -D=LOCAL -std=c++23 \
 # -fsanitize-undefined-trap-on-error 未定義サニタイザ
 # -fsanitize=address アドレスサニタイザ
 export CPP_BUILD_CMD_SANITIZE="g++ -std=c++23 \
--I $HOME/git/library-cpp \
+-I $GIT_REPO_ROOT/library-cpp \
 -Wall -Wextra \
 -mtune=native -march=native \
 -fconstexpr-depth=2147483647 \
@@ -234,9 +234,9 @@ function _cpp_ac_test() {
 function _cpp_ac_bundle() {
     echo "\e[34mC++バンドル\e[m"
     PWD=$(pwd)
-    if [[ ! -e "$HOME/git/library-cpp/bundler/build/cpp-bundler" ]]; then
+    if [[ ! -e "$GIT_REPO_ROOT/library-cpp/bundler/build/cpp-bundler" ]]; then
         echo "\e[34mC++バンドラをビルドします\e[m"
-        cd ~/git/library-cpp/bundler
+        cd $GIT_REPO_ROOT/library-cpp/bundler
         make build
         cd $PWD
     fi
@@ -244,7 +244,7 @@ function _cpp_ac_bundle() {
     type gum > /dev/null 2>&1 || brew install gum
     TARGET=$(find . -name '*.cpp' | gum filter --limit=1 --fuzzy)
     # includeファイルをバンドルする
-    ~/git/library-cpp/bundler/build/cpp-bundler -I ~/git/library-cpp $TARGET > ./bundle.cpp
+    $GIT_REPO_ROOT/library-cpp/bundler/build/cpp-bundler -I $GIT_REPO_ROOT/library-cpp $TARGET > ./bundle.cpp
     # 展開されたうち、#line 1 /Users/serna37/git/... という行を削除する
     sed -i '' '/^#line/d' ./bundle.cpp
 

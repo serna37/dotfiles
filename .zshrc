@@ -52,6 +52,7 @@ alias l='type eza > /dev/null 2>&1 || brew install eza; eza -abghHliS --icons --
 alias g='type lazygit > /dev/null 2>&1 || brew install lazygit; lazygit'
 alias dev='type mise > /dev/null 2>&1 || brew install mise; eval "$(mise activate zsh)"; mise run'
 
+alias cdg="cd $GIT_REPO_ROOT"
 alias rm='rm -i'
 alias re='exec $SHELL -l'
 alias q='exit'
@@ -60,6 +61,9 @@ alias q='exit'
 # ====================================
 # 設定ファイルの書き出し
 # ====================================
+
+# Gitレポのルート
+export GIT_REPO_ROOT=$HOME/git
 
 # vim コメント行から改行した際、次の行をコメントにしない設定
 mkdir -p ~/.vim/after/plugin
@@ -83,7 +87,7 @@ cat - << "EOF" > ~/.vim/coc-settings.json
 EOF
 
 # vim coc-snippets cpp
-ln -nfs ~/git/dotfiles/cpp.snippets ~/.config/coc/ultisnips/cpp.snippets
+ln -nfs $GIT_REPO_ROOT/dotfiles/cpp.snippets ~/.config/coc/ultisnips/cpp.snippets
 
 # yaziの設定
 mkdir -p ~/.config/yazi
@@ -126,7 +130,7 @@ EOF
 # ====================================
 # C++とAtCoder用設定
 # ====================================
-source "$HOME/git/dotfiles/cpp.zsh"
+source "$GIT_REPO_ROOT/dotfiles/cpp.zsh"
 
 
 # ====================================
