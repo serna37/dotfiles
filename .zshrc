@@ -46,6 +46,8 @@ export _ZO_FZF_OPTS='
 
 alias vim='export VIM_PLUGIN_ENABLE=0 && \vim'
 alias v='export VIM_PLUGIN_ENABLE=1 && \vim'
+
+# TODO ここを綺麗にする
 alias z='type zoxide > /dev/null 2>&1 || brew install zoxide; eval "$(zoxide init zsh)"; type eza > /dev/null 2>&1 || brew install eza; type fzf > /dev/null 2>&1 || brew install fzf; type bat > /dev/null 2>&1 || brew install bat; zi'
 alias e='type yazi > /dev/null 2>&1 || brew install yazi; yazi'
 alias l='type eza > /dev/null 2>&1 || brew install eza; eza -abghHliS --icons --git'
@@ -53,8 +55,8 @@ alias g='type lazygit > /dev/null 2>&1 || brew install lazygit; lazygit'
 alias dev='type mise > /dev/null 2>&1 || brew install mise; eval "$(mise activate zsh)"; mise run'
 
 alias cdg="cd $GIT_REPO_ROOT"
-alias rm='rm -i'
 alias re='exec $SHELL -l'
+alias rm='rm -i'
 alias q='exit'
 
 
