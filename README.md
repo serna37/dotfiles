@@ -1,6 +1,5 @@
-[![tag](https://img.shields.io/badge/tag-v10.0.0-green)](https://github.com/serna37/dotfiles/releases/tag/v10.0.0)
-
 # dotfiles
+
 <a href="https://github.com/serna37/dotfiles/blob/master/install.sh">
     <img src="http://img.shields.io/badge/homebrew-4.2.21-FBB040.svg?logo=homebrew&logoColor=FBB040&labelColor=fafffe&style=for-the-badge">
 </a>
