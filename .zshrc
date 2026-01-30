@@ -29,12 +29,14 @@ source /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-the
 # カスタムコマンド・ツール
 # ====================================
 
+# 初期化用
 type zoxide > /dev/null && eval "$(zoxide init zsh)"
 type mise > /dev/null && eval "$(mise activate zsh)"
 
 # fzf-previewのためにripgrepが必要
 type rg > /dev/null || brew install ripgrep
 
+# zoxide設定
 export _ZO_FZF_OPTS='
 --no-sort --height 75% --reverse --margin=0,1 --exit-0 --select-1
 --prompt="❯ "
@@ -44,17 +46,24 @@ export _ZO_FZF_OPTS='
 --preview "([[ -e '{2..}/README.md' ]] && bat --color=always --style=numbers --line-range=:50 '{2..}/README.md') || eza --color=always --group-directories-first --oneline {2..}"
 '
 
+# vim
 alias vim='export VIM_PLUGIN_ENABLE=0 && \vim'
 alias v='export VIM_PLUGIN_ENABLE=1 && \vim'
-alias z='type zoxide > /dev/null 2>&1 || brew install zoxide; eval "$(zoxide init zsh)"; type eza > /dev/null 2>&1 || brew install eza; type fzf > /dev/null 2>&1 || brew install fzf; type bat > /dev/null 2>&1 || brew install bat; zi'
-alias e='type yazi > /dev/null 2>&1 || brew install yazi; yazi'
-alias l='type eza > /dev/null 2>&1 || brew install eza; eza -abghHliS --icons --git'
-alias g='type lazygit > /dev/null 2>&1 || brew install lazygit; lazygit'
-alias dev='type mise > /dev/null 2>&1 || brew install mise; eval "$(mise activate zsh)"; mise run'
 
+# LazyInstall
+function li() {
+    for c in "$@"; do type "$c" >/dev/null 2>&1 || brew install "$c"; done
+}
+alias z='li zoxide eza fzf bat; eval "$(zoxide init zsh)"; zi'
+alias e='li yazi; yazi'
+alias l='li eza; eza -abghHliS --icons --git'
+alias g='li lazygit; lazygit'
+alias dev='li mise; eval "$(mise activate zsh)"; mise run'
+
+# ベースコマンド
 alias cdg="cd $GIT_REPO_ROOT"
-alias rm='rm -i'
 alias re='exec $SHELL -l'
+alias rm='rm -i'
 alias q='exit'
 
 
@@ -97,6 +106,7 @@ show_hidden = true
 EOF
 
 # git設定
+git config --global pull.prune true
 git config --global fetch.prune true
 cat - << "EOF" > ~/.gitconfig
 [user]

@@ -4,7 +4,7 @@
 export PATH="$PATH:/opt/homebrew/bin/"
 
 # =====================================
-# コマンド
+# 初期から必要なコマンド
 REPOS=(vim git mas sqlite)
 
 # アプリ
@@ -92,14 +92,4 @@ defaults write com.apple.finder AppleShowAllFiles -bool true
 
 # shell再起動
 exec $SHELL -l
-
-# XXX old
-#if [ ! -d ~/.vim/UltiSnips ]; then
-#    # snippets
-#    mkdir -p ~/.vim/UltiSnips > /dev/null 2>&1
-#    ln -nfs ~/git/dotfiles/conf/cpp/snippets/* ~/.vim/UltiSnips/
-#    zsh ~/git/dotfiles/conf/cpp/library.zsh
-#    # TODO library更新時、新規ファイルのリンクがない
-#    ln -nfs ~/git/dotfiles/conf/snippets/* ~/.vim/UltiSnips/
-#fi
 
