@@ -1,0 +1,13 @@
+{
+    "name": "bullseye base",
+    "image": "mcr.microsoft.com/devcontainers/base:bullseye",
+    "features": {},
+    "customizations": {
+        "vscode": {
+            "extensions": [],
+            "settings": {}
+        }
+    },
+    "remoteUser": "vscode",
+    "postCreateCommand": "echo 'container created.'"
+}
