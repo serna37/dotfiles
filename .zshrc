@@ -1,6 +1,32 @@
 clear
 
 # ====================================
+# 環境分岐
+# ====================================
+
+# Gitレポのルート
+if [ -n "$CODESPACES" ]; then
+    # CodeSpaces中の場合
+    export GIT_REPO_ROOT="/workspaces"
+else
+    export GIT_REPO_ROOT="$HOME/git"
+fi
+
+# dotfilesのパス
+if [ -n "$DOTFILES" ]; then
+    # Codespaces が公式にセットする変数がある場合
+    DOTFILES_DIR="$DOTFILES"
+elif [ -n "$CODESPACES" ] && [ -d "/workspaces/.dotfiles" ]; then
+    # 変数はないが、標準的なパスに存在する場合
+    DOTFILES_DIR="/workspaces/.dotfiles"
+else
+    DOTFILES_DIR="${GIT_REPO_ROOT:-$HOME/git}/dotfiles"
+fi
+
+# Homebrewのパスを動的に取得
+BREW_PREFIX=$(brew --prefix)
+
+# ====================================
 # プロンプト設定
 # ====================================
 HISTSIZE=1000
@@ -9,19 +35,19 @@ setopt no_beep
 
 # zshの補完
 autoload -Uz compinit
-compinit
+compinit -u
 
 # シンタックスハイライト
-[[ ! -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && brew install zsh-syntax-highlighting
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ ! -f "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && brew install zsh-syntax-highlighting
+source "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # コマンド補完 →キーで補完する
-[[ ! -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && brew install zsh-autosuggestions
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ ! -f "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && brew install zsh-autosuggestions
+source "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # 外観
-[[ ! -f /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme ]] && brew install powerlevel10k
-source /opt/homebrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme
+[[ ! -f "$BREW_PREFIX/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme" ]] && brew install powerlevel10k
+source "$BREW_PREFIX/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
@@ -49,6 +75,7 @@ export _ZO_FZF_OPTS='
 # vim
 alias vim='export VIM_PLUGIN_ENABLE=0 && \vim'
 alias v='export VIM_PLUGIN_ENABLE=1 && \vim'
+alias vim_init='curl -fSsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim -c "PlugInstall'
 
 # LazyInstall
 function li() {
@@ -70,9 +97,6 @@ alias q='exit'
 # ====================================
 # 設定ファイルの書き出し
 # ====================================
-
-# Gitレポのルート
-export GIT_REPO_ROOT=$HOME/git
 
 # vim コメント行から改行した際、次の行をコメントにしない設定
 mkdir -p ~/.vim/after/plugin
@@ -96,7 +120,8 @@ cat - << "EOF" > ~/.vim/coc-settings.json
 EOF
 
 # vim coc-snippets cpp
-ln -nfs $GIT_REPO_ROOT/dotfiles/cpp.snippets ~/.config/coc/ultisnips/cpp.snippets
+mkdir -p ~/.config/coc/ultisnips
+ln -nfs $DOTFILES_DIR/cpp.snippets ~/.config/coc/ultisnips/cpp.snippets
 
 # yaziの設定
 mkdir -p ~/.config/yazi
@@ -108,17 +133,23 @@ EOF
 # git設定
 git config --global pull.prune true
 git config --global fetch.prune true
-cat - << "EOF" > ~/.gitconfig
+if [[ "$(uname)" == "Darwin" ]]; then
+    GIT_CREDENTIAL_HELPER="osxkeychain"
+else
+    GIT_CREDENTIAL_HELPER="store"
+fi
+cat - << EOF > ~/.gitconfig
 [user]
     name = さーな
     email = 37serna37serna37serna@gmail.com
 
 [credential]
-    helper = osxkeychain
+    helper = $GIT_CREDENTIAL_HELPER
 EOF
 
 # ssh接続設定
 mkdir -p ~/.ssh
+if [[ "$(uname)" == "Darwin" ]]; then
 cat - << "EOF" > ~/.ssh/config
 # Added by OrbStack
 # This only works if it's at the top of ssh_config (before any Host blocks).
@@ -135,12 +166,13 @@ Host *
   AddKeysToAgent yes
   UseKeychain yes
 EOF
+fi
 
 
 # ====================================
 # C++とAtCoder用設定
 # ====================================
-source "$GIT_REPO_ROOT/dotfiles/cpp.zsh"
+source "$DOTFILES_DIR/cpp.zsh"
 
 
 # ====================================

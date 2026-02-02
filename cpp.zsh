@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+LIBRARY_ROOT=$GIT_REPO_ROOT/library-cpp
+
 # ====================================
 # C++とAtCoder用設定
 # ====================================
@@ -19,6 +21,7 @@ function solve() {
 
 # AtCoder用プロジェクト作成
 function _cpp_ac_pj() {
+    # TODO codespacesに向けて修正中
     echo "\e[34mAtCoder用プロジェクト作成\e[m"
     type gum > /dev/null 2>&1 || brew install gum
     DIR_NAME=$(gum input --header "フォルダ名" --value "$HOME/sandbox_algo")
@@ -27,20 +30,17 @@ function _cpp_ac_pj() {
     cd $DIR_NAME
 
     # LSP用設定
-    cp -f $GIT_REPO_ROOT/library-cpp/.clang-format .
-    cp -f $GIT_REPO_ROOT/library-cpp/compile_flags.txt .
+    cp -f $LIBRARY_ROOT/.clang-format .
+    cp -f $LIBRARY_ROOT/compile_flags.txt .
     # C++デバッガのlldbのためにllvmを導入
-    [[ ! -d /opt/homebrew/opt/llvm ]] && brew install llvm
-    # atcoder-cliを入れる
-    type acc > /dev/null 2>&1 || npm install -g atcoder-cli
+    [[ "$(uname)" == "Darwin" && ! -d /opt/homebrew/opt/llvm ]] && brew install llvm
     # 仮想環境
     gum spin --title "Python venv activation" -- python -m venv venv
     . venv/bin/activate
     # AtCoderテスト用ライブラリをインストール
-    gum spin --title "pip install --upgrade pip" -- pip install --upgrade pip
-    gum spin --title "pip install --upgrade setuptools" -- pip install --upgrade setuptools
-    gum spin --title "pip install online-judge-tools" -- pip install online-judge-tools
-    gum spin --title "pip install online-judge-verify-helper" -- pip install online-judge-verify-helper
+    gum spin --title "pip install online-judge-tools" -- pip install --user online-judge-tools --break-system-packages
+    # atcoder-cliを入れる
+    type acc > /dev/null 2>&1 || gum spin --title "npm install atcoder-cli" -- sudo npm install -g atcoder-cli
 
     # atcoder-cliとojのセットアップ
     gum spin --title "check acc check-oj" -- acc check-oj
@@ -81,7 +81,7 @@ function _cpp_ac_pj() {
 # -march=native マシン最適化
 # -fconstexpr-depth=2147483647 コンパイル時の再帰回数
 export CPP_BUILD_CMD="g++ -D=LOCAL -std=c++23 \
--I $GIT_REPO_ROOT/library-cpp \
+-I $LIBRARY_ROOT \
 -Wall -Wextra \
 -mtune=native -march=native \
 -fconstexpr-depth=2147483647 \
@@ -92,7 +92,7 @@ export CPP_BUILD_CMD="g++ -D=LOCAL -std=c++23 \
 # -fsanitize-undefined-trap-on-error 未定義サニタイザ
 # -fsanitize=address アドレスサニタイザ
 export CPP_BUILD_CMD_SANITIZE="g++ -std=c++23 \
--I $GIT_REPO_ROOT/library-cpp \
+-I $LIBRARY_ROOT \
 -Wall -Wextra \
 -mtune=native -march=native \
 -fconstexpr-depth=2147483647 \
@@ -234,9 +234,9 @@ function _cpp_ac_test() {
 function _cpp_ac_bundle() {
     echo "\e[34mC++バンドル\e[m"
     PWD=$(pwd)
-    if [[ ! -e "$GIT_REPO_ROOT/library-cpp/bundler/build/cpp-bundler" ]]; then
+    if [[ ! -e "$LIBRARY_ROOT/bundler/build/cpp-bundler" ]]; then
         echo "\e[34mC++バンドラをビルドします\e[m"
-        cd $GIT_REPO_ROOT/library-cpp/bundler
+        cd $LIBRARY_ROOT/bundler
         make build
         cd $PWD
     fi
@@ -244,7 +244,7 @@ function _cpp_ac_bundle() {
     type gum > /dev/null 2>&1 || brew install gum
     TARGET=$(find . -name '*.cpp' | gum filter --limit=1 --fuzzy)
     # includeファイルをバンドルする
-    $GIT_REPO_ROOT/library-cpp/bundler/build/cpp-bundler -I $GIT_REPO_ROOT/library-cpp $TARGET > ./bundle.cpp
+    $LIBRARY_ROOT/bundler/build/cpp-bundler -I $LIBRARY_ROOT $TARGET > ./bundle.cpp
     # 展開されたうち、#line 1 /Users/serna37/git/... という行を削除する
     sed -i '' '/^#line/d' ./bundle.cpp
 

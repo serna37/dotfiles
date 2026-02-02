@@ -9,6 +9,7 @@ python = "3.11"
 [env]
 _.path = [
   "/opt/homebrew/bin",
+  "/home/linuxbrew/.linuxbrew/bin"
 ]
 
 
