@@ -133,7 +133,7 @@ EOF
 # git設定
 git config --global pull.prune true
 git config --global fetch.prune true
-if [ "$(uname)" == "Darwin" ]; then
+if [[ "$(uname)" == "Darwin" ]]; then
     GIT_CREDENTIAL_HELPER="osxkeychain"
 else
     GIT_CREDENTIAL_HELPER="store"
@@ -149,7 +149,7 @@ EOF
 
 # ssh接続設定
 mkdir -p ~/.ssh
-if [ "$(uname)" == "Darwin" ]; then
+if [[ "$(uname)" == "Darwin" ]]; then
 cat - << "EOF" > ~/.ssh/config
 # Added by OrbStack
 # This only works if it's at the top of ssh_config (before any Host blocks).
