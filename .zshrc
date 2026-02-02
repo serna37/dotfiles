@@ -75,6 +75,7 @@ export _ZO_FZF_OPTS='
 # vim
 alias vim='export VIM_PLUGIN_ENABLE=0 && \vim'
 alias v='export VIM_PLUGIN_ENABLE=1 && \vim'
+alias vim_init='curl -fSsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim -c "PlugInstall'
 
 # LazyInstall
 function li() {
