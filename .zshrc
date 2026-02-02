@@ -12,25 +12,19 @@ autoload -Uz compinit
 compinit -u
 
 # Homebrewのパスを動的に取得
-if command -v brew &> /dev/null; then
-    BREW_PREFIX=$(brew --prefix)
-else
-    BREW_PREFIX=""
-fi
+BREW_PREFIX=$(brew --prefix)
 
-if [ -n "$BREW_PREFIX" ]; then
-    # シンタックスハイライト
-    [[ ! -f "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && brew install zsh-syntax-highlighting
-    source "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# シンタックスハイライト
+[[ ! -f "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && brew install zsh-syntax-highlighting
+source "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-    # コマンド補完 →キーで補完する
-    [[ ! -f "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && brew install zsh-autosuggestions
-    source "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+# コマンド補完 →キーで補完する
+[[ ! -f "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && brew install zsh-autosuggestions
+source "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
-    # 外観
-    [[ ! -f "$BREW_PREFIX/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme" ]] && brew install powerlevel10k
-    source "$BREW_PREFIX/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme"
-fi
+# 外観
+[[ ! -f "$BREW_PREFIX/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme" ]] && brew install powerlevel10k
+source "$BREW_PREFIX/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
@@ -82,6 +76,7 @@ alias q='exit'
 
 # Gitレポのルート
 if [ -n "$CODESPACES" ]; then
+    # CodeSpaces中の場合
     export GIT_REPO_ROOT="/workspaces"
 else
     export GIT_REPO_ROOT="$HOME/git"
@@ -138,13 +133,13 @@ if [[ "$(uname)" == "Darwin" ]]; then
 else
     GIT_CREDENTIAL_HELPER="store"
 fi
-cat - << "EOF" > ~/.gitconfig
+cat - << EOF > ~/.gitconfig
 [user]
     name = さーな
     email = 37serna37serna37serna@gmail.com
 
 [credential]
-    helper = osxkeychain
+    helper = $GIT_CREDENTIAL_HELPER
 EOF
 
 # ssh接続設定
