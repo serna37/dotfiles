@@ -14,6 +14,5 @@
             }
         }
     },
-    "remoteUser": "vscode",
-    "postCreateCommand": "echo 'container created.'"
+    "remoteUser": "vscode"
 }
