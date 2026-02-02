@@ -1,11 +1,17 @@
 {
     "name": "bullseye base",
     "image": "mcr.microsoft.com/devcontainers/base:bullseye",
-    "features": {},
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "configureZshAsDefaultShell": true
+        }
+    },
     "customizations": {
         "vscode": {
             "extensions": [],
-            "settings": {}
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "zsh"
+            }
         }
     },
     "remoteUser": "vscode",
