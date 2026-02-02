@@ -1,0 +1,27 @@
+{
+    "name": "C++ Competitive Programming Environment",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    // 以下は権限エラーになるためDockerfileで実施
+    // "image": "mcr.microsoft.com/devcontainers/cpp:1-debian-12",
+    // "features": {
+    //     "ghcr.io/devcontainers/features/node-js:1": {
+    //         "version": "latest"
+    //     },
+    //     "ghcr.io/devcontainers/features/python:1": {
+    //         "version": "latest"
+    //     }
+    // },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-azuretools.vscode-containers",
+                "ms-vscode.cpptools-extension-pack"
+            ]
+        }
+    },
+    // コンテナ作成後に init.sh を実行
+    "postCreateCommand": "bash scripts/init.sh",
+    "remoteUser": "vscode"
+}
