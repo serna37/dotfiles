@@ -6,8 +6,8 @@ OS="$(uname)"
 # =====================================
 # 1. Homebrewのセットアップ
 # =====================================
-NONINTERACTIVE=1
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Macならsudo実行のため対話、codespaces中ではnon interactiveで実行
+/bin/bash -c "$( [[ -n "$CODESPACES" ]] && echo "NONINTERACTIVE=1 " )$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 if [[ "$OS" == "Darwin" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 else
@@ -20,7 +20,6 @@ fi
 REPOS=(vim git sqlite)
 for v in ${REPOS[@]}; do
     brew reinstall $v
-    wait $!
 done
 # Mac専用
 CASK_REPOS=(ghostty wezterm orbstack maccy keycastr google-drive dbeaver-community another-redis-desktop-manager)
@@ -31,12 +30,10 @@ MAS_IDS=(
 if [[ "$OS" == "Darwin" ]]; then
     for v in ${CASK_REPOS[@]}; do
         brew reinstall --cask $v
-        wait $!
     done
     brew reinstall mas
     for v in ${MAS_IDS[@]}; do
         mas install $v
-        wait $!
     done
 fi
 
