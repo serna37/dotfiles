@@ -1,6 +1,32 @@
 clear
 
 # ====================================
+# 環境分岐
+# ====================================
+
+# Gitレポのルート
+if [ -n "$CODESPACES" ]; then
+    # CodeSpaces中の場合
+    export GIT_REPO_ROOT="/workspaces"
+else
+    export GIT_REPO_ROOT="$HOME/git"
+fi
+
+# dotfilesのパス
+if [ -n "$DOTFILES" ]; then
+    # Codespaces が公式にセットする変数がある場合
+    DOTFILES_DIR="$DOTFILES"
+elif [ -n "$CODESPACES" ] && [ -d "/workspaces/.dotfiles" ]; then
+    # 変数はないが、標準的なパスに存在する場合
+    DOTFILES_DIR="/workspaces/.dotfiles"
+else
+    DOTFILES_DIR="${GIT_REPO_ROOT:-$HOME/git}/dotfiles"
+fi
+
+# Homebrewのパスを動的に取得
+BREW_PREFIX=$(brew --prefix)
+
+# ====================================
 # プロンプト設定
 # ====================================
 HISTSIZE=1000
@@ -10,9 +36,6 @@ setopt no_beep
 # zshの補完
 autoload -Uz compinit
 compinit -u
-
-# Homebrewのパスを動的に取得
-BREW_PREFIX=$(brew --prefix)
 
 # シンタックスハイライト
 [[ ! -f "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && brew install zsh-syntax-highlighting
@@ -73,25 +96,6 @@ alias q='exit'
 # ====================================
 # 設定ファイルの書き出し
 # ====================================
-
-# Gitレポのルート
-if [ -n "$CODESPACES" ]; then
-    # CodeSpaces中の場合
-    export GIT_REPO_ROOT="/workspaces"
-else
-    export GIT_REPO_ROOT="$HOME/git"
-fi
-
-# dotfilesのパス
-if [ -n "$DOTFILES" ]; then
-    # Codespaces が公式にセットする変数がある場合
-    DOTFILES_DIR="$DOTFILES"
-elif [ -n "$CODESPACES" ] && [ -d "/workspaces/.dotfiles" ]; then
-    # 変数はないが、標準的なパスに存在する場合
-    DOTFILES_DIR="/workspaces/.dotfiles"
-else
-    DOTFILES_DIR="${GIT_REPO_ROOT:-$HOME/git}/dotfiles"
-fi
 
 # vim コメント行から改行した際、次の行をコメントにしない設定
 mkdir -p ~/.vim/after/plugin
