@@ -4,7 +4,8 @@
     "features": {
         "ghcr.io/devcontainers/features/common-utils:2": {
             "configureZshAsDefaultShell": true
-        }
+        },
+        "ghcr.io/devcontainers/features/homebrew:1": {}
     },
     "customizations": {
         "vscode": {
