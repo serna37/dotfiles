@@ -19,8 +19,8 @@ elif [ -f "/opt/homebrew/bin/brew" ]; then
 else
     # どこにもないので新規インストール
     echo "Installing Homebrew..."
+    NONINTERACTIVE=1
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    
     # インストール直後のパス設定
     if [ "$OS" == "Linux" ]; then
         eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
