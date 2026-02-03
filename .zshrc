@@ -16,9 +16,9 @@ fi
 if [ -n "$DOTFILES" ]; then
     # Codespaces が公式にセットする変数がある場合
     DOTFILES_DIR="$DOTFILES"
-elif [ -n "$CODESPACES" ] && [ -d "/workspaces/.dotfiles" ]; then
-    # 変数はないが、標準的なパスに存在する場合
-    DOTFILES_DIR="/workspaces/.dotfiles"
+elif [ -n "$CODESPACES" ]; then
+    # 変数はないが、Codespacesの標準的なパスに存在する場合
+    DOTFILES_DIR="/workspaces/.codespaces/.persistedshare/dotfiles"
 else
     DOTFILES_DIR="${GIT_REPO_ROOT:-$HOME/git}/dotfiles"
 fi
