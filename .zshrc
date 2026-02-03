@@ -23,7 +23,12 @@ else
     DOTFILES_DIR="${GIT_REPO_ROOT:-$HOME/git}/dotfiles"
 fi
 
-# Homebrewのパスを動的に取得
+# Homebrewのパスを設定、動的に取得
+if [[ "$OS" == "Darwin" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 BREW_PREFIX=$(brew --prefix)
 
 # ====================================
