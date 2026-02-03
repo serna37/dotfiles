@@ -24,7 +24,7 @@ else
 fi
 
 # Homebrewのパスを設定、動的に取得
-if [[ "$OS" == "Darwin" ]]; then
+if [[ "$(uname)" == "Darwin" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 else
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
