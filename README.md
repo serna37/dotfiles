@@ -13,6 +13,7 @@
 
 - lazyinstall式を採用しており、初期投入以外のコマンドは必要な時にinstallされます
 - .zshrc中で設定ファイルが作成されます
+- CodeSpacesのdotfiles自動適用に対応しています
 
 ## Installation
 
@@ -21,14 +22,9 @@ Macのセットアップ手順です。まずは`Command Line Tools`を導入。
 xcode-select --install
 ```
 
-続いて`Homebrew`を導入(sudo権限承認が必要)。
-```shell
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-```
-
 本repoの`install.sh`で以下を行います。
 
-- 基本コマンド、ツールをインストール
+- brew、基本コマンド、ツールをインストール
 - このrepoの設定ファイルをシンボリックリンク
 
 ```shell
@@ -42,7 +38,7 @@ xcode-select --install
 
 - vim-plugでプラグインを入れる
 ```sh
-curl -fSsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim -c "PlugInstall"
+vim_init
 ```
 
 - codium認証のために以下URLへのアクセス
