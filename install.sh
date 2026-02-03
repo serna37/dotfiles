@@ -53,8 +53,8 @@ if [ -d "$GIT_REPO_ROOT/dotfiles" ]; then
     echo "dotfiles already exists."
     DOTFILES_DIR="$GIT_REPO_ROOT/dotfiles"
 elif [ -n "$CODESPACES" ]; then
-    # Codespacesの自動クローン先（環境によって異なるが、通常は実行ディレクトリ）
-    DOTFILES_DIR=$(pwd)
+    # Codespacesの自動クローン先
+    DOTFILES_DIR="/workspaces/.codespaces/.persistedshare/dotfiles"
 else
     # Macなどで初回実行時
     echo "Cloning dotfiles..."
