@@ -15,19 +15,18 @@ else
 fi
 
 # =====================================
-# 2. 共通パッケージのインストール
+# 2. 共通パッケージのインストール(Mac専用)
 # =====================================
 REPOS=(vim git sqlite)
-for v in ${REPOS[@]}; do
-    brew reinstall $v
-done
-# Mac専用
 CASK_REPOS=(ghostty wezterm orbstack maccy keycastr google-drive dbeaver-community another-redis-desktop-manager)
 MAS_IDS=(
 1429033973 # RunCat
 1187652334 # Fuwari
 )
 if [[ "$OS" == "Darwin" ]]; then
+    for v in ${REPOS[@]}; do
+        brew reinstall $v
+    done
     for v in ${CASK_REPOS[@]}; do
         brew reinstall --cask $v
     done
@@ -46,7 +45,6 @@ if [ -n "$CODESPACES" ]; then
 else
     export GIT_REPO_ROOT="$HOME/git"
 fi
-
 mkdir -p $GIT_REPO_ROOT
 echo "GIT_REPO_ROOT is set to: $GIT_REPO_ROOT"
 
@@ -63,6 +61,7 @@ else
     git clone https://github.com/serna37/dotfiles "$GIT_REPO_ROOT/dotfiles"
     DOTFILES_DIR="$GIT_REPO_ROOT/dotfiles"
 fi
+echo "dotfiles path is $DOTFILES_DIR"
 
 # シンボリックリンク作成
 ln -nfs $DOTFILES_DIR/.zshrc ~/.zshrc
@@ -73,17 +72,7 @@ ln -nfs $DOTFILES_DIR/ghostty_config ~/.config/ghostty/config
 ln -nfs $DOTFILES_DIR/config.toml ~/.config/mise/config.toml
 
 # =====================================
-# 4. Git認証設定
-# =====================================
-if [[ "$OS" == "Darwin" ]]; then
-    GIT_CREDENTIAL_HELPER="osxkeychain"
-else
-    GIT_CREDENTIAL_HELPER="store"
-fi
-git config --global credential.helper $GIT_CREDENTIAL_HELPER
-
-# =====================================
-# 5. Mac固有設定
+# 4. Mac固有設定
 # =====================================
 if [[ "$OS" == "Darwin" ]]; then
     # fontを入れる 三角のやつ
@@ -114,3 +103,4 @@ fi
 # END. reboot shell
 # =====================================
 exec $SHELL -l
+

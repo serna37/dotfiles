@@ -131,8 +131,6 @@ show_hidden = true
 EOF
 
 # git設定
-git config --global pull.prune true
-git config --global fetch.prune true
 if [[ "$(uname)" == "Darwin" ]]; then
     GIT_CREDENTIAL_HELPER="osxkeychain"
 else
@@ -145,6 +143,12 @@ cat - << EOF > ~/.gitconfig
 
 [credential]
     helper = $GIT_CREDENTIAL_HELPER
+
+[fetch]
+    prune = true
+
+[pull]
+    prune = true
 EOF
 
 # ssh接続設定
