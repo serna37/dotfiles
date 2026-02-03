@@ -99,8 +99,3 @@ if [[ "$OS" == "Darwin" ]]; then
     defaults write com.apple.finder AppleShowAllFiles -bool true
 fi
 
-# =====================================
-# END. reboot shell
-# =====================================
-exec $SHELL -l
-
