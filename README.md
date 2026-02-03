@@ -1,5 +1,7 @@
 # dotfiles
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces?repository_id=661965495)
+
 <a href="https://github.com/serna37/dotfiles/blob/master/install.sh">
     <img src="http://img.shields.io/badge/homebrew-4.2.21-FBB040.svg?logo=homebrew&logoColor=FBB040&labelColor=fafffe&style=for-the-badge">
 </a>
