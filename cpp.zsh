@@ -106,7 +106,7 @@ function _cpp_ac_exe() {
     echo "\e[34m C++実行 - サニタイズを選択する場合は引数を指定\e[m"
     type gum > /dev/null 2>&1 || brew install gum
     # C++デバッガのlldbのためにllvmを導入
-    [[ ! -d /opt/homebrew/opt/llvm ]] && brew install llvm
+    [[ "$(uname)" == "Darwin" && ! -d /opt/homebrew/opt/llvm ]] && brew install llvm
 
     # 実行ファイルを選択
     TARGET=$(find . -name '*.cpp' | gum filter --limit=1 --fuzzy)
