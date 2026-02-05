@@ -15,7 +15,7 @@
 
 - lazyinstall式を採用しており、初期投入以外のコマンドは必要な時にinstallされます
 - .zshrc中で設定ファイルが作成されます
-- CodeSpacesのdotfiles自動適用に対応しています
+- Codespacesのdotfiles自動適用に対応しています
 
 ## Installation
 
@@ -43,10 +43,17 @@ xcode-select --install
 vim_init
 ```
 
-- codium認証のために以下URLへのアクセス
+- codeium認証のために以下URLへのアクセス、vimコマンド`Codeium Auth`で認証
 ```sh
 https://www.codeium.com/profile?response_type=token&redirect_uri=vim-show-auth-token&state=a&scope=openid%20profile%20email&redirect_parameters_type=query
 ```
+
+## 関連
+
+- Codespacesインストールについて[こちら](https://github.com/serna37/template)のリポジトリが参考になります
+  - vimやzshのセットアップを`devcontainer.json`で行っています
+- C++関連では[このライブラリ](https://github.com/serna37/library-cpp)を使用します
+- TUIコマンドは主に[Terminal Trove](https://terminaltrove.com/)から選んでいます
 
 ## 一時コピペ用
 
@@ -58,11 +65,6 @@ alias rm='rm -i'
 alias re='exec $SHELL -l'
 alias q='exit'
 ```
-
-## 関連
-
-- C++関連では[このライブラリ](https://github.com/serna37/library-cpp)を使用します
-- TUIコマンドは主に[Terminal Trove](https://terminaltrove.com/)から選んでいます
 
 ## dotfiles構成
 
