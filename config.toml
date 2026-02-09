@@ -85,15 +85,6 @@ type termscp > /dev/null 2>&1 || brew install veeso/termscp/termscp
 termscp
 """
 
-# TODO Command Line Toolsのバージョンが古くてinstallに失敗
-[tasks.sqly]
-description="SQLのようにデータを扱う"
-run="""
-type sqly > /dev/null 2>&1 || brew install nao1215/tap/sqly
-echo '.import {csv等のファイルパス}'
-sqly
-"""
-
 [tasks.hwatch]
 description="watchコマンド"
 run="""
