@@ -21,10 +21,9 @@ function solve() {
 
 # AtCoder用プロジェクト作成
 function _cpp_ac_pj() {
-    # TODO codespacesに向けて修正中
     echo "\e[34mAtCoder用プロジェクト作成\e[m"
     type gum > /dev/null 2>&1 || brew install gum
-    DIR_NAME=$(gum input --header "フォルダ名" --value "$HOME/sandbox_algo")
+    DIR_NAME=$(gum input --header "フォルダ名" --value "$GIT_REPO_ROOT/competitive-programming")
     CONTEST_CODE=$(gum input --header "コンテストコード" --value "abcXXX")
     mkdir -p $DIR_NAME
     cd $DIR_NAME
@@ -33,7 +32,7 @@ function _cpp_ac_pj() {
     cp -f $LIBRARY_ROOT/.clang-format .
     cp -f $LIBRARY_ROOT/compile_flags.txt .
     # C++デバッガのlldbのためにllvmを導入
-    [[ "$(uname)" == "Darwin" && ! -d /opt/homebrew/opt/llvm ]] && brew install llvm
+    [[ "$(uname)" == "Darwin" && ! -d $BREW_PREFIX/opt/llvm ]] && brew install llvm
     # 仮想環境
     gum spin --title "Python venv activation" -- python -m venv venv
     . venv/bin/activate
@@ -44,26 +43,42 @@ function _cpp_ac_pj() {
 
     # atcoder-cliとojのセットアップ
     gum spin --title "check acc check-oj" -- acc check-oj
-    gum spin --title "oj login" -- oj login https://atcoder.jp
+    #gum spin --title "oj login" -- oj login https://atcoder.jp
     gum spin --title "acc config..." -- acc config default-task-choice all
     gum spin --title "acc config..." -- acc config default-test-dirname-format test
+    CONF_DIR=$(acc config-dir)
+    mkdir -p "$CONF_DIR/cpp"
+    cd "$CONF_DIR/cpp"
+    [ ! -f main.cpp ] && touch main.cpp
+    cat - << "EOF" > template.json
+{
+    "task": {
+        "program": [
+            "main.cpp"
+        ],
+        "submit": "bundle.cpp"
+    }
+}
+EOF
     if [ $CONTEST_CODE = "abcXXX" ]; then
         echo "\e[34m >> 書き捨てフォルダ\e[m"
-        mkdir -p "$CONTEST_CODE/a"
-        mkdir -p "$CONTEST_CODE/z"
+        mkdir -p "z_書き捨て"
+        touch main.cpp
     else
         echo "\e[34m >> コンテスト $CONTEST_CODE フォルダ\e[m"
-        acc new $CONTEST_CODE
+        mkdir -p "AtCoder/ABC"
+        cd "AtCoder/ABC"
+        acc new $CONTEST_CODE --template cpp
     fi
     # main.cppを作成
-    cd $CONTEST_CODE
-    dirs=(`find . -type d -maxdepth 1 | grep / | cut -d '/' -f 2`)
-    for v in ${dirs[@]}; do
-        if [ ! -f "$v/main.cpp" ]; then
-            #cp -f ~/git/library-cpp/main.cpp "$v/main.cpp"
-            touch "$v/main.cpp"
-        fi
-    done
+    # cd $CONTEST_CODE
+    # dirs=(`find . -type d -maxdepth 1 | grep / | cut -d '/' -f 2`)
+    # for v in ${dirs[@]}; do
+    #     if [ ! -f "$v/main.cpp" ]; then
+    #         #cp -f ~/git/library-cpp/main.cpp "$v/main.cpp"
+    #         touch "$v/main.cpp"
+    #     fi
+    # done
 }
 
 
@@ -106,7 +121,7 @@ function _cpp_ac_exe() {
     echo "\e[34m C++実行 - サニタイズを選択する場合は引数を指定\e[m"
     type gum > /dev/null 2>&1 || brew install gum
     # C++デバッガのlldbのためにllvmを導入
-    [[ "$(uname)" == "Darwin" && ! -d /opt/homebrew/opt/llvm ]] && brew install llvm
+    [[ "$(uname)" == "Darwin" && ! -d $BREW_PREFIX/opt/llvm ]] && brew install llvm
 
     # 実行ファイルを選択
     TARGET=$(find . -name '*.cpp' | gum filter --limit=1 --fuzzy)
