@@ -52,7 +52,6 @@ https://www.codeium.com/profile?response_type=token&redirect_uri=vim-show-auth-t
 
 - Codespacesインストールについて[こちら](https://github.com/serna37/template)のリポジトリが参考になります
   - vimやzshのセットアップを`devcontainer.json`で行っています
-- C++関連では[このライブラリ](https://github.com/serna37/library-cpp)を使用します
 - TUIコマンドは主に[Terminal Trove](https://terminaltrove.com/)から選んでいます
 
 ## 一時コピペ用
@@ -83,7 +82,6 @@ alias q='exit'
 ├── .zshrc        : zsh設定
 ├── config.toml   : mise設定(ツールバージョン・環境変数・カスタムコマンド)
 ├── cpp.snippets  : C++向けスニペット
-├── cpp.zsh       : C++向けカスタムコマンド
 ├── ghostty_config: Ghosttyターミナル設定
 └── install.sh    : インストーラ
 ```
