@@ -18,7 +18,7 @@ fi
 # 2. 共通パッケージのインストール(Mac専用)
 # =====================================
 REPOS=(vim git sqlite)
-CASK_REPOS=(ghostty wezterm orbstack maccy keycastr google-drive dbeaver-community another-redis-desktop-manager)
+CASK_REPOS=(ghostty wezterm orbstack maccy keycastr vorssaint google-drive dbeaver-community another-redis-desktop-manager)
 MAS_IDS=(
 1429033973 # RunCat
 1187652334 # Fuwari
